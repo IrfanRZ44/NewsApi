@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.exomatik.ballighadmin.ui.main.listLD.ListLDFragment"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.exomatik.ballighadmin.ui.main.listLD.ListLDViewModel" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        snackbar="@{viewModel.message}"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/h3"
+            android:layout_marginBottom="@dimen/h2"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@={viewModel.status}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_h2"
+            showTextStatus="@{viewModel.status}"
+            />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeRefresh"
+            android:layout_marginTop="@dimen/h1"
+            android:layout_below="@+id/textStatus"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+</layout>

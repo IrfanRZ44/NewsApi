@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="@dimen/h2"
+        app:cardElevation="@dimen/h1"
+        android:id="@+id/cardDate"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/h1"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray5"
+            android:layout_marginTop="@dimen/h1"
+            android:layout_marginBottom="@dimen/h1"
+            android:layout_marginStart="@dimen/h2"
+            android:layout_marginEnd="@dimen/h2"
+            android:id="@+id/textDate"
+            />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/h1"
+        android:background="@drawable/bg_item_chat_left"
+        android:orientation="vertical"
+        android:padding="@dimen/h2"
+        android:elevation="@dimen/h1"
+        android:layout_below="@+id/cardDate"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_300"
+            android:layout_height="@dimen/_300"
+            android:scaleType="centerCrop"
+            android:id="@+id/imgFoto"
+            android:layout_marginBottom="@dimen/h2"
+            android:visibility="gone"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textMessageOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:maxLength="50"
+            android:paddingStart="@dimen/h2"
+            android:paddingEnd="@dimen/h2"
+            android:text="@string/message"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_h5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textTimeOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginStart="@dimen/h5"
+            android:layout_marginEnd="@dimen/h1"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/_12_00"
+            android:textColor="@color/gray2"
+            android:textSize="@dimen/text_h1" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

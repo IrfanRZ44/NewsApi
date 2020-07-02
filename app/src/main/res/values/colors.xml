@@ -36,4 +36,6 @@
     <color name="yellow1">#FFA726</color>
 
     <color name="colorRouteLine">#5D6ACB</color>
+
+    <color name="inactiveTab">#8B93D1</color>
 </resources>
