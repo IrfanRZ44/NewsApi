@@ -1,38 +1,35 @@
-package com.exomatik.ballighadmin.ui.main.listMJ
+package com.exomatik.ballighadmin.ui.main.listMB
 
 import android.content.Context
-import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.exomatik.ballighadmin.R
 import com.exomatik.ballighadmin.base.BaseViewModel
-import com.exomatik.ballighadmin.model.ModelDataMasjid
-//import com.exomatik.ballighadmin.ui.admin.profile.mj.AdminLihatProfileMJFragment
+import com.exomatik.ballighadmin.model.ModelUser
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class ListMJViewModel(private val rcChat: RecyclerView,
+class ListMBViewModel(private val rcChat: RecyclerView,
                       private val context: Context?,
                       private val navController: NavController) : BaseViewModel() {
-    val listRequestMJ = ArrayList<ModelDataMasjid?>()
-    lateinit var adapter: AdapterListMJ
+    val listRequestMB = ArrayList<ModelUser?>()
+    lateinit var adapter: AdapterListMB
 
     fun cekList() {
-        if (listRequestMJ.size == 0) status.value = Constant.noRequest
+        if (listRequestMB.size == 0) status.value = Constant.noRequest
         else status.value = ""
     }
 
     fun initAdapter(){
-        adapter = AdapterListMJ(listRequestMJ) { afl: ModelDataMasjid -> onClickItem(afl) }
+        adapter = AdapterListMB(listRequestMB) { afl: ModelUser -> onClickItem(afl) }
         rcChat.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rcChat.adapter = adapter
     }
 
-    private fun onClickItem(dataMasjid: ModelDataMasjid) {
+    private fun onClickItem(dataMasjid: ModelUser) {
 //        val bundle = Bundle()
 //        val cariFragment = AdminLihatProfileMJFragment()
 //        bundle.putParcelable("dataMasjid", dataMasjid)
@@ -40,7 +37,7 @@ class ListMJViewModel(private val rcChat: RecyclerView,
 //        navController.navigate(R.id.adminLihatProfileMJFragment, bundle)
     }
 
-    fun getListMasjid(){
+    fun getListMuballigh(){
         isShowLoading.value = true
         val valueEventListener = object : ValueEventListener {
             override fun onCancelled(result: DatabaseError) {
@@ -50,14 +47,14 @@ class ListMJViewModel(private val rcChat: RecyclerView,
             }
 
             override fun onDataChange(result: DataSnapshot) {
-                listRequestMJ.clear()
+                listRequestMB.clear()
                 adapter.notifyDataSetChanged()
 
                 isShowLoading.value = false
                 if (result.exists()) {
                     for (snapshot in result.children) {
-                        val data = snapshot.getValue(ModelDataMasjid::class.java)
-                        listRequestMJ.add(data)
+                        val data = snapshot.getValue(ModelUser::class.java)
+                        listRequestMB.add(data)
                         adapter.notifyDataSetChanged()
                     }
                 }
@@ -65,11 +62,10 @@ class ListMJViewModel(private val rcChat: RecyclerView,
             }
         }
 
-        FirebaseUtils.refreshAfiliasi1DataWith2ChildObject(
-            Constant.akunMJ,
-            Constant.referenceBiodata,
-            Constant.status,
-            Constant.active,
+        FirebaseUtils.refreshAfiliasi2DataWith2ChildObject(
+            Constant.referenceUser,
+            "jenisAkun",
+            Constant.akunMB,
             valueEventListener
         )
     }

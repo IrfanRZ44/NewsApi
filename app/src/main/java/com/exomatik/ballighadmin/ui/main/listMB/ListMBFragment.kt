@@ -1,14 +1,14 @@
-package com.exomatik.ballighadmin.ui.main.listMJ
+package com.exomatik.ballighadmin.ui.main.listMB
 
-import com.exomatik.ballighadmin.R
 import com.exomatik.ballighadmin.base.BaseFragmentBind
-import com.exomatik.ballighadmin.databinding.FragmentListMjBinding
 import androidx.navigation.fragment.findNavController
+import com.exomatik.ballighadmin.R
+import com.exomatik.ballighadmin.databinding.FragmentListMbBinding
 import com.exomatik.ballighadmin.utils.FirebaseUtils
 
-class ListMJFragment : BaseFragmentBind<FragmentListMjBinding>() {
-    override fun getLayoutResource(): Int = R.layout.fragment_list_mj
-    private lateinit var viewModel: ListMJViewModel
+class ListMBFragment : BaseFragmentBind<FragmentListMbBinding>() {
+    override fun getLayoutResource(): Int = R.layout.fragment_list_mb
+    private lateinit var viewModel: ListMBViewModel
 
     override fun myCodeHere() {
         init()
@@ -17,26 +17,26 @@ class ListMJFragment : BaseFragmentBind<FragmentListMjBinding>() {
 
     private fun init(){
         bind.lifecycleOwner = this
-        viewModel = ListMJViewModel(bind.rcChat, context, findNavController())
+        viewModel = ListMBViewModel(bind.rcChat, context, findNavController())
         bind.viewModel = viewModel
         viewModel.initAdapter()
-        viewModel.getListMasjid()
+        viewModel.getListMuballigh()
 
         bind.swipeRefresh.isRefreshing = false
     }
 
     private fun onCLick() {
         bind.swipeRefresh.setOnRefreshListener {
-            viewModel.listRequestMJ.clear()
+            viewModel.listRequestMB.clear()
             viewModel.adapter.notifyDataSetChanged()
-            FirebaseUtils.stopRefreshAfiliasi1()
-            viewModel.getListMasjid()
+            FirebaseUtils.stopRefreshAfiliasi2()
+            viewModel.getListMuballigh()
             bind.swipeRefresh.isRefreshing = false
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        FirebaseUtils.stopRefreshAfiliasi1()
+        FirebaseUtils.stopRefreshAfiliasi2()
     }
 }

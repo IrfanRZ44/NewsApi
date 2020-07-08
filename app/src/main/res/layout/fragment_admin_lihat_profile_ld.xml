@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.exomatik.ballighadmin.ui.main.profile.ld.AdminLihatProfileLDFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.exomatik.ballighadmin.ui.main.profile.ld.AdminLihatProfileLDViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/CustomTheme">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                snackbar="@{viewModel.message}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rlProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/rlSampul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.santalu.autoviewpager.AutoViewPager
+                            android:id="@+id/viewPagerLd"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_250"
+                            android:overScrollMode="never"
+                            android:src="@drawable/ic_camera_white"
+                            app:avp_autoScroll="false"
+                            app:avp_indeterminate="false"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                            android:id="@+id/dotsIndicatorLd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/h2"
+                            app:dotsColor="@color/white"
+                            app:dotsCornerRadius="@dimen/h2"
+                            app:dotsSize="@dimen/h4"
+                            app:dotsSpacing="@dimen/h1"
+                            app:dotsStrokeColor="@color/white"
+                            app:dotsStrokeWidth="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:selectedDotColor="@color/colorAccent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/nameLd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rlSampul"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/h2"
+                        android:layout_marginTop="@dimen/h5"
+                        android:layout_toStartOf="@+id/cardImageLd"
+                        android:text="@={viewModel.namaLembaga}"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_h6" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardImageLd"
+                        style="@style/cardView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rlSampul"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/h2"
+                        android:layout_marginEnd="@dimen/h2"
+                        app:cardCornerRadius="@dimen/h2"
+                        app:cardElevation="@dimen/h2">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            imageBoxSrc="@{viewModel.fotoLembaga}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/gray2"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_camera_white"
+                            android:onClick="@{()-> viewModel.clickFoto(viewModel.fotoLembaga)}"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <include
+                        android:id="@+id/progressLd"
+                        layout="@layout/progress_loading"
+                        visible="@{viewModel.isShowLoading}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nameLd"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/alamatLd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/progressLd"
+                        android:layout_marginStart="@dimen/h2"
+                        android:layout_marginTop="@dimen/h2"
+                        android:layout_marginBottom="@dimen/h2"
+                        android:text="@string/alamat"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_h3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/almLd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/alamatLd"
+                        android:layout_marginStart="@dimen/h2"
+                        android:layout_marginEnd="@dimen/h2"
+                        android:layout_marginBottom="@dimen/h2"
+                        android:text="@={viewModel.alamatLembaga}"
+                        android:textSize="@dimen/text_h3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/kecamatanLd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/almLd"
+                        android:layout_marginStart="@dimen/h2"
+                        android:layout_marginBottom="@dimen/h2"
+                        android:text="@={viewModel.kecamatanLembaga}"
+                        android:textSize="@dimen/text_h3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/kotaLd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/almLd"
+                        android:layout_marginEnd="@dimen/h2"
+                        android:layout_marginBottom="@dimen/h2"
+                        android:layout_toEndOf="@id/kecamatanLd"
+                        android:text="@={viewModel.kotaLembaga}"
+                        android:textSize="@dimen/text_h3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/ProvLd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/kecamatanLd"
+                        android:layout_marginStart="@dimen/h2"
+                        android:layout_marginEnd="@dimen/h2"
+                        android:layout_marginBottom="@dimen/h2"
+                        android:text="@={viewModel.provinsiLembaga}"
+                        android:textSize="@dimen/text_h3" />
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPengurus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rlProfile"
+                    android:layout_marginLeft="@dimen/h2"
+                    android:layout_marginTop="@dimen/h2"
+                    android:layout_marginRight="@dimen/h2"
+                    android:layout_marginBottom="@dimen/h5"
+                    app:cardCornerRadius="@dimen/h1"
+                    app:cardElevation="@dimen/h2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardImage"
+                            style="@style/cardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/h2"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                imageBoxSrc="@{viewModel.fotoPengurus}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/gray2"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_camera_white"
+                                android:onClick="@{()-> viewModel.clickFoto(viewModel.fotoPengurus)}"
+                                />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/ly"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toStartOf="@+id/cardImage"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/h2"
+                                android:layout_marginTop="@dimen/h4"
+                                android:text="@string/pengurus"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_h4" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/h2"
+                                android:layout_marginTop="@dimen/h2"
+                                android:text="@={viewModel.namaPengurus}"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_h6" />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/kecamatanPm"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/h2"
+                                    android:layout_marginBottom="@dimen/h2"
+                                    android:text="@={viewModel.kecamatanPengurus}"
+                                    android:textSize="@dimen/text_h3" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/kotaPm"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/alm"
+                                    android:layout_marginEnd="@dimen/h2"
+                                    android:layout_marginBottom="@dimen/h2"
+                                    android:text="@={viewModel.kotaPengurus}"
+                                    android:textSize="@dimen/text_h3" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/ProVPm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/h2"
+                                android:layout_marginEnd="@dimen/h2"
+                                android:layout_marginBottom="20dp"
+                                android:text="@={viewModel.provinsiPengurus}"
+                                android:textSize="@dimen/text_h3" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+<!--                <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/cardPengurus"-->
+<!--                    android:layout_marginTop="@dimen/h5"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="start"-->
+<!--                        android:layout_marginStart="@dimen/h6"-->
+<!--                        android:text="@string/verifikasi_lembaga_dakwah"-->
+<!--                        android:textColor="@color/adColorSecondary"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:id="@+id/cardSKPengurus"-->
+<!--                        style="@style/cardView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="201dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginStart="@dimen/_30"-->
+<!--                        android:layout_marginTop="@dimen/h2"-->
+<!--                        android:layout_marginEnd="@dimen/_30">-->
+
+<!--                        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                                android:id="@+id/imgSKPengurus"-->
+<!--                                imageBoxSrc="@{viewModel.dataLembaga.fotoSKPengurus}"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="156dp"-->
+<!--                                android:background="@color/gray1"-->
+<!--                                android:src="@drawable/ic_camera_white"-->
+<!--                                android:onClick="@{()-> viewModel.clickFoto(viewModel.dataLembaga.fotoSKPengurus)}"-->
+<!--                                />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_45"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/sk_pengurus"-->
+<!--                                android:textColor="@color/black" />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_45"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/anda_sebagai_pengurus_lembaga_dakwah"-->
+<!--                                android:textColor="@color/gray2" />-->
+<!--                        </androidx.appcompat.widget.LinearLayoutCompat>-->
+<!--                    </androidx.cardview.widget.CardView>-->
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:id="@+id/cardSuratTugas"-->
+<!--                        style="@style/cardView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="201dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginStart="@dimen/_30"-->
+<!--                        android:layout_marginTop="@dimen/h2"-->
+<!--                        android:layout_marginEnd="@dimen/_30"-->
+<!--                        android:layout_marginBottom="@dimen/h5">-->
+
+<!--                        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                                android:id="@+id/imgSuratTugas"-->
+<!--                                imageBoxSrc="@{viewModel.dataLembaga.fotoSuratTugas}"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="156dp"-->
+<!--                                android:background="@color/gray1"-->
+<!--                                android:src="@drawable/ic_camera_white"-->
+<!--                                android:onClick="@{()-> viewModel.clickFoto(viewModel.dataLembaga.fotoSuratTugas)}"-->
+<!--                                />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_45"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/surat_tugas"-->
+<!--                                android:textColor="@color/black" />-->
+
+<!--                            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_45"-->
+<!--                                android:layout_gravity="bottom"-->
+<!--                                android:gravity="center"-->
+<!--                                android:text="@string/sebagai_admin_dari_ketua_pengurus"-->
+<!--                                android:textColor="@color/black" />-->
+<!--                        </androidx.appcompat.widget.LinearLayoutCompat>-->
+<!--                    </androidx.cardview.widget.CardView>-->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_100"
+                        android:layout_below="@+id/cardPengurus"
+                        />
+<!--                </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            style="@style/Theme.MaterialComponents"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100"
+            android:layout_alignParentBottom="true"
+            android:theme="@style/Theme.MaterialComponents">
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/colorPrimary"
+                app:buttonGravity="center_vertical"
+                app:fabAlignmentMode="center"
+                app:fabCradleMargin="@dimen/h2"
+                app:fabCradleRoundedCornerRadius="@dimen/h2"
+                app:fabCradleVerticalOffset="@dimen/h2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:elevation="0dp"
+                            android:onClick="@{()-> viewModel.onClickPhone()}"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:elevation="0dp"
+                            app:fabSize="normal"
+                            app:layout_anchor="@id/bottomApp"
+                            app:srcCompat="@drawable/ic_phone_white"
+                            app:tint="@color/white" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:elevation="0dp"
+                            android:onClick="@{()-> viewModel.onClickNavigasi()}"
+                            app:backgroundTint="@color/colorPrimary"
+                            app:elevation="0dp"
+                            app:fabSize="normal"
+                            app:layout_anchor="@id/bottomApp"
+                            app:srcCompat="@drawable/ic_location_white"
+                            app:tint="@color/white" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </RelativeLayout>
+            </com.google.android.material.bottomappbar.BottomAppBar>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> viewModel.onClickChat()}"
+                app:backgroundTint="@color/colorAccent"
+                app:fabSize="normal"
+                app:layout_anchor="@id/bottomApp"
+                app:srcCompat="@drawable/ic_message_white"
+                app:tint="@color/white" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+</layout>

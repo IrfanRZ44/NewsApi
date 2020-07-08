@@ -20,7 +20,7 @@ class AdapterListMJ (private val listAfiliasi : ArrayList<ModelDataMasjid?>,
         @Suppress("DEPRECATION")
         fun bindAfiliasi(data: ModelDataMasjid,
                          onClik: (ModelDataMasjid) -> Unit){
-            itemAfiliasi.namaLd.text = data.namaMasjid
+            itemAfiliasi.namaLd.text = "Masjid ${data.namaMasjid}"
             itemAfiliasi.kabLd.text = data.kotaMasjid
             itemAfiliasi.provLd.text = data.provinsiMasjid
             itemAfiliasi.imgLd.setBackgroundResource(android.R.color.transparent)
