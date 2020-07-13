@@ -36,7 +36,8 @@
             android:id="@+id/swipeRefresh"
             android:layout_marginTop="@dimen/h1"
             android:layout_below="@+id/textStatus"
-            android:layout_marginBottom="@dimen/h5"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:paddingBottom="@dimen/margin_large"
             >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcChat"

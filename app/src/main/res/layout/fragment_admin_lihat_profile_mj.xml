@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.exomatik.balligh.ui.admin.profile.mj.AdminLihatProfileMJFragment">
+    tools:context="com.exomatik.ballighadmin.ui.main.profile.mj.AdminLihatProfileMJFragment">
     <data>
         <variable
             name="viewModel"
-            type="com.exomatik.balligh.ui.admin.profile.mj.AdminLihatProfileMJViewModel" />
+            type="com.exomatik.ballighadmin.ui.main.profile.mj.AdminLihatProfileMJViewModel" />
     </data>
     <RelativeLayout
-        android:theme="@style/ThemeAdmin"
+        android:theme="@style/CustomTheme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -57,7 +57,7 @@
                                 android:layout_centerHorizontal="true"
                                 app:dotsColor="@color/white"
                                 app:dotsStrokeColor="@color/white"
-                                app:selectedDotColor="@color/adColorAccent"
+                                app:selectedDotColor="@color/colorAccent"
                                 app:dotsCornerRadius="@dimen/h2"
                                 app:dotsSize="@dimen/h4"
                                 app:dotsSpacing="@dimen/h1"
@@ -103,7 +103,7 @@
                                 />
                         </androidx.cardview.widget.CardView>
 
-                        <include layout="@layout/admin_progress_loading"
+                        <include layout="@layout/progress_loading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -370,7 +370,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 app:fabAlignmentMode="center"
-                android:backgroundTint="@color/adColorPrimary"
+                android:backgroundTint="@color/colorPrimary"
                 app:fabCradleMargin="@dimen/h2"
                 app:fabCradleRoundedCornerRadius="@dimen/h2"
                 app:fabCradleVerticalOffset="@dimen/h2"
@@ -393,11 +393,11 @@
                             app:layout_anchor="@id/bottomApp"
                             app:srcCompat="@drawable/ic_phone_white"
                             app:fabSize="normal"
-                            app:backgroundTint="@color/adColorPrimary"
+                            app:backgroundTint="@color/colorPrimary"
                             app:tint="@color/white"
                             app:elevation="0dp"
                             android:elevation="0dp"
-                            app:rippleColor="@color/adColorPrimary"
+                            app:rippleColor="@color/colorPrimary"
                             android:onClick="@{()-> viewModel.onClickPhone()}"
                             />
                         <View
@@ -412,11 +412,11 @@
                             app:layout_anchor="@id/bottomApp"
                             app:srcCompat="@drawable/ic_location_white"
                             app:fabSize="normal"
-                            app:backgroundTint="@color/adColorPrimary"
+                            app:backgroundTint="@color/colorPrimary"
                             app:tint="@color/white"
                             app:elevation="0dp"
                             android:elevation="0dp"
-                            app:rippleColor="@color/adColorPrimary"
+                            app:rippleColor="@color/colorPrimary"
                             android:onClick="@{()-> viewModel.onClickNavigasi()}"
                             />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -430,7 +430,7 @@
                 app:layout_anchor="@id/bottomApp"
                 app:srcCompat="@drawable/ic_message_white"
                 app:fabSize="normal"
-                app:backgroundTint="@color/adColorAccent"
+                app:backgroundTint="@color/colorAccent"
                 app:tint="@color/white"
                 android:onClick="@{()-> viewModel.onClickChat()}"
                 />

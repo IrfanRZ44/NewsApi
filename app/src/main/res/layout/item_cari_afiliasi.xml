@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/CustomTheme"
-    android:layout_marginBottom="@dimen/h2"
     >
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/h2"
+        android:layout_marginEnd="@dimen/h2"
+        android:layout_marginStart="@dimen/h2"
+        android:layout_marginBottom="@dimen/h2"
         app:cardCornerRadius="@dimen/h2"
         app:cardElevation="@dimen/h2"
         app:layout_constraintTop_toTopOf="parent"

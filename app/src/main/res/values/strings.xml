@@ -126,4 +126,10 @@
     <string name="ld_valid">LD Valid</string>
     <string name="mj_valid">MJ Valid</string>
     <string name="pengurus">Pengurus</string>
+    <string name="kualifikasi_keilmuan">Kualifikasi Keilmuan</string>
+    <string name="kesediaan_muballigh">Kesediaan Muballigh</string>
+
+    <string name="detail_muballigh">Detail Muballigh</string>
+    <string name="detail_masjid">Detail Masjid</string>
+    <string name="detail_lembaga_dakwah">Detail Lembaga Dakwah</string>
 </resources>

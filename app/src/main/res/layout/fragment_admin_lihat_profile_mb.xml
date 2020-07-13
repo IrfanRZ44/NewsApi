@@ -2,19 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.exomatik.balligh.ui.admin.profile.mb.AdminLihatProfileMBFragment">
+    tools:context="com.exomatik.ballighadmin.ui.main.profile.mb.AdminLihatProfileMBFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.exomatik.balligh.ui.admin.profile.mb.AdminLihatProfileMBViewModel" />
+            type="com.exomatik.ballighadmin.ui.main.profile.mb.AdminLihatProfileMBViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:theme="@style/ThemeAdmin"
+        android:theme="@style/CustomTheme"
         snackbar="@{viewModel.message}">
 
         <androidx.core.widget.NestedScrollView
@@ -61,7 +61,7 @@
                                 android:layout_centerHorizontal="true"
                                 app:dotsColor="@color/white"
                                 app:dotsStrokeColor="@color/white"
-                                app:selectedDotColor="@color/adColorAccent"
+                                app:selectedDotColor="@color/colorAccent"
                                 app:dotsCornerRadius="@dimen/h2"
                                 app:dotsSize="@dimen/h4"
                                 app:dotsSpacing="@dimen/h1"
@@ -85,7 +85,7 @@
                             android:textSize="@dimen/text_h6"
                             android:layout_toStartOf="@+id/textGelar"
                             />
-                        <include layout="@layout/admin_progress_loading"
+                        <include layout="@layout/progress_loading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             visible="@{viewModel.isShowLoading}"
@@ -241,7 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 app:fabAlignmentMode="center"
-                android:backgroundTint="@color/adColorPrimary"
+                android:backgroundTint="@color/colorPrimary"
                 app:fabCradleMargin="@dimen/h2"
                 app:fabCradleRoundedCornerRadius="@dimen/h2"
                 app:fabCradleVerticalOffset="@dimen/h2"
@@ -267,7 +267,7 @@
                             app:tint="@color/white"
                             app:elevation="0dp"
                             android:elevation="0dp"
-                            app:rippleColor="@color/adColorPrimary"
+                            app:rippleColor="@color/colorPrimary"
                             android:onClick="@{()-> viewModel.onClickPhone()}"
                             />
                         <View
@@ -285,7 +285,7 @@
                             app:tint="@color/white"
                             app:elevation="0dp"
                             android:elevation="0dp"
-                            app:rippleColor="@color/adColorPrimary"
+                            app:rippleColor="@color/colorPrimary"
                             android:onClick="@{()-> viewModel.onClickNavigasi()}"
                             />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -299,7 +299,7 @@
                 app:layout_anchor="@id/bottomApp"
                 app:srcCompat="@drawable/ic_message_white"
                 app:fabSize="normal"
-                app:backgroundTint="@color/adColorAccent"
+                app:backgroundTint="@color/colorAccent"
                 app:tint="@color/white"
                 android:onClick="@{()-> viewModel.onClickChat()}"
                 />

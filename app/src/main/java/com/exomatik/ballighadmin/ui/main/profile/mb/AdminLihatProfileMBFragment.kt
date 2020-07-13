@@ -1,11 +1,11 @@
 package com.exomatik.ballighadmin.ui.main.profile.mb
 
 import androidx.navigation.fragment.findNavController
-import com.exomatik.balligh.R
-import com.exomatik.balligh.base.BaseFragmentBind
-import com.exomatik.balligh.databinding.FragmentAdminLihatProfileMbBinding
-import com.exomatik.balligh.model.ModelDataMuballigh
-import com.exomatik.balligh.model.ModelUser
+import com.exomatik.ballighadmin.R
+import com.exomatik.ballighadmin.base.BaseFragmentBind
+import com.exomatik.ballighadmin.databinding.FragmentAdminLihatProfileMbBinding
+import com.exomatik.ballighadmin.model.ModelDataMuballigh
+import com.exomatik.ballighadmin.model.ModelUser
 
 class AdminLihatProfileMBFragment : BaseFragmentBind<FragmentAdminLihatProfileMbBinding>(){
     override fun getLayoutResource(): Int = R.layout.fragment_admin_lihat_profile_mb

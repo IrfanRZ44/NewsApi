@@ -7,19 +7,29 @@
     android:background="@color/white"
     android:id="@+id/viewParent">
     <RelativeLayout
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@color/colorPrimary"
         android:visibility="gone"
         android:id="@+id/customeToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_back_white"
+            android:id="@+id/btnBack"
+            android:layout_marginStart="@dimen/h2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            />
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/contact_photo"
             android:layout_width="@dimen/_40"
             android:layout_height="@dimen/_40"
             android:src="@drawable/ic_logo"
             android:scaleType="centerInside"
-            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/h4"
+            android:layout_toEndOf="@+id/btnBack"
             android:layout_centerVertical="true"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -31,8 +41,7 @@
             android:padding="@dimen/h1"
             android:id="@+id/rlInfo"
             >
-
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/actionBarName"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -49,7 +58,7 @@
                 android:fontFamily="@font/roboto_regular"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/actionBarStatus"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"

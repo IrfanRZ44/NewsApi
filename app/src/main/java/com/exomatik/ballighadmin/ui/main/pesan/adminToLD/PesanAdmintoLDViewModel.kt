@@ -3,11 +3,13 @@ package com.exomatik.ballighadmin.ui.main.pesan.adminToLD
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
@@ -18,6 +20,7 @@ import com.exomatik.ballighadmin.base.BaseViewModel
 import com.exomatik.ballighadmin.model.*
 import com.exomatik.ballighadmin.services.notification.model.Notification
 import com.exomatik.ballighadmin.services.notification.model.Sender
+import com.exomatik.ballighadmin.ui.main.profile.ld.AdminLihatProfileLDFragment
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.Constant.admin
 import com.exomatik.ballighadmin.utils.Constant.chatLDtoAdmin
@@ -32,6 +35,7 @@ import com.exomatik.ballighadmin.utils.Constant.sended
 import com.exomatik.ballighadmin.utils.Constant.tidak
 import com.exomatik.ballighadmin.utils.Constant.unread
 import com.exomatik.ballighadmin.utils.FirebaseUtils
+import com.exomatik.ballighadmin.utils.dismissKeyboard
 import com.exomatik.ballighadmin.utils.onClickFoto
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
@@ -60,21 +64,17 @@ class PesanAdmintoLDViewModel(private val rcChat: RecyclerView,
     @Suppress("DEPRECATION")
     fun setData() {
         activity?.customeToolbar?.visibility = View.VISIBLE
+        activity?.btnBack?.setOnClickListener {
+            navController.popBackStack()
+        }
         activity?.rlInfo?.setOnClickListener {
-            if (!dataPengurus.value?.idLembaga.isNullOrEmpty()){
-                message.value = "Clicked"
-//                val bundle = Bundle()
-//                val cariFragment = AdminLihatProfileLDFragment()
-//                bundle.putParcelable("dataUser", dataPengurus.value)
-//                bundle.putParcelable("dataLembaga", dataLembaga.value)
-//                cariFragment.arguments = bundle
-//                val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileLDFragment, true).build()
-//                navController.navigate(R.id.adminLihatProfileLDFragment, bundle, navOption)
-//                dismissKeyboard(activity)
-            }
-            else{
-                message.value = "Afwan, user belum melengkapi profil"
-            }
+            val bundle = Bundle()
+            val cariFragment = AdminLihatProfileLDFragment()
+            bundle.putParcelable("dataUser", dataPengurus.value)
+            cariFragment.arguments = bundle
+            val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileLDFragment, true).build()
+            navController.navigate(R.id.adminLihatProfileLDFragment, bundle, navOption)
+            dismissKeyboard(activity)
         }
         if (dataLembaga.value?.namaPanjangLembaga.isNullOrEmpty()){
             activity?.actionBarName?.text = dataPengurus.value?.username
