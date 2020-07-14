@@ -108,6 +108,7 @@ object Constant {
     const val sended = "sended"
     const val message = "message"
 
+    const val dashboard = "Dashboard"
     const val ld_valid = "LD"
     const val mj_valid = "MJ"
     const val mb_valid = "MB"
