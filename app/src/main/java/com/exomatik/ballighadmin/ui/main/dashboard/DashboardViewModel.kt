@@ -1,6 +1,9 @@
 package com.exomatik.ballighadmin.ui.main.dashboard
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.text.format.DateFormat
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,13 +12,15 @@ import com.exomatik.ballighadmin.base.BaseViewModel
 import com.exomatik.ballighadmin.model.ModelRiwayat
 import com.exomatik.ballighadmin.model.ModelUser
 import com.exomatik.ballighadmin.utils.Constant
+import com.exomatik.ballighadmin.utils.Constant.dateFormat1
 import com.exomatik.ballighadmin.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.item_riwayat.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 class DashboardViewModel(private val rcRiwayat: RecyclerView,
                          private val context: Context?,
                          private val navController: NavController) : BaseViewModel() {
@@ -36,15 +41,29 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
     private val listRiwayat = ArrayList<ModelRiwayat?>()
     private lateinit var adapter: AdapterRiwayat
 
-    fun initAdapter(){
-        adapter = AdapterRiwayat(listRiwayat)
+    private fun initAdapter(){
+        adapter = AdapterRiwayat(listRiwayat) { view: View, item: ModelRiwayat -> getRiwayatUser(view, item) }
         rcRiwayat.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rcRiwayat.adapter = adapter
-        listRiwayat.add(ModelRiwayat(true, ""))
-        listRiwayat.add(ModelRiwayat(false, "22-03-1997"))
-        listRiwayat.add(ModelRiwayat(false, "22-04-2002"))
-        listRiwayat.add(ModelRiwayat(false, "22-05-2000"))
+        listRiwayat.clear()
         adapter.notifyDataSetChanged()
+        listRiwayat.add(ModelRiwayat(true, ""))
+
+        var i = 0
+        while(i < 30){
+            listRiwayat.add(ModelRiwayat(false, getDaysAgo(i)))
+            adapter.notifyDataSetChanged()
+            i++
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getDaysAgo(daysAgo: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+        val format = SimpleDateFormat(dateFormat1)
+        val date = calendar.time
+        return format.format(date)
     }
 
     fun getListUser(){
@@ -88,7 +107,7 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
 
                             val idSplit = idLembaga.split("__")
                             val timeStamp = idSplit[1]
-                            if (setTime(timeStamp.toLong())){
+                            if (compareTimeNow(timeStamp.toLong())){
                                 listNewUserLD.add(data)
                             }
                         }
@@ -99,7 +118,7 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
 
                             val idSplit = idMasjid.split("__")
                             val timeStamp = idSplit[1]
-                            if (setTime(timeStamp.toLong())){
+                            if (compareTimeNow(timeStamp.toLong())){
                                 listNewUserMJ.add(data)
                             }
                         }
@@ -110,7 +129,7 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
 
                             val idSplit = idMuballigh.split("__")
                             val timeStamp = idSplit[1]
-                            if (setTime(timeStamp.toLong())){
+                            if (compareTimeNow(timeStamp.toLong())){
                                 listNewUserMB.add(data)
                             }
                         }
@@ -124,6 +143,8 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
                         newUserLD.value = listNewUserLD.size.toString()
                         newUserMJ.value = listNewUserMJ.size.toString()
                         newUserMB.value = listNewUserMB.size.toString()
+
+                        initAdapter()
                     }
                 }
 
@@ -136,28 +157,66 @@ class DashboardViewModel(private val rcRiwayat: RecyclerView,
         )
     }
 
-    @Suppress("DEPRECATION")
-    private fun setTime(timeStamp: Long) : Boolean {
-        val strDate1 = Date(timeStamp)
+    private fun compareTimeNow(timeStamp: Long) : Boolean {
+        val cal = Calendar.getInstance(Locale.ENGLISH)
         val strDate2 = Date()
-        val cal1 = Calendar.getInstance()
-        cal1.time = strDate1
-        val cal2 = Calendar.getInstance()
+        val cal2 = Calendar.getInstance(Locale.ENGLISH)
+
+        cal.timeInMillis = timeStamp * 1000L
         cal2.time = strDate2
-        val tanggal1 = cal1[Calendar.DAY_OF_MONTH]
-        val tanggal2 = cal2[Calendar.DAY_OF_MONTH]
-        val bulan1 = cal1[Calendar.MONTH]
-        val bulan2 = cal2[Calendar.MONTH]
-        val tahun1 = cal1[Calendar.YEAR]
-        val tahun2 = cal2[Calendar.YEAR]
-        return if (tahun1 < tahun2) {
-            false
-        } else {
-            if (bulan1 < bulan2) {
-                false
-            } else {
-                tanggal1 >= tanggal2
+
+        val tgl1 = DateFormat.format(dateFormat1, timeStamp).toString()
+        val tgl2 = DateFormat.format(dateFormat1, cal2).toString()
+
+        return tgl1 == tgl2
+    }
+
+    private fun compareTime(timeStamp: Long, tgl2: String) : Boolean {
+        val cal = Calendar.getInstance(Locale.ENGLISH)
+        cal.timeInMillis = timeStamp * 1000L
+        val tgl1 = DateFormat.format(dateFormat1, timeStamp).toString()
+
+        return tgl1 == tgl2
+    }
+
+    private fun getRiwayatUser(view: View, item: ModelRiwayat){
+        var riwayatMB = 0
+        var riwayatMJ = 0
+        var riwayatLD = 0
+        for (i in listUser.indices){
+            val idMuballigh = listUser[i]?.idMuballigh
+            if (!idMuballigh.isNullOrEmpty()){
+                val idSplit = idMuballigh.split("__")
+                val timeStamp = idSplit[1]
+                if (compareTime(timeStamp.toLong(), item.tanggal)){
+                    riwayatMB++
+                    view.textMB.text = riwayatMB.toString()
+                }
+            }
+
+            val idMasjid = listUser[i]?.idMasjid
+            if (!idMasjid.isNullOrEmpty()){
+                val idSplit = idMasjid.split("__")
+                val timeStamp = idSplit[1]
+                if (compareTime(timeStamp.toLong(), item.tanggal)){
+                    riwayatMJ++
+                    view.textMJ.text = riwayatMJ.toString()
+                }
+            }
+
+            val idLembaga = listUser[i]?.idLembaga
+            if (!idLembaga.isNullOrEmpty()){
+                val idSplit = idLembaga.split("__")
+                val timeStamp = idSplit[1]
+                if (compareTime(timeStamp.toLong(), item.tanggal)){
+                    riwayatLD++
+                    view.textLD.text = riwayatLD.toString()
+                }
             }
         }
+        view.textMB.text = riwayatMB.toString()
+        view.textMJ.text = riwayatMJ.toString()
+        view.textLD.text = riwayatLD.toString()
     }
 }
+

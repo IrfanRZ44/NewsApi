@@ -19,7 +19,6 @@ class DashboardFragment : BaseFragmentBind<FragmentDashboardBinding>() {
         bind.lifecycleOwner = this
         viewModel = DashboardViewModel(bind.rcMingguan, context, findNavController())
         bind.viewModel = viewModel
-        viewModel.initAdapter()
         viewModel.getListUser()
         bind.swipeRefresh.isRefreshing = false
     }
