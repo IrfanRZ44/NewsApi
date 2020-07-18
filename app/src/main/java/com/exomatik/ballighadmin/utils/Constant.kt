@@ -112,4 +112,8 @@ object Constant {
     const val ld_valid = "LD"
     const val mj_valid = "MJ"
     const val mb_valid = "MB"
+
+
+    const val grupLDtoMB = "GrupLDtoMB"
+    const val grupLDtoMJ = "GrupLDtoMJ"
 }
