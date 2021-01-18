@@ -71,7 +71,7 @@ class AdminLihatProfileLDViewModel(private val context: Context?,
 
     fun setDataUser() {
         namaPengurus.value =
-            if (dataUser.value?.nama?.isEmpty() == true) dataUser.value?.username else dataUser.value?.nama
+            if (dataUser.value?.nama?.isEmpty() == true) "Nama Pengurus" else dataUser.value?.nama
         fotoPengurus.value =
             if (dataUser.value?.foto?.isEmpty() == true) "" else dataUser.value?.foto
         provinsiPengurus.value =
@@ -115,15 +115,8 @@ class AdminLihatProfileLDViewModel(private val context: Context?,
                 if (result.exists()) {
                     for (snapshot in result.children) {
                         val data = snapshot.getValue(ModelUser::class.java)
-                        val id = data?.idLembaga
-
-                        if (!id.isNullOrEmpty() && id == idLembaga){
-                            dataUser.value = data
-                            setDataUser()
-                        }
-                        else if (idLembaga.isEmpty()){
-                            setDataUser()
-                        }
+                        dataUser.value = data
+                        setDataUser()
                     }
                 } else {
                     message.value = "Afwan, terjadi gangguan database"

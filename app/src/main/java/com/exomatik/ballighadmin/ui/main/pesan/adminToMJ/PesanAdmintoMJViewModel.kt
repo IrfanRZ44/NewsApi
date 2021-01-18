@@ -3,13 +3,11 @@ package com.exomatik.ballighadmin.ui.main.pesan.adminToMJ
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
@@ -20,7 +18,6 @@ import com.exomatik.ballighadmin.base.BaseViewModel
 import com.exomatik.ballighadmin.model.*
 import com.exomatik.ballighadmin.services.notification.model.Notification
 import com.exomatik.ballighadmin.services.notification.model.Sender
-import com.exomatik.ballighadmin.ui.main.profile.mj.AdminLihatProfileMJFragment
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.Constant.admin
 import com.exomatik.ballighadmin.utils.Constant.chatMJtoAdmin
@@ -35,7 +32,6 @@ import com.exomatik.ballighadmin.utils.Constant.sended
 import com.exomatik.ballighadmin.utils.Constant.tidak
 import com.exomatik.ballighadmin.utils.Constant.unread
 import com.exomatik.ballighadmin.utils.FirebaseUtils
-import com.exomatik.ballighadmin.utils.dismissKeyboard
 import com.exomatik.ballighadmin.utils.onClickFoto
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
@@ -64,24 +60,23 @@ class PesanAdmintoMJViewModel(private val rcChat: RecyclerView,
     @Suppress("DEPRECATION")
     fun setData() {
         activity?.customeToolbar?.visibility = View.VISIBLE
-        activity?.btnBack?.setOnClickListener {
-            navController.popBackStack()
-        }
         activity?.rlInfo?.setOnClickListener {
-            val bundle = Bundle()
-            val cariFragment = AdminLihatProfileMJFragment()
-            bundle.putParcelable("dataUser", dataPengurus.value)
-            cariFragment.arguments = bundle
-            val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileMJFragment, true).build()
-            navController.navigate(R.id.adminLihatProfileMJFragment, bundle, navOption)
-            dismissKeyboard(activity)
+            if (!dataPengurus.value?.idMasjid.isNullOrEmpty()){
+                message.value =" click"
+//                val bundle = Bundle()
+//                val cariFragment = AdminLihatProfileMJFragment()
+//                bundle.putParcelable("dataUser", dataPengurus.value)
+//                bundle.putParcelable("dataMasjid", dataMasjid.value)
+//                cariFragment.arguments = bundle
+//                val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileMJFragment, true).build()
+//                navController.navigate(R.id.adminLihatProfileMJFragment, bundle, navOption)
+//                dismissKeyboard(activity)
+            }
+            else{
+                message.value = "Afwan, user belum melengkapi profil"
+            }
         }
-        if (dataMasjid.value?.namaMasjid.isNullOrEmpty()){
-            activity?.actionBarName?.text = dataPengurus.value?.username
-        }
-        else{
-            activity?.actionBarName?.text = dataMasjid.value?.namaMasjid
-        }
+        activity?.actionBarName?.text = dataMasjid.value?.namaMasjid?:dataPengurus.value?.username
         if (dataPengurus.value?.status == Constant.online) {
             context?.resources?.getColor(R.color.white)?.let {
                 activity?.actionBarStatus?.setTextColor(

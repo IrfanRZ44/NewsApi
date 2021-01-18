@@ -3,13 +3,11 @@ package com.exomatik.ballighadmin.ui.main.pesan.adminToMB
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
@@ -23,7 +21,6 @@ import com.exomatik.ballighadmin.model.ModelNotif
 import com.exomatik.ballighadmin.model.ModelUser
 import com.exomatik.ballighadmin.services.notification.model.Notification
 import com.exomatik.ballighadmin.services.notification.model.Sender
-import com.exomatik.ballighadmin.ui.main.profile.mb.AdminLihatProfileMBFragment
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.Constant.admin
 import com.exomatik.ballighadmin.utils.Constant.chatMBtoAdmin
@@ -38,7 +35,6 @@ import com.exomatik.ballighadmin.utils.Constant.sended
 import com.exomatik.ballighadmin.utils.Constant.tidak
 import com.exomatik.ballighadmin.utils.Constant.unread
 import com.exomatik.ballighadmin.utils.FirebaseUtils
-import com.exomatik.ballighadmin.utils.dismissKeyboard
 import com.exomatik.ballighadmin.utils.onClickFoto
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
@@ -66,17 +62,15 @@ class PesanAdmintoMBViewModel(private val rcChat: RecyclerView,
     @Suppress("DEPRECATION")
     fun setData() {
         activity?.customeToolbar?.visibility = View.VISIBLE
-        activity?.btnBack?.setOnClickListener {
-            navController.popBackStack()
-        }
         activity?.rlInfo?.setOnClickListener {
-            val bundle = Bundle()
-            val cariFragment = AdminLihatProfileMBFragment()
-            bundle.putParcelable("dataUser", dataUserMuballigh.value)
-            cariFragment.arguments = bundle
-            val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileMBFragment, true).build()
-            navController.navigate(R.id.adminLihatProfileMBFragment, bundle, navOption)
-            dismissKeyboard(activity)
+            message.value =" click"
+//            val bundle = Bundle()
+//            val cariFragment = AdminLihatProfileMBFragment()
+//            bundle.putParcelable("dataUser", dataUserMuballigh.value)
+//            cariFragment.arguments = bundle
+//            val navOption = NavOptions.Builder().setPopUpTo(R.id.adminLihatProfileMBFragment, true).build()
+//            navController.navigate(R.id.adminLihatProfileMBFragment, bundle, navOption)
+//            dismissKeyboard(activity)
         }
         activity?.actionBarName?.text = dataUserMuballigh.value?.nama
         if (dataUserMuballigh.value?.status == Constant.online) {

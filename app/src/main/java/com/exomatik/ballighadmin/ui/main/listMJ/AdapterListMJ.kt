@@ -8,35 +8,29 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.request.CachePolicy
 import com.exomatik.ballighadmin.R
-import com.exomatik.ballighadmin.model.ModelUser
+import com.exomatik.ballighadmin.model.ModelDataMasjid
 import kotlinx.android.synthetic.main.item_cari_afiliasi.view.*
 
-class AdapterListMJ (private val listAfiliasi : ArrayList<ModelUser?>,
-                     private val onClik : (ModelUser) -> Unit,
-                     private val getDetailMJ : (String, View) -> Unit
+class AdapterListMJ (private val listAfiliasi : ArrayList<ModelDataMasjid?>,
+                     private val onClik : (ModelDataMasjid) -> Unit
 ) : RecyclerView.Adapter<AdapterListMJ.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val itemAfiliasi : View) : RecyclerView.ViewHolder(itemAfiliasi){
         @SuppressLint("SetTextI18n")
         @Suppress("DEPRECATION")
-        fun bindAfiliasi(data: ModelUser,
-                         onClik: (ModelUser) -> Unit,
-                         getDetailMJ: (String, View) -> Unit){
-            if (data.idMasjid.isEmpty()) {
-                itemAfiliasi.namaLd.text = data.username
-                itemAfiliasi.kabLd.text = "Kota"
-                itemAfiliasi.provLd.text = "Provinsi"
+        fun bindAfiliasi(data: ModelDataMasjid,
+                         onClik: (ModelDataMasjid) -> Unit){
+            itemAfiliasi.namaLd.text = "Masjid ${data.namaMasjid}"
+            itemAfiliasi.kabLd.text = data.kotaMasjid
+            itemAfiliasi.provLd.text = data.provinsiMasjid
+            itemAfiliasi.imgLd.setBackgroundResource(android.R.color.transparent)
 
-                itemAfiliasi.imgLd.load(R.drawable.ic_camera_white) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_camera_white)
-                    error(R.drawable.ic_camera_white)
-                    fallback(R.drawable.ic_camera_white)
-                    memoryCachePolicy(CachePolicy.ENABLED)
-                }
-            }
-            else{
-                getDetailMJ(data.idMasjid, itemAfiliasi)
+            itemAfiliasi.imgLd.load(data.fotoMasjid) {
+                crossfade(true)
+                placeholder(R.drawable.ic_camera_white)
+                error(R.drawable.ic_camera_white)
+                fallback(R.drawable.ic_camera_white)
+                memoryCachePolicy(CachePolicy.ENABLED)
             }
 
             itemAfiliasi.setOnClickListener {
@@ -51,6 +45,6 @@ class AdapterListMJ (private val listAfiliasi : ArrayList<ModelUser?>,
     }
     override fun getItemCount(): Int = listAfiliasi.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {
-        listAfiliasi[position]?.let { holder.bindAfiliasi(it, onClik, getDetailMJ) }
+        listAfiliasi[position]?.let { holder.bindAfiliasi(it, onClik) }
     }
 }

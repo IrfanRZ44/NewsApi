@@ -26,9 +26,10 @@ object Constant {
     const val referenceJenisAkun = "jenisAkun"
     const val referenceActiveAccount = "activeAkun"
     const val referenceBookmark= "Bookmark"
-    const val referenceIdMuballigh = "idMuballigh"
-    const val referenceIdLembaga = "idLembaga"
-    const val referenceIdMasjid = "idMasjid"
+
+
+
+
 
     const val referenceFotoUser = "fotoUser"
 
@@ -40,8 +41,6 @@ object Constant {
     const val codeRequestLocationUpdate = 10
     const val codeRequestResultCrop = 400
 
-    const val defaultLatitude = -5.2029662
-    const val defaultLongitude = 119.4991688
     const val defaultTempFoto = "https://www.google.co.id/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png"
     const val defaultNoHp = "+6282123456789"
     const val defaultPhoneCode = "123456"
@@ -108,7 +107,7 @@ object Constant {
     const val sended = "sended"
     const val message = "message"
 
-    const val ld_valid = "LD"
-    const val mj_valid = "MJ"
+    const val ld_valid = "LD Valid"
+    const val mj_valid = "MJ Valid"
     const val mb_valid = "MB"
 }

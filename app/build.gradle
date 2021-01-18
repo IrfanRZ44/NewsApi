@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
 
-//firebase
+//firease
 apply plugin: 'com.google.gms.google-services'
 
 android {

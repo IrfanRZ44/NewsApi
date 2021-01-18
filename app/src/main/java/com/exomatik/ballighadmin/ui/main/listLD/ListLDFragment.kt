@@ -37,6 +37,6 @@ class ListLDFragment : BaseFragmentBind<FragmentListLdBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        FirebaseUtils.stopRefreshAfiliasi2()
+        FirebaseUtils.stopRefreshAfiliasi1()
     }
 }

@@ -10,16 +10,16 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import com.exomatik.ballighadmin.R
-import com.exomatik.ballighadmin.base.BaseViewModel
-import com.exomatik.ballighadmin.model.ModelDataMasjid
-import com.exomatik.ballighadmin.model.ModelUser
-import com.exomatik.ballighadmin.ui.main.pesan.adminToMJ.PesanAdmintoMJFragment
-import com.exomatik.ballighadmin.utils.Constant
-import com.exomatik.ballighadmin.utils.Constant.akunMJ
-import com.exomatik.ballighadmin.utils.FirebaseUtils
-import com.exomatik.ballighadmin.ui.general.adapter.ImageSampulAdapter
-import com.exomatik.ballighadmin.utils.onClickFoto
+import com.exomatik.balligh.R
+import com.exomatik.balligh.base.BaseViewModel
+import com.exomatik.balligh.model.ModelDataMasjid
+import com.exomatik.balligh.model.ModelUser
+import com.exomatik.balligh.ui.admin.pesan.adminToMJ.PesanAdmintoMJFragment
+import com.exomatik.balligh.utils.Constant
+import com.exomatik.balligh.utils.Constant.akunMJ
+import com.exomatik.balligh.utils.FirebaseUtils
+import com.exomatik.balligh.ui.general.adapter.ImageSampulAdapter
+import com.exomatik.balligh.utils.onClickFoto
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -42,7 +42,8 @@ class AdminLihatProfileMJViewModel(private val context: Context?,
     private var listFoto = ArrayList<String>()
 
     fun setDataMasjid() {
-        namaMasjid.value = if (dataMasjid.value?.namaMasjid?.isEmpty() == true) "Nama Masjid" else dataMasjid.value?.namaMasjid
+        namaMasjid.value =
+            if (dataMasjid.value?.namaMasjid?.isEmpty() == true) "Nama Masjid" else dataMasjid.value?.namaMasjid
         alamatMasjid.value =
             if (dataMasjid.value?.alamatMasjid?.isEmpty() == true) "Alamat Masjid" else dataMasjid.value?.alamatMasjid
         provinsiMasjid.value =
@@ -58,7 +59,7 @@ class AdminLihatProfileMJViewModel(private val context: Context?,
     }
 
     fun setDataUser() {
-        namaPengurus.value = if (dataUser.value?.nama?.isEmpty() == true) dataUser.value?.username else dataUser.value?.nama
+        namaPengurus.value = if (dataUser.value?.nama?.isEmpty() == true) "Nama Pengurus" else dataUser.value?.nama
         fotoPengurus.value = if (dataUser.value?.foto?.isEmpty() == true) "" else dataUser.value?.foto
         noHpPengurus.value = if (dataUser.value?.noHp?.isEmpty() == true) "Kontak Pengurus" else dataUser.value?.noHp
     }
@@ -105,12 +106,8 @@ class AdminLihatProfileMJViewModel(private val context: Context?,
                 if (result.exists()) {
                     for (snapshot in result.children) {
                         val data = snapshot.getValue(ModelUser::class.java)
-                        val id = data?.idMasjid
-
-                        if (!id.isNullOrEmpty() && id == idMasjid){
-                            dataUser.value = data
-                            setDataUser()
-                        }
+                        dataUser.value = data
+                        setDataUser()
                     }
                 } else {
                     message.value = "Afwan, terjadi gangguan database"

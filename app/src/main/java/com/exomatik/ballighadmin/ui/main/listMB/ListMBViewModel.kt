@@ -1,14 +1,11 @@
 package com.exomatik.ballighadmin.ui.main.listMB
 
 import android.content.Context
-import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.exomatik.ballighadmin.R
 import com.exomatik.ballighadmin.base.BaseViewModel
 import com.exomatik.ballighadmin.model.ModelUser
-import com.exomatik.ballighadmin.ui.main.profile.mb.AdminLihatProfileMBFragment
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
@@ -32,12 +29,12 @@ class ListMBViewModel(private val rcChat: RecyclerView,
         rcChat.adapter = adapter
     }
 
-    private fun onClickItem(dataUser: ModelUser) {
-        val bundle = Bundle()
-        val cariFragment = AdminLihatProfileMBFragment()
-        bundle.putParcelable("dataUser", dataUser)
-        cariFragment.arguments = bundle
-        navController.navigate(R.id.adminLihatProfileMBFragment, bundle)
+    private fun onClickItem(dataMasjid: ModelUser) {
+//        val bundle = Bundle()
+//        val cariFragment = AdminLihatProfileMJFragment()
+//        bundle.putParcelable("dataMasjid", dataMasjid)
+//        cariFragment.arguments = bundle
+//        navController.navigate(R.id.adminLihatProfileMJFragment, bundle)
     }
 
     fun getListMuballigh(){
