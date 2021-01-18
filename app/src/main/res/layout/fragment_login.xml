@@ -33,17 +33,17 @@
                 android:onClick="@{()-> viewModel.onClickBack()}"
                 />
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img"
                 android:layout_width="@dimen/_100"
                 android:layout_height="@dimen/_100"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_40"
                 android:layout_marginBottom="@dimen/h2"
-                android:background="@drawable/ic_launcher_background"
                 android:padding="@dimen/h2"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_logo"
+                />
 
             <include layout="@layout/progress_loading"
                 android:layout_width="wrap_content"

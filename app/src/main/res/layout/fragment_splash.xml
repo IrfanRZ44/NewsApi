@@ -6,14 +6,13 @@
     android:background="@color/white"
     tools:context="com.exomatik.baseapplication.ui.auth.splash.SplashFragment"
     >
-    <androidx.appcompat.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="@dimen/_170"
         android:layout_height="@dimen/_170"
         android:layout_marginBottom="@dimen/h2"
         android:padding="@dimen/h2"
         android:scaleType="fitCenter"
-        android:background="@drawable/ic_launcher_background"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_40"
         android:id="@+id/img"
