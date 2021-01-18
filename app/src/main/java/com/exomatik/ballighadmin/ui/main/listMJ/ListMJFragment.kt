@@ -20,7 +20,7 @@ class ListMJFragment : BaseFragmentBind<FragmentListMjBinding>() {
         viewModel = ListMJViewModel(bind.rcChat, context, findNavController())
         bind.viewModel = viewModel
         viewModel.initAdapter()
-        viewModel.getListMasjid()
+        viewModel.getListLembaga()
 
         bind.swipeRefresh.isRefreshing = false
     }
@@ -30,7 +30,7 @@ class ListMJFragment : BaseFragmentBind<FragmentListMjBinding>() {
             viewModel.listRequestMJ.clear()
             viewModel.adapter.notifyDataSetChanged()
             FirebaseUtils.stopRefreshAfiliasi1()
-            viewModel.getListMasjid()
+            viewModel.getListLembaga()
             bind.swipeRefresh.isRefreshing = false
         }
     }

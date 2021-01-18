@@ -418,16 +418,15 @@ object FirebaseUtils {
 
     fun refreshAfiliasi2DataWith2ChildObject(
         reference: String,
-        search: String,
+        child: String,
         value: String,
         eventListener: ValueEventListener
     ) {
         this.refreshDataAfiliasi2 = eventListener
         queryAfiliasi2 = FirebaseDatabase.getInstance()
             .getReference(reference)
-            .orderByChild(search)
-            .startAt(value)
-            .endAt(value + "\uf8ff")
+            .child(child)
+            .child(value)
         queryAfiliasi2.addValueEventListener(eventListener)
     }
 

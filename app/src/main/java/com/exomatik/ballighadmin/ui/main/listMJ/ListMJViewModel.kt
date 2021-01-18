@@ -40,7 +40,7 @@ class ListMJViewModel(private val rcChat: RecyclerView,
 //        navController.navigate(R.id.adminLihatProfileMJFragment, bundle)
     }
 
-    fun getListMasjid(){
+    fun getListLembaga(){
         isShowLoading.value = true
         val valueEventListener = object : ValueEventListener {
             override fun onCancelled(result: DatabaseError) {

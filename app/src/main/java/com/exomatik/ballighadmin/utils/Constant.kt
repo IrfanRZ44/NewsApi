@@ -27,10 +27,6 @@ object Constant {
     const val referenceActiveAccount = "activeAkun"
     const val referenceBookmark= "Bookmark"
 
-
-
-
-
     const val referenceFotoUser = "fotoUser"
 
     const val codeRequestFoto = 100
@@ -109,5 +105,5 @@ object Constant {
 
     const val ld_valid = "LD Valid"
     const val mj_valid = "MJ Valid"
-    const val mb_valid = "MB"
+    const val mb_valid = "MB Valid"
 }

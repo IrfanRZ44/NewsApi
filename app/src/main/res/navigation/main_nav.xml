@@ -19,6 +19,18 @@
         android:name="com.exomatik.ballighadmin.ui.main.MainFragment"
         android:label="@string/app_name"
         tools:layout="@layout/main_fragment" />
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.exomatik.ballighadmin.ui.main.BlankFragment"
+        android:label="BlankFragment"
+        tools:layout="@layout/blank_fragment"
+        />
+    <fragment
+        android:id="@+id/blank2Fragment"
+        android:name="com.exomatik.ballighadmin.ui.main.Blank2Fragment"
+        android:label="Blank2Fragment"
+        tools:layout="@layout/blank_2_fragment"
+        />
 
     <fragment
         android:id="@+id/splashFragment"
@@ -59,9 +71,4 @@
         android:name="com.exomatik.ballighadmin.ui.main.listMJ.ListMJFragment"
         android:label="@string/mj_valid"
         tools:layout="@layout/fragment_list_mj" />
-    <fragment
-        android:id="@+id/listMBFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.listMB.ListMBFragment"
-        android:label="fragment_list_mb"
-        tools:layout="@layout/fragment_list_mb" />
 </navigation>
