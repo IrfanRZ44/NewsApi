@@ -9,17 +9,14 @@ import com.exomatik.ballighadmin.R
 import com.exomatik.ballighadmin.model.ModelRiwayat
 import kotlinx.android.synthetic.main.item_riwayat.view.*
 
-class AdapterRiwayat (private val listAfiliasi : ArrayList<ModelRiwayat?>,
-                      private val getRiwayatUser : (View, ModelRiwayat) -> Unit
-) : RecyclerView.Adapter<AdapterRiwayat.AfiliasiHolder>(){
+class AdapterRiwayat (private val listAfiliasi : ArrayList<ModelRiwayat?>) : RecyclerView.Adapter<AdapterRiwayat.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(
         private val itemAfiliasi : View
     ) : RecyclerView.ViewHolder(itemAfiliasi){
         @SuppressLint("SetTextI18n")
         @Suppress("DEPRECATION")
-        fun bindAfiliasi(data: ModelRiwayat,
-                         getRiwayatUser: (View, ModelRiwayat) -> Unit){
+        fun bindAfiliasi(data: ModelRiwayat){
             if (data.isFirst){
                 itemAfiliasi.card1.visibility = View.GONE
                 itemAfiliasi.card2.visibility = View.VISIBLE
@@ -28,7 +25,9 @@ class AdapterRiwayat (private val listAfiliasi : ArrayList<ModelRiwayat?>,
                 itemAfiliasi.card1.visibility = View.VISIBLE
                 itemAfiliasi.card2.visibility = View.GONE
                 itemAfiliasi.textTanggal.text = data.tanggal
-                getRiwayatUser(itemAfiliasi, data)
+                itemAfiliasi.textMB.text = "22"
+                itemAfiliasi.textMJ.text = "2"
+                itemAfiliasi.textLD.text = "3"
             }
         }
     }
@@ -39,6 +38,6 @@ class AdapterRiwayat (private val listAfiliasi : ArrayList<ModelRiwayat?>,
     }
     override fun getItemCount(): Int = listAfiliasi.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {
-        listAfiliasi[position]?.let { holder.bindAfiliasi(it, getRiwayatUser) }
+        listAfiliasi[position]?.let { holder.bindAfiliasi(it) }
     }
 }
