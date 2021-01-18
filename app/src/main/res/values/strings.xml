@@ -123,7 +123,6 @@
     <string name="main_activity">Main Activity</string>
     <string name="authentication">Authentication</string>
     <string name="_12_00">12.00</string>
-    <string name="_12">12</string>
     <string name="ld_valid">LD Valid</string>
     <string name="mj_valid">MJ Valid</string>
     <string name="pengurus">Pengurus</string>
@@ -133,11 +132,4 @@
     <string name="detail_muballigh">Detail Muballigh</string>
     <string name="detail_masjid">Detail Masjid</string>
     <string name="detail_lembaga_dakwah">Detail Lembaga Dakwah</string>
-    <string name="total_user">Total User</string>
-    <string name="jumlah">Jumlah</string>
-    <string name="hari_ini">Hari ini</string>
-    <string name="riwayat_perkembangan_user">Riwayat Perkembangan User</string>
-    <string name="mb">MB</string>
-    <string name="ld">LD</string>
-    <string name="mj">MJ</string>
 </resources>

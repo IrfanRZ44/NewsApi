@@ -79,9 +79,4 @@
         android:name="com.exomatik.ballighadmin.ui.main.profile.mj.AdminLihatProfileMJFragment"
         android:label="@string/detail_masjid"
         tools:layout="@layout/fragment_admin_lihat_profile_mj" />
-    <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
 </navigation>
