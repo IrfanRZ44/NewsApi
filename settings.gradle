@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='BallighAdmin'
+rootProject.name='BaseApplication'

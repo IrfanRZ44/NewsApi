@@ -5,70 +5,26 @@
     android:id="@+id/auth_nav"
     android:label="Authentication"
     tools:showIn="navigation_view"
-    app:startDestination="@id/splashFragment"
-    >
-
+    app:startDestination="@id/nav_beranda">
     <fragment
         android:id="@+id/lihatFotoFragment"
-        android:name="com.exomatik.ballighadmin.utils.LihatFotoFragment"
+        android:name="com.exomatik.baseapplication.utils.LihatFotoFragment"
         android:label="@string/foto"
         tools:layout="@layout/fragment_lihat_foto"
         />
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.MainFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/main_fragment" />
+        android:id="@+id/nav_beranda"
+        android:name="com.exomatik.baseapplication.ui.main.beranda.BerandaFragment"
+        android:label="@string/beranda"
+        tools:layout="@layout/fragment_beranda" />
     <fragment
-        android:id="@+id/blankFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.BlankFragment"
-        android:label="BlankFragment"
-        tools:layout="@layout/blank_fragment"
-        />
+        android:id="@+id/nav_profile"
+        android:name="com.exomatik.baseapplication.ui.main.blank1.Blank1Fragment"
+        android:label="fragment_blank1"
+        tools:layout="@layout/fragment_blank1" />
     <fragment
-        android:id="@+id/blank2Fragment"
-        android:name="com.exomatik.ballighadmin.ui.main.Blank2Fragment"
-        android:label="Blank2Fragment"
-        tools:layout="@layout/blank_2_fragment"
-        />
-
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.splash.SplashFragment"
-        android:label="splash_fragment"
-        tools:layout="@layout/splash_fragment" >
-        <action
-            android:id="@+id/action_splashFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_pesan_admin"
-        android:name="com.exomatik.ballighadmin.ui.main.pesan.PesanAdminFragment"
-        android:label="@string/menu_pesan"
-        tools:layout="@layout/fragment_pesan_admin" />
-    <fragment
-        android:id="@+id/pesanAdmintoMBFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.pesan.adminToMB.PesanAdmintoMBFragment"
-        android:label="@string/menu_pesan"
-        tools:layout="@layout/fragment_pesan_admin_to_mb" />
-    <fragment
-        android:id="@+id/pesanAdmintoLDFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.pesan.adminToLD.PesanAdmintoLDFragment"
-        android:label="@string/menu_pesan"
-        tools:layout="@layout/fragment_pesan_admin_to_ld" />
-    <fragment
-        android:id="@+id/pesanAdmintoMJFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.pesan.adminToMJ.PesanAdmintoMJFragment"
-        android:label="@string/menu_pesan"
-        tools:layout="@layout/fragment_pesan_admin_to_mj" />
-    <fragment
-        android:id="@+id/listLDFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.listLD.ListLDFragment"
-        android:label="@string/ld_valid"
-        tools:layout="@layout/fragment_list_ld" />
-    <fragment
-        android:id="@+id/listMJFragment"
-        android:name="com.exomatik.ballighadmin.ui.main.listMJ.ListMJFragment"
-        android:label="@string/mj_valid"
-        tools:layout="@layout/fragment_list_mj" />
+        android:id="@+id/nav_setting"
+        android:name="com.exomatik.baseapplication.ui.main.blank2.Blank2Fragment"
+        android:label="fragment_blank2"
+        tools:layout="@layout/fragment_blank2" />
 </navigation>
