@@ -15,7 +15,6 @@ import com.exomatik.ballighadmin.model.ModelUser
 import com.exomatik.ballighadmin.ui.main.profile.ld.AdminLihatProfileLDFragment
 import com.exomatik.ballighadmin.utils.Constant
 import com.exomatik.ballighadmin.utils.FirebaseUtils
-import com.exomatik.ballighadmin.utils.showLog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -66,7 +65,6 @@ class ListLDViewModel(private val rcChat: RecyclerView,
                     for (snapshot in result.children) {
                         val data = snapshot.getValue(ModelUser::class.java)
 
-                        showLog(data?.username)
                         listRequestLD.add(data)
                         adapter.notifyDataSetChanged()
                     }

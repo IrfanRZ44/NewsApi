@@ -427,7 +427,7 @@ object FirebaseUtils {
             .getReference(reference)
             .orderByChild(search)
             .startAt(value)
-            .endAt("\uf8ff" +value + "\uf8ff")
+            .endAt(value + "\uf8ff")
         queryAfiliasi2.addValueEventListener(eventListener)
     }
 
