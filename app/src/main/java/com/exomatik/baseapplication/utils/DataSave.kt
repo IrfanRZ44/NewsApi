@@ -5,16 +5,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import com.exomatik.baseapplication.model.ModelUser
-import com.exomatik.baseapplication.utils.Constant.referenceUser
+import com.exomatik.baseapplication.utils.Constant.reffUser
 import com.google.gson.Gson
 
 class DataSave(private val context: Context?) {
-    private val preferences: SharedPreferences? = context?.getSharedPreferences("UserPref", 0)
+    private val preffs: SharedPreferences? = context?.getSharedPreferences("UserPref", 0)
 
     fun setDataObject(any: Any?, key: String) {
         try {
-            val prefsEditor: SharedPreferences.Editor = preferences?.edit()
-                ?: throw Exception("Preferences Belum Di Inisialisasikan")
+            val prefsEditor: SharedPreferences.Editor = preffs?.edit()
+                ?: throw Exception("Preffs Belum Di Inisialisasikan")
             val gson = Gson()
             val json: String = gson.toJson(any)
             prefsEditor.putString(key, json)
@@ -27,8 +27,8 @@ class DataSave(private val context: Context?) {
     fun getDataUser(): ModelUser? {
         return try {
             val gson = Gson()
-            val json: String = preferences?.getString(referenceUser, "")
-                ?: throw Exception("Preferences Belum Di Inisialisasikan")
+            val json: String = preffs?.getString(reffUser, "")
+                ?: throw Exception("Preffs Belum Di Inisialisasikan")
             gson.fromJson(json, ModelUser::class.java)
         }catch (e: Exception){
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
@@ -40,7 +40,7 @@ class DataSave(private val context: Context?) {
     fun setDataString(value: String?, key: String) {
         try {
             val prefsEditor: SharedPreferences.Editor =
-                preferences?.edit() ?: throw Exception("Preferences Belum Di Inisialisasikan")
+                preffs?.edit() ?: throw Exception("Preffs Belum Di Inisialisasikan")
             prefsEditor.putString(key, value)
             prefsEditor.apply()
         } catch (e: Exception) {
@@ -50,7 +50,7 @@ class DataSave(private val context: Context?) {
 
     fun getKeyString(key: String): String? {
         return try {
-            preferences?.getString(key, "") ?: throw Exception("Data Kosong")
+            preffs?.getString(key, "") ?: throw Exception("Data Kosong")
         }catch (e: Exception){
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
             null

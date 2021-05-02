@@ -36,11 +36,11 @@ package com.exomatik.baseapplication.utils
 //    private lateinit var refreshDataAfiliasi2: ValueEventListener
 //
 //    fun saveJadwalWithUnique1Child(
-//        reference: String, data: ModelJadwal
+//        reff: String, data: ModelJadwal
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
-//        val ref = FirebaseDatabase.getInstance().getReference(reference)
+//        val ref = FirebaseDatabase.getInstance().getreff(reff)
 //        val id = ref.push()
 //        data.idJadwal = id.key.toString()
 //        id.setValue(data)
@@ -49,17 +49,17 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun simpanNotif(data: ModelNotif) {
-//        val ref = FirebaseDatabase.getInstance().getReference(referenceNotif)
+//        val ref = FirebaseDatabase.getInstance().getreff(reffNotif)
 //        val id = ref.push()
 //        data.idNotif = id.key.toString()
-//        database.getReference(referenceNotif)
+//        database.getreff(reffNotif)
 //            .child(data.idNotif)
 //            .setValue(data)
 //    }
 //
 //    fun searchDataNotif(value: String?, eventListener: ValueEventListener) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(referenceNotif)
+//            .getreff(reffNotif)
 //            .orderByChild("id")
 //            .equalTo(value)
 //            .addListenerForSingleValueEvent(eventListener)
@@ -91,68 +91,68 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun searchDataWith1ChildObject(
-//        reference: String,
+//        reff: String,
 //        search: String,
 //        value: String?,
 //        eventListener: ValueEventListener
 //    ) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .orderByChild(search)
 //            .equalTo(value)
 //            .addListenerForSingleValueEvent(eventListener)
 //    }
 //
 //    fun searchDataWith2ChildObject(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        search: String,
 //        value: String?,
 //        eventListener: ValueEventListener
 //    ) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child)
 //            .orderByChild(search)
 //            .equalTo(value)
 //            .addListenerForSingleValueEvent(eventListener)
 //    }
 //
-//    fun getDataObject(reference: String, eventListener: ValueEventListener) {
+//    fun getDataObject(reff: String, eventListener: ValueEventListener) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .addListenerForSingleValueEvent(eventListener)
 //    }
 //
-//    fun getData1Child(reference: String, value: String, eventListener: ValueEventListener) {
+//    fun getData1Child(reff: String, value: String, eventListener: ValueEventListener) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(value)
 //            .addListenerForSingleValueEvent(eventListener)
 //    }
 //
 //    fun getData2Child(
-//        reference: String,
+//        reff: String,
 //        value: String,
 //        value2: String,
 //        eventListener: ValueEventListener
 //    ) {
 //        FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(value)
 //            .child(value2)
 //            .addListenerForSingleValueEvent(eventListener)
 //    }
 //
 ////    fun searchWordWith2ChildObject(
-////        reference: String,
+////        reff: String,
 ////        child: String,
 ////        search: String,
 ////        value: String?,
 ////        eventListener: ValueEventListener
 ////    ) {
 ////        FirebaseDatabase.getInstance()
-////            .getReference(reference)
+////            .getreff(reff)
 ////            .child(child)
 ////            .orderByChild(search)
 ////            .startAt(value)
@@ -161,13 +161,13 @@ package com.exomatik.baseapplication.utils
 ////    }
 ////
 ////    fun searchWordWith1ChildObject(
-////        reference: String,
+////        reff: String,
 ////        search: String,
 ////        value: String?,
 ////        eventListener: ValueEventListener
 ////    ) {
 ////        FirebaseDatabase.getInstance()
-////            .getReference(reference)
+////            .getreff(reff)
 ////            .orderByChild(search)
 ////            .startAt(value)
 ////            .endAt(value + "\uf8ff")
@@ -175,45 +175,45 @@ package com.exomatik.baseapplication.utils
 ////    }
 //
 //    fun refreshDataWith1ChildObject1(
-//        reference: String,
+//        reff: String,
 //        id: String,
 //        eventListener: ValueEventListener
 //    ) {
 //        this.refreshData = eventListener
 //        query = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(id)
 //        query.addValueEventListener(refreshData)
 //    }
 //
 //    fun refreshDataWith2ChildObject1(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        id: String,
 //        eventListener: ValueEventListener
 //    ) {
 //        this.refreshData2 = eventListener
 //        query2 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child)
 //            .child(id)
 //        query2.addValueEventListener(refreshData2)
 //    }
 //
 //    fun refreshDataWith3ChildObject1(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        eventListener: ValueEventListener
 //    ) {
 //        this.refreshData3 = eventListener
 //        query3 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child)
 //        query3.addValueEventListener(refreshData3)
 //    }
 //
 //    fun refreshDataUserChatWith2Child(
-//        reference: String,
+//        reff: String,
 //        search: String,
 //        value: String?,
 //        eventListener: ValueEventListener
@@ -221,14 +221,14 @@ package com.exomatik.baseapplication.utils
 //        this.refreshDataUserChat = eventListener
 //
 //        queryDataUserChat = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .orderByChild(search)
 //            .equalTo(value)
 //        queryDataUserChat.addValueEventListener(refreshDataUserChat)
 //    }
 //
 //    fun refreshDataChatWith2Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        idChat: String,
 //        eventListener: ChildEventListener
@@ -236,14 +236,14 @@ package com.exomatik.baseapplication.utils
 //        this.refreshDataChat = eventListener
 //
 //        queryDataChat = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .child(idChat)
 //        queryDataChat.addChildEventListener(refreshDataChat)
 //    }
 //
 //    fun refresh2ListChatWith1Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        search: String,
 //        value: String?,
@@ -252,7 +252,7 @@ package com.exomatik.baseapplication.utils
 //        this.refreshListChat2 = eventListener
 //
 //        queryListChat2 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -260,7 +260,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refresh3ListChatWith1Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        search: String,
 //        value: String?,
@@ -269,7 +269,7 @@ package com.exomatik.baseapplication.utils
 //        this.refreshListChat3 = eventListener
 //
 //        queryListChat3 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -277,7 +277,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refresh4ListChatWith1Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        search: String,
 //        value: String?,
@@ -286,7 +286,7 @@ package com.exomatik.baseapplication.utils
 //        this.refreshListChat4 = eventListener
 //
 //        queryListChat4 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -294,7 +294,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refresh5ListChatWith1Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        search: String,
 //        value: String?,
@@ -303,7 +303,7 @@ package com.exomatik.baseapplication.utils
 //        this.refreshListChat5 = eventListener
 //
 //        queryListChat5 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -311,7 +311,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refresh6ListChatWith1Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        search: String,
 //        value: String?,
@@ -320,7 +320,7 @@ package com.exomatik.baseapplication.utils
 //        this.refreshListChat6 = eventListener
 //
 //        queryListChat6 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -328,7 +328,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refreshGetIdChatWith2Child(
-//        reference: String,
+//        reff: String,
 //        child1: String,
 //        idChat: String,
 //        eventListener: ValueEventListener
@@ -336,14 +336,14 @@ package com.exomatik.baseapplication.utils
 //        this.refreshIdChat = eventListener
 //
 //        queryIdChat = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child1)
 //            .child(idChat)
 //        queryIdChat.addValueEventListener(refreshIdChat)
 //    }
 //
 //    fun refreshNotifJadwalWith2Child(
-//        reference: String,
+//        reff: String,
 //        search: String,
 //        value: String,
 //        eventListener: ValueEventListener
@@ -351,14 +351,14 @@ package com.exomatik.baseapplication.utils
 //        this.refreshNotifJadwal1 = eventListener
 //
 //        queryNotifJadwal1 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .orderByChild(search)
 //            .equalTo(value)
 //        queryNotifJadwal1.addValueEventListener(refreshNotifJadwal1)
 //    }
 //
 //    fun refreshNotif2JadwalWith2Child(
-//        reference: String,
+//        reff: String,
 //        search: String,
 //        value: String?,
 //        eventListener: ValueEventListener
@@ -366,14 +366,14 @@ package com.exomatik.baseapplication.utils
 //        this.refreshNotifJadwal2 = eventListener
 //
 //        queryNotifJadwal2 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .orderByChild(search)
 //            .equalTo(value)
 //        queryNotifJadwal2.addValueEventListener(refreshNotifJadwal2)
 //    }
 //
 //    fun refreshAfiliasi1DataWith2ChildObject(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        search: String,
 //        value: String?,
@@ -381,7 +381,7 @@ package com.exomatik.baseapplication.utils
 //    ) {
 //        this.refreshDataAfiliasi = eventListener
 //        queryAfiliasi = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child)
 //            .orderByChild(search)
 //            .equalTo(value)
@@ -389,14 +389,14 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun refreshAfiliasi2DataWith2ChildObject(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        value: String,
 //        eventListener: ValueEventListener
 //    ) {
 //        this.refreshDataAfiliasi2 = eventListener
 //        queryAfiliasi2 = FirebaseDatabase.getInstance()
-//            .getReference(reference)
+//            .getreff(reff)
 //            .child(child)
 //            .child(value)
 //        queryAfiliasi2.addValueEventListener(eventListener)
@@ -431,12 +431,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueObject(
-//        reference: String, child: String, data: Any
+//        reff: String, child: String, data: Any
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .setValue(data)
 //            .addOnCompleteListener(onCompleteListener)
@@ -444,24 +444,24 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith0ChildObject(
-//        reference: String, data: Any
+//        reff: String, data: Any
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .setValue(data)
 //            .addOnCompleteListener(onCompleteListener)
 //            .addOnFailureListener(onFailureListener)
 //    }
 //
 //    fun setValueWith1ChildObject(
-//        reference: String, child: String, data: Any
+//        reff: String, child: String, data: Any
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .setValue(data)
 //            .addOnCompleteListener(onCompleteListener)
@@ -469,12 +469,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith2ChildObject(
-//        reference: String, child: String, child2: String, data: Any
+//        reff: String, child: String, child2: String, data: Any
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .setValue(data)
@@ -483,12 +483,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith3ChildObject(
-//        reference: String, child: String, child2: String, child3: String, data: Any
+//        reff: String, child: String, child2: String, child3: String, data: Any
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .child(child3)
@@ -498,12 +498,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith2ChildString(
-//        reference: String, child: String, child2: String, value: String
+//        reff: String, child: String, child2: String, value: String
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .setValue(value)
@@ -512,12 +512,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith3ChildBoolean(
-//        reference: String, child: String, child2: String, child3: String, value: Boolean
+//        reff: String, child: String, child2: String, child3: String, value: Boolean
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .child(child3)
@@ -527,12 +527,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith3ChildString(
-//        reference: String, child: String, child2: String, child3: String, value: String
+//        reff: String, child: String, child2: String, child3: String, value: String
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .child(child3)
@@ -542,7 +542,7 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun setValueWith4ChildString(
-//        reference: String,
+//        reff: String,
 //        child: String,
 //        child2: String,
 //        child3: String,
@@ -554,7 +554,7 @@ package com.exomatik.baseapplication.utils
 //        onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .child(child3)
@@ -565,12 +565,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun deleteValueWith3Child(
-//        reference: String, child: String, child2: String, child3: String
+//        reff: String, child: String, child2: String, child3: String
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .child(child3)
@@ -580,12 +580,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun deleteValueWith2Child(
-//        reference: String, child: String, child2: String
+//        reff: String, child: String, child2: String
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .child(child2)
 //            .removeValue()
@@ -594,12 +594,12 @@ package com.exomatik.baseapplication.utils
 //    }
 //
 //    fun deleteValueWith1Child(
-//        reference: String, child: String
+//        reff: String, child: String
 //        , onCompleteListener: OnCompleteListener<Void>
 //        , onFailureListener: OnFailureListener
 //    ) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(reference)
+//        database.getreff(reff)
 //            .child(child)
 //            .removeValue()
 //            .addOnCompleteListener(onCompleteListener)
@@ -608,34 +608,34 @@ package com.exomatik.baseapplication.utils
 //
 //    fun deleteNotif(idNotif: String) {
 //        database = FirebaseDatabase.getInstance()
-//        database.getReference(referenceNotif)
+//        database.getreff(reffNotif)
 //            .child(idNotif)
 //            .removeValue()
 //    }
 //
 //    fun deleteUrlFoto(url: String) {
-//        val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(url)
+//        val storageRef = FirebaseStorage.getInstance().getreffFromUrl(url)
 //        storageRef.delete()
 //    }
 //
 //    fun simpanFoto(
-//        reference: String, id: String, image: Uri
+//        reff: String, id: String, image: Uri
 //        , onSuccessListener: OnSuccessListener<UploadTask.TaskSnapshot>
 //        , onFailureListener: OnFailureListener
 //    ) {
-//        val mStorageRef = FirebaseStorage.getInstance().reference
-//        mStorageRef.child("$reference/$id").putFile(image)
+//        val mStorageRef = FirebaseStorage.getInstance().reff
+//        mStorageRef.child("$reff/$id").putFile(image)
 //            .addOnSuccessListener(onSuccessListener)
 //            .addOnFailureListener(onFailureListener)
 //    }
 //
 //    fun simpanFoto3Child(
-//        reference: String, child: String, child2: String, id: String, image: Uri
+//        reff: String, child: String, child2: String, id: String, image: Uri
 //        , onSuccessListener: OnSuccessListener<UploadTask.TaskSnapshot>
 //        , onFailureListener: OnFailureListener
 //    ) {
-//        val mStorageRef = FirebaseStorage.getInstance().reference
-//        mStorageRef.child("$reference/$child/$child2/$id").putFile(image)
+//        val mStorageRef = FirebaseStorage.getInstance().reff
+//        mStorageRef.child("$reff/$child/$child2/$id").putFile(image)
 //            .addOnSuccessListener(onSuccessListener)
 //            .addOnFailureListener(onFailureListener)
 //    }
