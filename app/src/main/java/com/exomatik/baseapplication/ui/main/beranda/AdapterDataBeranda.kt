@@ -8,25 +8,28 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.request.CachePolicy
 import com.exomatik.baseapplication.R
-import com.exomatik.baseapplication.model.ModelUser
+import com.exomatik.baseapplication.model.ModelBarang
 import com.exomatik.baseapplication.utils.Constant.defaultTempFoto
 import com.exomatik.baseapplication.utils.onClickFoto
 import kotlinx.android.synthetic.main.item_kontak.view.*
 
 class AdapterDataBeranda(
-    private val listAfiliasi: ArrayList<ModelUser>,
-    private val onClik: (ModelUser) -> Unit,
+    private val listAfiliasi: ArrayList<ModelBarang>,
+    private val onClik: (ModelBarang) -> Unit,
     private val navController: NavController
 ) : RecyclerView.Adapter<AdapterDataBeranda.AfiliasiHolder>() {
 
-    inner class AfiliasiHolder(private val itemAfiliasi: View) :
-        RecyclerView.ViewHolder(itemAfiliasi) {
+    inner class AfiliasiHolder(private val item: View) :
+        RecyclerView.ViewHolder(item) {
         fun bindAfiliasi(
-            itemData: ModelUser,
-            onClik: (ModelUser) -> Unit) {
+            itemData: ModelBarang,
+            onClik: (ModelBarang) -> Unit) {
 
-            itemAfiliasi.textNama.text = itemData.nama
-            itemAfiliasi.imgFoto.load(defaultTempFoto) {
+            item.textNama.text = itemData.nama
+            item.textDesc.text = itemData.jenis
+            item.textLokasi.text = itemData.harga.toString()
+
+            item.imgFoto.load(defaultTempFoto) {
                 crossfade(true)
                 placeholder(R.drawable.ic_camera_white)
                 error(R.drawable.ic_camera_white)
@@ -34,12 +37,12 @@ class AdapterDataBeranda(
                 memoryCachePolicy(CachePolicy.ENABLED)
             }
 
-            itemAfiliasi.imgFoto.setOnClickListener {
+            item.imgFoto.setOnClickListener {
                 onClickFoto(defaultTempFoto,
                     navController)
             }
 
-            itemAfiliasi.setOnClickListener {
+            item.setOnClickListener {
                 onClik(itemData)
             }
         }

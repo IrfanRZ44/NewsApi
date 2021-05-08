@@ -30,7 +30,6 @@ class BerandaFragment : BaseFragmentBind<FragmentBerandaBinding>() {
         viewModel = BerandaViewModel(bind.rvData, context, findNavController())
         bind.viewModel = viewModel
         viewModel.initAdapter()
-        viewModel.setData()
 
         bind.btnCreate.setOnClickListener {
             viewModel.createBarang(ModelBarang(0, "Teh Dingin", "Minuman", 3000))
