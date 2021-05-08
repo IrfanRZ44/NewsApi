@@ -1,13 +1,24 @@
 package com.exomatik.baseapplication.ui.main.beranda
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.exomatik.baseapplication.base.BaseViewModel
+import com.exomatik.baseapplication.model.ModelBarang
 import com.exomatik.baseapplication.model.ModelUser
+import com.exomatik.baseapplication.model.response.ModelResponseBarang
+import com.exomatik.baseapplication.utils.Constant
 import com.exomatik.baseapplication.utils.Constant.noData
+import com.exomatik.baseapplication.utils.RetrofitUtils
+import com.exomatik.baseapplication.utils.showLog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+@SuppressLint("StaticFieldLeak")
 class BerandaViewModel(
     private val rcData: RecyclerView,
     private val context: Context?,
@@ -93,5 +104,63 @@ class BerandaViewModel(
 
     private fun onClickItem(data: ModelUser) {
         message.value = data.nama
+    }
+
+    fun createBarang(dataBarang: ModelBarang){
+        RetrofitUtils.createBarang(dataBarang,
+            object : Callback<ModelResponseBarang> {
+                override fun onResponse(
+                    call: Call<ModelResponseBarang>,
+                    response: Response<ModelResponseBarang>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        message.value = "Berhasil membuat data"
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseBarang>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
+    }
+
+    fun getBarang(){
+        RetrofitUtils.getBarang(
+            object : Callback<ModelResponseBarang> {
+                override fun onResponse(
+                    call: Call<ModelResponseBarang>,
+                    response: Response<ModelResponseBarang>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        message.value = "Berhasil mengambil data"
+                        showLog(result.data.toString())
+                        Toast.makeText(context, result.data.toString(), Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseBarang>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
     }
 }

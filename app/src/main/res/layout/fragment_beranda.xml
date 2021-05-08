@@ -22,10 +22,8 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
@@ -70,6 +68,23 @@
                     showTextStatus="@{viewModel.status}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_h2" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnCreate"
+                    android:text="@string/create"
+                    android:layout_below="@+id/textStatus"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnGet"
+                    android:text="@string/get"
+                    android:layout_toEndOf="@+id/btnCreate"
+                    android:layout_below="@+id/textStatus"
+                    />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 

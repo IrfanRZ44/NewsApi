@@ -22,8 +22,16 @@ object Constant {
     const val reffJenisAkun = "jenisAkun"
     const val reffActiveAccount = "activeAkun"
     const val reffBookmark= "Bookmark"
+    const val reffCreateBarang = "createBarang"
+    const val reffUpdateBarang = "updateBarang"
+    const val reffGetBarang = "getBarang"
+    const val reffDeleteBarang = "deleteBarang"
 
     const val reffFotoUser = "fotoUser"
+    const val reffURL = "https://admin-tokobonus.com"
+    const val reffBaseURL = "$reffURL/api/"
+
+    const val reffSuccess = "Success"
 
     const val codeRequestFoto = 100
     const val codeRequestGallery = 1

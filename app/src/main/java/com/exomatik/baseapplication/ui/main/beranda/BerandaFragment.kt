@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.exomatik.baseapplication.R
 import com.exomatik.baseapplication.base.BaseFragmentBind
 import com.exomatik.baseapplication.databinding.FragmentBerandaBinding
+import com.exomatik.baseapplication.model.ModelBarang
 
 class BerandaFragment : BaseFragmentBind<FragmentBerandaBinding>() {
     private lateinit var viewModel: BerandaViewModel
@@ -30,6 +31,14 @@ class BerandaFragment : BaseFragmentBind<FragmentBerandaBinding>() {
         bind.viewModel = viewModel
         viewModel.initAdapter()
         viewModel.setData()
+
+        bind.btnCreate.setOnClickListener {
+            viewModel.createBarang(ModelBarang(0, "Teh Dingin", "Minuman", 3000))
+        }
+
+        bind.btnGet.setOnClickListener {
+            viewModel.getBarang()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
