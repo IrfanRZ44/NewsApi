@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">BaseApplication</string>
-    <string name="base_application">Base Application</string>
+    <string name="app_name">Merchant</string>
+    <string name="base_application">Merchant</string>
 
     <string name="text_all_right_reserved">Ahlan Wa Sahlan</string>
     <string name="selamat_datang">Selamat Datang</string>
@@ -19,6 +19,11 @@
     <string name="have_account">Sudah punya akun?</string>
     <string name="enter_code">Masukkan Kode Verifikasi</string>
     <string name="username">Username</string>
+
+    <string name="digitsPhone">1234567890</string>
+    <string name="digitsUsername">asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM_1234567890.</string>
+    <string name="digitsEmail">asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM_1234567890@.-</string>
+    <string name="google_maps_key">AIzaSyBLxi2hOlCnGFxXZUVLzEAflzJioUz47aw</string>
 
     <string name="silahkan_pilih_jenis_akun_yang_akan_anda_buat">Silahkan pilih jenis akun yang akan Anda Buat</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -123,4 +128,32 @@
     <string name="authentication">Authentication</string>
     <string name="create">Create</string>
     <string name="get">Get</string>
+    <string name="merchant">Merchant</string>
+    <string name="silahkan_mendaftar_untuk_dapat_mulai_menggunakan_aplikasi">Silahkan mendaftar untuk dapat mulai menggunakan aplikasi</string>
+    <string name="foto_profil">Foto Profil</string>
+    <string name="informasi_merchant">Informasi Merchant</string>
+    <string name="nama_merchant">Nama Merchant</string>
+    <string name="nomor_hp_pemilik_contoh_0852xxxx">Nomor HP pemilik contoh: 0813xxxx</string>
+    <string name="nomor_wa_pemilik_contoh_0852xxxx">Nomor Whatsapp pemilik contoh: 0813xxxx</string>
+    <string name="nomor_hp_merchant_contoh_0852xxxx">Nomor HP merchant contoh: 0813xxxx</string>
+    <string name="nomor_wa_merchant_contoh_0852xxxx">Nomor Whatsapp merchant contoh: 0813xxxx</string>
+    <string name="pick_tanggal_lahir">Pilih Tanggal Lahir</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="kata_sandi_confirm">Konfirmasi Kata Sandi</string>
+    <string name="informasi_pemilik">Informasi Pemilik</string>
+    <string name="email_merchant">Email Merchant</string>
+    <string name="cluster">Cluster</string>
+    <string name="pick_tanggal_peresmian">Pilih Tanggal Peresmian Merchant</string>
+    <string name="gps">GPS</string>
+    <string name="titik_lokasi">Titik Lokasi(Tekan GPS)</string>
+    <string name="alamat_merchant_lengkap">Alamat Merchant(Jalan/Kompleks/Blok/DLL)</string>
+    <string name="login_user">Login User</string>
+    <string name="login_merchant">Login Merchant</string>
+    <string name="update_aplikasi">Update Aplikasi</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="username_nomor_hp_merchant">Username / Nomor HP Merchant</string>
+    <string name="silahkan_login_untuk_melanjutkan">Silahkan login untuk melanjutkan</string>
+    <string name="pengguna_baru">Pengguna Baru</string>
+
 </resources>

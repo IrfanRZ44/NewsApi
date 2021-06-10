@@ -39,6 +39,7 @@
     <dimen name="_220">220dp</dimen>
     <dimen name="_120">120dp</dimen>
     <dimen name="_100">100dp</dimen>
+    <dimen name="_140">140dp</dimen>
     <dimen name="_150">150dp</dimen>
     <dimen name="_160">160dp</dimen>
     <dimen name="_170">170dp</dimen>
@@ -57,6 +58,7 @@
     <dimen name="_45">45dp</dimen>
     <dimen name="_30">30dp</dimen>
     <dimen name="_25">25dp</dimen>
+    <dimen name="_56">56dp</dimen>
 
     <dimen name="margin_large">50dp</dimen>
     <dimen name="_35">35dp</dimen>

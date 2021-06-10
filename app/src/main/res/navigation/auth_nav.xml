@@ -8,24 +8,43 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.exomatik.baseapplication.ui.auth.splash.SplashFragment"
+        android:name="id.telkomsel.merchant.ui.auth.splash.SplashFragment"
         android:label="@string/splash_screen"
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.exomatik.baseapplication.ui.auth.login.LoginFragment"
+        android:name="id.telkomsel.merchant.ui.auth.login.LoginFragment"
         android:label="@string/login"
         tools:layout="@layout/fragment_login" />
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.exomatik.baseapplication.ui.auth.register.RegisterFragment"
-        android:label="@string/register"
-        tools:layout="@layout/fragment_register"
-        />
-    <fragment
         android:id="@+id/lihatFotoFragment"
-        android:name="com.exomatik.baseapplication.utils.LihatFotoFragment"
+        android:name="id.telkomsel.merchant.utils.LihatFotoFragment"
         android:label="@string/foto"
         tools:layout="@layout/fragment_lihat_foto"
         />
+    <fragment
+        android:id="@+id/registerMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.auth.registerMerchant.RegisterMerchantFragment"
+        android:label="fragment_register_merchant"
+        tools:layout="@layout/fragment_register_merchant" />
+    <fragment
+        android:id="@+id/verifyRegisterMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.auth.verifyRegisterMerchant.VerifyRegisterMerchantFragment"
+        android:label="fragment_verify_register_merchant"
+        tools:layout="@layout/fragment_verify_register_merchant" />
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="id.telkomsel.merchant.ui.auth.landing.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" />
+    <fragment
+        android:id="@+id/loginMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.auth.loginMerchant.LoginMerchantFragment"
+        android:label="fragment_login_merchant"
+        tools:layout="@layout/fragment_login_merchant" />
+    <fragment
+        android:id="@+id/updateRegisterMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.auth.updateRegisterMerchant.UpdateRegisterMerchantFragment"
+        android:label="fragment_update_register_merchant"
+        tools:layout="@layout/fragment_update_register_merchant" />
 </navigation>

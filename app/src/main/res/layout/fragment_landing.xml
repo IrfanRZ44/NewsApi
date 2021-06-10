@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="id.telkomsel.merchant.ui.auth.landing.LandingFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="id.telkomsel.merchant.ui.auth.landing.LandingViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:theme="@style/CustomStyle"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/_120"
+            android:layout_height="@dimen/_120"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_40"
+            android:layout_marginBottom="@dimen/h2"
+            android:padding="@dimen/h2"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textApp"
+            style="@style/textStandardWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/black_stroke"
+            android:text="@string/app_name"
+            android:textColor="@color/red1"
+            android:textSize="@dimen/text_super_large" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/merchant"
+            style="@style/textStandardWhite"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_h3"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textApp"
+            android:fontFamily="@font/roboto_regular"
+            android:id="@+id/textInformasi"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textWelcome"
+            style="@style/textStandardWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInformasi"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_30"
+            android:text="@string/selamat_datang"
+            android:textColor="@color/gray3"
+            android:textSize="@dimen/text_h4"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            style="@style/CustomButtonOutlineBlue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textWelcome"
+            android:layout_marginLeft="@dimen/h5"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginRight="@dimen/h5"
+            android:fontFamily="@font/roboto_regular"
+            android:padding="@dimen/h3"
+            android:text="@string/login_user"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_h2"
+            android:onClick="@{()-> viewModel.onClickUser()}"
+            android:visibility="gone"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/buttonStandardRed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogin"
+            android:layout_margin="@dimen/h5"
+            android:layout_marginTop="@dimen/h5"
+            android:fontFamily="@font/roboto_regular"
+            android:padding="@dimen/h3"
+            android:text="@string/login_merchant"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_h2"
+            android:onClick="@{()-> viewModel.onClickMerchant()}"
+            />
+    </RelativeLayout>
+</layout>

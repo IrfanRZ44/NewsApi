@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/h3"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:nestedScrollingEnabled="false"
+    android:theme="@style/CustomTheme"
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:text="@string/pick_alamat"
+        android:textSize="@dimen/text_h5"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/h3"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTitle"
+        />
+    <com.google.android.gms.maps.MapView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:id="@+id/mapViewPick"
+        android:apiKey="@string/google_maps_key"
+        android:layout_below="@+id/textTitle"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="@dimen/_60"
+        android:layout_height="@dimen/_60"
+        android:layout_marginEnd="@dimen/h3"
+        android:layout_marginBottom="@dimen/h5"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_true_white"
+        app:fabCustomSize="@dimen/_60"
+        android:layout_above="@+id/text"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnMap"
+        android:tint="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        android:contentDescription="@string/pick_alamat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginStart="@dimen/h6"
+        android:layout_marginEnd="@dimen/h6"
+        android:layout_marginTop="@dimen/h3"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="@dimen/text_h3"
+        android:textColor="@color/gray2"
+        android:text="@string/silahkan_pick_alamat_anda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mapViewPick"
+        android:id="@+id/text"
+        />
+
+</RelativeLayout>
