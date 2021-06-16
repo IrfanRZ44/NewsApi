@@ -132,11 +132,14 @@
     <string name="silahkan_mendaftar_untuk_dapat_mulai_menggunakan_aplikasi">Silahkan mendaftar untuk dapat mulai menggunakan aplikasi</string>
     <string name="foto_profil">Foto Profil</string>
     <string name="informasi_merchant">Informasi Merchant</string>
+    <string name="informasi_admin">Informasi Admin</string>
     <string name="nama_merchant">Nama Merchant</string>
     <string name="nomor_hp_pemilik_contoh_0852xxxx">Nomor HP pemilik contoh: 0813xxxx</string>
     <string name="nomor_wa_pemilik_contoh_0852xxxx">Nomor Whatsapp pemilik contoh: 0813xxxx</string>
     <string name="nomor_hp_merchant_contoh_0852xxxx">Nomor HP merchant contoh: 0813xxxx</string>
     <string name="nomor_wa_merchant_contoh_0852xxxx">Nomor Whatsapp merchant contoh: 0813xxxx</string>
+    <string name="nomor_hp_admin_contoh_0852xxxx">Nomor HP admin contoh: 0813xxxx</string>
+    <string name="nomor_wa_admin_contoh_0852xxxx">Nomor Whatsapp admin contoh: 0813xxxx</string>
     <string name="pick_tanggal_lahir">Pilih Tanggal Lahir</string>
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="kata_sandi">Kata Sandi</string>
@@ -148,12 +151,27 @@
     <string name="gps">GPS</string>
     <string name="titik_lokasi">Titik Lokasi(Tekan GPS)</string>
     <string name="alamat_merchant_lengkap">Alamat Merchant(Jalan/Kompleks/Blok/DLL)</string>
+    <string name="alamat_admin_lengkap">Alamat Admin(Jalan/Kompleks/Blok/DLL)</string>
     <string name="login_user">Login User</string>
     <string name="login_merchant">Login Merchant</string>
     <string name="update_aplikasi">Update Aplikasi</string>
     <string name="welcome">Selamat Datang</string>
     <string name="username_nomor_hp_merchant">Username / Nomor HP Merchant</string>
     <string name="silahkan_login_untuk_melanjutkan">Silahkan login untuk melanjutkan</string>
-    <string name="pengguna_baru">Pengguna Baru</string>
+    <string name="pengguna_baru">Pengguna Baru?</string>
+    <string name="login_2">Login</string>
+    <string name="ayo_mulai">Ayo Mulai!</string>
+    <string name="sudah_punya_akun">Sudah punya akun?</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="nilai_kami">Nilai Kami</string>
 
+    <string name="kata_sandi_old">Kata Sandi Lama</string>
+    <string name="kata_sandi_new">Kata Sandi Baru</string>
+    <string name="kata_sandi_confirm_new">Konfirmasi Kata Sandi Baru</string>
+    <string name="simpan">Simpan</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="kami_akan_mengirimkan_kode_otp_ke_nomor_hp_merchant_untuk_memverifikasi_akun_anda">Kami akan mengirimkan kode OTP ke nomor HP Merchant untuk memverifikasi akun Anda</string>
+    <string name="nama_admin">Nama Admin</string>
+    <string name="email_admin">Email Admin</string>
+    <string name="daftar">Daftar</string>
 </resources>

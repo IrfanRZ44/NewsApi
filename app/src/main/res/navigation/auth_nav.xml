@@ -47,4 +47,19 @@
         android:name="id.telkomsel.merchant.ui.auth.updateRegisterMerchant.UpdateRegisterMerchantFragment"
         android:label="fragment_update_register_merchant"
         tools:layout="@layout/fragment_update_register_merchant" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="id.telkomsel.merchant.ui.auth.changePassword.ChangePasswordFragment"
+        android:label="fragment_change_password_merchant"
+        tools:layout="@layout/fragment_change_password_merchant" />
+    <fragment
+        android:id="@+id/forgetPasswordMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.auth.forgetPasswordMerchant.ForgetPasswordMerchantFragment"
+        android:label="fragment_forget_password_merchant"
+        tools:layout="@layout/fragment_forget_password_merchant" />
+    <fragment
+        android:id="@+id/verifyForgetPasswordFragment"
+        android:name="id.telkomsel.merchant.ui.auth.verifyForgetPassword.VerifyForgetPasswordFragment"
+        android:label="fragment_verify_forget_password"
+        tools:layout="@layout/fragment_verify_forget_password" />
 </navigation>

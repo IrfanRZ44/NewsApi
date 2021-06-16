@@ -455,6 +455,11 @@ class RegisterMerchantViewModel(
         editText.findFocus()
     }
 
+    fun onClickLogin(){
+        activity?.let { dismissKeyboard(it) }
+        navController.popBackStack()
+    }
+
     fun onClickRegisterMerchant(){
         setNullError()
         activity?.let { dismissKeyboard(it) }

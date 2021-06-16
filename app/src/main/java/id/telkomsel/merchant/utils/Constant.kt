@@ -10,13 +10,18 @@ object Constant {
     const val reffCreateMerchant = "createMerchant"
     const val reffUpdateMerchant = "updateMerchant"
     const val reffValidateNewMerchant = "validateNewMerchant"
+    const val reffUpdatePassword = "updatePasswordMerchant"
+    const val reffLogoutMerchant = "logoutMerchant"
+    const val reffGetDataMerchant = "getDataMerchant"
+    const val reffForgetPasswordMerchantUsername = "forgetPasswordMerchantUsername"
+    const val reffForgetPasswordMerchantPhone = "forgetPasswordMerchantPhone"
 
     const val reffProvinsi = "getProvinsi"
     const val reffKabupaten = "getKabupatenByProvinsi"
     const val reffKecamatan = "getKecamatanByKabupaten"
     const val reffKelurahan = "getKelurahanByKecamatan"
     const val reffInfoApps = "getInfoApps"
-    const val reffCheckToken = "checkToken"
+    const val reffCheckToken = "checkTokenMerchant"
 
     const val reffDataModel = "dataModel"
     const val reffId = "id"
@@ -73,6 +78,7 @@ object Constant {
     const val yakin = "Yakin"
     const val yakinBatal = "Yakin ingin membatalkan permintaan?"
     const val iya = "Iya"
+    const val baik = "Baik"
     const val batal = "Batal"
     const val tolak = "TOLAK"
     const val statusVerifikasi = "statusVerifikasi"
@@ -96,6 +102,7 @@ object Constant {
     const val pending = "pending"
     const val switch = "switch"
     const val request = "request"
+
     const val rejected = "rejected"
     const val inactive = "inactive"
     const val read = "read"
@@ -112,6 +119,13 @@ object Constant {
     const val levelSBP = "SBP"
     const val levelCSO = "CSO"
     const val levelMerchant = "Merchant"
+
+    const val requestMerchant = "Request Merchant"
+    const val pendaftaranMerchant = "Request Merchant"
+    const val tervalidasiMerchant = "Tervalidasi Merchant"
+    const val requestProduk = "Tervalidasi Produk"
+    const val tervalidasiProduk = "Request Produk"
+    const val akun = "Akun"
 
     const val dataModelFotoProfil = "FotoProfil"
 

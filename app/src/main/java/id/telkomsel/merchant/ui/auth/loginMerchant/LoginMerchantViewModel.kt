@@ -26,6 +26,7 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.showLog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,9 +74,8 @@ class LoginMerchantViewModel(
     }
 
     fun onClickForgetPassword(){
-        message.value = "Change Password"
-//        activity?.let { dismissKeyboard(it) }
-//        navController.navigate(R.id.forgetPasswordMerchantFragment)
+        activity?.let { dismissKeyboard(it) }
+        navController.navigate(R.id.forgetPasswordMerchantFragment)
     }
 
     fun onClickLogin(){
@@ -116,15 +116,20 @@ class LoginMerchantViewModel(
             OnCompleteListener<InstanceIdResult> { result ->
                 if (result.isSuccessful) {
                     try {
-                        val tkn = result.result?.token
-                            ?: throw Exception("Error, kesalahan saat menyimpan token")
+                        val tkn = result.result?.token ?: throw Exception("Error, kesalahan saat menyimpan token")
 
-                        if (textInput.take(1) == "0"){
-                            val phone = textInput.replaceFirst("0", "+62")
-                            loginMerchantPhone(phone, password, tkn)
-                        }
-                        else{
-                            loginMerchantUsername(textInput, password, tkn)
+                        when {
+                            textInput.take(1) == "0" -> {
+                                val phone = textInput.replaceFirst("0", "+62")
+                                loginMerchantPhone(phone, password, tkn)
+                            }
+                            textInput.take(3) == "+62" -> {
+                                val phone = textInput.replaceFirst("0", "+62")
+                                loginMerchantPhone(phone, password, tkn)
+                            }
+                            else -> {
+                                loginMerchantUsername(textInput, password, tkn)
+                            }
                         }
                     } catch (e: Exception) {
                         isShowLoading.value = false

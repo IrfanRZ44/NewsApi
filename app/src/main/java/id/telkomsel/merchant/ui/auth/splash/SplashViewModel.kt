@@ -13,6 +13,7 @@ import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponseInfoApps
 import id.telkomsel.merchant.model.response.ModelResponseMerchant
+import id.telkomsel.merchant.ui.admin.AdminActivity
 import id.telkomsel.merchant.ui.main.MainActivity
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
@@ -67,7 +68,7 @@ class SplashViewModel(
 
                     when (savedData?.getDataMerchant()?.level) {
                         Constant.levelMerchant -> {
-                            val intent = Intent(activity, MainActivity::class.java)
+                            val intent = Intent(activity, AdminActivity::class.java)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }
@@ -119,10 +120,10 @@ class SplashViewModel(
                             checkSavedData()
                         }
                         else{
-                            message.value = "Mohon update versi aplikasi ke ${result.dataApps?.version_apps}"
+                            message.value = "Terjadi kesalahan, mohon update versi aplikasi ke ${result.dataApps?.version_apps}"
                             isShowUpdate.value = true
                             try {
-                                linkDownload = result.dataApps?.link?:throw Exception("Error, gagal mendapatkan link aplikasi")
+                                linkDownload = result.dataApps?.link?:throw Exception("Terjadi kesalahan, gagal mendapatkan link aplikasi")
                             }catch (e: Exception){
                                 message.value = e.message
                             }
@@ -139,8 +140,13 @@ class SplashViewModel(
                     t: Throwable
                 ) {
                     isShowLoading.value = false
-                    message.value = t.message
-                    isShowUpdate.value = true
+                    val msg = t.message
+                    if (msg != null && msg.contains("Failed to connect to")){
+                        message.value = "Terjadi kesalahan, mohon periksa koneksi internet Anda"
+                    }
+                    else{
+                        message.value = t.message
+                    }
                 }
             })
     }
@@ -148,7 +154,7 @@ class SplashViewModel(
     fun onClickUpdate(){
         try {
             if (linkDownload.isEmpty()){
-                message.value = "Error, link download aplikasi tidak ditemukan"
+                message.value = "Terjadi kesalahan, link download aplikasi tidak ditemukan"
             }
             else{
                 val defaultBrowser = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)

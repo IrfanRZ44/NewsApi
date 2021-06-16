@@ -51,6 +51,10 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
 
     private fun init(savedInstanceState: Bundle?){
         bind.lifecycleOwner = this
+        bind.etTitikLokasi.editText?.keyListener = null
+        bind.etTglLahir.editText?.keyListener = null
+        bind.etTglPeresmian.editText?.keyListener = null
+
         viewModel = UpdateRegisterMerchantViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,

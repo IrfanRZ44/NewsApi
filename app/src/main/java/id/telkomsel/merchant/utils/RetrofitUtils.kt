@@ -85,6 +85,7 @@ object RetrofitUtils{
             dataMerchant.no_wa_merchant, dataMerchant.email_merchant,
             dataMerchant.nama_lengkap, dataMerchant.tgl_lahir,
             dataMerchant.no_hp_pemilik, dataMerchant.no_wa_pemilik,
+            dataMerchant.status_merchant
         )
         call.enqueue(callback)
     }
@@ -96,6 +97,33 @@ object RetrofitUtils{
 
     fun loginMerchantUsername(username: String, password: String, token: String, callback: Callback<ModelResponseMerchant>){
         val call = api.loginMerchantUsername(username, password, token)
+        call.enqueue(callback)
+    }
+
+    fun logoutMerchant(username: String, callback: Callback<ModelResponse>){
+        val call = api.logoutMerchant(username)
+        call.enqueue(callback)
+    }
+
+    fun updatePassword(id: Int,
+                       passwordNew: String,
+                       callback: Callback<ModelResponse>){
+        val call = api.updatePassword(id, passwordNew)
+        call.enqueue(callback)
+    }
+
+    fun getDataMerchant(username: String, callback: Callback<ModelResponseMerchant>){
+        val call = api.getDataMerchant(username)
+        call.enqueue(callback)
+    }
+
+    fun forgetPasswordMerchantUsername(username: String, callback: Callback<ModelResponseMerchant>){
+        val call = api.forgetPasswordMerchantUsername(username)
+        call.enqueue(callback)
+    }
+
+    fun forgetPasswordMerchantPhone(phone: String, callback: Callback<ModelResponseMerchant>){
+        val call = api.forgetPasswordMerchantPhone(phone)
         call.enqueue(callback)
     }
 }

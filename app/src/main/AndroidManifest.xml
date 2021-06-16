@@ -34,7 +34,13 @@
             android:name=".ui.main.MainActivity"
             android:label="@string/main_activity"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomTheme"/>
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".ui.admin.AdminActivity"
+            android:label="@string/main_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

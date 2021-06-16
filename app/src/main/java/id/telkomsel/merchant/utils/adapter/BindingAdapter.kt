@@ -138,6 +138,8 @@ fun showTextStatus(appCompatTextView: AppCompatTextView, message: String?) {
                 appCompatTextView.setTextColor(Color.parseColor("#d32f2f"))
             } else if (message.contains("belum")){
                 appCompatTextView.setTextColor(Color.parseColor("#757575"))
+            } else if (message.contains("Terjadi kesalahan")){
+                appCompatTextView.setTextColor(Color.parseColor("#ffffff"))
             } else{
                 appCompatTextView.setTextColor(Color.parseColor("#757575"))
             }

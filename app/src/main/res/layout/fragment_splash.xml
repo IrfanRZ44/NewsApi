@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/bg_merchant"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -19,26 +19,14 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             style="@style/textStandardWhite"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
             android:textSize="48sp"
             android:textStyle="bold"
             android:textAllCaps="true"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_130"
+            android:layout_marginStart="@dimen/h5"
             android:fontFamily="@font/black_stroke"
             android:id="@+id/textAppName"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/merchant"
-            style="@style/textStandardWhite"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_h3"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textAppName"
-            android:fontFamily="@font/roboto_regular"
-            android:id="@+id/textInformasi"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -46,13 +34,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/btnUpdate"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/h3"
+            android:layout_marginStart="@dimen/_30"
+            android:layout_marginEnd="@dimen/_30"
             android:fontFamily="@font/roboto_regular"
             android:text="@={viewModel.message}"
             showTextStatus="@{viewModel.message}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_h2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_h3"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -66,7 +57,7 @@
             android:drawableEnd="@drawable/ic_update_white"
             android:drawablePadding="@dimen/h2"
             android:id="@+id/btnUpdate"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@+id/textStatus"
             android:layout_centerHorizontal="true"
             android:visibility="gone"
             visible="@{viewModel.isShowUpdate()}"
@@ -81,8 +72,7 @@
             visible="@{viewModel.isShowLoading}"
             android:id="@+id/progress"
             android:visibility="gone"
-            android:layout_below="@+id/textInformasi"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/h2"
             />
     </RelativeLayout>

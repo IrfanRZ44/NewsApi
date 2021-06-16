@@ -108,7 +108,8 @@ interface RetrofitApi {
         @Field("tgl_lahir") tgl_lahir: String,
         @Field("no_hp_pemilik") no_hp_pemilik: String,
         @Field("no_wa_pemilik") no_wa_pemilik: String,
-    ): Call<ModelResponse>
+        @Field("status") status: String
+        ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
@@ -117,6 +118,40 @@ interface RetrofitApi {
         @Field("username") username: String,
         @Field("no_hp_merchant") no_hp_merchant: String
     ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffLogoutMerchant)
+    fun logoutMerchant(
+        @Field("username") username: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdatePassword)
+    fun updatePassword(
+        @Field("id") id: Int,
+        @Field("password_new") password_new: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffGetDataMerchant)
+    fun getDataMerchant(@Field("username") username: String): Call<ModelResponseMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffForgetPasswordMerchantUsername)
+    fun forgetPasswordMerchantUsername(
+        @Field("username") username: String
+    ): Call<ModelResponseMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffForgetPasswordMerchantPhone)
+    fun forgetPasswordMerchantPhone(
+        @Field("phone") phone: String
+    ): Call<ModelResponseMerchant>
 
     companion object {
         const val baseUrl = Constant.reffBaseURL
