@@ -61,6 +61,7 @@
     <dimen name="_56">56dp</dimen>
 
     <dimen name="margin_large">50dp</dimen>
+    <dimen name="_55">55dp</dimen>
     <dimen name="_35">35dp</dimen>
     <dimen name="h6">30dp</dimen>
     <dimen name="h5">20dp</dimen>

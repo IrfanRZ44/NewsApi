@@ -37,12 +37,15 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:tabSelectedTextColor="@color/gray12"
+            android:layout_height="@dimen/_55"
+            app:tabSelectedTextColor="@color/colorPrimary"
             app:tabGravity="fill"
-            app:tabIconTint="@color/gray12"
+            app:tabIconTint="@color/colorPrimary"
             android:layout_alignParentBottom="true"
+            app:tabTextAppearance="@style/CustomTabText"
+            app:tabIndicatorHeight="0dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
             />
     </RelativeLayout>
 </layout>
