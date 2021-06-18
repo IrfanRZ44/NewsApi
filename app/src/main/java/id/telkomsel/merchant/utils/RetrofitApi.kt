@@ -153,6 +153,26 @@ interface RetrofitApi {
         @Field("phone") phone: String
     ): Call<ModelResponseMerchant>
 
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarMerchantByAdmin)
+    fun getDaftarMerchantByAdmin(
+        @Field("cluster") id_branch: String,
+        @Field("userRequest") userRequest: String,
+        @Field("startPage") startPage: Int,
+        @Field("status") status: String,
+        @Field("search") search: String?
+    ): Call<ModelResponseDaftarMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateStatusMerchant)
+    fun updateStatusMerchant(
+        @Field("id") id: Int,
+        @Field("status_merchant") status_merchant: String,
+        @Field("comment") comment: String
+    ): Call<ModelResponse>
+
     companion object {
         const val baseUrl = Constant.reffBaseURL
     }

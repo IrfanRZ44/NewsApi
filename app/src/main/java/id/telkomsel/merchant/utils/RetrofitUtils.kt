@@ -78,8 +78,8 @@ object RetrofitUtils{
 
     fun updateMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.updateMerchant(dataMerchant.id, dataMerchant.nama_merchant,
-            dataMerchant.status_merchant,
-            dataMerchant.alamat_merchant, dataMerchant.latitude, dataMerchant.longitude, dataMerchant.tgl_peresmian_merchant,
+            dataMerchant.alamat_merchant,
+            dataMerchant.status_merchant, dataMerchant.latitude, dataMerchant.longitude, dataMerchant.tgl_peresmian_merchant,
             dataMerchant.provinsi, dataMerchant.kabupaten, dataMerchant.kecamatan, dataMerchant.kelurahan,
             dataMerchant.regional, dataMerchant.branch, dataMerchant.cluster, dataMerchant.no_hp_merchant,
             dataMerchant.no_wa_merchant, dataMerchant.email_merchant,
@@ -124,6 +124,16 @@ object RetrofitUtils{
 
     fun forgetPasswordMerchantPhone(phone: String, callback: Callback<ModelResponseMerchant>){
         val call = api.forgetPasswordMerchantPhone(phone)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarMerchantByAdmin(cluster: String, userRequest: String, startPage: Int, status: String, search: String?, callback: Callback<ModelResponseDaftarMerchant>){
+        val call = api.getDaftarMerchantByAdmin(cluster, userRequest, startPage, status, search)
+        call.enqueue(callback)
+    }
+
+    fun updateStatusMerchant(id: Int, status_merchant: String, comment: String, callback: Callback<ModelResponse>){
+        val call = api.updateStatusMerchant(id, status_merchant, comment)
         call.enqueue(callback)
     }
 }

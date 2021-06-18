@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.telkomsel.merchant.ui.admin.AdminFragment">
+    tools:context="id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.AdminViewModel" />
+            type="id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantViewModel" />
     </data>
 
     <RelativeLayout
@@ -22,31 +22,29 @@
             layout="@layout/progress_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             visible="@{viewModel.isShowLoading}"
             android:visibility="gone"
+            />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40"
+            app:tabSelectedTextColor="@color/white"
+            app:tabGravity="fill"
+            android:layout_alignParentTop="true"
+            app:tabTextAppearance="@style/CustomTabText"
+            app:tabIndicatorHeight="0dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:background="@color/colorPrimary"
             />
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/tabs"
-            />
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_55"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabGravity="fill"
-            app:tabIconTint="@color/colorPrimary"
-            android:layout_alignParentBottom="true"
-            app:tabTextAppearance="@style/CustomTabText"
-            app:tabIndicatorHeight="0dp"
-            android:paddingBottom="0dp"
-            android:paddingTop="0dp"
-            android:background="@color/white"
+            android:layout_below="@+id/tabs"
             />
     </RelativeLayout>
 </layout>

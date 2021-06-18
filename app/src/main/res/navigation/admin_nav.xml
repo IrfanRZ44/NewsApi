@@ -42,4 +42,14 @@
         android:name="id.telkomsel.merchant.ui.admin.accountAdmin.editProfil.EditProfilAdminFragment"
         android:label="fragment_edit_profil_admin"
         tools:layout="@layout/fragment_edit_profil_admin" />
+    <fragment
+        android:id="@+id/tabMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantFragment"
+        android:label="fragment_tab_merchant"
+        tools:layout="@layout/fragment_tab_merchant" />
+    <fragment
+        android:id="@+id/detailMerchantAdminFragment"
+        android:name="id.telkomsel.merchant.ui.admin.detailMerchant.DetailMerchantAdminFragment"
+        android:label="fragment_detail_merchant_admin"
+        tools:layout="@layout/fragment_detail_merchant_admin" />
 </navigation>

@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.admin
+package id.telkomsel.merchant.ui.admin.listMerchant
 
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
@@ -7,16 +7,16 @@ import androidx.viewpager.widget.ViewPager
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.utils.Constant
 import com.google.android.material.tabs.TabLayout
-import id.telkomsel.merchant.databinding.FragmentAdminBinding
+import id.telkomsel.merchant.databinding.FragmentTabMerchantBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.ui.admin.accountAdmin.AccountAdminFragment
-import id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantFragment
-import id.telkomsel.merchant.ui.main.blank1.Blank1Fragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
-class AdminFragment : BaseFragmentBind<FragmentAdminBinding>() {
-    private lateinit var viewModel: AdminViewModel
-    override fun getLayoutResource(): Int = R.layout.fragment_admin
+class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
+    private lateinit var viewModel: TabMerchantViewModel
+    override fun getLayoutResource(): Int = R.layout.fragment_tab_merchant
+    private val requestDaftarMerchant = DaftarMerchantFragment(Constant.statusRequest)
+    private val activeDaftarMerchant = DaftarMerchantFragment(Constant.statusActive)
+    private val declinedDaftarMerchant = DaftarMerchantFragment(Constant.statusDeclined)
 
     override fun myCodeHere() {
         supportActionBar?.show()
@@ -28,7 +28,7 @@ class AdminFragment : BaseFragmentBind<FragmentAdminBinding>() {
 
     private fun init() {
         bind.lifecycleOwner = this
-        viewModel = AdminViewModel()
+        viewModel = TabMerchantViewModel()
         bind.viewModel = viewModel
     }
 
@@ -42,37 +42,31 @@ class AdminFragment : BaseFragmentBind<FragmentAdminBinding>() {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Suppress("DEPRECATION")
     private fun setupViewPager(pager: ViewPager) {
+        supportActionBar?.title = Constant.appName
         val adapter = SectionsPagerAdapter(childFragmentManager)
-        adapter.addFragment(TabMerchantFragment(), "Merchant")
-        adapter.addFragment(Blank1Fragment(), "Produk")
-        adapter.addFragment(AccountAdminFragment(), Constant.akun)
+        adapter.addFragment(requestDaftarMerchant, Constant.statusDiproses)
+        adapter.addFragment(activeDaftarMerchant, Constant.statusDisetujui)
+        adapter.addFragment(declinedDaftarMerchant, Constant.statusDitolak)
 
         pager.adapter = adapter
 
         bind.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                bind.tabs.getTabAt(0)?.icon = resources.getDrawable(R.drawable.ic_multipeople_gray)
-                bind.tabs.getTabAt(1)?.icon = resources.getDrawable(R.drawable.ic_trolley_gray)
-                bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
-
                 when (tab.position) {
                     0 -> {
-                        supportActionBar?.title = Constant.appName
-                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     1-> {
-                        supportActionBar?.title = Constant.akun
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     else -> {
-                        supportActionBar?.title = Constant.akun
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
                     }
                 }
             }
