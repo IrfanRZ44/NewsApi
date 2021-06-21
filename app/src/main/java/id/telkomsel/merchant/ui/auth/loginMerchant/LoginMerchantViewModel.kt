@@ -20,13 +20,13 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponseMerchant
+import id.telkomsel.merchant.ui.auth.changePassword.ChangePasswordFragment
 import id.telkomsel.merchant.ui.auth.updateRegisterMerchant.UpdateRegisterMerchantFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
-import id.telkomsel.merchant.utils.adapter.showLog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -220,12 +220,11 @@ class LoginMerchantViewModel(
 
     private fun checkPassword(password: String, dataMerchant: ModelMerchant){
         if (password == "Tsel2021"){
-            message.value = "Ganti Password"
-//            val bundle = Bundle()
-//            val fragmentTujuan = ChangePasswordFragment()
-//            bundle.putParcelable(Constant.reffMerchant, dataMerchant)
-//            fragmentTujuan.arguments = bundle
-//            navController.navigate(R.id.changePasswordFragment, bundle)
+            val bundle = Bundle()
+            val fragmentTujuan = ChangePasswordFragment()
+            bundle.putParcelable(Constant.reffMerchant, dataMerchant)
+            fragmentTujuan.arguments = bundle
+            navController.navigate(R.id.changePasswordFragment, bundle)
         }
         else{
             savedData?.setDataObject(dataMerchant, Constant.reffMerchant)

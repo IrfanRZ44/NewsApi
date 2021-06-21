@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.admin.accountAdmin.editProfil
+package id.telkomsel.merchant.ui.admin.addMerchant
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,26 +27,24 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.databinding.FragmentEditProfilAdminBinding
+import id.telkomsel.merchant.databinding.FragmentAddMerchantBinding
 import id.telkomsel.merchant.utils.Constant
-import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
-class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>(){
-    override fun getLayoutResource(): Int = R.layout.fragment_edit_profil_admin
-    lateinit var viewModel: EditProfilAdminViewModel
+class AddMerchantFragment : BaseFragmentBind<FragmentAddMerchantBinding>(){
+    override fun getLayoutResource(): Int = R.layout.fragment_add_merchant
+    lateinit var viewModel: AddMerchantViewModel
     private val mapBundelKey = "MapViewBundleKey"
     private var gmap: GoogleMap? = null
     private var marker : Marker? = null
     private lateinit var place : MarkerOptions
     private lateinit var btmSheet : BottomSheetDialog
     private lateinit var mapView : MapView
-    private var requestFoto = 0
 
     override fun myCodeHere() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Edit Profil"
+        supportActionBar?.title = "Tambah Merchant"
         supportActionBar?.show()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         init(savedInstanceState)
         onClick()
     }
@@ -55,78 +53,33 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
         bind.lifecycleOwner = this
         bind.etTitikLokasi.editText?.keyListener = null
         bind.etTglLahir.editText?.keyListener = null
+        bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = EditProfilAdminViewModel(activity, findNavController(),
+        viewModel = AddMerchantViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
-            bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi,
-            bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant,
-            bind.etEmail, bind.etNamaLengkap, bind.etTglLahir, bind.etNoHpPemilik, bind.etNoWaPemilik,
-            savedData
-        )
+            bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
+            bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant, bind.etEmail,
+            bind.etUsername, bind.etPassword, bind.etConfirmPassword,
+            bind.etNamaLengkap, bind.etTglLahir, bind.etNoHpPemilik, bind.etNoWaPemilik,
+            )
         bind.viewModel = viewModel
         initPickMap(bind.root, savedInstanceState)
-        viewModel.dataMerchant = savedData.getDataMerchant()
-        viewModel.setDataMerchant()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
         viewModel.setAdapterKecamatan()
         viewModel.setAdapterKelurahan()
+
+        viewModel.dataMerchant = this.arguments?.getParcelable(Constant.reffMerchant)
+        if (viewModel.dataMerchant != null){
+            viewModel.setDataMerchant(
+                this.arguments?.getParcelable(Constant.dataModelFotoProfil)
+            )
+        }
+
         viewModel.getDaftarProvinsi()
     }
 
     private fun onClick(){
-        bind.cardFotoProfil.setOnClickListener {
-            requestFoto = 4
-            context?.let {
-                CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAllowFlipping(true)
-                    .setAllowRotation(true)
-                    .setAspectRatio(1,1 )
-                    .start(it, this)
-            }
-        }
-
-        bind.btnLocation.setOnClickListener {
-            btmSheet.show()
-            mapView.getMapAsync{
-                if(marker != null) marker?.remove()
-                gmap = it
-                when {
-                    !viewModel.etLatLng.value.isNullOrEmpty() -> {
-                        setMarker(viewModel.etLatLng.value)
-                    }
-                    else -> {
-                        val myLocation = LatLng(Constant.defaultLatitude, Constant.defaultLongitude)
-                        gmap?.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
-
-                        checkPermission()
-                    }
-                }
-
-                gmap?.setOnMapClickListener { latLng ->
-                    val locationPoint = latLng.latitude.toString() + " : " + latLng.longitude.toString()
-
-                    viewModel.etLatLng.value = locationPoint
-                    if(marker != null) marker?.remove()
-                    place = MarkerOptions().position(latLng).title("Titik Lokasi")
-                    try {
-                        marker = gmap?.addMarker(place)?:throw Exception("Gagal mendapatkan titik lokasi")
-                    }catch (e: Exception){
-                        viewModel.message.value = e.message
-                    }
-                }
-
-                val pick = btmSheet.findViewById<FloatingActionButton>(R.id.btnMap)
-                pick?.setOnClickListener {
-                    if (marker != null) {
-                        btmSheet.dismiss()
-                        viewModel.message.value = "Berhasil memilih lokasi"
-                    } else Toast.makeText(view?.context, "Afwan, Anda belum memilih lokasi", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
         bind.spinnerProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 activity?.let { dismissKeyboard(it) }
@@ -176,6 +129,59 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
 
             }
         }
+
+        bind.btnLocation.setOnClickListener {
+            btmSheet.show()
+            mapView.getMapAsync{
+                if(marker != null) marker?.remove()
+                gmap = it
+                when {
+                    !viewModel.etLatLng.value.isNullOrEmpty() -> {
+                        setMarker(viewModel.etLatLng.value)
+                    }
+                    else -> {
+                        val myLocation = LatLng(Constant.defaultLatitude, Constant.defaultLongitude)
+                        gmap?.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15f))
+
+                        checkPermission()
+                    }
+                }
+
+                gmap?.setOnMapClickListener { latLng ->
+                    val locationPoint = latLng.latitude.toString() + " : " + latLng.longitude.toString()
+
+                    viewModel.etLatLng.value = locationPoint
+                    viewModel.latitude.value = latLng.latitude.toString()
+                    viewModel.longitude.value = latLng.longitude.toString()
+                    if(marker != null) marker?.remove()
+                    place = MarkerOptions().position(latLng).title("Titik Lokasi")
+                    try {
+                        marker = gmap?.addMarker(place)?:throw Exception("Gagal mendapatkan titik lokasi")
+                    }catch (e: Exception){
+                        viewModel.message.value = e.message
+                    }
+                }
+
+                val pick = btmSheet.findViewById<FloatingActionButton>(R.id.btnMap)
+                pick?.setOnClickListener {
+                    if (marker != null) {
+                        btmSheet.dismiss()
+                        viewModel.message.value = "Berhasil memilih lokasi"
+                    } else Toast.makeText(view?.context, "Afwan, Anda belum memilih lokasi", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+        bind.cardFotoProfil.setOnClickListener {
+            context?.let {
+                CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAllowFlipping(true)
+                    .setAllowRotation(true)
+                    .setAspectRatio(1, 1)
+                    .start(it, this)
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -220,25 +226,14 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
     }
 
     private fun checkPermission() {
-        activity?.applicationContext?.let {
+        context?.let {
             if (ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
+                == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(
                     it, Manifest.permission.ACCESS_COARSE_LOCATION
                 )
-                != PackageManager.PERMISSION_GRANTED
+                == PackageManager.PERMISSION_GRANTED
             ) {
-                viewModel.message.value = "Anda belum mengizinkan akses lokasi aplikasi ini"
-
-                ActivityCompat.requestPermissions(
-                    context as Activity,
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    Constant.codeRequestLocation
-                )
-            } else {
                 val fusedLocationClient = LocationServices.getFusedLocationProviderClient(it)
 
                 fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
@@ -255,8 +250,22 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
                     if (marker != null) marker?.remove()
                     marker = gmap?.addMarker(place)
                 }
+
+            }
+            else {
+                viewModel.message.value = "Anda belum mengizinkan akses lokasi aplikasi ini"
+
+                ActivityCompat.requestPermissions(
+                    context as Activity,
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    Constant.codeRequestLocation
+                )
             }
         }
+
     }
 
     @SuppressLint("InflateParams")
@@ -289,6 +298,7 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
         val place = MarkerOptions().position(myLocation).title("Titik Lokasi")
 
         marker = gmap?.addMarker(place)
+        viewModel.message.value = "Berhasil memilih lokasi"
     }
 
     @Suppress("DEPRECATION")
@@ -296,18 +306,11 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
-            val username = viewModel.dataMerchant?.username
-            val act = activity
 
-            if (resultCode == Activity.RESULT_OK && !username.isNullOrEmpty() && act != null){
+            if (resultCode == Activity.RESULT_OK){
                 val imageUri = result.uri
-                val nameFile = "${username}__${System.currentTimeMillis()}"
-                val imagePath = imageUri.path
 
                 viewModel.etFotoProfil.value = imageUri
-                viewModel.dataMerchant?.foto_profil = imageUri.toString()
-                imagePath?.let { RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
-                    Constant.folderFotoProfil, nameFile, username, imagePath, act) }
             }
         }
     }

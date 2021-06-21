@@ -9,6 +9,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDetailMerchantAdminBinding
@@ -28,6 +31,14 @@ class DetailMerchantAdminFragment : BaseFragmentBind<FragmentDetailMerchantAdmin
 
         init()
         setMap(savedInstanceState)
+
+        if (savedData.getDataMerchant()?.level == Constant.levelCSO){
+            bind.rfaLayout.visibility = View.VISIBLE
+            floatingAction()
+        }
+        else{
+            bind.rfaLayout.visibility = View.GONE
+        }
     }
 
     private fun init() {
@@ -41,12 +52,10 @@ class DetailMerchantAdminFragment : BaseFragmentBind<FragmentDetailMerchantAdmin
         }
 
         if (viewModel.dataMerchant.value?.status_merchant == Constant.statusRequest){
-            bind.btnConfirm.visibility = View.VISIBLE
-            bind.btnTolak.visibility = View.VISIBLE
+            bind.rfaLayout.visibility = View.VISIBLE
         }
         else{
-            bind.btnConfirm.visibility = View.GONE
-            bind.btnTolak.visibility = View.GONE
+            bind.rfaLayout.visibility = View.GONE
         }
     }
 
@@ -125,5 +134,60 @@ class DetailMerchantAdminFragment : BaseFragmentBind<FragmentDetailMerchantAdmin
         gmap?.setOnMapClickListener {
             viewModel.onClickMaps()
         }
+    }
+
+    private fun floatingAction() {
+        val rfaContent = RapidFloatingActionContentLabelList(context)
+        val item = listOf(
+            RFACLabelItem<Int>()
+                .setLabel("Terima")
+                .setResId(R.drawable.ic_true_white)
+                .setIconNormalColor(0xff52af44.toInt())
+                .setIconPressedColor(0xff3E8534.toInt())
+                .setWrapper(0),
+            RFACLabelItem<Int>()
+                .setLabel("Tolak")
+                .setResId(R.drawable.ic_close_white)
+                .setIconNormalColor(0xffd32f2f.toInt())
+                .setIconPressedColor(0xffB00020.toInt())
+                .setWrapper(0)
+
+        )
+
+        rfaContent.setItems(item).setIconShadowColor(0xff888888.toInt())
+
+        val rfabHelper = RapidFloatingActionHelper(
+            context,
+            bind.rfaLayout,
+            bind.rfaBtn,
+            rfaContent
+        ).build()
+
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(object :
+            RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<Any> {
+            override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Any>?) {
+                when(position) {
+                    0 -> {
+                        viewModel.onClickAccept()
+                    }
+                    1 -> {
+                        viewModel.onClickDecline()
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+
+            override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Any>?) {
+                when(position) {
+                    0 -> {
+                        viewModel.onClickAccept()
+                    }
+                    1 -> {
+                        viewModel.onClickDecline()
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+        })
     }
 }

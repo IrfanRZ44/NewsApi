@@ -1,20 +1,21 @@
-package id.telkomsel.merchant.ui.admin.accountAdmin.editProfil
+package id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
+import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.utils.Constant
-import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.SpinnerWilayahAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -26,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @SuppressLint("StaticFieldLeak")
-class EditProfilAdminViewModel(
+class EditProfilMerchantViewModel(
     private val activity: Activity?,
     private val navController: NavController,
     private val spinnerProvinsi: AppCompatSpinner,
@@ -36,6 +37,7 @@ class EditProfilAdminViewModel(
     private val editNamaMerchant: TextInputLayout,
     private val editAlamatMerchant: TextInputLayout,
     private val editTitikLokasi: TextInputLayout,
+    private val editTglPeresmianMerchant: TextInputLayout,
     private val editCluster: TextInputLayout,
     private val editNoHpMerchant: TextInputLayout,
     private val editNoWaMerchant: TextInputLayout,
@@ -43,8 +45,7 @@ class EditProfilAdminViewModel(
     private val editNamaLengkap: TextInputLayout,
     private val editTglLahir: TextInputLayout,
     private val editNoHpPemilik: TextInputLayout,
-    private val editNoWaPemilik: TextInputLayout,
-    private val savedData: DataSave
+    private val editNoWaPemilik: TextInputLayout
 ) : BaseViewModel() {
     var dataMerchant: ModelMerchant? = null
     val etNamaMerchant = MutableLiveData<String>()
@@ -52,6 +53,7 @@ class EditProfilAdminViewModel(
     val etLatLng = MutableLiveData<String>()
     val latitude = MutableLiveData<String>()
     val longitude = MutableLiveData<String>()
+    val etTglPeresmianMerchant = MutableLiveData<String>()
     val etNamaLengkap = MutableLiveData<String>()
     val etTglLahir = MutableLiveData<String>()
     val etFotoProfil = MutableLiveData<Uri>()
@@ -119,6 +121,7 @@ class EditProfilAdminViewModel(
         longitude.value = dataMerchant?.longitude
         etCluster.value = dataMerchant?.cluster
         etTglLahir.value = dataMerchant?.tgl_lahir
+        etTglPeresmianMerchant.value = dataMerchant?.tgl_peresmian_merchant
         etNamaLengkap.value = dataMerchant?.nama_lengkap
 
         etHPMerchant.value = dataMerchant?.no_hp_merchant?.replaceFirst("+62", "0")
@@ -141,6 +144,32 @@ class EditProfilAdminViewModel(
                     dateSelected[paramAnonymousInt1, paramAnonymousInt2] = paramAnonymousInt3
                     val dateFormatter = SimpleDateFormat(Constant.dateFormat1, Locale.US)
                     etTglLahir.value = dateFormatter.format(dateSelected.time)
+                },
+                localCalendar[Calendar.YEAR]
+                ,
+                localCalendar[Calendar.MONTH]
+                ,
+                localCalendar[Calendar.DATE]
+            )
+
+            datePickerDialog.show()
+        } catch (e: java.lang.Exception) {
+            message.value = e.message
+        }
+    }
+
+    fun getDateTglPeresmian() {
+        activity?.let { dismissKeyboard(it) }
+        val datePickerDialog: DatePickerDialog
+        val localCalendar = Calendar.getInstance()
+
+        try {
+            datePickerDialog = DatePickerDialog(activity ?: throw Exception("Error, mohon mulai ulang aplikasi"),
+                { _, paramAnonymousInt1, paramAnonymousInt2, paramAnonymousInt3 ->
+                    val dateSelected = Calendar.getInstance()
+                    dateSelected[paramAnonymousInt1, paramAnonymousInt2] = paramAnonymousInt3
+                    val dateFormatter = SimpleDateFormat(Constant.dateFormat1, Locale.US)
+                    etTglPeresmianMerchant.value = dateFormatter.format(dateSelected.time)
                 },
                 localCalendar[Calendar.YEAR]
                 ,
@@ -367,13 +396,12 @@ class EditProfilAdminViewModel(
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccessRegister){
-                        message.value = "Berhasil edit profil"
-                        savedData.setDataObject(merchant, Constant.reffMerchant)
-                        navController.popBackStack()
+                        dialogSucces(result.message)
+                        navController.navigate(R.id.splashFragment)
                     }
                     else{
                         if (result?.message == "Nomor HP Merchant sudah digunakan"){
-                            setTextError("Error, nomor HP Admin sudah digunakan", editNoHpMerchant)
+                            setTextError("Error, nomor HP Merchant sudah digunakan", editNoHpMerchant)
                         }
                         else{
                             message.value = result?.message
@@ -391,6 +419,24 @@ class EditProfilAdminViewModel(
             })
     }
 
+    private fun dialogSucces(msg: String){
+        if (activity != null){
+            val alert = AlertDialog.Builder(activity)
+            alert.setTitle(Constant.pendaftaranBerhasil)
+            alert.setMessage(msg)
+            alert.setPositiveButton(
+                Constant.iya
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            alert.show()
+        }
+        else{
+            message.value = "Mohon mulai ulang aplikasi"
+        }
+    }
+
     private fun setTextError(msg: String, editText: TextInputLayout){
         message.value = msg
         editText.error = msg
@@ -403,6 +449,7 @@ class EditProfilAdminViewModel(
         editNoWaPemilik.error = null
         editNoWaMerchant.error = null
         editEmail.error = null
+        editTglPeresmianMerchant.error = null
         editNamaMerchant.error = null
         editAlamatMerchant.error = null
         editTitikLokasi.error = null
@@ -415,10 +462,12 @@ class EditProfilAdminViewModel(
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
+        val id = dataMerchant?.id
         val namaMerchant = etNamaMerchant.value
         val alamatMerchant = etAlamatMerchant.value
         val lat = latitude.value
         val lng = longitude.value
+        val tglPeresmianMerchant = etTglPeresmianMerchant.value
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
         val kecamatan = listKecamatan[spinnerKecamatan.selectedItemPosition].nama
@@ -434,9 +483,8 @@ class EditProfilAdminViewModel(
         val noHpPemilik = etPhonePemilik.value
         val noWaPemilik = etWAPemilik.value
         val fotoProfil = etFotoProfil.value?.path
-        val dataMerchant = savedData.getDataMerchant()
 
-        if (dataMerchant != null && !namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty() && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
+        if (id != null && !namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty() && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -445,13 +493,12 @@ class EditProfilAdminViewModel(
             && !noWaMerchant.isNullOrEmpty() && noWaMerchant.take(1) == "0"
             && !noHpMerchant.isNullOrEmpty() && noHpMerchant.take(1) == "0"
             && !emailMerchant.isNullOrEmpty() && emailMerchant.matches(Regex(Constant.emailFormat))
-            && !namaLengkap.isNullOrEmpty() && !tglLahir.isNullOrEmpty()
+            && !namaLengkap.isNullOrEmpty() && !tglLahir.isNullOrEmpty() && !tglPeresmianMerchant.isNullOrEmpty()
             && !noHpPemilik.isNullOrEmpty() && noHpPemilik.take(1) == "0"
             && !noWaPemilik.isNullOrEmpty() && noWaPemilik.take(1) == "0"
             && !fotoProfil.isNullOrEmpty()
             && (noHpMerchant.length in 10..13) && (noWaMerchant.length in 10..13)
             && (noHpPemilik.length in 10..13) && (noWaPemilik.length in 10..13)
-            && cluster == savedData.getDataMerchant()?.cluster
         ) {
             val hpPemilik = noHpPemilik.replaceFirst("0", "+62")
             val waPemilik = noWaPemilik.replaceFirst("0", "+62")
@@ -459,31 +506,18 @@ class EditProfilAdminViewModel(
             val waMerchant = noWaMerchant.replaceFirst("0", "+62")
             isShowLoading.value = true
 
-            dataMerchant.nama_merchant = namaMerchant
-            dataMerchant.alamat_merchant = alamatMerchant
-            dataMerchant.latitude = lat
-            dataMerchant.longitude = lng
-            dataMerchant.provinsi = provinsi
-            dataMerchant.kabupaten = kabupaten
-            dataMerchant.kecamatan = kecamatan
-            dataMerchant.kelurahan = kelurahan
-            dataMerchant.regional = regional
-            dataMerchant.branch = branch
-            dataMerchant.cluster = cluster
-            dataMerchant.no_hp_merchant = hpMerchant
-            dataMerchant.no_wa_merchant = waMerchant
-            dataMerchant.email_merchant = emailMerchant
-            dataMerchant.nama_lengkap = namaLengkap
-            dataMerchant.tgl_lahir = tglLahir
-            dataMerchant.no_hp_pemilik = hpPemilik
-            dataMerchant.no_wa_pemilik = waPemilik
-            dataMerchant.status_merchant = Constant.statusActive
+            val dataMerchant = ModelMerchant(id, "", "", "", "",
+                Constant.statusRequest,
+                "", namaMerchant, alamatMerchant, lat, lng, tglPeresmianMerchant,
+                provinsi, kabupaten, kecamatan, kelurahan, regional, branch, cluster,
+                hpMerchant, waMerchant,  emailMerchant,"",
+                namaLengkap, tglLahir, hpPemilik, waPemilik)
 
             updateMerchant(dataMerchant)
         }
         else {
-            if (dataMerchant == null){
-                message.value = "Error, terjadi kesalahan saat mengambil Database"
+            if (id == null){
+                message.value = "Error, terjadi kesalahan saat mengambil ID Merchant"
             }
             else if (fotoProfil.isNullOrEmpty()){
                 message.value = "Mohon upload foto profil"
@@ -501,6 +535,15 @@ class EditProfilAdminViewModel(
                 editTitikLokasi.findFocus()
                 editTitikLokasi.error = "Error, mohon pilih titik lokasi di maps"
             }
+            else if (tglPeresmianMerchant.isNullOrEmpty()){
+                message.value = "Error, Mohon pilih tanggal peresmian merchant"
+                editNamaMerchant.clearFocus()
+                editAlamatMerchant.clearFocus()
+                editTitikLokasi.clearFocus()
+                editTglPeresmianMerchant.requestFocus()
+                editTglPeresmianMerchant.findFocus()
+                editTglPeresmianMerchant.error = "Error, Mohon pilih tanggal peresmian merchant"
+            }
             else if (provinsi == Constant.pilihProvinsi){
                 message.value = "Mohon memilih salah satu Provinsi yang tersedia"
             }
@@ -512,9 +555,6 @@ class EditProfilAdminViewModel(
             }
             else if (kelurahan == Constant.pilihKelurahan){
                 message.value = "Mohon memilih salah satu Kelurahan yang tersedia"
-            }
-            else if (cluster != savedData.getDataMerchant()?.cluster){
-                message.value = "Error, maaf alamat Admin tidak sesuai dengan wilayah cluster"
             }
             else if (cluster.isNullOrEmpty()){
                 setTextError("Error, mohon memilih wilayah yang memiliki cluster", editCluster)

@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.auth.updateRegisterMerchant
+package id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,14 +27,14 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.databinding.FragmentUpdateRegisterMerchantBinding
+import id.telkomsel.merchant.databinding.FragmentEditProfilMerchantBinding
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
-class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMerchantBinding>(){
-    override fun getLayoutResource(): Int = R.layout.fragment_update_register_merchant
-    lateinit var viewModel: UpdateRegisterMerchantViewModel
+class EditProfilMerchantFragment : BaseFragmentBind<FragmentEditProfilMerchantBinding>(){
+    override fun getLayoutResource(): Int = R.layout.fragment_edit_profil_merchant
+    lateinit var viewModel: EditProfilMerchantViewModel
     private val mapBundelKey = "MapViewBundleKey"
     private var gmap: GoogleMap? = null
     private var marker : Marker? = null
@@ -54,7 +54,7 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
         bind.etTglLahir.editText?.keyListener = null
         bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = UpdateRegisterMerchantViewModel(activity, findNavController(),
+        viewModel = EditProfilMerchantViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant,

@@ -67,7 +67,7 @@ class SplashViewModel(
                     savedData?.setDataObject(result.dataMerchant, Constant.reffMerchant)
 
                     when (savedData?.getDataMerchant()?.level) {
-                        Constant.levelMerchant -> {
+                        Constant.levelMerchant, Constant.levelCSO, Constant.levelSBP, Constant.levelChannel -> {
                             val intent = Intent(activity, AdminActivity::class.java)
                             activity?.startActivity(intent)
                             activity?.finish()

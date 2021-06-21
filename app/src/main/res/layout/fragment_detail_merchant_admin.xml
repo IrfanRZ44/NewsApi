@@ -853,38 +853,30 @@
             android:layout_centerInParent="true"
             />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btnTolak"
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+            android:id="@+id/rfaLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/h2"
-            android:layout_marginBottom="@dimen/h3"
-            android:text="@string/tolak"
-            app:icon="@drawable/ic_close_white"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/btnConfirm"
-            android:onClick="@{()-> viewModel.onClickDecline()}"
-            app:iconTint="@color/white"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/red1"
-            android:visibility="gone"
-            />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btnConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/terima"
-            android:layout_marginBottom="@dimen/h5"
-            android:layout_marginEnd="@dimen/h2"
-            app:icon="@drawable/ic_true_white"
+            app:rfal_frame_color="#ffffff"
+            app:rfal_frame_alpha="0.7"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:onClick="@{()-> viewModel.onClickAccept()}"
-            app:iconTint="@color/white"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/green1"
+            android:layout_marginBottom="@dimen/h3"
             android:visibility="gone"
-            tools:ignore="TooManyViews" />
+            >
+            <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                android:id="@+id/rfaBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                app:rfab_color_normal="@color/colorPrimaryDark"
+                app:rfab_color_pressed="#263238"
+                app:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                app:rfab_size="normal" />
+        </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
     </RelativeLayout>
 </layout>

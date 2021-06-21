@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.auth.updateRegisterMerchant
+package id.telkomsel.merchant.ui.admin.accountAdmin.editProfilAdmin
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,23 +27,26 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.databinding.FragmentUpdateRegisterMerchantBinding
+import id.telkomsel.merchant.databinding.FragmentEditProfilAdminBinding
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
-class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMerchantBinding>(){
-    override fun getLayoutResource(): Int = R.layout.fragment_update_register_merchant
-    lateinit var viewModel: UpdateRegisterMerchantViewModel
+class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>(){
+    override fun getLayoutResource(): Int = R.layout.fragment_edit_profil_admin
+    lateinit var viewModel: EditProfilAdminViewModel
     private val mapBundelKey = "MapViewBundleKey"
     private var gmap: GoogleMap? = null
     private var marker : Marker? = null
     private lateinit var place : MarkerOptions
     private lateinit var btmSheet : BottomSheetDialog
     private lateinit var mapView : MapView
+    private var requestFoto = 0
 
     override fun myCodeHere() {
-        supportActionBar?.hide()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Edit Profil"
+        supportActionBar?.show()
         init(savedInstanceState)
         onClick()
     }
@@ -52,17 +55,17 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
         bind.lifecycleOwner = this
         bind.etTitikLokasi.editText?.keyListener = null
         bind.etTglLahir.editText?.keyListener = null
-        bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = UpdateRegisterMerchantViewModel(activity, findNavController(),
+        viewModel = EditProfilAdminViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
-            bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
+            bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant,
-            bind.etEmail, bind.etNamaLengkap, bind.etTglLahir, bind.etNoHpPemilik, bind.etNoWaPemilik
+            bind.etEmail, bind.etNamaLengkap, bind.etTglLahir, bind.etNoHpPemilik, bind.etNoWaPemilik,
+            savedData
         )
         bind.viewModel = viewModel
         initPickMap(bind.root, savedInstanceState)
-        viewModel.dataMerchant = this.arguments?.getParcelable(Constant.reffMerchant)
+        viewModel.dataMerchant = savedData.getDataMerchant()
         viewModel.setDataMerchant()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
@@ -73,6 +76,7 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
 
     private fun onClick(){
         bind.cardFotoProfil.setOnClickListener {
+            requestFoto = 4
             context?.let {
                 CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)

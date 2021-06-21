@@ -122,8 +122,9 @@ object Constant {
     const val statusDitolak = "Ditolak"
 
     const val levelUser = "User"
-    const val levelSBP = "SBP"
+    const val levelChannel = "Channel"
     const val levelCSO = "CSO"
+    const val levelSBP = "SBP"
     const val levelMerchant = "Merchant"
 
     const val requestMerchant = "Request Merchant"
@@ -137,6 +138,7 @@ object Constant {
 
     const val folderFotoProfil = "/assets/images/merchant/profil/"
     const val pendaftaranBerhasil = "Pendaftaran Berhasil"
+    const val berhasil = "Berhasil"
 
     const val pilihProvinsi = "Pilih Provinsi"
     const val pilihKabupaten = "Pilih Kota/Kabupaten"

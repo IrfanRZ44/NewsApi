@@ -121,7 +121,6 @@ class VerifyRegisterMerchantViewModel(
     }
 
     private fun createMerchant(dataMerchant: ModelMerchant, fotoDiri: String){
-
         RetrofitUtils.createMerchant(dataMerchant,
             object : Callback<ModelResponse> {
                 override fun onResponse(
@@ -147,7 +146,7 @@ class VerifyRegisterMerchantViewModel(
                                 msgErr.contains("Duplicate entry '${dataMerchant.username}' for key 'username'") -> {
                                     message.value = "Username Sudah Digunakan"
                                 }
-                                msgErr.contains("users_merchant_no_hp_merchant_unique") -> {
+                                msgErr.contains("Duplicate entry '${dataMerchant.no_hp_merchant}' for key 'no_hp_merchant'") -> {
                                     message.value = "Nomor HP Merchant Sudah Digunakan"
                                 }
                                 else -> {

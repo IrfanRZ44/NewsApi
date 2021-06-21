@@ -2,13 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilAdmin.EditProfilAdminFragment">
+    tools:context="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant.EditProfilMerchantFragment">
 
     <data>
-
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilAdmin.EditProfilAdminViewModel" />
+            type="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant.EditProfilMerchantViewModel" />
     </data>
 
     <RelativeLayout
@@ -48,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     app:cardCornerRadius="@dimen/_30">
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         snackbar="@{viewModel.message}"
                         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                             android:background="@color/colorAccent"
                             android:fontFamily="@font/roboto_regular"
                             android:padding="@dimen/h2"
-                            android:text="@string/informasi_admin"
+                            android:text="@string/informasi_merchant"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_h3"
@@ -116,7 +116,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nama_admin"
+                            android:hint="@string/nama_merchant"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -138,7 +138,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/alamat_admin_lengkap"
+                            android:hint="@string/alamat_merchant_lengkap"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -205,6 +205,38 @@
                                 android:textAllCaps="true"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_h2" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:onClick="@{()-> viewModel.getDateTglPeresmian()}" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etTglPeresmian"
+                                style="@style/customEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/pick_tanggal_peresmian"
+                                android:textColorHint="@color/gray2"
+                                app:errorEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/textStandardWhite"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/h2"
+                                    android:inputType="textCapSentences"
+                                    android:text="@={viewModel.etTglPeresmianMerchant}"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -312,7 +344,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nomor_hp_admin_contoh_0852xxxx"
+                            android:hint="@string/nomor_hp_merchant_contoh_0852xxxx"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -337,7 +369,7 @@
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nomor_wa_admin_contoh_0852xxxx"
+                            android:hint="@string/nomor_wa_merchant_contoh_0852xxxx"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -363,7 +395,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/email_admin"
+                            android:hint="@string/email_merchant"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -537,8 +569,8 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
             </androidx.appcompat.widget.LinearLayoutCompat>
-
         </androidx.core.widget.NestedScrollView>
+
         <include
             android:id="@+id/progress"
             layout="@layout/progress_loading"
