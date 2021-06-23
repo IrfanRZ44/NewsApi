@@ -60,6 +60,7 @@ interface RetrofitApi {
     @POST(Constant.reffCreateMerchant)
     fun createMerchant(
         @Field("username") username: String,
+        @Field("kategori_id") kategori_id: Int,
         @Field("nama_merchant") nama_merchant: String,
         @Field("alamat_merchant") alamat_merchant: String,
         @Field("latitude") latitude: String,
@@ -89,6 +90,7 @@ interface RetrofitApi {
     fun updateMerchant(
         @Field("id") id: Int,
         @Field("nama_merchant") nama_merchant: String,
+        @Field("kategori_id") kategori_id: Int,
         @Field("alamat_merchant") alamat_merchant: String,
         @Field("status_merchant") status_merchant: String,
         @Field("latitude") latitude: String,
@@ -116,6 +118,13 @@ interface RetrofitApi {
     @POST(Constant.reffValidateNewMerchant)
     fun validateNewMerchant(
         @Field("username") username: String,
+        @Field("no_hp_merchant") no_hp_merchant: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffValidateNewMerchantPhone)
+    fun validateNewMerchantPhone(
         @Field("no_hp_merchant") no_hp_merchant: String
     ): Call<ModelResponse>
 
@@ -172,6 +181,21 @@ interface RetrofitApi {
         @Field("status_merchant") status_merchant: String,
         @Field("comment") comment: String
     ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @GET(Constant.reffDaftarKategori)
+    fun getDaftarKategori(): Call<ModelResponseDaftarKategori>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDataKategori)
+    fun getDataKategori(
+        @Field("kategori_id") kategori_id: Int,
+    ): Call<ModelResponseDataKategori>
+
+    @Headers("Accept:application/json")
+    @GET(Constant.reffDaftarSubKategori)
+    fun getDaftarSubKategori(): Call<ModelResponseDaftarKategori>
 
     companion object {
         const val baseUrl = Constant.reffBaseURL

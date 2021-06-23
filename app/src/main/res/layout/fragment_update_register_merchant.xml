@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nama_merchant"
+                            android:hint="@string/nama_merchant_wajib"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -149,13 +149,32 @@
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKategori"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/etAlamatMerchant"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/alamat_merchant_lengkap"
+                            android:hint="@string/alamat_merchant_lengkap_wajib"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -338,7 +357,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/cluster"
+                            android:hint="@string/cluster_wajib"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -361,7 +380,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nomor_hp_merchant_contoh_0852xxxx"
+                            android:hint="@string/nomor_hp_merchant_contoh_0852xxxx_wajib"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -386,7 +405,7 @@
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nomor_wa_merchant_contoh_0852xxxx"
+                            android:hint="@string/nomor_wa_merchant_contoh_0852xxxx_wajib"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -449,7 +468,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nama_lengkap"
+                            android:hint="@string/nama_lengkap_wajib"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -503,7 +522,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/nomor_hp_pemilik_contoh_0852xxxx"
+                            android:hint="@string/nomor_hp_pemilik_contoh_0852xxxx_wajib"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -528,7 +547,7 @@
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/nomor_wa_pemilik_contoh_0852xxxx"
+                            android:hint="@string/nomor_wa_pemilik_contoh_0852xxxx_wajib"
                             android:textColorHint="@color/gray2"
                             app:counterEnabled="true"
                             app:counterMaxLength="13"
@@ -539,7 +558,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digitsPhone"
-                                android:imeOptions="actionNext"
+                                android:imeOptions="actionDone"
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"

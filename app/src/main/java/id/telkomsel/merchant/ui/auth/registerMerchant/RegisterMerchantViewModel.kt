@@ -12,9 +12,11 @@ import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
+import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.ui.auth.verifyRegisterMerchant.VerifyRegisterMerchantFragment
 import id.telkomsel.merchant.utils.Constant
@@ -31,6 +33,7 @@ import kotlin.collections.ArrayList
 class RegisterMerchantViewModel(
     private val activity: Activity?,
     private val navController: NavController,
+    private val spinnerKategori: AppCompatSpinner,
     private val spinnerProvinsi: AppCompatSpinner,
     private val spinnerKabupaten: AppCompatSpinner,
     private val spinnerKecamatan: AppCompatSpinner,
@@ -56,6 +59,8 @@ class RegisterMerchantViewModel(
     val etLatLng = MutableLiveData<String>()
     val latitude = MutableLiveData<String>()
     val longitude = MutableLiveData<String>()
+    val currentLatitude = MutableLiveData<String>()
+    val currentLongitude = MutableLiveData<String>()
     val etTglPeresmianMerchant = MutableLiveData<String>()
     val etUsername = MutableLiveData<String>()
     val etPassword = MutableLiveData<String>()
@@ -69,15 +74,27 @@ class RegisterMerchantViewModel(
     val etEmailMerchant = MutableLiveData<String>()
     val etFotoProfil = MutableLiveData<Uri>()
     val etCluster = MutableLiveData<String>()
+    val listKategori = ArrayList<ModelKategori>()
     val listProvinsi = ArrayList<ModelWilayah>()
     val listKabupaten = ArrayList<ModelWilayah>()
     val listKecamatan = ArrayList<ModelWilayah>()
     val listKelurahan = ArrayList<ModelWilayah>()
+    lateinit var adapterKategori : SpinnerKategoriAdapter
     lateinit var adapterProvinsi : SpinnerWilayahAdapter
     lateinit var adapterKabupaten : SpinnerWilayahAdapter
     lateinit var adapterKecamatan : SpinnerWilayahAdapter
     lateinit var adapterKelurahan : SpinnerWilayahAdapter
     var dataMerchant: ModelMerchant? = null
+
+    fun setAdapterKategori() {
+        listKategori.clear()
+
+        adapterKategori = SpinnerKategoriAdapter(
+            activity,
+            listKategori, true
+        )
+        spinnerKategori.adapter = adapterKategori
+    }
 
     fun setAdapterProvinsi() {
         listProvinsi.clear()
@@ -190,6 +207,55 @@ class RegisterMerchantViewModel(
         } catch (e: java.lang.Exception) {
             message.value = e.message
         }
+    }
+
+    fun getDaftarKategori(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKategori(
+            object : Callback<ModelResponseDaftarKategori> {
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarKategori>,
+                    response: Response<ModelResponseDaftarKategori>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori))
+
+                        for (i in data.indices) {
+                            listKategori.add(data[i])
+                        }
+                        adapterKategori.notifyDataSetChanged()
+
+                        val idKategori = dataMerchant?.kategori_id
+                        if (dataMerchant != null) {
+                            for (i in listKategori.indices) {
+                                if (listKategori[i].id == idKategori) {
+                                    spinnerKategori.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                        adapterKategori.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarKategori>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKategori.clear()
+                    listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                    adapterKategori.notifyDataSetChanged()
+                }
+            })
     }
 
     fun getDaftarProvinsi(){
@@ -469,6 +535,7 @@ class RegisterMerchantViewModel(
         val lat = latitude.value
         val lng = longitude.value
         val tglPeresmianMerchant = etTglPeresmianMerchant.value
+        val kategori = listKategori[spinnerKategori.selectedItemPosition].id
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
         val kecamatan = listKecamatan[spinnerKecamatan.selectedItemPosition].nama
@@ -488,7 +555,8 @@ class RegisterMerchantViewModel(
         val noWaPemilik = etWAPemilik.value
         val fotoProfil = etFotoProfil.value?.path
 
-        if (!namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty() && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
+        if (!namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty()
+            && (kategori != 0)
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -496,13 +564,13 @@ class RegisterMerchantViewModel(
             && !cluster.isNullOrEmpty() && !regional.isNullOrEmpty() && !branch.isNullOrEmpty()
             && !noHpMerchant.isNullOrEmpty() && noHpMerchant.take(1) == "0"
             && !noWaMerchant.isNullOrEmpty() && noWaMerchant.take(1) == "0"
-            && !emailMerchant.isNullOrEmpty() && !username.isNullOrEmpty()
+            && !username.isNullOrEmpty()
+            && (emailMerchant.isNullOrEmpty() || !emailMerchant.isNullOrEmpty() && emailMerchant.matches(Regex(Constant.emailFormat)))
             && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && (password == confirmPassword)
             && password.length >= 6 && isContainNumber(password) && (isContainSmallText(password) || isContainBigText(password))
-            && !namaLengkap.isNullOrEmpty() && !tglLahir.isNullOrEmpty() && !tglPeresmianMerchant.isNullOrEmpty()
+            && !namaLengkap.isNullOrEmpty()
             && !noHpPemilik.isNullOrEmpty() && noHpPemilik.take(1) == "0"
             && !noWaPemilik.isNullOrEmpty() && noWaPemilik.take(1) == "0"
-            && !fotoProfil.isNullOrEmpty()
         ) {
             val hpMerchant = noHpMerchant.replaceFirst("0", "+62")
             val waMerchant = noWaMerchant.replaceFirst("0", "+62")
@@ -519,11 +587,11 @@ class RegisterMerchantViewModel(
                 "",
                 Constant.statusRequest,
                 "",
-                namaMerchant,
+                namaMerchant, kategori,
                 alamatMerchant,
-                lat,
-                lng,
-                tglPeresmianMerchant,
+                lat?:currentLatitude.value?:"",
+                lng?:currentLongitude.value?:"",
+                tglPeresmianMerchant?:"",
                 provinsi,
                 kabupaten,
                 kecamatan,
@@ -533,10 +601,10 @@ class RegisterMerchantViewModel(
                 cluster,
                 hpMerchant,
                 waMerchant,
-                emailMerchant,
+                emailMerchant?:"",
                 password,
                 namaLengkap,
-                tglLahir,
+                tglLahir?:"",
                 hpPemilik,
                 waPemilik,
             )
@@ -608,10 +676,7 @@ class RegisterMerchantViewModel(
             else if (noWaMerchant.length !in 10..13){
                 setTextError("Error, nomor WA Merchant harus 10-13 digit", editNoWaMerchant)
             }
-            else if (emailMerchant.isNullOrEmpty()){
-                setTextError("Error, mohon masukkan email", editEmail)
-            }
-            else if(!emailMerchant.matches(Regex(Constant.emailFormat))){
+            else if(!emailMerchant.isNullOrEmpty() && !emailMerchant.matches(Regex(Constant.emailFormat))){
                 setTextError("Error, format email salah", editEmail)
             }
             else if (username.isNullOrEmpty()){

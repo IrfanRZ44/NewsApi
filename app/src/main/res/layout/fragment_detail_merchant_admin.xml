@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.telkomsel.merchant.ui.admin.detailMerchant.DetailMerchantAdminFragment">
+    tools:context="id.telkomsel.merchant.ui.merchant.detailMerchant.DetailMerchantAdminFragment">
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.detailMerchant.DetailMerchantAdminViewModel" />
+            type="id.telkomsel.merchant.ui.merchant.detailMerchant.DetailMerchantAdminViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -132,6 +132,40 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.nama_merchant}"
+                                android:textSize="@dimen/text_h2"
+                                android:fontFamily="@font/roboto_regular"
+                                />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="@dimen/h2"
+                            >
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.4"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:text="@string/kategori_merchant"
+                                android:textSize="@dimen/text_h2"
+                                android:fontFamily="@font/roboto_regular"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.02"
+                                android:text="@string/titik_dua"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_h2"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.58"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:text="@={viewModel.kategori}"
                                 android:textSize="@dimen/text_h2"
                                 android:fontFamily="@font/roboto_regular"
                                 />
@@ -386,7 +420,7 @@
                                 android:layout_weight="0.4"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
-                                android:text="@string/kecamatan"
+                                android:text="@string/kelurahan"
                                 android:textSize="@dimen/text_h2"
                                 android:fontFamily="@font/roboto_regular"
                                 />
@@ -631,7 +665,7 @@
                             android:textColor="@color/black"
                             android:text="@string/informasi_pemilik"
                             android:fontFamily="@font/roboto_regular"
-                            />
+                            tools:ignore="TooManyViews" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"

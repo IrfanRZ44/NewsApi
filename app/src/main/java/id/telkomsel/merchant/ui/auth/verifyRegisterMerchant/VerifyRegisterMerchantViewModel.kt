@@ -91,7 +91,7 @@ class VerifyRegisterMerchantViewModel(
                     if (task.isSuccessful) {
                         isShowLoading.value = false
 
-                        registerMerchant(dataMerchant)
+                        createMerchant(dataMerchant)
                     } else {
                         message.value = "Error, kode verifikasi salah"
                         isShowLoading.value = false
@@ -120,7 +120,7 @@ class VerifyRegisterMerchantViewModel(
         etText1.requestFocus()
     }
 
-    private fun createMerchant(dataMerchant: ModelMerchant, fotoDiri: String){
+    private fun createMerchant(dataMerchant: ModelMerchant){
         RetrofitUtils.createMerchant(dataMerchant,
             object : Callback<ModelResponse> {
                 override fun onResponse(
@@ -135,8 +135,11 @@ class VerifyRegisterMerchantViewModel(
 
                         val nameFile = "${dataMerchant.username}__${System.currentTimeMillis()}"
 
-                        activity?.let { RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
-                            Constant.folderFotoProfil, nameFile, dataMerchant.username, fotoDiri, it) }
+                        val fotoDiri = etFotoProfil.value?.path
+                        if (!fotoDiri.isNullOrEmpty()){
+                            activity?.let { RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
+                                Constant.folderFotoProfil, nameFile, dataMerchant.username, fotoDiri, it) }
+                        }
                         navController.navigate(R.id.splashFragment)
                     }
                     else{
@@ -170,17 +173,6 @@ class VerifyRegisterMerchantViewModel(
             })
     }
 
-    private fun registerMerchant(dataMerchant: ModelMerchant){
-        val fotoProfil = etFotoProfil.value?.path
-
-        if (!fotoProfil.isNullOrEmpty()) {
-            createMerchant(dataMerchant, fotoProfil)
-        }
-        else{
-            message.value = "Error, terjadi kesalahan saat mengupload foto profil"
-        }
-    }
-
     fun sendCode() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -189,7 +181,7 @@ class VerifyRegisterMerchantViewModel(
                 isShowLoading.value = false
                 loading.value = true
 
-                registerMerchant(dataMerchant)
+                createMerchant(dataMerchant)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {

@@ -13,6 +13,7 @@ data class ModelMerchant(
     var status_merchant: String = "",
     var comment: String = "",
     var nama_merchant: String = "",
+    var kategori_id: Int = 0,
     var alamat_merchant: String = "",
     var latitude: String = "",
     var longitude: String = "",

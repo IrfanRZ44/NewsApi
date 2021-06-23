@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav"
+    android:label="Authentication"
+    tools:showIn="navigation_view"
+    app:startDestination="@id/adminFragment">
+    <fragment
+        android:id="@+id/lihatFotoFragment"
+        android:name="id.telkomsel.merchant.utils.LihatFotoFragment"
+        android:label="@string/foto"
+        tools:layout="@layout/fragment_lihat_foto"
+        />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="id.telkomsel.merchant.ui.pelanggan.blank1.Blank1Fragment"
+        android:label="fragment_blank1"
+        tools:layout="@layout/fragment_blank1" />
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="id.telkomsel.merchant.ui.pelanggan.blank2.Blank2Fragment"
+        android:label="fragment_blank2"
+        tools:layout="@layout/fragment_blank2" />
+    <fragment
+        android:id="@+id/accountAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.AccountAdminFragment"
+        android:label="fragment_account_admin"
+        tools:layout="@layout/fragment_account_admin" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.MerchantFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_merchant" />
+    <fragment
+        android:id="@+id/editPasswordAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editPassword.EditPasswordAdminFragment"
+        android:label="fragment_edit_password_admin"
+        tools:layout="@layout/fragment_edit_password_admin" />
+    <fragment
+        android:id="@+id/editProfilAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilAdmin.EditProfilAdminFragment"
+        android:label="fragment_edit_profil_admin"
+        tools:layout="@layout/fragment_edit_profil_admin" />
+    <fragment
+        android:id="@+id/tabMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment"
+        android:label="fragment_tab_merchant"
+        tools:layout="@layout/fragment_tab_merchant" />
+    <fragment
+        android:id="@+id/detailMerchantAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.detailMerchant.DetailMerchantAdminFragment"
+        android:label="fragment_detail_merchant_admin"
+        tools:layout="@layout/fragment_detail_merchant_admin" />
+    <fragment
+        android:id="@+id/addMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.addMerchant.AddMerchantFragment"
+        android:label="fragment_add_merchant"
+        tools:layout="@layout/fragment_add_merchant" />
+    <fragment
+        android:id="@+id/editProfilMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilMerchant.EditProfilMerchantFragment"
+        android:label="fragment_edit_profil_merchant"
+        tools:layout="@layout/fragment_edit_profil_merchant" />
+</navigation>

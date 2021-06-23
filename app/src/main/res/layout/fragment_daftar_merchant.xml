@@ -2,12 +2,12 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.admin.listMerchant.DaftarMerchantFragment"
+    tools:context="id.telkomsel.merchant.ui.merchant.listMerchant.DaftarMerchantFragment"
     >
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.listMerchant.DaftarMerchantViewModel" />
+            type="id.telkomsel.merchant.ui.merchant.listMerchant.DaftarMerchantViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

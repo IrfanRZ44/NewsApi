@@ -73,7 +73,8 @@
     <string name="tampilkan_gelar_pendidikan">Tampilkan Gelar Pendidikan</string>
     <string name="tampilkan_lokasi_terkini_saya">Tampilkan Lokasi Saya</string>
     <string name="tampilkan_tempat_tanggal_lahir">Tampilkan tempat tanggal lahir</string>
-    <string name="kecamatan">Kecamatan,</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="kelurahan">Kelurahan</string>
     <string name="kabupaten_kota">Kabupaten / Kota</string>
     <string name="input_text">Input Text</string>
     <string name="tambah">Tambah</string>
@@ -138,19 +139,26 @@
     <string name="nomor_wa_pemilik_contoh_0852xxxx">Nomor Whatsapp pemilik contoh: 0813xxxx</string>
     <string name="nomor_hp_merchant_contoh_0852xxxx">Nomor HP merchant contoh: 0813xxxx</string>
     <string name="nomor_wa_merchant_contoh_0852xxxx">Nomor Whatsapp merchant contoh: 0813xxxx</string>
+    <string name="nomor_hp_pemilik_contoh_0852xxxx_wajib">Nomor HP pemilik contoh: 0813xxxx*</string>
+    <string name="nomor_wa_pemilik_contoh_0852xxxx_wajib">Nomor Whatsapp pemilik contoh: 0813xxxx*</string>
+    <string name="nomor_hp_merchant_contoh_0852xxxx_wajib">Nomor HP merchant contoh: 0813xxxx*</string>
+    <string name="nomor_wa_merchant_contoh_0852xxxx_wajib">Nomor Whatsapp merchant contoh: 0813xxxx*</string>
     <string name="nomor_hp_admin_contoh_0852xxxx">Nomor HP admin contoh: 0813xxxx</string>
     <string name="nomor_wa_admin_contoh_0852xxxx">Nomor Whatsapp admin contoh: 0813xxxx</string>
     <string name="pick_tanggal_lahir">Pilih Tanggal Lahir</string>
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="kata_sandi">Kata Sandi</string>
     <string name="kata_sandi_confirm">Konfirmasi Kata Sandi</string>
+    <string name="kata_sandi_confirm_wajib">Konfirmasi Kata Sandi*</string>
     <string name="informasi_pemilik">Informasi Pemilik</string>
     <string name="email_merchant">Email Merchant</string>
     <string name="cluster">Cluster</string>
+    <string name="cluster_wajib">Cluster*</string>
     <string name="pick_tanggal_peresmian">Pilih Tanggal Peresmian Merchant</string>
     <string name="gps">GPS</string>
     <string name="titik_lokasi">Titik Lokasi(Tekan GPS)</string>
     <string name="alamat_merchant_lengkap">Alamat Merchant(Jalan/Kompleks/Blok/DLL)</string>
+    <string name="alamat_merchant_lengkap_wajib">Alamat Merchant(Jalan/Kompleks/Blok/DLL)*</string>
     <string name="alamat_admin_lengkap">Alamat Admin(Jalan/Kompleks/Blok/DLL)</string>
     <string name="login_user">Login User</string>
     <string name="login_merchant">Login Merchant</string>
@@ -189,4 +197,10 @@
     <string name="no_wa_pemilik">No WA Pemilik</string>
     <string name="lokasi_merchant">Lokasi Merchant</string>
     <string name="tambah_merchant">Tambah Merchant</string>
+    <string name="kategori">Kategori</string>
+    <string name="nama_merchant_wajib">Nama Merchant*</string>
+    <string name="username_wajib">Username*</string>
+    <string name="kata_sandi_wajib">Kata Sandi*</string>
+    <string name="nama_lengkap_wajib">Nama Lengkap*</string>
+    <string name="kategori_merchant">Kategori Merchant</string>
 </resources>

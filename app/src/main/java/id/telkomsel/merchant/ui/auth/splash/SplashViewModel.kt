@@ -13,8 +13,8 @@ import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponseInfoApps
 import id.telkomsel.merchant.model.response.ModelResponseMerchant
-import id.telkomsel.merchant.ui.admin.AdminActivity
-import id.telkomsel.merchant.ui.main.MainActivity
+import id.telkomsel.merchant.ui.merchant.MerchantActivity
+import id.telkomsel.merchant.ui.pelanggan.PelangganActivity
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
@@ -68,12 +68,12 @@ class SplashViewModel(
 
                     when (savedData?.getDataMerchant()?.level) {
                         Constant.levelMerchant, Constant.levelCSO, Constant.levelSBP, Constant.levelChannel -> {
-                            val intent = Intent(activity, AdminActivity::class.java)
+                            val intent = Intent(activity, MerchantActivity::class.java)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }
                         else -> {
-                            val intent = Intent(activity, MainActivity::class.java)
+                            val intent = Intent(activity, PelangganActivity::class.java)
                             activity?.startActivity(intent)
                             activity?.finish()
                         }

@@ -35,9 +35,8 @@ class VerifyRegisterMerchantFragment : BaseFragmentBind<FragmentVerifyRegisterMe
                 )
 
             viewModel.dataMerchant = this.arguments?.getParcelable(Constant.reffMerchant)?:throw Exception("Error, mohon lakukan registrasi ulang")
-
-            viewModel.noHp.value = this.arguments?.getString(Constant.noHp)?:throw Exception("Error, mohon lakukan registrasi ulang")
-            viewModel.etFotoProfil.value = this.arguments?.getParcelable(Constant.dataModelFotoProfil)?:throw Exception("Error, mohon lakukan registrasi ulang")
+            viewModel.noHp.value = this.arguments?.getString(Constant.noHp)
+            viewModel.etFotoProfil.value = this.arguments?.getParcelable(Constant.dataModelFotoProfil)
 
             viewModel.isShowLoading.value = false
             viewModel.loading.value = true

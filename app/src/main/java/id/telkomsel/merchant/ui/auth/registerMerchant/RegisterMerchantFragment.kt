@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -53,7 +55,7 @@ class RegisterMerchantFragment : BaseFragmentBind<FragmentRegisterMerchantBindin
         bind.etTglLahir.editText?.keyListener = null
         bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = RegisterMerchantViewModel(activity, findNavController(),
+        viewModel = RegisterMerchantViewModel(activity, findNavController(), bind.spinnerKategori,
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant, bind.etEmail,
@@ -62,10 +64,12 @@ class RegisterMerchantFragment : BaseFragmentBind<FragmentRegisterMerchantBindin
             )
         bind.viewModel = viewModel
         initPickMap(bind.root, savedInstanceState)
+        viewModel.setAdapterKategori()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
         viewModel.setAdapterKecamatan()
         viewModel.setAdapterKelurahan()
+        getCurrentLocation()
 
         viewModel.dataMerchant = this.arguments?.getParcelable(Constant.reffMerchant)
         if (viewModel.dataMerchant != null){
@@ -74,10 +78,28 @@ class RegisterMerchantFragment : BaseFragmentBind<FragmentRegisterMerchantBindin
             )
         }
 
+        viewModel.getDaftarKategori()
         viewModel.getDaftarProvinsi()
     }
 
     private fun onClick(){
+        bind.etNoWaPemilik.editText?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onClickRegisterMerchant()
+                return@OnEditorActionListener false
+            }
+            false
+        })
+
+        bind.spinnerKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                activity?.let { dismissKeyboard(it) }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
         bind.spinnerProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 activity?.let { dismissKeyboard(it) }
@@ -223,6 +245,38 @@ class RegisterMerchantFragment : BaseFragmentBind<FragmentRegisterMerchantBindin
         if (this::mapView.isInitialized) mapView.onLowMemory()
     }
 
+    private fun getCurrentLocation() {
+        context?.let {
+            if (ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                    it, Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(it)
+
+                fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
+                    viewModel.currentLatitude.value = location?.latitude.toString()
+                    viewModel.currentLongitude.value = location?.longitude.toString()
+                }
+
+            }
+            else {
+                viewModel.message.value = "Anda belum mengizinkan akses lokasi aplikasi ini"
+
+                ActivityCompat.requestPermissions(
+                    context as Activity,
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    Constant.codeRequestLocation
+                )
+            }
+        }
+    }
+
     private fun checkPermission() {
         context?.let {
             if (ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -263,7 +317,6 @@ class RegisterMerchantFragment : BaseFragmentBind<FragmentRegisterMerchantBindin
                 )
             }
         }
-
     }
 
     @SuppressLint("InflateParams")

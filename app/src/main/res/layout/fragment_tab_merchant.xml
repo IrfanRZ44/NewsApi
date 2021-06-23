@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantFragment">
+    tools:context="id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.listMerchant.TabMerchantViewModel" />
+            type="id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantViewModel" />
     </data>
 
     <RelativeLayout

@@ -65,7 +65,7 @@ object RetrofitUtils{
     }
 
     fun createMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
-        val call = api.createMerchant(dataMerchant.username, dataMerchant.nama_merchant,
+        val call = api.createMerchant(dataMerchant.username, dataMerchant.kategori_id, dataMerchant.nama_merchant,
             dataMerchant.alamat_merchant, dataMerchant.latitude, dataMerchant.longitude, dataMerchant.tgl_peresmian_merchant,
             dataMerchant.provinsi, dataMerchant.kabupaten, dataMerchant.kecamatan, dataMerchant.kelurahan,
             dataMerchant.regional, dataMerchant.branch, dataMerchant.cluster,
@@ -77,7 +77,7 @@ object RetrofitUtils{
     }
 
     fun updateMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
-        val call = api.updateMerchant(dataMerchant.id, dataMerchant.nama_merchant,
+        val call = api.updateMerchant(dataMerchant.id, dataMerchant.nama_merchant, dataMerchant.kategori_id,
             dataMerchant.alamat_merchant,
             dataMerchant.status_merchant, dataMerchant.latitude, dataMerchant.longitude, dataMerchant.tgl_peresmian_merchant,
             dataMerchant.provinsi, dataMerchant.kabupaten, dataMerchant.kecamatan, dataMerchant.kelurahan,
@@ -92,6 +92,11 @@ object RetrofitUtils{
 
     fun validateNewMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.validateNewMerchant(dataMerchant.username, dataMerchant.no_hp_merchant)
+        call.enqueue(callback)
+    }
+
+    fun validateNewMerchantPhone(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
+        val call = api.validateNewMerchantPhone(dataMerchant.no_hp_merchant)
         call.enqueue(callback)
     }
 
@@ -129,6 +134,21 @@ object RetrofitUtils{
 
     fun getDaftarMerchantByAdmin(cluster: String, userRequest: String, startPage: Int, status: String, search: String?, callback: Callback<ModelResponseDaftarMerchant>){
         val call = api.getDaftarMerchantByAdmin(cluster, userRequest, startPage, status, search)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarKategori(callback: Callback<ModelResponseDaftarKategori>){
+        val call = api.getDaftarKategori()
+        call.enqueue(callback)
+    }
+
+    fun getDataKategori(kategori_id: Int, callback: Callback<ModelResponseDataKategori>){
+        val call = api.getDataKategori(kategori_id)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarSubKategori(callback: Callback<ModelResponseDaftarKategori>){
+        val call = api.getDaftarSubKategori()
         call.enqueue(callback)
     }
 

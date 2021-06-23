@@ -10,12 +10,16 @@ object Constant {
     const val reffCreateMerchant = "createMerchant"
     const val reffUpdateMerchant = "updateMerchant"
     const val reffValidateNewMerchant = "validateNewMerchant"
+    const val reffValidateNewMerchantPhone = "validateNewMerchantPhone"
     const val reffUpdatePassword = "updatePasswordMerchant"
     const val reffLogoutMerchant = "logoutMerchant"
     const val reffGetDataMerchant = "getDataMerchant"
     const val reffForgetPasswordMerchantUsername = "forgetPasswordMerchantUsername"
     const val reffForgetPasswordMerchantPhone = "forgetPasswordMerchantPhone"
     const val reffDaftarMerchantByAdmin = "getDaftarMerchantByAdmin"
+    const val reffDaftarKategori = "getDaftarKategori"
+    const val reffDataKategori = "getDataKategori"
+    const val reffDaftarSubKategori = "getDaftarSubKategori"
     const val reffUpdateStatusMerchant = "updateStatusMerchant"
 
     const val reffProvinsi = "getProvinsi"
@@ -140,6 +144,7 @@ object Constant {
     const val pendaftaranBerhasil = "Pendaftaran Berhasil"
     const val berhasil = "Berhasil"
 
+    const val pilihKategori = "Pilih Kategori"
     const val pilihProvinsi = "Pilih Provinsi"
     const val pilihKabupaten = "Pilih Kota/Kabupaten"
     const val pilihProduk = "Pilih Produk"
@@ -147,8 +152,10 @@ object Constant {
     const val pilihKelurahan = "Pilih Kelurahan"
 
     const val noDataWilayah = "Tidak ada data wilayah"
+    const val noDataKategori = "Tidak ada data kategori"
     const val noMerchantRequest = "Semua Merchant telah divalidasi"
     const val noMerchant = "Maaf, belum ada data merchant"
+    const val noKategori = "Maaf, belum ada data kategori"
 
     const val konfirmasi = "Konfirmasi"
 

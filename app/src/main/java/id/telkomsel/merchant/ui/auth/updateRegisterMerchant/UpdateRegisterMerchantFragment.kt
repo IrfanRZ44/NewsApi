@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -54,7 +56,7 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
         bind.etTglLahir.editText?.keyListener = null
         bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = UpdateRegisterMerchantViewModel(activity, findNavController(),
+        viewModel = UpdateRegisterMerchantViewModel(activity, findNavController(), bind.spinnerKategori,
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant,
@@ -64,14 +66,33 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
         initPickMap(bind.root, savedInstanceState)
         viewModel.dataMerchant = this.arguments?.getParcelable(Constant.reffMerchant)
         viewModel.setDataMerchant()
+        viewModel.setAdapterKategori()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
         viewModel.setAdapterKecamatan()
         viewModel.setAdapterKelurahan()
         viewModel.getDaftarProvinsi()
+        viewModel.getDaftarKategori()
     }
 
     private fun onClick(){
+        bind.etNoWaPemilik.editText?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onClickRegisterMerchant()
+                return@OnEditorActionListener false
+            }
+            false
+        })
+
+        bind.spinnerKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                activity?.let { dismissKeyboard(it) }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
         bind.cardFotoProfil.setOnClickListener {
             context?.let {
                 CropImage.activity()

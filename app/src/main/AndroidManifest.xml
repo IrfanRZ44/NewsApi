@@ -31,13 +31,13 @@
         </activity>
 
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.pelanggan.PelangganActivity"
             android:label="@string/main_activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
         <activity
-            android:name=".ui.admin.AdminActivity"
+            android:name=".ui.merchant.MerchantActivity"
             android:label="@string/main_activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>

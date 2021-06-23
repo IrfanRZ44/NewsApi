@@ -11,14 +11,18 @@ import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
+import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
+import id.telkomsel.merchant.utils.adapter.SpinnerKategoriAdapter
 import id.telkomsel.merchant.utils.adapter.SpinnerWilayahAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.showLog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +34,7 @@ import kotlin.collections.ArrayList
 class UpdateRegisterMerchantViewModel(
     private val activity: Activity?,
     private val navController: NavController,
+    private val spinnerKategori: AppCompatSpinner,
     private val spinnerProvinsi: AppCompatSpinner,
     private val spinnerKabupaten: AppCompatSpinner,
     private val spinnerKecamatan: AppCompatSpinner,
@@ -62,15 +67,27 @@ class UpdateRegisterMerchantViewModel(
     val etHPMerchant = MutableLiveData<String>()
     val etWAMerchant = MutableLiveData<String>()
     val etEmailMerchant = MutableLiveData<String>()
+    val listKategori = ArrayList<ModelKategori>()
     val listProvinsi = ArrayList<ModelWilayah>()
     val listKabupaten = ArrayList<ModelWilayah>()
     val listKecamatan = ArrayList<ModelWilayah>()
     val listKelurahan = ArrayList<ModelWilayah>()
     val etCluster = MutableLiveData<String>()
+    lateinit var adapterKategori : SpinnerKategoriAdapter
     lateinit var adapterProvinsi : SpinnerWilayahAdapter
     lateinit var adapterKabupaten : SpinnerWilayahAdapter
     lateinit var adapterKecamatan : SpinnerWilayahAdapter
     lateinit var adapterKelurahan : SpinnerWilayahAdapter
+
+    fun setAdapterKategori() {
+        listKategori.clear()
+
+        adapterKategori = SpinnerKategoriAdapter(
+            activity,
+            listKategori, true
+        )
+        spinnerKategori.adapter = adapterKategori
+    }
 
     fun setAdapterProvinsi() {
         listProvinsi.clear()
@@ -182,6 +199,56 @@ class UpdateRegisterMerchantViewModel(
         } catch (e: java.lang.Exception) {
             message.value = e.message
         }
+    }
+
+    fun getDaftarKategori(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKategori(
+            object : Callback<ModelResponseDaftarKategori> {
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarKategori>,
+                    response: Response<ModelResponseDaftarKategori>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori))
+
+                        for (i in data.indices) {
+                            listKategori.add(data[i])
+                        }
+                        adapterKategori.notifyDataSetChanged()
+
+                        val idKategori = dataMerchant?.kategori_id
+                        showLog(idKategori.toString())
+                        if (dataMerchant != null) {
+                            for (i in listKategori.indices) {
+                                if (listKategori[i].id == idKategori) {
+                                    spinnerKategori.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                        adapterKategori.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarKategori>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKategori.clear()
+                    listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                    adapterKategori.notifyDataSetChanged()
+                }
+            })
     }
 
     fun getDaftarProvinsi(){
@@ -384,41 +451,6 @@ class UpdateRegisterMerchantViewModel(
             })
     }
 
-    private fun updateMerchant(merchant: ModelMerchant){
-        RetrofitUtils.updateMerchant(merchant,
-            object : Callback<ModelResponse> {
-                override fun onResponse(
-                    call: Call<ModelResponse>,
-                    response: Response<ModelResponse>
-                ) {
-                    isShowLoading.value = false
-
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffSuccessRegister){
-                        dialogSucces(result.message)
-                        navController.navigate(R.id.splashFragment)
-                    }
-                    else{
-                        if (result?.message == "Nomor HP Merchant sudah digunakan"){
-                            setTextError("Error, nomor HP Merchant sudah digunakan", editNoHpMerchant)
-                        }
-                        else{
-                            message.value = result?.message
-                        }
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponse>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    message.value = t.message
-                }
-            })
-    }
-
     private fun dialogSucces(msg: String){
         if (activity != null){
             val alert = AlertDialog.Builder(activity)
@@ -468,6 +500,7 @@ class UpdateRegisterMerchantViewModel(
         val lat = latitude.value
         val lng = longitude.value
         val tglPeresmianMerchant = etTglPeresmianMerchant.value
+        val kategori = listKategori[spinnerKategori.selectedItemPosition].id
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
         val kecamatan = listKecamatan[spinnerKecamatan.selectedItemPosition].nama
@@ -482,9 +515,10 @@ class UpdateRegisterMerchantViewModel(
         val tglLahir = etTglLahir.value
         val noHpPemilik = etPhonePemilik.value
         val noWaPemilik = etWAPemilik.value
-        val fotoProfil = etFotoProfil.value?.path
+        val merchant = dataMerchant
 
-        if (id != null && !namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty() && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
+        if (merchant != null && id != null && !namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty()
+            && (kategori != 0)
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -492,11 +526,10 @@ class UpdateRegisterMerchantViewModel(
             && !cluster.isNullOrEmpty() && !regional.isNullOrEmpty() && !branch.isNullOrEmpty()
             && !noWaMerchant.isNullOrEmpty() && noWaMerchant.take(1) == "0"
             && !noHpMerchant.isNullOrEmpty() && noHpMerchant.take(1) == "0"
-            && !emailMerchant.isNullOrEmpty() && emailMerchant.matches(Regex(Constant.emailFormat))
-            && !namaLengkap.isNullOrEmpty() && !tglLahir.isNullOrEmpty() && !tglPeresmianMerchant.isNullOrEmpty()
+            && (emailMerchant.isNullOrEmpty() || !emailMerchant.isNullOrEmpty() && emailMerchant.matches(Regex(Constant.emailFormat)))
+            && !namaLengkap.isNullOrEmpty()
             && !noHpPemilik.isNullOrEmpty() && noHpPemilik.take(1) == "0"
             && !noWaPemilik.isNullOrEmpty() && noWaPemilik.take(1) == "0"
-            && !fotoProfil.isNullOrEmpty()
             && (noHpMerchant.length in 10..13) && (noWaMerchant.length in 10..13)
             && (noHpPemilik.length in 10..13) && (noWaPemilik.length in 10..13)
         ) {
@@ -506,43 +539,42 @@ class UpdateRegisterMerchantViewModel(
             val waMerchant = noWaMerchant.replaceFirst("0", "+62")
             isShowLoading.value = true
 
-            val dataMerchant = ModelMerchant(id, "", "", "", "",
-                Constant.statusRequest,
-                "", namaMerchant, alamatMerchant, lat, lng, tglPeresmianMerchant,
-                provinsi, kabupaten, kecamatan, kelurahan, regional, branch, cluster,
-                hpMerchant, waMerchant,  emailMerchant,"",
-                namaLengkap, tglLahir, hpPemilik, waPemilik)
+            merchant.nama_merchant = namaMerchant
+            merchant.kategori_id = kategori
+            merchant.alamat_merchant = alamatMerchant
+            if (!lat.isNullOrEmpty()) merchant.latitude = lat
+            if (!lng.isNullOrEmpty()) merchant.longitude = lng
+            merchant.tgl_peresmian_merchant = tglPeresmianMerchant?:""
+            merchant.provinsi = provinsi
+            merchant.kabupaten = kabupaten
+            merchant.kecamatan = kecamatan
+            merchant.kelurahan = kelurahan
+            merchant.regional = regional
+            merchant.branch = branch
+            merchant.cluster = cluster
+            merchant.no_hp_merchant = hpMerchant
+            merchant.no_wa_merchant = waMerchant
+            merchant.email_merchant = emailMerchant?:""
+            merchant.nama_lengkap = namaLengkap
+            merchant.tgl_lahir = tglLahir?:""
+            merchant.no_hp_pemilik = hpPemilik
+            merchant.no_wa_pemilik = waPemilik
+            merchant.status_merchant = Constant.statusRequest
 
-            updateMerchant(dataMerchant)
+            validateMerchant(merchant)
         }
         else {
-            if (id == null){
-                message.value = "Error, terjadi kesalahan saat mengambil ID Merchant"
+            if (merchant == null){
+                message.value = "Error, terjadi kesalahan saat mengambil data Merchant"
             }
-            else if (fotoProfil.isNullOrEmpty()){
-                message.value = "Mohon upload foto profil"
+            else if (id == null){
+                message.value = "Error, terjadi kesalahan saat mengambil ID Merchant"
             }
             else if (namaMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nama merchant", editNamaMerchant)
             }
             else if (alamatMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan alamat merchant", editAlamatMerchant)
-            }
-            else if (lat.isNullOrEmpty() || lng.isNullOrEmpty()){
-                message.value = "Error, mohon pilih titik lokasi di maps"
-                editAlamatMerchant.clearFocus()
-                editTitikLokasi.requestFocus()
-                editTitikLokasi.findFocus()
-                editTitikLokasi.error = "Error, mohon pilih titik lokasi di maps"
-            }
-            else if (tglPeresmianMerchant.isNullOrEmpty()){
-                message.value = "Error, Mohon pilih tanggal peresmian merchant"
-                editNamaMerchant.clearFocus()
-                editAlamatMerchant.clearFocus()
-                editTitikLokasi.clearFocus()
-                editTglPeresmianMerchant.requestFocus()
-                editTglPeresmianMerchant.findFocus()
-                editTglPeresmianMerchant.error = "Error, Mohon pilih tanggal peresmian merchant"
             }
             else if (provinsi == Constant.pilihProvinsi){
                 message.value = "Mohon memilih salah satu Provinsi yang tersedia"
@@ -586,21 +618,11 @@ class UpdateRegisterMerchantViewModel(
             else if (noWaMerchant.length !in 10..13){
                 setTextError("Error, nomor WA Merchant harus 10-13 digit", editNoWaMerchant)
             }
-            else if (emailMerchant.isNullOrEmpty()){
-                setTextError("Error, mohon masukkan email", editEmail)
-            }
-            else if(!emailMerchant.matches(Regex(Constant.emailFormat))){
+            else if(!emailMerchant.isNullOrEmpty() && !emailMerchant.matches(Regex(Constant.emailFormat))){
                 setTextError("Error, format email salah", editEmail)
             }
             else if (namaLengkap.isNullOrEmpty()){
                 setTextError("Error, Mohon masukkan nama lengkap", editNamaLengkap)
-            }
-            else if (tglLahir.isNullOrEmpty()){
-                message.value = "Error, Mohon pilih tanggal lahir"
-                editNamaLengkap.clearFocus()
-                editTglLahir.requestFocus()
-                editTglLahir.findFocus()
-                editTglLahir.error = "Error, Mohon pilih tanggal lahir"
             }
             else if (noHpPemilik.isNullOrEmpty()){
                 setTextError("Error, Mohon masukkan nomor HP Pemilik yang valid", editNoHpPemilik)
@@ -621,5 +643,74 @@ class UpdateRegisterMerchantViewModel(
                 setTextError("Error, nomor WA Pemilik harus 10-13 digit", editNoWaPemilik)
             }
         }
+    }
+
+    private fun validateMerchant(resultMerchant: ModelMerchant){
+        RetrofitUtils.validateNewMerchantPhone(resultMerchant,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffDataCanBeUsed) {
+                        updateMerchant(resultMerchant)
+                    } else {
+                        when (result?.message) {
+                            "Error, Nomor HP Merchant sudah terdaftar!" -> {
+                                setTextError(result.message, editNoHpMerchant)
+                            }
+                            else -> {
+                                message.value = result?.message
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
+    }
+
+    private fun updateMerchant(merchant: ModelMerchant){
+        RetrofitUtils.updateMerchant(merchant,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccessRegister){
+                        dialogSucces(result.message)
+                        navController.navigate(R.id.splashFragment)
+                    }
+                    else{
+                        if (result?.message == "Nomor HP Merchant sudah digunakan"){
+                            setTextError("Error, nomor HP Merchant sudah digunakan", editNoHpMerchant)
+                        }
+                        else{
+                            message.value = result?.message
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
     }
 }

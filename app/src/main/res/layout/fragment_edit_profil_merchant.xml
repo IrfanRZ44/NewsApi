@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant.EditProfilMerchantFragment">
+    tools:context="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilMerchant.EditProfilMerchantFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.admin.accountAdmin.editProfilMerchant.EditProfilMerchantViewModel" />
+            type="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilMerchant.EditProfilMerchantViewModel" />
     </data>
 
     <RelativeLayout

@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
-import id.telkomsel.merchant.ui.main.MainActivity
+import id.telkomsel.merchant.ui.pelanggan.PelangganActivity
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -38,7 +38,7 @@ class LoginViewModel(
 
     fun onClickLogin(){
         activity?.let { dismissKeyboard(it) }
-        val intent = Intent(activity, MainActivity::class.java)
+        val intent = Intent(activity, PelangganActivity::class.java)
         activity?.startActivity(intent)
         activity?.finish()
     }
