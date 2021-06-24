@@ -1,8 +1,10 @@
 package id.telkomsel.merchant.utils.adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,10 +25,23 @@ import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.utils.LihatFotoFragment
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import java.util.regex.Pattern
 
 fun showLog(message: String?){
     Log.e("Error", "$message This log")
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getDate(dateFormat: String): String{
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateFormat))
+    } else {
+        SimpleDateFormat(dateFormat).format(Date())
+    }
 }
 
 fun isContainNumber(password: String): Boolean {

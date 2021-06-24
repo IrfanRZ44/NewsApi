@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelKategori
+import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
+import id.telkomsel.merchant.utils.adapter.getDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,22 +22,25 @@ import retrofit2.Response
 class DaftarProdukViewModel(
     private val navController: NavController,
     private val activity: Activity?,
-    private val rcRequest: RecyclerView,
+    private val rcKategori: RecyclerView,
+    private val rcProduk: RecyclerView,
     private val savedData: DataSave
 ) : BaseViewModel() {
-    val listRequest = ArrayList<ModelKategori>()
+    val listKategori = ArrayList<ModelKategori>()
+    val listProduk = ArrayList<ModelProduk>()
     lateinit var adapter: AdapterListKategori
     var isSearching = false
 
     fun initAdapter() {
-        rcRequest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        adapter = AdapterListKategori(
-            listRequest
-        )
-        rcRequest.adapter = adapter
+        rcKategori.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        adapter = AdapterListKategori(listKategori)
+        rcKategori.adapter = adapter
     }
 
     fun getDataKategori() {
+        listKategori.clear()
+        listKategori.add(ModelKategori(0, 0, "Semua",
+            true, getDate(Constant.dateFormat1), getDate(Constant.dateFormat1)))
         isShowLoading.value = true
         adapter.notifyDataSetChanged()
 
@@ -50,14 +55,14 @@ class DaftarProdukViewModel(
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccess){
-                        listRequest.addAll(result.data)
+                        listKategori.addAll(result.data)
                         adapter.notifyDataSetChanged()
 
-                        if (listRequest.size == 0){
-                            rcRequest.visibility = View.GONE
+                        if (listKategori.size == 0){
+                            rcKategori.visibility = View.GONE
                         }
                         else{
-                            rcRequest.visibility = View.VISIBLE
+                            rcKategori.visibility = View.VISIBLE
                         }
                     }
                     else{

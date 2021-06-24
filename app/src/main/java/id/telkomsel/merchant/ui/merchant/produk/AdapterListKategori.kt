@@ -1,6 +1,7 @@
 package id.telkomsel.merchant.ui.merchant.produk
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +10,29 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelKategori
 import kotlinx.android.synthetic.main.item_daftar_kategori.view.*
 
-class AdapterListKategori(private val listItem: ArrayList<ModelKategori>
-) : RecyclerView.Adapter<AdapterListKategori.AfiliasiHolder>(){
-
+class AdapterListKategori(private val listItem: ArrayList<ModelKategori>) : RecyclerView.Adapter<AdapterListKategori.AfiliasiHolder>(){
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
         fun bindAfiliasi(item: ModelKategori) {
             viewItem.textNama.text = item.nama
+            if (item.isSelected){
+                viewItem.cardView.setCardBackgroundColor(Color.RED)
+                viewItem.textNama.setTextColor(Color.WHITE)
+            }
+            else{
+                viewItem.cardView.setCardBackgroundColor(Color.WHITE)
+                viewItem.textNama.setTextColor(Color.BLACK)
+            }
+
+            viewItem.setOnClickListener {
+                for (i in listItem.indices){
+                    listItem[i].isSelected = false
+                }
+                item.isSelected = true
+                notifyDataSetChanged()
+            }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AfiliasiHolder {
         return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_daftar_kategori, parent, false))

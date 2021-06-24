@@ -15,15 +15,22 @@
         android:background="@color/white"
         snackbar="@{viewModel.status}"
         >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rcKategori"
+            android:layout_margin="@dimen/h2"
+            />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/swipeRefresh"
+            android:layout_below="@+id/rcKategori"
             >
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rcRequest"
+                android:id="@+id/rcProduk"
                 android:layout_margin="@dimen/h2"
                 />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

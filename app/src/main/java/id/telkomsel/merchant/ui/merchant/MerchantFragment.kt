@@ -6,11 +6,12 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.utils.Constant
-import com.google.android.material.tabs.TabLayout
 import id.telkomsel.merchant.databinding.FragmentMerchantBinding
+import com.google.android.material.tabs.TabLayout
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.ui.merchant.accountAdmin.AccountAdminFragment
 import id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment
+import id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment
 import id.telkomsel.merchant.ui.pelanggan.blank1.Blank1Fragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
@@ -56,7 +57,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
     private fun viewPagerAdmin(pager: ViewPager){
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabMerchantFragment(), "Merchant")
-        adapter.addFragment(Blank1Fragment(), "Produk")
+        adapter.addFragment(DaftarProdukFragment(), "Produk")
         adapter.addFragment(AccountAdminFragment(), Constant.akun)
 
         pager.adapter = adapter

@@ -15,6 +15,7 @@
         android:layout_marginTop="@dimen/h1"
         app:cardCornerRadius="@dimen/h2"
         app:cardElevation="@dimen/h2"
+        android:id="@+id/cardView"
         >
         <RelativeLayout
             android:layout_width="match_parent"

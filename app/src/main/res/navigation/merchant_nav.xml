@@ -62,4 +62,9 @@
         android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilMerchant.EditProfilMerchantFragment"
         android:label="fragment_edit_profil_merchant"
         tools:layout="@layout/fragment_edit_profil_merchant" />
+    <fragment
+        android:id="@+id/daftarProdukFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment"
+        android:label="fragment_daftar_produk"
+        tools:layout="@layout/fragment_daftar_produk" />
 </navigation>

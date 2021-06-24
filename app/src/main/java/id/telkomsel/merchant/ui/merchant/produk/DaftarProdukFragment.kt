@@ -29,27 +29,22 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
 
     fun init(){
         bind.lifecycleOwner = this
-        viewModel = DaftarProdukViewModel(findNavController(), activity, bind.rcRequest, savedData)
+        viewModel = DaftarProdukViewModel(findNavController(), activity, bind.rcKategori, bind.rcProduk, savedData)
         bind.viewModel = viewModel
         viewModel.initAdapter()
 
-        viewModel.listRequest.clear()
-        viewModel.adapter.notifyDataSetChanged()
-        checkCluster()
+        viewModel.getDataKategori()
 
         bind.swipeRefresh.setOnRefreshListener {
-            viewModel.listRequest.clear()
-            viewModel.adapter.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
-            checkCluster()
+            viewModel.getDataKategori()
         }
 
-        bind.rcRequest.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        bind.rcProduk.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
-                    checkCluster()
                 }
             }
         })
@@ -85,7 +80,7 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
                     val act : Activity? = activity
                     act?.let { dismissKeyboard(it) }
 
-                    viewModel.listRequest.clear()
+                    viewModel.listKategori.clear()
                     viewModel.adapter.notifyDataSetChanged()
                     checkCluster()
                 }
@@ -95,7 +90,7 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
         }
 
         onCloseListener = SearchView.OnCloseListener {
-            viewModel.listRequest.clear()
+            viewModel.listKategori.clear()
             viewModel.adapter.notifyDataSetChanged()
             checkCluster()
             false
