@@ -561,7 +561,7 @@ class UpdateRegisterMerchantViewModel(
             merchant.no_wa_pemilik = waPemilik
             merchant.status_merchant = Constant.statusRequest
 
-            validateMerchant(merchant)
+            updateMerchant(merchant)
         }
         else {
             if (merchant == null){
@@ -645,40 +645,6 @@ class UpdateRegisterMerchantViewModel(
         }
     }
 
-    private fun validateMerchant(resultMerchant: ModelMerchant){
-        RetrofitUtils.validateNewMerchantPhone(resultMerchant,
-            object : Callback<ModelResponse> {
-                override fun onResponse(
-                    call: Call<ModelResponse>,
-                    response: Response<ModelResponse>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffDataCanBeUsed) {
-                        updateMerchant(resultMerchant)
-                    } else {
-                        when (result?.message) {
-                            "Error, Nomor HP Merchant sudah terdaftar!" -> {
-                                setTextError(result.message, editNoHpMerchant)
-                            }
-                            else -> {
-                                message.value = result?.message
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponse>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    message.value = t.message
-                }
-            })
-    }
-
     private fun updateMerchant(merchant: ModelMerchant){
         RetrofitUtils.updateMerchant(merchant,
             object : Callback<ModelResponse> {
@@ -687,7 +653,6 @@ class UpdateRegisterMerchantViewModel(
                     response: Response<ModelResponse>
                 ) {
                     isShowLoading.value = false
-
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccessRegister){

@@ -5,7 +5,6 @@
     tools:context="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilAdmin.EditProfilAdminFragment">
 
     <data>
-
         <variable
             name="viewModel"
             type="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilAdmin.EditProfilAdminViewModel" />
@@ -47,7 +46,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    app:cardCornerRadius="@dimen/_30">
+                    app:cardCornerRadius="@dimen/_30"
+                    android:layout_marginBottom="@dimen/h3"
+                    >
                     <androidx.appcompat.widget.LinearLayoutCompat
                         snackbar="@{viewModel.message}"
                         android:layout_width="match_parent"
@@ -490,7 +491,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digitsPhone"
-                                android:imeOptions="actionNext"
+                                android:imeOptions="actionDone"
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"

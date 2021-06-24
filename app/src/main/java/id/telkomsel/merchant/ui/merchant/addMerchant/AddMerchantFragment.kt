@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -55,7 +57,7 @@ class AddMerchantFragment : BaseFragmentBind<FragmentAddMerchantBinding>(){
         bind.etTglLahir.editText?.keyListener = null
         bind.etTglPeresmian.editText?.keyListener = null
 
-        viewModel = AddMerchantViewModel(activity, findNavController(),
+        viewModel = AddMerchantViewModel(activity, findNavController(), bind.spinnerKategori,
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant, bind.etEmail,
@@ -64,6 +66,7 @@ class AddMerchantFragment : BaseFragmentBind<FragmentAddMerchantBinding>(){
             )
         bind.viewModel = viewModel
         initPickMap(bind.root, savedInstanceState)
+        viewModel.setAdapterKategori()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
         viewModel.setAdapterKecamatan()
@@ -77,9 +80,27 @@ class AddMerchantFragment : BaseFragmentBind<FragmentAddMerchantBinding>(){
         }
 
         viewModel.getDaftarProvinsi()
+        viewModel.getDaftarKategori()
     }
 
     private fun onClick(){
+        bind.etNoWaPemilik.editText?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onClickRegisterMerchant()
+                return@OnEditorActionListener false
+            }
+            false
+        })
+
+        bind.spinnerKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                activity?.let { dismissKeyboard(it) }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
         bind.spinnerProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 activity?.let { dismissKeyboard(it) }
@@ -244,8 +265,8 @@ class AddMerchantFragment : BaseFragmentBind<FragmentAddMerchantBinding>(){
                     val locationPoint = myLocation.latitude.toString() + " : " + myLocation.longitude.toString()
 
                     viewModel.etLatLng.value = locationPoint
-                    viewModel.latitude.value = location?.latitude.toString()
-                    viewModel.longitude.value = location?.longitude.toString()
+                    viewModel.latitude.value = myLocation.latitude.toString()
+                    viewModel.longitude.value = myLocation.longitude.toString()
 
                     if (marker != null) marker?.remove()
                     marker = gmap?.addMarker(place)

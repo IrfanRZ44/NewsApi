@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -75,6 +77,14 @@ class EditProfilAdminFragment : BaseFragmentBind<FragmentEditProfilAdminBinding>
     }
 
     private fun onClick(){
+        bind.etNoWaPemilik.editText?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.onClickRegisterMerchant()
+                return@OnEditorActionListener false
+            }
+            false
+        })
+
         bind.cardFotoProfil.setOnClickListener {
             requestFoto = 4
             context?.let {

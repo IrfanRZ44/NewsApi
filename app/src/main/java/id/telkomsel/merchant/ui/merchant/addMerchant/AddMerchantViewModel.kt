@@ -10,9 +10,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.base.BaseViewModel
+import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
@@ -28,6 +30,7 @@ import kotlin.collections.ArrayList
 class AddMerchantViewModel(
     private val activity: Activity?,
     private val navController: NavController,
+    private val spinnerKategori: AppCompatSpinner,
     private val spinnerProvinsi: AppCompatSpinner,
     private val spinnerKabupaten: AppCompatSpinner,
     private val spinnerKecamatan: AppCompatSpinner,
@@ -66,15 +69,27 @@ class AddMerchantViewModel(
     val etEmailMerchant = MutableLiveData<String>()
     val etFotoProfil = MutableLiveData<Uri>()
     val etCluster = MutableLiveData<String>()
+    val listKategori = ArrayList<ModelKategori>()
     val listProvinsi = ArrayList<ModelWilayah>()
     val listKabupaten = ArrayList<ModelWilayah>()
     val listKecamatan = ArrayList<ModelWilayah>()
     val listKelurahan = ArrayList<ModelWilayah>()
+    lateinit var adapterKategori : SpinnerKategoriAdapter
     lateinit var adapterProvinsi : SpinnerWilayahAdapter
     lateinit var adapterKabupaten : SpinnerWilayahAdapter
     lateinit var adapterKecamatan : SpinnerWilayahAdapter
     lateinit var adapterKelurahan : SpinnerWilayahAdapter
     var dataMerchant: ModelMerchant? = null
+
+    fun setAdapterKategori() {
+        listKategori.clear()
+
+        adapterKategori = SpinnerKategoriAdapter(
+            activity,
+            listKategori, true
+        )
+        spinnerKategori.adapter = adapterKategori
+    }
 
     fun setAdapterProvinsi() {
         listProvinsi.clear()
@@ -187,6 +202,55 @@ class AddMerchantViewModel(
         } catch (e: java.lang.Exception) {
             message.value = e.message
         }
+    }
+
+    fun getDaftarKategori(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKategori(
+            object : Callback<ModelResponseDaftarKategori> {
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarKategori>,
+                    response: Response<ModelResponseDaftarKategori>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori))
+
+                        for (i in data.indices) {
+                            listKategori.add(data[i])
+                        }
+                        adapterKategori.notifyDataSetChanged()
+
+                        val idKategori = dataMerchant?.kategori_id
+                        if (dataMerchant != null) {
+                            for (i in listKategori.indices) {
+                                if (listKategori[i].id == idKategori) {
+                                    spinnerKategori.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKategori.clear()
+                        listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                        adapterKategori.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarKategori>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKategori.clear()
+                    listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
+                    adapterKategori.notifyDataSetChanged()
+                }
+            })
     }
 
     fun getDaftarProvinsi(){
@@ -419,6 +483,7 @@ class AddMerchantViewModel(
         val lat = latitude.value
         val lng = longitude.value
         val tglPeresmianMerchant = etTglPeresmianMerchant.value
+        val kategori = listKategori[spinnerKategori.selectedItemPosition].id
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
         val kecamatan = listKecamatan[spinnerKecamatan.selectedItemPosition].nama
@@ -439,6 +504,7 @@ class AddMerchantViewModel(
         val fotoProfil = etFotoProfil.value?.path
 
         if (!namaMerchant.isNullOrEmpty() && !alamatMerchant.isNullOrEmpty() && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
+            && (kategori != 0)
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -470,7 +536,7 @@ class AddMerchantViewModel(
                 Constant.statusRequest,
                 "",
                 namaMerchant,
-                0,
+                kategori,
                 alamatMerchant,
                 lat,
                 lng,
@@ -500,6 +566,9 @@ class AddMerchantViewModel(
             }
             else if (namaMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nama merchant", editNamaMerchant)
+            }
+            else if (kategori == 0){
+                message.value = "Mohon memilih salah satu Kategori yang tersedia"
             }
             else if (alamatMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan alamat merchant", editAlamatMerchant)

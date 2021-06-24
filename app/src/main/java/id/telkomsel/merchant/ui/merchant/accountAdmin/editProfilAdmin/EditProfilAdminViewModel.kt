@@ -443,7 +443,7 @@ class EditProfilAdminViewModel(
             dataMerchant.no_wa_pemilik = waPemilik
             dataMerchant.status_merchant = Constant.statusActive
 
-            validateMerchant(dataMerchant)
+            updateAdmin(dataMerchant)
         }
         else {
             if (dataMerchant == null){
@@ -547,42 +547,8 @@ class EditProfilAdminViewModel(
         }
     }
 
-    private fun validateMerchant(resultMerchant: ModelMerchant){
-        RetrofitUtils.validateNewMerchantPhone(resultMerchant,
-            object : Callback<ModelResponse> {
-                override fun onResponse(
-                    call: Call<ModelResponse>,
-                    response: Response<ModelResponse>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffDataCanBeUsed) {
-                        updateMerchant(resultMerchant)
-                    } else {
-                        when (result?.message) {
-                            "Error, Nomor HP Merchant sudah terdaftar!" -> {
-                                setTextError(result.message, editNoHpMerchant)
-                            }
-                            else -> {
-                                message.value = result?.message
-                            }
-                        }
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponse>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    message.value = t.message
-                }
-            })
-    }
-
-    private fun updateMerchant(merchant: ModelMerchant){
-        RetrofitUtils.updateMerchant(merchant,
+    private fun updateAdmin(merchant: ModelMerchant){
+        RetrofitUtils.updateAdmin(merchant,
             object : Callback<ModelResponse> {
                 override fun onResponse(
                     call: Call<ModelResponse>,
@@ -592,7 +558,7 @@ class EditProfilAdminViewModel(
 
                     val result = response.body()
 
-                    if (result?.message == Constant.reffSuccessRegister){
+                    if (result?.message == Constant.reffSuccess){
                         message.value = "Berhasil edit profil"
                         savedData.setDataObject(merchant, Constant.reffMerchant)
                         navController.popBackStack()

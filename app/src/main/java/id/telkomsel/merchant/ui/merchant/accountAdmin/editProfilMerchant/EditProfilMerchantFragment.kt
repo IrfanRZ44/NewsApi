@@ -55,6 +55,7 @@ class EditProfilMerchantFragment : BaseFragmentBind<FragmentEditProfilMerchantBi
         bind.etTglPeresmian.editText?.keyListener = null
 
         viewModel = EditProfilMerchantViewModel(savedData, activity, findNavController(),
+            bind.spinnerKategori,
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
             bind.etNamaMerchant, bind.etAlamatMerchant, bind.etTitikLokasi, bind.etTglPeresmian,
             bind.etCluster, bind.etNoHpMerchant, bind.etNoWaMerchant,
@@ -64,14 +65,25 @@ class EditProfilMerchantFragment : BaseFragmentBind<FragmentEditProfilMerchantBi
         initPickMap(bind.root, savedInstanceState)
         viewModel.dataMerchant = savedData.getDataMerchant()
         viewModel.setDataMerchant()
+        viewModel.setAdapterKategori()
         viewModel.setAdapterProvinsi()
         viewModel.setAdapterKabupaten()
         viewModel.setAdapterKecamatan()
         viewModel.setAdapterKelurahan()
         viewModel.getDaftarProvinsi()
+        viewModel.getDaftarKategori()
     }
 
     private fun onClick(){
+        bind.spinnerKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                activity?.let { dismissKeyboard(it) }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
         bind.cardFotoProfil.setOnClickListener {
             context?.let {
                 CropImage.activity()

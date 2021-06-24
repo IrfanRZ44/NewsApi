@@ -90,6 +90,19 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun updateAdmin(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
+        val call = api.updateAdmin(dataMerchant.id, dataMerchant.nama_merchant,
+            dataMerchant.alamat_merchant,
+            dataMerchant.status_merchant, dataMerchant.latitude, dataMerchant.longitude,
+            dataMerchant.provinsi, dataMerchant.kabupaten, dataMerchant.kecamatan, dataMerchant.kelurahan,
+            dataMerchant.regional, dataMerchant.branch, dataMerchant.cluster, dataMerchant.no_hp_merchant,
+            dataMerchant.no_wa_merchant, dataMerchant.email_merchant,
+            dataMerchant.nama_lengkap, dataMerchant.tgl_lahir,
+            dataMerchant.no_hp_pemilik, dataMerchant.no_wa_pemilik
+        )
+        call.enqueue(callback)
+    }
+
     fun validateNewMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.validateNewMerchant(dataMerchant.username, dataMerchant.no_hp_merchant)
         call.enqueue(callback)

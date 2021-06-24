@@ -111,7 +111,33 @@ interface RetrofitApi {
         @Field("no_hp_pemilik") no_hp_pemilik: String,
         @Field("no_wa_pemilik") no_wa_pemilik: String,
         @Field("status") status: String
-        ): Call<ModelResponse>
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateAdmin)
+    fun updateAdmin(
+        @Field("id") id: Int,
+        @Field("nama_merchant") nama_merchant: String,
+        @Field("alamat_merchant") alamat_merchant: String,
+        @Field("status_merchant") status_merchant: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("provinsi") provinsi: String,
+        @Field("kabupaten") kabupaten: String,
+        @Field("kecamatan") kecamatan: String,
+        @Field("kelurahan") kelurahan: String,
+        @Field("regional") regional: String,
+        @Field("branch") branch: String,
+        @Field("cluster") cluster: String,
+        @Field("no_hp_merchant") no_hp_merchant: String,
+        @Field("no_wa_merchant") no_wa_merchant: String,
+        @Field("email_merchant") email_merchant: String,
+        @Field("nama_lengkap") nama_lengkap: String,
+        @Field("tgl_lahir") tgl_lahir: String,
+        @Field("no_hp_pemilik") no_hp_pemilik: String,
+        @Field("no_wa_pemilik") no_wa_pemilik: String,
+    ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded

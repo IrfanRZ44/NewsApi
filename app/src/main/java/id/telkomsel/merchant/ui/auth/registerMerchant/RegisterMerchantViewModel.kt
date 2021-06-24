@@ -618,6 +618,9 @@ class RegisterMerchantViewModel(
             else if (namaMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nama merchant", editNamaMerchant)
             }
+            else if (kategori == 0){
+                message.value = "Mohon memilih salah satu Kategori yang tersedia"
+            }
             else if (alamatMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan alamat merchant", editAlamatMerchant)
             }

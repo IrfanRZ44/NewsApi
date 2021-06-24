@@ -132,6 +132,25 @@
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKategori"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/etAlamatMerchant"
                             style="@style/customEditText"
@@ -595,7 +614,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digitsPhone"
-                                android:imeOptions="actionNext"
+                                android:imeOptions="actionDone"
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"
