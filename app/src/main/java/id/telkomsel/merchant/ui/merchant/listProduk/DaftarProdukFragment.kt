@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.produk
+package id.telkomsel.merchant.ui.merchant.listProduk
 
 import android.app.Activity
 import android.app.SearchManager
@@ -19,7 +19,7 @@ import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
-class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
+class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind<FragmentDaftarProdukBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_daftar_produk
     lateinit var viewModel: DaftarProdukViewModel
     private var searchView : SearchView? = null
@@ -28,6 +28,7 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
 
     override fun myCodeHere() {
         supportActionBar?.show()
+        supportActionBar?.title = "Produk"
         setHasOptionsMenu(true)
         init()
     }

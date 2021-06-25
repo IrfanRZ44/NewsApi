@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.listMerchant
+package id.telkomsel.merchant.ui.merchant.listProduk
 
 import android.annotation.SuppressLint
 import android.graphics.PorterDuff
@@ -12,16 +12,16 @@ import com.google.android.material.tabs.TabLayout
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
-import id.telkomsel.merchant.databinding.FragmentTabMerchantBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
+import id.telkomsel.merchant.databinding.FragmentTabProdukBinding
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
-class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
-    private lateinit var viewModel: TabMerchantViewModel
-    override fun getLayoutResource(): Int = R.layout.fragment_tab_merchant
-    private val requestDaftarMerchant = DaftarMerchantFragment(Constant.statusRequest)
-    private val activeDaftarMerchant = DaftarMerchantFragment(Constant.statusActive)
-    private val declinedDaftarMerchant = DaftarMerchantFragment(Constant.statusDeclined)
+class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
+    private lateinit var viewModel: TabProdukViewModel
+    override fun getLayoutResource(): Int = R.layout.fragment_tab_produk
+    private val requestDaftarMerchant = DaftarProdukFragment(Constant.statusRequest)
+    private val activeDaftarMerchant = DaftarProdukFragment(Constant.statusActive)
+    private val declinedDaftarMerchant = DaftarProdukFragment(Constant.statusDeclined)
 
     override fun myCodeHere() {
         supportActionBar?.show()
@@ -40,7 +40,7 @@ class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
 
     private fun init() {
         bind.lifecycleOwner = this
-        viewModel = TabMerchantViewModel()
+        viewModel = TabProdukViewModel()
         bind.viewModel = viewModel
     }
 

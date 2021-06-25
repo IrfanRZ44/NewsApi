@@ -153,6 +153,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getPickMerchant(cluster: String, userRequest: String, startPage: Int, search: String?, callback: Callback<ModelResponseDaftarMerchant>){
+        val call = api.getPickMerchant(cluster, userRequest, startPage, search)
+        call.enqueue(callback)
+    }
+
     fun getDaftarKategori(callback: Callback<ModelResponseDaftarKategori>){
         val call = api.getDaftarKategori()
         call.enqueue(callback)

@@ -19,6 +19,7 @@ object Constant {
     const val reffForgetPasswordMerchantUsername = "forgetPasswordMerchantUsername"
     const val reffForgetPasswordMerchantPhone = "forgetPasswordMerchantPhone"
     const val reffDaftarMerchantByAdmin = "getDaftarMerchantByAdmin"
+    const val reffDaftarPickMerchant = "getPickMerchant"
     const val reffDaftarKategori = "getDaftarKategori"
     const val reffDataKategori = "getDataKategori"
     const val reffDaftarSubKategori = "getDaftarSubKategori"

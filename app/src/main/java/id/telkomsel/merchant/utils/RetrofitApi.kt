@@ -203,6 +203,16 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffDaftarPickMerchant)
+    fun getPickMerchant(
+        @Field("cluster") id_branch: String,
+        @Field("userRequest") userRequest: String,
+        @Field("startPage") startPage: Int,
+        @Field("search") search: String?
+    ): Call<ModelResponseDaftarMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffUpdateStatusMerchant)
     fun updateStatusMerchant(
         @Field("id") id: Int,

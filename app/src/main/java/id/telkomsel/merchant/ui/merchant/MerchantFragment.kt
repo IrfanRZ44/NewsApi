@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.ui.merchant.accountAdmin.AccountAdminFragment
 import id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment
-import id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment
+import id.telkomsel.merchant.ui.merchant.listProduk.TabProdukFragment
 import id.telkomsel.merchant.ui.pelanggan.blank1.Blank1Fragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
@@ -56,8 +56,8 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
     @Suppress("DEPRECATION")
     private fun viewPagerAdmin(pager: ViewPager){
         val adapter = SectionsPagerAdapter(childFragmentManager)
-        adapter.addFragment(TabMerchantFragment(), "Merchant")
-        adapter.addFragment(DaftarProdukFragment(), "Produk")
+        adapter.addFragment(TabMerchantFragment(), Constant.appName)
+        adapter.addFragment(TabProdukFragment(), "Produk")
         adapter.addFragment(AccountAdminFragment(), Constant.akun)
 
         pager.adapter = adapter
@@ -76,7 +76,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     1-> {
-                        supportActionBar?.title = Constant.akun
+                        supportActionBar?.title = "Produk"
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)

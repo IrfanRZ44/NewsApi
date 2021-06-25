@@ -7,24 +7,26 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.databinding.FragmentAddProdukBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
+import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import kotlinx.android.synthetic.main.fragment_blank1.view.*
 
 class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
     override fun getLayoutResource(): Int = R.layout.fragment_add_produk
     lateinit var viewModel: AddProdukViewModel
     private lateinit var btmSheet : BottomSheetDialog
+    private var etSearch: TextInputLayout? = null
 
     override fun myCodeHere() {
         supportActionBar?.title = "Tambah Merchant"
@@ -36,18 +38,16 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
 
     private fun init() {
         bind.lifecycleOwner = this
-//        bind.etTglKadaluarsa.editText?.keyListener = null
-//        bind.etNamaMerchant.editText?.keyListener = null
+        bind.etTglKadaluarsa.editText?.keyListener = null
+        bind.etNamaMerchant.editText?.keyListener = null
 
         viewModel = AddProdukViewModel(activity, context, findNavController(), bind.spinnerKategori,
             bind.etNamaMerchant, bind.etNamaProduk,
-            bind.etTglKadaluarsa, bind.etStok, bind.etDesc, bind.etHarga
+            bind.etTglKadaluarsa, bind.etStok, bind.etDesc, bind.etHarga, savedData
             )
         bind.viewModel = viewModel
         initPickMerchant(bind.root)
         viewModel.setAdapterKategori()
-
-        viewModel.getDaftarKategori()
     }
 
     private fun onClick(){
@@ -61,6 +61,11 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         }
 
         bind.btnNamaMerchant.setOnClickListener {
+            viewModel.startPage = 0
+            viewModel.listMerchant.clear()
+            viewModel.adapterPickMerchant.notifyDataSetChanged()
+            etSearch?.editText?.setText("")
+            getDataMerchant("")
             btmSheet.show()
         }
 
@@ -87,12 +92,32 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         btmSheet.behavior.isDraggable = false
         btmSheet.behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-        val textStatus = btmSheet.findViewById<AppCompatTextView>(R.id.textStatus)
-        val etSearch = btmSheet.findViewById<TextInputLayout>(R.id.etSearch)
+        viewModel.btmSheet = btmSheet
+        etSearch = btmSheet.findViewById(R.id.etSearch)
         val rcRequest = btmSheet.findViewById<RecyclerView>(R.id.rcRequest)
+        val btnClose = btmSheet.findViewById<AppCompatImageButton>(R.id.btnClose)
+
+        viewModel.initAdapter(rcRequest)
+
+        rcRequest?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
+                    getDataMerchant("")
+                }
+            }
+        })
+
+        btnClose?.setOnClickListener {
+            btmSheet.dismiss()
+        }
 
         etSearch?.editText?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.startPage = 0
+                viewModel.listMerchant.clear()
+                viewModel.adapterPickMerchant.notifyDataSetChanged()
+                getDataMerchant(etSearch?.editText?.text.toString())
 
                 return@OnEditorActionListener false
             }
@@ -110,6 +135,19 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
                 val imageUri = result.uri
 
                 viewModel.etFotoProduk.value = imageUri
+            }
+        }
+    }
+
+    private fun getDataMerchant(search: String?){
+        if (savedData.getDataMerchant()?.level == Constant.levelChannel){
+            savedData.getDataMerchant()?.cluster?.let {
+                viewModel.getDataMerchant(search, it, "regional")
+            }
+        }
+        else{
+            savedData.getDataMerchant()?.cluster?.let {
+                viewModel.getDataMerchant(search, it, "cluster")
             }
         }
     }

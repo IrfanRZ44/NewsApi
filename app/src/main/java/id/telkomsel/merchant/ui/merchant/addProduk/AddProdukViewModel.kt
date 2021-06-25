@@ -5,18 +5,24 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.net.Uri
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
 import faranjit.currency.edittext.CurrencyEditText
+import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponse
-import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
+import id.telkomsel.merchant.model.response.ModelResponseDaftarMerchant
 import id.telkomsel.merchant.utils.Constant
+import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.SpinnerKategoriAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -42,9 +48,11 @@ class AddProdukViewModel(
     private val editTglKadaluarsa: TextInputLayout,
     private val editStok: TextInputLayout,
     private val editDesc: TextInputLayout,
-    private val editHarga: CurrencyEditText
+    private val editHarga: CurrencyEditText,
+    private val savedData: DataSave,
 ) : BaseViewModel() {
     val etNamaMerchant = MutableLiveData<String>()
+    val etIdMerchant = MutableLiveData<String>()
     val etNamaProduk = MutableLiveData<String>()
     val etTglKadaluarsa = MutableLiveData<String>()
     val etFotoProduk = MutableLiveData<Uri>()
@@ -53,7 +61,68 @@ class AddProdukViewModel(
     val etDeskripsi = MutableLiveData<String>()
     val listKategori = ArrayList<ModelKategori>()
     lateinit var adapterKategori : SpinnerKategoriAdapter
-    var dataMerchant: ModelMerchant? = null
+    val listMerchant = ArrayList<ModelMerchant>()
+    lateinit var adapterPickMerchant: AdapterPickMerchant
+    lateinit var btmSheet: BottomSheetDialog
+    var startPage = 0
+
+    fun initAdapter(rcMerchant: RecyclerView?) {
+        rcMerchant?.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        adapterPickMerchant = AdapterPickMerchant(
+            listMerchant
+        ) { item: ModelMerchant -> onClickPickMerchant(item) }
+        rcMerchant?.adapter = adapterPickMerchant
+    }
+
+    fun getDataMerchant(search: String?, cluster: String, userRequest: String) {
+        isShowLoading.value = true
+        adapterPickMerchant.notifyDataSetChanged()
+        val textStatus = btmSheet.findViewById<AppCompatTextView>(R.id.textStatus)
+
+        RetrofitUtils.getPickMerchant(cluster, userRequest, startPage, search,
+            object : Callback<ModelResponseDaftarMerchant> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarMerchant>,
+                    response: Response<ModelResponseDaftarMerchant>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        listMerchant.addAll(result.dataMerchant)
+                        adapterPickMerchant.notifyDataSetChanged()
+
+                        startPage += 25
+                        if (listMerchant.size == 0){
+                            if (search.isNullOrEmpty()){
+                                textStatus?.text = Constant.noMerchant
+                            }
+                            else{
+                                textStatus?.text = "Maaf, belum ada data merchant dengan nama $search"
+                            }
+                        }
+                        else{
+                            if (startPage > 0 && result.dataMerchant.isEmpty()){
+                                Toast.makeText(context, "Maaf, sudah tidak ada lagi data", Toast.LENGTH_LONG).show()
+                                textStatus?.text = ""
+                            }
+                        }
+                    }
+                    else{
+                        textStatus?.text = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarMerchant>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    textStatus?.text = t.message
+                }
+            })
+    }
 
     fun setAdapterKategori() {
         listKategori.clear()
@@ -90,55 +159,6 @@ class AddProdukViewModel(
         }
     }
 
-    fun getDaftarKategori(){
-        isShowLoading.value = true
-
-        RetrofitUtils.getDaftarKategori(
-            object : Callback<ModelResponseDaftarKategori> {
-                override fun onResponse(
-                    call: Call<ModelResponseDaftarKategori>,
-                    response: Response<ModelResponseDaftarKategori>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffSuccess) {
-                        val data = result.data
-                        listKategori.clear()
-                        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori))
-
-                        for (i in data.indices) {
-                            listKategori.add(data[i])
-                        }
-                        adapterKategori.notifyDataSetChanged()
-
-                        val idKategori = dataMerchant?.kategori_id
-                        if (dataMerchant != null) {
-                            for (i in listKategori.indices) {
-                                if (listKategori[i].id == idKategori) {
-                                    spinnerKategori.setSelection(i)
-                                }
-                            }
-                        }
-                    } else {
-                        listKategori.clear()
-                        listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
-                        adapterKategori.notifyDataSetChanged()
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponseDaftarKategori>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    listKategori.clear()
-                    listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
-                    adapterKategori.notifyDataSetChanged()
-                }
-            })
-    }
-
     private fun setNullError(){
         editNamaMerchant.error = null
         editNamaProduk.error = null
@@ -155,22 +175,34 @@ class AddProdukViewModel(
         editText.findFocus()
     }
 
+    private fun onClickPickMerchant(item: ModelMerchant){
+        listKategori.clear()
+        etNamaMerchant.value = item.nama_merchant
+        etIdMerchant.value = item.id.toString()
+        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori, false))
+        listKategori.addAll(item.sub_kategori)
+        adapterKategori.notifyDataSetChanged()
+        btmSheet.dismiss()
+    }
+
     fun onClickAddProduk(){
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
         val namaMerchant = etNamaMerchant.value
+        val idMerchant = etIdMerchant.value
         val namaProduk = etNamaProduk.value
-        val kategori = listKategori[spinnerKategori.selectedItemPosition].id
+        val subKategori = listKategori[spinnerKategori.selectedItemPosition].id
+        val kategori = listKategori[spinnerKategori.selectedItemPosition].kategori_id
         val tglKadaluarsa = etTglKadaluarsa.value
         val stok = etStok.value
         val harga = editHarga.currencyText.toString()
         val desc = etDeskripsi.value
         val fotoProduk = etFotoProduk.value?.path
 
-        if (!namaMerchant.isNullOrEmpty() && !namaProduk.isNullOrEmpty()
+        if (!idMerchant.isNullOrEmpty() && !namaMerchant.isNullOrEmpty() && !namaProduk.isNullOrEmpty()
             && !tglKadaluarsa.isNullOrEmpty() && !tglKadaluarsa.isNullOrEmpty()
-            && (kategori != 0) && harga.isNotEmpty() && !desc.isNullOrEmpty()
+            && (subKategori != 0) && (kategori != 0) && harga.isNotEmpty() && !desc.isNullOrEmpty()
             && !stok.isNullOrEmpty() && !fotoProduk.isNullOrEmpty()
         ) {
             val hargaReplaced = harga.replace(".", "")
@@ -178,9 +210,9 @@ class AddProdukViewModel(
             val fileProduk = File(fotoProduk)
             val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
                 MediaType.get("image/*"), fileProduk))
-            val merchantId = RequestBody.create(MediaType.get("text/plain"), 60.toString())
-            val kategoriId = RequestBody.create(MediaType.get("text/plain"), 1.toString())
-            val subKategoriId = RequestBody.create(MediaType.get("text/plain"), 1.toString())
+            val merchantId = RequestBody.create(MediaType.get("text/plain"), idMerchant)
+            val kategoriId = RequestBody.create(MediaType.get("text/plain"), kategori.toString())
+            val subKategoriId = RequestBody.create(MediaType.get("text/plain"), subKategori.toString())
             val tglHabis = RequestBody.create(MediaType.get("text/plain"), tglKadaluarsa)
             val stokProduk = RequestBody.create(MediaType.get("text/plain"), stok)
             val hargaProduk = RequestBody.create(MediaType.get("text/plain"), hargaReplaced)
@@ -195,10 +227,16 @@ class AddProdukViewModel(
                 fotoProduk.isNullOrEmpty() -> {
                     message.value = "Mohon upload foto produk"
                 }
+                idMerchant.isNullOrEmpty() -> {
+                    message.value = "Error, terjadi kesalahan database saat mengambil data merchant"
+                }
                 namaMerchant.isNullOrEmpty() -> {
                     setTextError("Error, mohon masukkan nama merchant", editNamaMerchant)
                 }
                 kategori == 0 -> {
+                    message.value = "Mohon memilih salah satu Kategori yang tersedia"
+                }
+                subKategori == 0 -> {
                     message.value = "Mohon memilih salah satu Kategori yang tersedia"
                 }
                 namaProduk.isNullOrEmpty() -> {
@@ -247,8 +285,8 @@ class AddProdukViewModel(
                     isShowLoading.value = false
                     val result = response.body()
 
-                    if (result?.message == Constant.reffSuccessRegister){
-                        dialogSucces()
+                    if (result?.message == Constant.reffSuccess){
+                        message.value = "Berhasil menambah produk, mohon tunggu proses verifikasi dalam waktu 1x24 jam"
                         navController.popBackStack()
                     }
                     else{
@@ -264,23 +302,5 @@ class AddProdukViewModel(
                     message.value = t.message
                 }
             })
-    }
-
-    private fun dialogSucces() {
-        if (activity != null){
-            val alert = AlertDialog.Builder(activity)
-            alert.setTitle(Constant.berhasil)
-            alert.setMessage("Berhasil menambah produk, mohon tunggu proses verifikasi dalam waktu 1x24 jam")
-            alert.setPositiveButton(
-                Constant.iya
-            ) { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            alert.show()
-        }
-        else{
-            message.value = "Mohon mulai ulang aplikasi"
-        }
     }
 }

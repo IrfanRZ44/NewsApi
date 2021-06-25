@@ -35,5 +35,7 @@ data class ModelMerchant(
     var no_wa_pemilik: String = "",
     var foto_profil: String = "",
     var created_at: String = "",
-    var updated_at: String = ""
+    var updated_at: String = "",
+    var nama_kategori: String = "",
+    var sub_kategori: List<ModelKategori> = emptyList(),
     ) : Parcelable

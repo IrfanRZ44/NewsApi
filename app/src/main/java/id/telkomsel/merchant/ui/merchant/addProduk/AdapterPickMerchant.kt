@@ -1,25 +1,20 @@
-package id.telkomsel.merchant.ui.merchant.listMerchant
+package id.telkomsel.merchant.ui.merchant.addProduk
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelMerchant
-import id.telkomsel.merchant.utils.adapter.onClickFoto
 import kotlinx.android.synthetic.main.item_daftar_merchant.view.*
 
-class AdapterListMerchant(
-    private val listKelas: ArrayList<ModelMerchant>,
-    private val navController: NavController,
-    private val isShowConfirm: Boolean,
-    private val onClick: (ModelMerchant) -> Unit
-) : RecyclerView.Adapter<AdapterListMerchant.AfiliasiHolder>(){
+class AdapterPickMerchant (private val listData : ArrayList<ModelMerchant>,
+                           private val onClick : (ModelMerchant) -> Unit
+) : RecyclerView.Adapter<AdapterPickMerchant.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
@@ -27,18 +22,9 @@ class AdapterListMerchant(
             viewItem.textNama.text = item.nama_merchant
             viewItem.textWilayah.text = "${item.kelurahan}, ${item.kecamatan}, ${item.kabupaten}"
             viewItem.textAlamat.text = item.alamat_merchant
-            viewItem.textKategori.text = item.nama_kategori
-
-            viewItem.btnKonfirmasi.setOnClickListener {
-                onClick(item)
-            }
-
-            if (isShowConfirm){
-                viewItem.textValidasi.visibility = View.VISIBLE
-            }
-            else{
-                viewItem.textValidasi.visibility = View.GONE
-            }
+            viewItem.textKategori.text = "Kategori"
+            viewItem.textValidasi.visibility = View.GONE
+            viewItem.btnKonfirmasi.text = "Pilih"
 
             viewItem.imgFoto.load(item.foto_profil) {
                 crossfade(true)
@@ -49,8 +35,8 @@ class AdapterListMerchant(
                 memoryCachePolicy(CachePolicy.ENABLED)
             }
 
-            viewItem.imgFoto.setOnClickListener {
-                onClickFoto(item.foto_profil, navController)
+            viewItem.btnKonfirmasi.setOnClickListener {
+                onClick(item)
             }
         }
     }
@@ -59,8 +45,8 @@ class AdapterListMerchant(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AfiliasiHolder {
         return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_daftar_merchant, parent, false))
     }
-    override fun getItemCount(): Int = listKelas.size
+    override fun getItemCount(): Int = listData.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {
-        holder.bindAfiliasi(listKelas[position])
+        holder.bindAfiliasi(listData[position])
     }
 }

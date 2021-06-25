@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.produk
+package id.telkomsel.merchant.ui.merchant.listProduk
 
 import android.annotation.SuppressLint
 import android.app.Activity

@@ -3,7 +3,6 @@ package id.telkomsel.merchant.ui.merchant.listMerchant
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,6 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponseDaftarMerchant
-import id.telkomsel.merchant.model.response.ModelResponseDataKategori
 import id.telkomsel.merchant.ui.merchant.detailMerchant.DetailMerchantAdminFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
@@ -37,41 +35,9 @@ class DaftarMerchantViewModel(
         rcRequest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         adapter = AdapterListMerchant(
             listRequest,
-            navController, statusRequest == Constant.statusRequest,
-            { kategori_id: Int, textKategori: AppCompatTextView -> getDataKategori(kategori_id, textKategori) },
-            { item: ModelMerchant -> onClickItem(item) }
-        )
+            navController, statusRequest == Constant.statusRequest
+        ) { item: ModelMerchant -> onClickItem(item) }
         rcRequest.adapter = adapter
-    }
-
-    fun getDataKategori(kategori_id: Int, textKategori: AppCompatTextView){
-        isShowLoading.value = true
-
-        RetrofitUtils.getDataKategori(kategori_id,
-            object : Callback<ModelResponseDataKategori> {
-                override fun onResponse(
-                    call: Call<ModelResponseDataKategori>,
-                    response: Response<ModelResponseDataKategori>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffSuccess){
-                        textKategori.text = result.data?.nama
-                    }
-                    else{
-                        textKategori.text = "-"
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponseDataKategori>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    textKategori.text = "-"
-                }
-            })
     }
 
     fun getDataTeknisi(search: String?, cluster: String) {
