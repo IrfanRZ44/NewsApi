@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="id.telkomsel.merchant.ui.merchant.addProduk.AddProdukFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="id.telkomsel.merchant.ui.merchant.addProduk.AddProdukViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_merchant">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/CustomStyle">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                snackbar="@{viewModel.message}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/h2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textStandardWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/h5"
+                    android:layout_marginTop="@dimen/_30"
+                    android:layout_marginBottom="@dimen/h5"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/app_name"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="35sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLayout"
+                    style="@style/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    app:cardCornerRadius="@dimen/_30">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        snackbar="@{viewModel.message}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/h2"
+                        android:paddingStart="@dimen/h2"
+                        android:paddingEnd="@dimen/h2">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardFotoProduk"
+                            style="@style/cardView"
+                            android:layout_width="@dimen/_150"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/h1"
+                            android:layout_marginTop="@dimen/h3"
+                            android:layout_marginEnd="@dimen/h1"
+                            android:layout_marginBottom="@dimen/h3">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgFotoProduk"
+                                    imageBoxSrc="@{viewModel.etFotoProduk.toString()}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_140"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@color/gray1"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_camera_white" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/h2"
+                                    android:layout_marginBottom="@dimen/h2"
+                                    android:text="@string/foto_produk"
+                                    android:textColor="@color/black" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_toStartOf="@+id/btnNamaMerchant"
+                                android:background="@android:color/transparent" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etNamaMerchant"
+                                style="@style/customEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/h2"
+                                android:layout_toStartOf="@+id/btnNamaMerchant"
+                                android:hint="@string/nama_merchant"
+                                android:textColorHint="@color/gray2"
+                                app:errorEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/textStandardWhite"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:inputType="textCapSentences"
+                                    android:maxLines="1"
+                                    android:text="@={viewModel.etNamaMerchant}"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btnNamaMerchant"
+                                disableButton="@{viewModel.isShowLoading}"
+                                android:layout_width="@dimen/_56"
+                                android:layout_height="@dimen/_56"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="@dimen/h2"
+                                android:layout_marginEnd="@dimen/h1"
+                                android:background="@drawable/btn_circle_primary"
+                                android:drawableTop="@drawable/ic_search_white"
+                                android:drawablePadding="0dp"
+                                android:elevation="@dimen/h2"
+                                android:paddingTop="@dimen/h1"
+                                android:text="@string/cari"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_h2" />
+                        </RelativeLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etNamaProduk"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/nama_produk"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etNamaProduk}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKategori"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:onClick="@{()-> viewModel.getDateTglKadaluarsa()}" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etTglKadaluarsa"
+                                style="@style/customEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/pick_tanggal_kadaluarsa"
+                                android:textColorHint="@color/gray2"
+                                app:errorEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/textStandardWhite"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/h2"
+                                    android:inputType="textCapSentences"
+                                    android:text="@={viewModel.etTglKadaluarsa}"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etStok"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/stok"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:digits="@string/digitsPhone"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etStok}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <faranjit.currency.edittext.CurrencyEditText
+                            android:id="@+id/etHarga"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h1"
+                            android:lines="1"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/harga_produk_rp"
+                            app:locale="in_ID"
+                            app:monetaryDivider="."
+                            app:groupDivider="."
+                            app:showSymbol="false"
+                            android:inputType="numberDecimal"
+                            android:textSize="@dimen/text_h4"
+                            android:text="@={viewModel.etHarga}"
+                            android:layout_below="@+id/textHarga"
+                            android:paddingStart="@dimen/h3"
+                            android:paddingBottom="@dimen/h2"
+                            android:paddingEnd="@dimen/h2"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etDesc"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/deskripsi"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:inputType="textMultiLine"
+                                android:lines="3"
+                                android:maxLines="3"
+                                android:text="@={viewModel.etDeskripsi}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textStandardWhite"
+                            showTextStatus="@{viewModel.message}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/_30"
+                            android:layout_marginTop="@dimen/h2"
+                            android:layout_marginRight="@dimen/_30"
+                            android:layout_marginBottom="@dimen/h2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray2"
+                            android:textSize="@dimen/text_h3" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btnSignUp"
+                            android:layout_gravity="end"
+                            android:src="@drawable/ic_next_white"
+                            android:backgroundTint="@color/colorAccent"
+                            app:borderWidth="0dp"
+                            app:tint="@color/white"
+                            android:onClick="@{()-> viewModel.onClickAddProduk()}"
+                            disableButton="@{viewModel.isShowLoading}"
+                            android:contentDescription="@string/tambah"
+                            tools:ignore="RelativeOverlap"
+                            android:layout_marginBottom="@dimen/h3"
+                            android:layout_marginTop="@dimen/h2"
+                            android:layout_marginEnd="@dimen/h2"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/progress"
+            layout="@layout/progress_loading"
+            visible="@{viewModel.isShowLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

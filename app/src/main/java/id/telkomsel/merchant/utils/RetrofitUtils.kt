@@ -4,9 +4,12 @@ import android.app.Activity
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.*
 import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Part
 
 object RetrofitUtils{
     private val retrofit = Retrofit.Builder()
@@ -167,6 +170,17 @@ object RetrofitUtils{
 
     fun updateStatusMerchant(id: Int, status_merchant: String, comment: String, callback: Callback<ModelResponse>){
         val call = api.updateStatusMerchant(id, status_merchant, comment)
+        call.enqueue(callback)
+    }
+
+    fun createProduk(merchant_id: RequestBody, kategori_id: RequestBody,
+                     sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
+                     stok: RequestBody, nama: RequestBody, harga: RequestBody,
+                     deskripsi: RequestBody, url_foto: MultipartBody.Part,
+                     callback: Callback<ModelResponse>){
+        val call = api.createProduk(merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
+            stok, nama, harga, deskripsi, url_foto
+        )
         call.enqueue(callback)
     }
 }

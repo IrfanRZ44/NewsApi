@@ -8,6 +8,7 @@ object Constant {
     const val reffMerchant = "merchant"
     const val reffLoginMerchantPhone = "loginMerchantPhone"
     const val reffCreateMerchant = "createMerchant"
+    const val reffCreateProduk = "createProduk"
     const val reffUpdateMerchant = "updateMerchant"
     const val reffUpdateAdmin = "updateAdmin"
     const val reffValidateNewMerchant = "validateNewMerchant"

@@ -67,4 +67,9 @@
         android:name="id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment"
         android:label="fragment_daftar_produk"
         tools:layout="@layout/fragment_daftar_produk" />
+    <fragment
+        android:id="@+id/addProdukFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.addProduk.AddProdukFragment"
+        android:label="fragment_add_produk"
+        tools:layout="@layout/fragment_add_produk" />
 </navigation>

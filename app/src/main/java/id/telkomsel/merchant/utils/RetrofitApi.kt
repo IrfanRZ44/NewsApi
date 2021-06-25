@@ -1,6 +1,8 @@
 package id.telkomsel.merchant.utils
 
 import id.telkomsel.merchant.model.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -222,6 +224,21 @@ interface RetrofitApi {
     @Headers("Accept:application/json")
     @GET(Constant.reffDaftarSubKategori)
     fun getDaftarSubKategori(): Call<ModelResponseDaftarKategori>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffCreateProduk)
+    fun createProduk(
+        @Part("merchant_id") merchant_id: RequestBody,
+        @Part("kategori_id") kategori_id: RequestBody,
+        @Part("sub_kategori_id") sub_kategori_id: RequestBody,
+        @Part("tgl_kadaluarsa") tgl_kadaluarsa: RequestBody,
+        @Part("stok") stok: RequestBody,
+        @Part("nama") nama: RequestBody,
+        @Part("harga") harga: RequestBody,
+        @Part("deskripsi") deskripsi: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
 
     companion object {
         const val baseUrl = Constant.reffBaseURL

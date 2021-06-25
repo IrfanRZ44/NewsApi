@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="id.telkomsel.merchant.ui.merchant.produk.DaftarProdukFragment">
     <data>
         <variable
             name="viewModel"
@@ -57,6 +56,30 @@
             android:visibility="gone"
             android:layout_centerInParent="true"
             />
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+            android:id="@+id/rfaLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rfal_frame_color="#ffffff"
+            app:rfal_frame_alpha="0.7"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/h3"
+            android:visibility="gone"
+            >
+            <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                android:id="@+id/rfaBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                app:rfab_color_normal="@color/colorPrimaryDark"
+                app:rfab_color_pressed="#263238"
+                app:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                app:rfab_size="normal" />
+        </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
     </RelativeLayout>
-
 </layout>

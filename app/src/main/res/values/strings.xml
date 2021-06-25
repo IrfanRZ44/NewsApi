@@ -155,6 +155,7 @@
     <string name="cluster">Cluster</string>
     <string name="cluster_wajib">Cluster*</string>
     <string name="pick_tanggal_peresmian">Pilih Tanggal Peresmian Merchant</string>
+    <string name="pick_tanggal_kadaluarsa">Pilih Tanggal Kadaluarsa</string>
     <string name="gps">GPS</string>
     <string name="titik_lokasi">Titik Lokasi(Tekan GPS)</string>
     <string name="alamat_merchant_lengkap">Alamat Merchant(Jalan/Kompleks/Blok/DLL)</string>
@@ -203,4 +204,9 @@
     <string name="kata_sandi_wajib">Kata Sandi*</string>
     <string name="nama_lengkap_wajib">Nama Lengkap*</string>
     <string name="kategori_merchant">Kategori Merchant</string>
+    <string name="foto_produk">Foto Produk</string>
+    <string name="nama_produk">Nama Produk</string>
+    <string name="stok">Stok</string>
+    <string name="harga_produk_rp">Harga Produk (Rp)</string>
+    <string name="pilih_merchant">Pilih Merchant</string>
 </resources>

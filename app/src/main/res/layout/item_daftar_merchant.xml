@@ -63,12 +63,13 @@
                 android:layout_margin="@dimen/h2"
                 android:id="@+id/textValidasi"
                 tools:ignore="RelativeOverlap" />
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_toEndOf="@+id/imgFoto"
-                android:layout_below="@+id/textValidasi"
+                android:layout_below="@+id/textKategori"
                 android:id="@+id/rlNama"
                 >
                 <androidx.appcompat.widget.AppCompatTextView

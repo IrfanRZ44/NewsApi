@@ -89,6 +89,8 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'net.gotev:uploadservice:4.5.2'
     implementation 'com.github.wangjiegulu:rfab:2.0.0'
+    implementation 'com.github.faranjit:currency-edittext:1.0.1'
+    implementation 'id.zelory:compressor:3.0.0'
 
     //view pager
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'

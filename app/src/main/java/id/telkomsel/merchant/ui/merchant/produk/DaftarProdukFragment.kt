@@ -6,12 +6,17 @@ import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
+import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
 class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
@@ -34,6 +39,14 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
         viewModel.initAdapter()
 
         viewModel.getDataKategori()
+
+        if (savedData.getDataMerchant()?.level == Constant.levelCSO || savedData.getDataMerchant()?.level == Constant.levelSBP){
+            bind.rfaLayout.visibility = View.VISIBLE
+            floatingAction()
+        }
+        else{
+            bind.rfaLayout.visibility = View.GONE
+        }
 
         bind.swipeRefresh.setOnRefreshListener {
             bind.swipeRefresh.isRefreshing = false
@@ -111,5 +124,48 @@ class DaftarProdukFragment : BaseFragmentBind<FragmentDaftarProdukBinding>() {
         searchView?.setOnQueryTextListener(queryTextListener)
         searchView?.setOnCloseListener(onCloseListener)
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun floatingAction() {
+        val rfaContent = RapidFloatingActionContentLabelList(context)
+        val item = listOf(
+            RFACLabelItem<Int>()
+                .setLabel("Tambah Produk")
+                .setResId(R.drawable.ic_add_white)
+                .setIconNormalColor(0xff52af44.toInt())
+                .setIconPressedColor(0xff3E8534.toInt())
+                .setWrapper(0)
+
+        )
+
+        rfaContent.setItems(item).setIconShadowColor(0xff888888.toInt())
+
+        val rfabHelper = RapidFloatingActionHelper(
+            context,
+            bind.rfaLayout,
+            bind.rfaBtn,
+            rfaContent
+        ).build()
+
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(object :
+            RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<Any> {
+            override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Any>?) {
+                when(position) {
+                    0 -> {
+                        findNavController().navigate(R.id.addProdukFragment)
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+
+            override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Any>?) {
+                when(position) {
+                    0 -> {
+                        findNavController().navigate(R.id.addProdukFragment)
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+        })
     }
 }
