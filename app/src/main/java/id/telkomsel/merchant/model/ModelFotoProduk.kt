@@ -4,12 +4,10 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ModelKategori(
+data class ModelFotoProduk(
     var id: Int = 0,
-    var kategori_id: Int = 0,
-    var nama: String = "",
-    var isSelected: Boolean = false,
+    var produk_id: Int = 0,
+    var url_foto: String = "",
     var created_at: String = "",
-    var updated_at: String = "",
-    var total_produk: Int = 0
+    var updated_at: String = ""
     ) : Parcelable

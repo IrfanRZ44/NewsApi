@@ -22,7 +22,6 @@ import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseDaftarMerchant
 import id.telkomsel.merchant.utils.Constant
-import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.SpinnerKategoriAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -48,19 +47,19 @@ class AddProdukViewModel(
     private val editTglKadaluarsa: TextInputLayout,
     private val editStok: TextInputLayout,
     private val editDesc: TextInputLayout,
-    private val editHarga: CurrencyEditText,
-    private val savedData: DataSave,
+    private val editHarga: CurrencyEditText
 ) : BaseViewModel() {
-    val etNamaMerchant = MutableLiveData<String>()
-    val etIdMerchant = MutableLiveData<String>()
+    val etDataMerchant = MutableLiveData<ModelMerchant>()
     val etNamaProduk = MutableLiveData<String>()
     val etTglKadaluarsa = MutableLiveData<String>()
     val etFotoProduk = MutableLiveData<Uri>()
     val etStok = MutableLiveData<String>()
     val etHarga = MutableLiveData<String>()
+    val etPromo = MutableLiveData<String>()
+    val etPoin = MutableLiveData<String>()
     val etDeskripsi = MutableLiveData<String>()
-    val listKategori = ArrayList<ModelKategori>()
-    lateinit var adapterKategori : SpinnerKategoriAdapter
+    private val listKategori = ArrayList<ModelKategori>()
+    private lateinit var adapterKategori : SpinnerKategoriAdapter
     val listMerchant = ArrayList<ModelMerchant>()
     lateinit var adapterPickMerchant: AdapterPickMerchant
     lateinit var btmSheet: BottomSheetDialog
@@ -177,8 +176,7 @@ class AddProdukViewModel(
 
     private fun onClickPickMerchant(item: ModelMerchant){
         listKategori.clear()
-        etNamaMerchant.value = item.nama_merchant
-        etIdMerchant.value = item.id.toString()
+        etDataMerchant.value = item
         listKategori.add(ModelKategori(0, 0, Constant.pilihKategori, false))
         listKategori.addAll(item.sub_kategori)
         adapterKategori.notifyDataSetChanged()
@@ -189,8 +187,7 @@ class AddProdukViewModel(
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
-        val namaMerchant = etNamaMerchant.value
-        val idMerchant = etIdMerchant.value
+        val dataMerchant = etDataMerchant.value
         val namaProduk = etNamaProduk.value
         val subKategori = listKategori[spinnerKategori.selectedItemPosition].id
         val kategori = listKategori[spinnerKategori.selectedItemPosition].kategori_id
@@ -200,8 +197,8 @@ class AddProdukViewModel(
         val desc = etDeskripsi.value
         val fotoProduk = etFotoProduk.value?.path
 
-        if (!idMerchant.isNullOrEmpty() && !namaMerchant.isNullOrEmpty() && !namaProduk.isNullOrEmpty()
-            && !tglKadaluarsa.isNullOrEmpty() && !tglKadaluarsa.isNullOrEmpty()
+        if (dataMerchant != null && !namaProduk.isNullOrEmpty()
+            && !tglKadaluarsa.isNullOrEmpty()
             && (subKategori != 0) && (kategori != 0) && harga.isNotEmpty() && !desc.isNullOrEmpty()
             && !stok.isNullOrEmpty() && !fotoProduk.isNullOrEmpty()
         ) {
@@ -210,7 +207,10 @@ class AddProdukViewModel(
             val fileProduk = File(fotoProduk)
             val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
                 MediaType.get("image/*"), fileProduk))
-            val merchantId = RequestBody.create(MediaType.get("text/plain"), idMerchant)
+            val merchantId = RequestBody.create(MediaType.get("text/plain"), dataMerchant.id.toString())
+            val regional = RequestBody.create(MediaType.get("text/plain"), dataMerchant.regional)
+            val branch = RequestBody.create(MediaType.get("text/plain"), dataMerchant.branch)
+            val cluster = RequestBody.create(MediaType.get("text/plain"), dataMerchant.cluster)
             val kategoriId = RequestBody.create(MediaType.get("text/plain"), kategori.toString())
             val subKategoriId = RequestBody.create(MediaType.get("text/plain"), subKategori.toString())
             val tglHabis = RequestBody.create(MediaType.get("text/plain"), tglKadaluarsa)
@@ -220,18 +220,16 @@ class AddProdukViewModel(
             val deskripsi = RequestBody.create(MediaType.get("text/plain"), desc)
 
             createProduk(merchantId, kategoriId, subKategoriId, tglHabis,
-                stokProduk, nama, hargaProduk, deskripsi, urlFoto)
+                stokProduk, nama, hargaProduk, deskripsi, regional, branch, cluster, urlFoto)
         }
         else{
             when {
                 fotoProduk.isNullOrEmpty() -> {
                     message.value = "Mohon upload foto produk"
                 }
-                idMerchant.isNullOrEmpty() -> {
+                dataMerchant == null -> {
                     message.value = "Error, terjadi kesalahan database saat mengambil data merchant"
-                }
-                namaMerchant.isNullOrEmpty() -> {
-                    setTextError("Error, mohon masukkan nama merchant", editNamaMerchant)
+                    setTextError("Error, terjadi kesalahan database saat mengambil data merchant", editNamaMerchant)
                 }
                 kategori == 0 -> {
                     message.value = "Mohon memilih salah satu Kategori yang tersedia"
@@ -272,11 +270,13 @@ class AddProdukViewModel(
     private fun createProduk(merchant_id: RequestBody, kategori_id: RequestBody,
                              sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
                              stok: RequestBody, nama: RequestBody, harga: RequestBody,
-                             deskripsi: RequestBody, url_foto: MultipartBody.Part){
+                             deskripsi: RequestBody, regional: RequestBody,
+                             branch: RequestBody, cluster: RequestBody,
+                             url_foto: MultipartBody.Part){
         isShowLoading.value = true
 
         RetrofitUtils.createProduk(merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
-            stok, nama, harga, deskripsi, url_foto,
+            stok, nama, harga, deskripsi, regional, branch, cluster, url_foto,
             object : Callback<ModelResponse> {
                 override fun onResponse(
                     call: Call<ModelResponse>,

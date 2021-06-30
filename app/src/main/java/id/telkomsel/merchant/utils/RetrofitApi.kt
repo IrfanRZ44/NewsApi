@@ -178,6 +178,11 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffGetDataMerchantById)
+    fun getDataMerchantById(@Field("merchant_id") merchant_id: String): Call<ModelResponseMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffForgetPasswordMerchantUsername)
     fun forgetPasswordMerchantUsername(
         @Field("username") username: String
@@ -194,12 +199,35 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffDaftarMerchantByAdmin)
     fun getDaftarMerchantByAdmin(
-        @Field("cluster") id_branch: String,
+        @Field("cluster") cluster: String,
         @Field("userRequest") userRequest: String,
         @Field("startPage") startPage: Int,
         @Field("status") status: String,
         @Field("search") search: String?
     ): Call<ModelResponseDaftarMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarProdukByAdmin)
+    fun getDaftarProdukByAdmin(
+        @Field("cluster") cluster: String,
+        @Field("userRequest") userRequest: String,
+        @Field("startPage") startPage: Int,
+        @Field("status") status: String,
+        @Field("search") search: String?,
+        @Field("sub_kategori_id") sub_kategori_id: String?
+    ): Call<ModelResponseDaftarProduk>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarProdukByMerchant)
+    fun getDaftarProdukByMerchant(
+        @Field("merchant_id") merchant_id: String,
+        @Field("startPage") startPage: Int,
+        @Field("status") status: String,
+        @Field("search") search: String?,
+        @Field("sub_kategori_id") sub_kategori_id: String?
+    ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
@@ -221,8 +249,21 @@ interface RetrofitApi {
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateStatusProduk)
+    fun updateStatusProduk(
+        @Field("id") id: Int,
+        @Field("status") status: String,
+        @Field("comment") comment: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
     @GET(Constant.reffDaftarKategori)
     fun getDaftarKategori(): Call<ModelResponseDaftarKategori>
+
+    @Headers("Accept:application/json")
+    @GET(Constant.reffDaftarTopSubKategori)
+    fun getTopSubKategori(): Call<ModelResponseDaftarKategori>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
@@ -247,8 +288,34 @@ interface RetrofitApi {
         @Part("nama") nama: RequestBody,
         @Part("harga") harga: RequestBody,
         @Part("deskripsi") deskripsi: RequestBody,
+        @Part("regional") regional: RequestBody,
+        @Part("branch") branch: RequestBody,
+        @Part("cluster") cluster: RequestBody,
         @Part url_foto: MultipartBody.Part?
     ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffCreateFotoProduk)
+    fun createFotoProduk(
+        @Part("produk_id") produk_id: RequestBody,
+        @Part("level") level: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDeleteFotoProduk)
+    fun deleteFotoProduk(
+        @Field("produk_id") produk_id: Int
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffGetDaftarFotoProduk)
+    fun getDaftarFotoProduk(
+        @Field("produk_id") produk_id: Int
+    ): Call<ModelResponseDaftarFotoProduk>
 
     companion object {
         const val baseUrl = Constant.reffBaseURL

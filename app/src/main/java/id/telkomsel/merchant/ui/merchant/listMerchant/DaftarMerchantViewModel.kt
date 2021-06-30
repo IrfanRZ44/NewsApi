@@ -40,11 +40,11 @@ class DaftarMerchantViewModel(
         rcRequest.adapter = adapter
     }
 
-    fun getDataTeknisi(search: String?, cluster: String) {
+    fun getDataTeknisi(search: String?, cluster: String, userRequest: String) {
         isShowLoading.value = true
         adapter.notifyDataSetChanged()
 
-        RetrofitUtils.getDaftarMerchantByAdmin(cluster, "cluster", startPage, statusRequest, search,
+        RetrofitUtils.getDaftarMerchantByAdmin(cluster, userRequest, startPage, statusRequest, search,
             object : Callback<ModelResponseDaftarMerchant> {
                 override fun onResponse(
                     call: Call<ModelResponseDaftarMerchant>,

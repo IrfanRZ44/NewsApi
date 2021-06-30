@@ -32,7 +32,7 @@ class DetailMerchantAdminFragment : BaseFragmentBind<FragmentDetailMerchantAdmin
         init()
         setMap(savedInstanceState)
 
-        if (savedData.getDataMerchant()?.level == Constant.levelCSO){
+        if (savedData.getDataMerchant()?.level == Constant.levelCSO && viewModel.dataMerchant.value?.status_merchant == Constant.statusRequest){
             bind.rfaLayout.visibility = View.VISIBLE
             floatingAction()
         }
@@ -47,16 +47,8 @@ class DetailMerchantAdminFragment : BaseFragmentBind<FragmentDetailMerchantAdmin
         bind.viewModel = viewModel
         try {
             viewModel.dataMerchant.value = this.arguments?.getParcelable(Constant.reffMerchant)?:throw Exception("Error, terjadi kesalahan database")
-            viewModel.getDataKategori(viewModel.dataMerchant.value?.kategori_id?:0)
         }catch (e: Exception){
             viewModel.message.value = e.message
-        }
-
-        if (viewModel.dataMerchant.value?.status_merchant == Constant.statusRequest){
-            bind.rfaLayout.visibility = View.VISIBLE
-        }
-        else{
-            bind.rfaLayout.visibility = View.GONE
         }
     }
 

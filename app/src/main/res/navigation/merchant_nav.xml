@@ -72,4 +72,9 @@
         android:name="id.telkomsel.merchant.ui.merchant.addProduk.AddProdukFragment"
         android:label="fragment_add_produk"
         tools:layout="@layout/fragment_add_produk" />
+    <fragment
+        android:id="@+id/detailProdukAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.detailProduk.DetailProdukAdminFragment"
+        android:label="fragment_detail_produk_admin"
+        tools:layout="@layout/fragment_detail_produk_admin" />
 </navigation>

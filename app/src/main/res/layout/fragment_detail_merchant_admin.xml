@@ -165,7 +165,7 @@
                                 android:layout_weight="0.58"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
-                                android:text="@={viewModel.kategori}"
+                                android:text="@={viewModel.dataMerchant.nama_kategori}"
                                 android:textSize="@dimen/text_h2"
                                 android:fontFamily="@font/roboto_regular"
                                 />

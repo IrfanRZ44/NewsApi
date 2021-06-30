@@ -138,6 +138,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getDataMerchantById(merchant_id: String, callback: Callback<ModelResponseMerchant>){
+        val call = api.getDataMerchantById(merchant_id)
+        call.enqueue(callback)
+    }
+
     fun forgetPasswordMerchantUsername(username: String, callback: Callback<ModelResponseMerchant>){
         val call = api.forgetPasswordMerchantUsername(username)
         call.enqueue(callback)
@@ -153,6 +158,16 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getDaftarProdukByAdmin(cluster: String, userRequest: String, startPage: Int, status: String, search: String?, sub_kategori_id: String?, callback: Callback<ModelResponseDaftarProduk>){
+        val call = api.getDaftarProdukByAdmin(cluster, userRequest, startPage, status, search, sub_kategori_id)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarProdukByMerchant(merchant_id: String, startPage: Int, status: String, search: String?, sub_kategori_id: String?, callback: Callback<ModelResponseDaftarProduk>){
+        val call = api.getDaftarProdukByMerchant(merchant_id, startPage, status, search, sub_kategori_id)
+        call.enqueue(callback)
+    }
+
     fun getPickMerchant(cluster: String, userRequest: String, startPage: Int, search: String?, callback: Callback<ModelResponseDaftarMerchant>){
         val call = api.getPickMerchant(cluster, userRequest, startPage, search)
         call.enqueue(callback)
@@ -160,6 +175,11 @@ object RetrofitUtils{
 
     fun getDaftarKategori(callback: Callback<ModelResponseDaftarKategori>){
         val call = api.getDaftarKategori()
+        call.enqueue(callback)
+    }
+
+    fun getTopSubKategori(callback: Callback<ModelResponseDaftarKategori>){
+        val call = api.getTopSubKategori()
         call.enqueue(callback)
     }
 
@@ -178,14 +198,36 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun updateStatusProduk(id: Int, status: String, comment: String, callback: Callback<ModelResponse>){
+        val call = api.updateStatusProduk(id, status, comment)
+        call.enqueue(callback)
+    }
+
     fun createProduk(merchant_id: RequestBody, kategori_id: RequestBody,
                      sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
                      stok: RequestBody, nama: RequestBody, harga: RequestBody,
-                     deskripsi: RequestBody, url_foto: MultipartBody.Part,
+                     deskripsi: RequestBody, regional: RequestBody, branch: RequestBody,
+                     cluster: RequestBody, url_foto: MultipartBody.Part,
                      callback: Callback<ModelResponse>){
         val call = api.createProduk(merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
-            stok, nama, harga, deskripsi, url_foto
-        )
+            stok, nama, harga, deskripsi, regional, branch, cluster, url_foto)
+        call.enqueue(callback)
+    }
+
+    fun createFotoProduk(produk_id: RequestBody, level: RequestBody,
+                     url_foto: MultipartBody.Part,
+                     callback: Callback<ModelResponse>){
+        val call = api.createFotoProduk(produk_id, level, url_foto)
+        call.enqueue(callback)
+    }
+
+    fun deleteFotoProduk(produk_id: Int, callback: Callback<ModelResponse>){
+        val call = api.deleteFotoProduk(produk_id)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarFotoProduk(produk_id: Int, callback: Callback<ModelResponseDaftarFotoProduk>){
+        val call = api.getDaftarFotoProduk(produk_id)
         call.enqueue(callback)
     }
 }

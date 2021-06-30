@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.utils.LihatFotoFragment
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -75,6 +76,12 @@ fun dismissKeyboard(activity: Activity) {
     if (currentFocus != null) imm.hideSoftInputFromWindow(
         currentFocus.applicationWindowToken, 0
     )
+}
+
+fun convertRupiah(angka:Double):String{
+    val localeID = Locale("in", "ID")
+    val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+    return formatRupiah.format(angka).replace(",00","")
 }
 
 fun stringToMD5(input:String): String {

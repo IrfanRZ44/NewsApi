@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarMerchantBinding
+import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
 class DaftarMerchantFragment(private val statusRequest: String) : BaseFragmentBind<FragmentDaftarMerchantBinding>() {
@@ -58,8 +59,14 @@ class DaftarMerchantFragment(private val statusRequest: String) : BaseFragmentBi
 
     private fun checkCluster(search: String?){
         val cluster = savedData.getDataMerchant()?.cluster
-        if (!cluster.isNullOrEmpty()){
-            viewModel.getDataTeknisi(search, cluster)
+        val regional = savedData.getDataMerchant()?.regional
+        val level = savedData.getDataMerchant()?.level
+
+        if (level == Constant.levelChannel && !regional.isNullOrEmpty()){
+            viewModel.getDataTeknisi(search, regional, "regional")
+        }
+        else if ((level == Constant.levelCSO || level == Constant.levelSBP) && !cluster.isNullOrEmpty()){
+            viewModel.getDataTeknisi(search, cluster, "cluster")
         }
         else{
             viewModel.message.value = "Error, gagal mendapatkan data cluster Anda"

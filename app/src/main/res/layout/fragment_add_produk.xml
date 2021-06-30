@@ -58,43 +58,6 @@
                         android:paddingStart="@dimen/h2"
                         android:paddingEnd="@dimen/h2">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardFotoProduk"
-                            style="@style/cardView"
-                            android:layout_width="@dimen/_150"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/h1"
-                            android:layout_marginTop="@dimen/h3"
-                            android:layout_marginEnd="@dimen/h1"
-                            android:layout_marginBottom="@dimen/h3">
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/imgFotoProduk"
-                                    imageBoxSrc="@{viewModel.etFotoProduk.toString()}"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_140"
-                                    android:layout_alignParentEnd="true"
-                                    android:background="@color/gray1"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/ic_camera_white" />
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_marginTop="@dimen/h2"
-                                    android:layout_marginBottom="@dimen/h2"
-                                    android:text="@string/foto_produk"
-                                    android:textColor="@color/black" />
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-                        </androidx.cardview.widget.CardView>
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -124,7 +87,7 @@
                                     android:ellipsize="end"
                                     android:inputType="textCapSentences"
                                     android:maxLines="1"
-                                    android:text="@={viewModel.etNamaMerchant}"
+                                    android:text="@={viewModel.etDataMerchant.nama_merchant}"
                                     android:textAlignment="textStart"
                                     android:textColor="@color/black" />
                             </com.google.android.material.textfield.TextInputLayout>
@@ -205,7 +168,7 @@
                                 style="@style/customEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/pick_tanggal_kadaluarsa"
+                                android:hint="@string/pilih_masa_berlaku"
                                 android:textColorHint="@color/gray2"
                                 app:errorEnabled="true">
 
@@ -227,7 +190,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/stok"
+                            android:hint="@string/stok_voucher"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
 
@@ -259,7 +222,48 @@
                             android:inputType="numberDecimal"
                             android:textSize="@dimen/text_h4"
                             android:text="@={viewModel.etHarga}"
-                            android:layout_below="@+id/textHarga"
+                            android:paddingStart="@dimen/h3"
+                            android:paddingBottom="@dimen/h2"
+                            android:paddingEnd="@dimen/h2"
+                            />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etPromo"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/promo_contoh_diskon_20_tukar_1_000_poin"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etPromo}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <faranjit.currency.edittext.CurrencyEditText
+                            android:id="@+id/etPoin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:lines="1"
+                            android:imeOptions="actionNext"
+                            android:hint="@string/jumlah_poin_yang_ditukar"
+                            app:locale="in_ID"
+                            app:monetaryDivider="."
+                            app:groupDivider="."
+                            app:showSymbol="false"
+                            android:inputType="numberDecimal"
+                            android:textSize="@dimen/text_h4"
+                            android:text="@={viewModel.etPoin}"
                             android:paddingStart="@dimen/h3"
                             android:paddingBottom="@dimen/h2"
                             android:paddingEnd="@dimen/h2"
@@ -286,6 +290,43 @@
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardFotoProduk"
+                            style="@style/cardView"
+                            android:layout_width="@dimen/_150"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/h1"
+                            android:layout_marginTop="@dimen/h3"
+                            android:layout_marginEnd="@dimen/h1"
+                            android:layout_marginBottom="@dimen/h3">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgFotoProduk"
+                                    imageBoxSrc="@{viewModel.etFotoProduk.toString()}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_140"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@color/gray1"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_camera_white" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/h2"
+                                    android:layout_marginBottom="@dimen/h2"
+                                    android:text="@string/foto_produk"
+                                    android:textColor="@color/black" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
 
                         <androidx.appcompat.widget.AppCompatTextView
                             style="@style/textStandardWhite"

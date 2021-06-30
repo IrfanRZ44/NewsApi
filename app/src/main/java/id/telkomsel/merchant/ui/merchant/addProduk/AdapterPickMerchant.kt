@@ -10,7 +10,7 @@ import coil.request.CachePolicy
 import coil.transform.CircleCropTransformation
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelMerchant
-import kotlinx.android.synthetic.main.item_daftar_merchant.view.*
+import kotlinx.android.synthetic.main.item_merchant.view.*
 
 class AdapterPickMerchant (private val listData : ArrayList<ModelMerchant>,
                            private val onClick : (ModelMerchant) -> Unit
@@ -43,7 +43,7 @@ class AdapterPickMerchant (private val listData : ArrayList<ModelMerchant>,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AfiliasiHolder {
-        return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_daftar_merchant, parent, false))
+        return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_merchant, parent, false))
     }
     override fun getItemCount(): Int = listData.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {

@@ -15,7 +15,6 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponse
-import id.telkomsel.merchant.model.response.ModelResponseDataKategori
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.onClickFoto
@@ -29,8 +28,6 @@ class DetailMerchantAdminViewModel(
     private val navController: NavController
 ) : BaseViewModel() {
     val dataMerchant = MutableLiveData<ModelMerchant>()
-    val clusterBranch = MutableLiveData<String>()
-    val kategori = MutableLiveData<String>()
 
     fun clickFotoProfil(){
         dataMerchant.value?.foto_profil?.let { onClickFoto(it, navController) }
@@ -91,36 +88,6 @@ class DetailMerchantAdminViewModel(
         }
 
         alert.show()
-    }
-
-    fun getDataKategori(kategori_id: Int){
-        isShowLoading.value = true
-
-        RetrofitUtils.getDataKategori(kategori_id,
-            object : Callback<ModelResponseDataKategori> {
-                override fun onResponse(
-                    call: Call<ModelResponseDataKategori>,
-                    response: Response<ModelResponseDataKategori>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffSuccess){
-                        kategori.value = result.data?.nama
-                    }
-                    else{
-                        kategori.value = "-"
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponseDataKategori>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    kategori.value = "-"
-                }
-            })
     }
 
     private fun updateStatus(id: Int, status: String, comment: String){

@@ -29,7 +29,7 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
     private var etSearch: TextInputLayout? = null
 
     override fun myCodeHere() {
-        supportActionBar?.title = "Tambah Merchant"
+        supportActionBar?.title = "Tambah Produk}"
         supportActionBar?.show()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         init()
@@ -41,10 +41,11 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         bind.etTglKadaluarsa.editText?.keyListener = null
         bind.etNamaMerchant.editText?.keyListener = null
 
-        viewModel = AddProdukViewModel(activity, context, findNavController(), bind.spinnerKategori,
+        viewModel = AddProdukViewModel(
+            activity, context, findNavController(), bind.spinnerKategori,
             bind.etNamaMerchant, bind.etNamaProduk,
-            bind.etTglKadaluarsa, bind.etStok, bind.etDesc, bind.etHarga, savedData
-            )
+            bind.etTglKadaluarsa, bind.etStok, bind.etDesc, bind.etHarga
+        )
         bind.viewModel = viewModel
         initPickMerchant(bind.root)
         viewModel.setAdapterKategori()

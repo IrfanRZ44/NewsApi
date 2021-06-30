@@ -1,6 +1,5 @@
 package id.telkomsel.merchant.ui.merchant.listProduk
 
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.view.Menu
@@ -14,8 +13,8 @@ import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
+import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
@@ -35,11 +34,13 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
 
     fun init(){
         bind.lifecycleOwner = this
-        viewModel = DaftarProdukViewModel(findNavController(), activity, bind.rcKategori, bind.rcProduk, savedData)
+        viewModel = DaftarProdukViewModel(findNavController(), activity, bind.rcKategori, bind.rcProduk, statusRequest, savedData)
         bind.viewModel = viewModel
-        viewModel.initAdapter()
+        viewModel.initAdapterKategori()
+        viewModel.initAdapterProduk()
 
         viewModel.getDataKategori()
+        viewModel.checkCluster("")
 
         if (savedData.getDataMerchant()?.level == Constant.levelCSO || savedData.getDataMerchant()?.level == Constant.levelSBP){
             bind.rfaLayout.visibility = View.VISIBLE
@@ -50,8 +51,11 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
         }
 
         bind.swipeRefresh.setOnRefreshListener {
+            viewModel.startPage = 0
+            viewModel.listProduk.clear()
+            viewModel.adapterProduk.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
-            viewModel.getDataKategori()
+            viewModel.checkCluster("")
         }
 
         bind.rcProduk.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -59,20 +63,13 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
+                    viewModel.checkCluster("")
                 }
             }
         })
     }
 
-    private fun checkCluster() {
-        val cluster = savedData.getDataMerchant()?.cluster
-        if (!cluster.isNullOrEmpty()){
-            viewModel.getDataKategori()
-        }
-        else{
-            viewModel.message.value = "Error, gagal mendapatkan data cluster Anda"
-        }
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_search, menu)
@@ -91,12 +88,12 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (!viewModel.isSearching){
                     viewModel.isSearching = true
-                    val act : Activity? = activity
-                    act?.let { dismissKeyboard(it) }
+                    activity?.let { dismissKeyboard(it) }
 
-                    viewModel.listKategori.clear()
-                    viewModel.adapter.notifyDataSetChanged()
-                    checkCluster()
+                    viewModel.startPage = 0
+                    viewModel.listProduk.clear()
+                    viewModel.adapterProduk.notifyDataSetChanged()
+                    viewModel.checkCluster(query)
                 }
 
                 return true
@@ -104,9 +101,10 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
         }
 
         onCloseListener = SearchView.OnCloseListener {
-            viewModel.listKategori.clear()
-            viewModel.adapter.notifyDataSetChanged()
-            checkCluster()
+            viewModel.startPage = 0
+            viewModel.listProduk.clear()
+            viewModel.adapterProduk.notifyDataSetChanged()
+            viewModel.checkCluster("")
             false
         }
 

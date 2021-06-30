@@ -5,7 +5,7 @@ import id.telkomsel.merchant.model.ModelProduk
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ModelResponseProduk(
+data class ModelResponseDaftarProduk(
     var data: List<ModelProduk> = emptyList(),
     var message: String = ""
     ) : Parcelable

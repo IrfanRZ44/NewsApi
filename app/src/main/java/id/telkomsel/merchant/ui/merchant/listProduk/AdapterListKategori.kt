@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelKategori
-import kotlinx.android.synthetic.main.item_daftar_kategori.view.*
+import kotlinx.android.synthetic.main.item_kategori.view.*
 
-class AdapterListKategori(private val listItem: ArrayList<ModelKategori>) : RecyclerView.Adapter<AdapterListKategori.AfiliasiHolder>(){
+class AdapterListKategori(private val listItem: ArrayList<ModelKategori>,
+                          private val onClickItem : (ModelKategori) -> Unit
+) : RecyclerView.Adapter<AdapterListKategori.AfiliasiHolder>(){
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
         fun bindAfiliasi(item: ModelKategori) {
@@ -25,6 +27,7 @@ class AdapterListKategori(private val listItem: ArrayList<ModelKategori>) : Recy
             }
 
             viewItem.setOnClickListener {
+                onClickItem(item)
                 for (i in listItem.indices){
                     listItem[i].isSelected = false
                 }
@@ -35,7 +38,7 @@ class AdapterListKategori(private val listItem: ArrayList<ModelKategori>) : Recy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AfiliasiHolder {
-        return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_daftar_kategori, parent, false))
+        return AfiliasiHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_kategori, parent, false))
     }
 
     override fun getItemCount(): Int = listItem.size
