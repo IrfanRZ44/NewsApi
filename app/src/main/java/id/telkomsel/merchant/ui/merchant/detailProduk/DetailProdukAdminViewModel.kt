@@ -42,6 +42,8 @@ class DetailProdukAdminViewModel(
 ) : BaseViewModel() {
     val dataProduk = MutableLiveData<ModelProduk>()
     val dataMerchant = MutableLiveData<ModelMerchant>()
+    val promoProduk = MutableLiveData<String>()
+    val poinProduk = MutableLiveData<String>()
     val viewProduk = MutableLiveData<String>()
     val stokProduk = MutableLiveData<String>()
     val tanggalProduk = MutableLiveData<String>()
@@ -93,10 +95,17 @@ class DetailProdukAdminViewModel(
         }
     }
 
+    fun onClickTukarPoin(){
+
+    }
+
     fun setData(){
+        val poin = dataProduk.value?.jumlah_poin?:0
+        promoProduk.value = "Promo ${dataProduk.value?.promo}"
+        poinProduk.value = "Tukar ${convertRupiah(poin.toDouble())} Poin"
         viewProduk.value = "${dataProduk.value?.view} Views"
         stokProduk.value = "${dataProduk.value?.stok} Stok"
-        tanggalProduk.value = "Promo berlaku hingga ${dataProduk.value?.tgl_kadaluarsa}"
+        tanggalProduk.value = "Masa berlaku hingga ${dataProduk.value?.tgl_kadaluarsa}"
         val harga = dataProduk.value?.harga?:0
         hargaProduk.value = convertRupiah(harga.toDouble())
     }

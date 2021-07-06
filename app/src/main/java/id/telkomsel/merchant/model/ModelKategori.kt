@@ -11,5 +11,7 @@ data class ModelKategori(
     var isSelected: Boolean = false,
     var created_at: String = "",
     var updated_at: String = "",
-    var total_produk: Int = 0
-    ) : Parcelable
+    var total_produk: Int = 0,
+    var nama_kategori: String = "",
+    var isHeader: Boolean = false
+) : Parcelable

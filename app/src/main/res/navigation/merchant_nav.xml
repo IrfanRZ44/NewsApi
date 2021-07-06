@@ -77,4 +77,9 @@
         android:name="id.telkomsel.merchant.ui.merchant.detailProduk.DetailProdukAdminFragment"
         android:label="fragment_detail_produk_admin"
         tools:layout="@layout/fragment_detail_produk_admin" />
+    <fragment
+        android:id="@+id/editProdukFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment"
+        android:label="fragment_edit_produk"
+        tools:layout="@layout/fragment_edit_produk" />
 </navigation>

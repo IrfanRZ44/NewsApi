@@ -8,8 +8,8 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentBerandaBinding
+import id.telkomsel.merchant.base.BaseFragmentBind
 
 class BerandaFragment : BaseFragmentBind<FragmentBerandaBinding>() {
     private lateinit var viewModel: BerandaViewModel
@@ -92,9 +92,6 @@ class BerandaFragment : BaseFragmentBind<FragmentBerandaBinding>() {
         when(item.itemId){
             R.id.actionSearch ->{
                 return false
-            }
-            R.id.actionNotif ->{
-                viewModel.message.value = "Notif"
             }
         }
 

@@ -193,6 +193,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getDaftarSubKategoriFilterKategori(callback: Callback<ModelResponseDaftarKategori>){
+        val call = api.getDaftarSubKategoriFilterKategori()
+        call.enqueue(callback)
+    }
+
     fun updateStatusMerchant(id: Int, status_merchant: String, comment: String, callback: Callback<ModelResponse>){
         val call = api.updateStatusMerchant(id, status_merchant, comment)
         call.enqueue(callback)
@@ -203,14 +208,34 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun createProduk(merchant_id: RequestBody, kategori_id: RequestBody,
+    fun createProduk(status: RequestBody, merchant_id: RequestBody, kategori_id: RequestBody,
                      sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
                      stok: RequestBody, nama: RequestBody, harga: RequestBody,
+                     promo: RequestBody, poin: RequestBody,
                      deskripsi: RequestBody, regional: RequestBody, branch: RequestBody,
                      cluster: RequestBody, url_foto: MultipartBody.Part,
                      callback: Callback<ModelResponse>){
-        val call = api.createProduk(merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
-            stok, nama, harga, deskripsi, regional, branch, cluster, url_foto)
+        val call = api.createProduk(status, merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
+            stok, nama, harga, promo, poin, deskripsi, regional, branch, cluster, url_foto)
+        call.enqueue(callback)
+    }
+
+    fun editProduk(status: String, produk_id: String, merchant_id: String, kategori_id: String,
+                     sub_kategori_id: String, tgl_kadaluarsa: String,
+                     stok: String, nama: String, harga: String,
+                     promo: String, poin: String,
+                     deskripsi: String, regional: String, branch: String,
+                     cluster: String,
+                     callback: Callback<ModelResponse>){
+        val call = api.editProduk(status, produk_id, merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
+            stok, nama, harga, promo, poin, deskripsi, regional, branch, cluster)
+        call.enqueue(callback)
+    }
+
+    fun editFotoProfilProduk(produk_id: RequestBody, level: RequestBody,
+                         url_foto: MultipartBody.Part,
+                         callback: Callback<ModelResponse>){
+        val call = api.editFotoProfilProduk(produk_id, level, url_foto)
         call.enqueue(callback)
     }
 

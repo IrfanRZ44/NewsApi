@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_pelanggan.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 //import coil.api.load
 import id.telkomsel.merchant.utils.Constant.defaultTempFoto
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -34,7 +35,6 @@ class PelangganActivity : BaseActivity() {
         drawerLayout.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 
-        setSupportActionBar(toolbar)
         view = findViewById(android.R.id.content)
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -44,7 +44,7 @@ class PelangganActivity : BaseActivity() {
         )
         navController = findNavController(R.id.navMuballighFragment)
         setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
 
         runnabelCekKoneksi()
         setData()

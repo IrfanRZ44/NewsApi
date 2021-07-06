@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
-import id.telkomsel.merchant.R
-import id.telkomsel.merchant.utils.Constant
 import com.google.android.material.tabs.TabLayout
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
+import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentTabProdukBinding
+import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
 class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {

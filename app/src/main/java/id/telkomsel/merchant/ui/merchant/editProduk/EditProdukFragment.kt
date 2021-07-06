@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.addProduk
+package id.telkomsel.merchant.ui.merchant.editProduk
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -16,19 +16,24 @@ import com.google.android.material.textfield.TextInputLayout
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.databinding.FragmentAddProdukBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
+import id.telkomsel.merchant.databinding.FragmentEditProdukBinding
+import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
-class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
-    override fun getLayoutResource(): Int = R.layout.fragment_add_produk
-    lateinit var viewModel: AddProdukViewModel
+class EditProdukFragment : BaseFragmentBind<FragmentEditProdukBinding>(){
+    override fun getLayoutResource(): Int = R.layout.fragment_edit_produk
+    lateinit var viewModel: EditProdukViewModel
     private lateinit var btmSheet : BottomSheetDialog
     private var etSearch: TextInputLayout? = null
 
     override fun myCodeHere() {
-        supportActionBar?.title = "Tambah Produk"
+        supportActionBar?.title = "Edit Produk"
         supportActionBar?.show()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         init()
@@ -40,7 +45,7 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         bind.etTglKadaluarsa.editText?.keyListener = null
         bind.etNamaMerchant.editText?.keyListener = null
 
-        viewModel = AddProdukViewModel(
+        viewModel = EditProdukViewModel(
             activity, context, findNavController(), savedData, bind.spinnerKategori,
             bind.etNamaMerchant, bind.etNamaProduk,
             bind.etTglKadaluarsa, bind.etStok, bind.etDesc, bind.etHarga,
@@ -48,7 +53,10 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         )
         bind.viewModel = viewModel
         initPickMerchant(bind.root)
+        viewModel.dataProduk.value = this.arguments?.getParcelable(Constant.reffProduk)
+        viewModel.etDataMerchant.value = this.arguments?.getParcelable(Constant.reffMerchant)
         viewModel.setAdapterKategori()
+        viewModel.setData()
     }
 
     private fun onClick(){
@@ -131,11 +139,19 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
+            val imagePath = result.uri.path
+            val lvl = savedData.getDataMerchant()?.level
 
-            if (resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK && !imagePath.isNullOrEmpty() && !lvl.isNullOrEmpty()){
                 val imageUri = result.uri
 
                 viewModel.etFotoProduk.value = imageUri
+                val fileProduk = File(imagePath)
+                val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+                    MediaType.get("image/*"), fileProduk))
+                val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
+                val level = RequestBody.create(MediaType.get("text/plain"), lvl)
+                viewModel.editFotoProfilProduk(produkId, level, urlFoto)
             }
         }
     }

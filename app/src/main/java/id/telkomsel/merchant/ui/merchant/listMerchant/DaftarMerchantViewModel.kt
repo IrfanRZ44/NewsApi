@@ -27,13 +27,13 @@ class DaftarMerchantViewModel(
     private val savedData: DataSave
 ) : BaseViewModel() {
     val listRequest = ArrayList<ModelMerchant>()
-    lateinit var adapter: AdapterListMerchant
+    lateinit var adapter: AdapterMerchant
     var isSearching = false
     var startPage = 0
 
     fun initAdapter() {
         rcRequest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        adapter = AdapterListMerchant(
+        adapter = AdapterMerchant(
             listRequest,
             navController, statusRequest == Constant.statusRequest
         ) { item: ModelMerchant -> onClickItem(item) }

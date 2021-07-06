@@ -12,6 +12,7 @@ class AccountAdminFragment : BaseFragmentBind<FragmentAccountAdminBinding>() {
     override fun myCodeHere() {
         supportActionBar?.show()
         supportActionBar?.title = "Akun"
+        setHasOptionsMenu(false)
         init()
     }
 

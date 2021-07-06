@@ -35,6 +35,7 @@
     <string name="verifikasi_akun">Verifikasi Akun</string>
     <string name="action_chat">Chat</string>
     <string name="action_notif">Notifikasi</string>
+    <string name="action_filter">Filter</string>
     <string name="action_add">Tambah</string>
     <string name="action_share">Bagikan</string>
 
@@ -214,5 +215,7 @@
     <string name="pilih_masa_berlaku">Pilih Masa Berlaku</string>
     <string name="stok_voucher">Stok Voucher</string>
     <string name="jumlah_poin_yang_ditukar">Jumlah Poin yang ditukar</string>
-    <string name="promo_contoh_diskon_20_tukar_1_000_poin">Promo (contoh : Diskon 20% tukar 1.000 Poin)</string>
+    <string name="promo_contoh_diskon_20_tukar_1_000_poin">Promo(contoh : Diskon 20%)</string>
+    <string name="batal">Batal</string>
+    <string name="sub_kategori">Sub Kategori</string>
 </resources>

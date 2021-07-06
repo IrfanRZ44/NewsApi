@@ -77,8 +77,12 @@ class DaftarMerchantFragment(private val statusRequest: String) : BaseFragmentBi
         inflater.inflate(R.menu.toolbar_search, menu)
 
         val searchItem = menu.findItem(R.id.actionSearch)
+        val filterItem = menu.findItem(R.id.actionFilter)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
+        if (filterItem != null){
+            filterItem.isVisible = false
+        }
         searchView = searchItem.actionView as SearchView
         searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 

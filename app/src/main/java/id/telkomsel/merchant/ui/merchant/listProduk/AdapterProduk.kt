@@ -12,15 +12,16 @@ import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.utils.adapter.convertRupiah
 import kotlinx.android.synthetic.main.item_produk.view.*
 
-class AdapterListProduk(private val listItem: ArrayList<ModelProduk>,
-                        private val onClickItem : (ModelProduk) -> Unit
-) : RecyclerView.Adapter<AdapterListProduk.AfiliasiHolder>(){
+class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
+                    private val onClickItem : (ModelProduk) -> Unit
+) : RecyclerView.Adapter<AdapterProduk.AfiliasiHolder>(){
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
         fun bindAfiliasi(item: ModelProduk) {
             viewItem.textNama.text = item.nama
             viewItem.textHarga.text = convertRupiah(item.harga.toDouble())
             viewItem.textStok.text = "${item.stok} stok"
+            viewItem.textPromo.text = "${item.promo} tukar ${convertRupiah(item.jumlah_poin.toDouble())} Poin"
             viewItem.imgFoto.load(item.url_foto) {
                 crossfade(true)
                 placeholder(R.drawable.ic_camera_white)

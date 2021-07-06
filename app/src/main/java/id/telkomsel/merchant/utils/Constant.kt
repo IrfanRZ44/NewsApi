@@ -10,6 +10,8 @@ object Constant {
     const val reffLoginMerchantPhone = "loginMerchantPhone"
     const val reffCreateMerchant = "createMerchant"
     const val reffCreateProduk = "createProduk"
+    const val reffEditProduk = "editProduk"
+    const val reffEditFotoProfilProduk = "editFotoProfilProduk"
     const val reffCreateFotoProduk = "createFotoProduk"
     const val reffDeleteFotoProduk = "deleteFotoProduk"
     const val reffGetDaftarFotoProduk = "getDaftarFotoProduk"
@@ -31,6 +33,7 @@ object Constant {
     const val reffDaftarTopSubKategori = "getTopSubKategori"
     const val reffDataKategori = "getDataKategori"
     const val reffDaftarSubKategori = "getDaftarSubKategori"
+    const val reffDaftarSubKategoriFilterKategori = "getDaftarSubKategoriFilterKategori"
     const val reffUpdateStatusMerchant = "updateStatusMerchant"
     const val reffUpdateStatusProduk = "updateStatusProduk"
 
@@ -48,6 +51,7 @@ object Constant {
 
     //    const val reffURL = "https://admin-tokobonus.com"
     const val reffURL = "http://192.168.1.5:8000"
+//    const val reffURL = "http://192.168.43.186:8000"
     const val reffBaseURL = "$reffURL/api/"
     const val reffBaseURLUploadFoto = "$reffURL/api/uploadFoto"
 

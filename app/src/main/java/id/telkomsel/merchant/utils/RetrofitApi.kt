@@ -277,9 +277,14 @@ interface RetrofitApi {
     fun getDaftarSubKategori(): Call<ModelResponseDaftarKategori>
 
     @Headers("Accept:application/json")
+    @GET(Constant.reffDaftarSubKategoriFilterKategori)
+    fun getDaftarSubKategoriFilterKategori(): Call<ModelResponseDaftarKategori>
+
+    @Headers("Accept:application/json")
     @Multipart
     @POST(Constant.reffCreateProduk)
     fun createProduk(
+        @Part("status") status: RequestBody,
         @Part("merchant_id") merchant_id: RequestBody,
         @Part("kategori_id") kategori_id: RequestBody,
         @Part("sub_kategori_id") sub_kategori_id: RequestBody,
@@ -287,10 +292,42 @@ interface RetrofitApi {
         @Part("stok") stok: RequestBody,
         @Part("nama") nama: RequestBody,
         @Part("harga") harga: RequestBody,
+        @Part("promo") promo: RequestBody,
+        @Part("poin") poin: RequestBody,
         @Part("deskripsi") deskripsi: RequestBody,
         @Part("regional") regional: RequestBody,
         @Part("branch") branch: RequestBody,
         @Part("cluster") cluster: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffEditProduk)
+    fun editProduk(
+        @Field("status") status: String,
+        @Field("produk_id") produk_id: String,
+        @Field("merchant_id") merchant_id: String,
+        @Field("kategori_id") kategori_id: String,
+        @Field("sub_kategori_id") sub_kategori_id: String,
+        @Field("tgl_kadaluarsa") tgl_kadaluarsa: String,
+        @Field("stok") stok: String,
+        @Field("nama") nama: String,
+        @Field("harga") harga: String,
+        @Field("promo") promo: String,
+        @Field("poin") poin: String,
+        @Field("deskripsi") deskripsi: String,
+        @Field("regional") regional: String,
+        @Field("branch") branch: String,
+        @Field("cluster") cluster: String,
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffEditFotoProfilProduk)
+    fun editFotoProfilProduk(
+        @Part("produk_id") produk_id: RequestBody,
+        @Part("level") level: RequestBody,
         @Part url_foto: MultipartBody.Part?
     ): Call<ModelResponse>
 

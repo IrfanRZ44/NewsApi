@@ -14,12 +14,12 @@ import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
 import kotlinx.android.synthetic.main.item_merchant.view.*
 
-class AdapterListMerchant(
+class AdapterMerchant(
     private val listKelas: ArrayList<ModelMerchant>,
     private val navController: NavController,
     private val isShowConfirm: Boolean,
     private val onClick: (ModelMerchant) -> Unit
-) : RecyclerView.Adapter<AdapterListMerchant.AfiliasiHolder>(){
+) : RecyclerView.Adapter<AdapterMerchant.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")

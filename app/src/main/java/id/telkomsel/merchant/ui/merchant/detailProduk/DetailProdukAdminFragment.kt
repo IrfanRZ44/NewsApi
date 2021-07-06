@@ -2,6 +2,7 @@ package id.telkomsel.merchant.ui.merchant.detailProduk
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.theartofdev.edmodo.cropper.CropImage
@@ -13,6 +14,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.databinding.FragmentDetailProdukAdminBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.model.ModelFotoProduk
+import id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
 import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
@@ -118,7 +120,12 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
     override fun clickEditProduk() {
         super.clickEditProduk()
 
-        viewModel.message.value = "Edit Foto"
+        val bundle = Bundle()
+        val fragmentTujuan = EditProdukFragment()
+        bundle.putParcelable(Constant.reffProduk, viewModel.dataProduk.value)
+        bundle.putParcelable(Constant.reffMerchant, viewModel.dataMerchant.value)
+        fragmentTujuan.arguments = bundle
+        findNavController().navigate(R.id.editProdukFragment, bundle)
     }
 
     override fun clickUploadProduk(position: Int, rows: ModelFotoProduk) {

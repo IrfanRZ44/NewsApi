@@ -14,6 +14,8 @@ data class ModelProduk(
     var stok: Int = 0,
     var nama: String = "",
     var harga: Long = 0,
+    var promo: String = "",
+    var jumlah_poin: Long = 0,
     var deskripsi: String = "",
     var url_foto: String = "",
     var view: Int = 0,

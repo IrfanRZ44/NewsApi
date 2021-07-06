@@ -11,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
+import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
@@ -34,10 +34,14 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
 
     fun init(){
         bind.lifecycleOwner = this
-        viewModel = DaftarProdukViewModel(findNavController(), activity, bind.rcKategori, bind.rcProduk, statusRequest, savedData)
+        viewModel = DaftarProdukViewModel(
+            findNavController(), activity, bind.rcKategori, bind.rcProduk,
+            statusRequest, savedData
+        )
         bind.viewModel = viewModel
         viewModel.initAdapterKategori()
         viewModel.initAdapterProduk()
+        viewModel.showDialogFilter(bind.root, layoutInflater)
 
         viewModel.getDataKategori()
         viewModel.checkCluster("")
@@ -69,14 +73,15 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
         })
     }
 
-
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_search, menu)
+        inflater.inflate(R.menu.toolbar_search_filter, menu)
+
 
         val searchItem = menu.findItem(R.id.actionSearch)
+        val filterItem = menu.findItem(R.id.actionFilter)
         val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
+        filterItem.isVisible = true
         searchView = searchItem.actionView as SearchView
         searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
 
@@ -117,6 +122,10 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.actionSearch ->{
+                return false
+            }
+            R.id.actionFilter ->{
+                viewModel.btmSheet.show()
                 return false
             }
         }
