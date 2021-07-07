@@ -10,29 +10,14 @@ import id.telkomsel.merchant.R
 import kotlinx.android.synthetic.main.item_kategori.view.*
 import id.telkomsel.merchant.model.ModelKategori
 
-class AdapterKategori(private val listItem: ArrayList<ModelKategori>,
-                      private val isShowFilter: Boolean,
-                      private val onClickItem : (ModelKategori) -> Unit
+class AdapterKategori(
+    private val listItem: ArrayList<ModelKategori>,
+    private val onClickItem: (ModelKategori) -> Unit
 ) : RecyclerView.Adapter<AdapterKategori.AfiliasiHolder>(){
-    private var currentKategoriId = 0
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
         fun bindAfiliasi(item: ModelKategori) {
             viewItem.textNama.text = item.nama
-
-//            if (isShowFilter){
-//                viewItem.textFilter.visibility = View.VISIBLE
-//                if (currentKategoriId != item.kategori_id){
-//                    currentKategoriId = item.kategori_id
-//                    viewItem.textFilter.text = item.nama_kategori
-//                }
-//                else{
-//                    viewItem.textFilter.text = ""
-//                }
-//            }
-//            else{
-//                viewItem.textFilter.visibility = View.GONE
-//            }
 
             if (item.isSelected){
                 viewItem.cardView.setCardBackgroundColor(Color.RED)

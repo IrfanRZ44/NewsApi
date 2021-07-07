@@ -1,9 +1,16 @@
 package id.telkomsel.merchant.ui.merchant.listMerchant
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.SearchManager
+import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import id.telkomsel.merchant.R
@@ -15,6 +22,7 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import id.telkomsel.merchant.databinding.FragmentTabMerchantBinding
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
+import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
 class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
     private lateinit var viewModel: TabMerchantViewModel
@@ -22,11 +30,15 @@ class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
     private val requestDaftarMerchant = DaftarMerchantFragment(Constant.statusRequest)
     private val activeDaftarMerchant = DaftarMerchantFragment(Constant.statusActive)
     private val declinedDaftarMerchant = DaftarMerchantFragment(Constant.statusDeclined)
+    private var searchView : SearchView? = null
+    private var queryTextListener : SearchView.OnQueryTextListener? = null
+    private var onCloseListener : SearchView.OnCloseListener? = null
 
     override fun myCodeHere() {
         supportActionBar?.show()
         supportActionBar?.title = Constant.appName
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
 
         init()
         if (savedData.getDataMerchant()?.level == Constant.levelSBP){
@@ -132,5 +144,107 @@ class TabMerchantFragment : BaseFragmentBind<FragmentTabMerchantBinding>() {
                 rfabHelper.toggleContent()
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_search, menu)
+
+        val searchItem = menu.findItem(R.id.actionSearch)
+        val filterItem = menu.findItem(R.id.actionFilter)
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        if (filterItem != null){
+            filterItem.isVisible = false
+        }
+        searchView = searchItem.actionView as SearchView
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+
+        queryTextListener = object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (bind.tabs.selectedTabPosition == 0){
+                    if (!requestDaftarMerchant.viewModel.isSearching){
+                        requestDaftarMerchant.viewModel.isSearching = true
+                        val act : Activity? = activity
+                        act?.let { dismissKeyboard(it) }
+
+                        requestDaftarMerchant.viewModel.startPage = 0
+                        requestDaftarMerchant.viewModel.listRequest.clear()
+                        requestDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                        requestDaftarMerchant.checkCluster(query)
+                    }
+                }
+                else if (bind.tabs.selectedTabPosition == 1){
+                    if (!activeDaftarMerchant.viewModel.isSearching){
+                        activeDaftarMerchant.viewModel.isSearching = true
+                        val act : Activity? = activity
+                        act?.let { dismissKeyboard(it) }
+
+                        activeDaftarMerchant.viewModel.startPage = 0
+                        activeDaftarMerchant.viewModel.listRequest.clear()
+                        activeDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                        activeDaftarMerchant.checkCluster(query)
+                    }
+                }
+                else if (bind.tabs.selectedTabPosition == 2){
+                    if (!declinedDaftarMerchant.viewModel.isSearching){
+                        declinedDaftarMerchant.viewModel.isSearching = true
+                        val act : Activity? = activity
+                        act?.let { dismissKeyboard(it) }
+
+                        declinedDaftarMerchant.viewModel.startPage = 0
+                        declinedDaftarMerchant.viewModel.listRequest.clear()
+                        declinedDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                        declinedDaftarMerchant.checkCluster(query)
+                    }
+                }
+
+
+                return true
+            }
+        }
+
+        onCloseListener = SearchView.OnCloseListener {
+            when (bind.tabs.selectedTabPosition) {
+                0 -> {
+                    requestDaftarMerchant.viewModel.startPage = 0
+                    requestDaftarMerchant.viewModel.listRequest.clear()
+                    requestDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                    requestDaftarMerchant.checkCluster("")
+                }
+                1 -> {
+                    activeDaftarMerchant.viewModel.startPage = 0
+                    activeDaftarMerchant.viewModel.listRequest.clear()
+                    activeDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                    activeDaftarMerchant.checkCluster("")
+                }
+                2 -> {
+                    declinedDaftarMerchant.viewModel.startPage = 0
+                    declinedDaftarMerchant.viewModel.listRequest.clear()
+                    declinedDaftarMerchant.viewModel.adapter.notifyDataSetChanged()
+                    declinedDaftarMerchant.checkCluster("")
+                }
+            }
+            false
+        }
+
+        searchView?.setOnQueryTextListener(queryTextListener)
+        searchView?.setOnCloseListener(onCloseListener)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.actionSearch ->{
+                return false
+            }
+        }
+        searchView?.setOnQueryTextListener(queryTextListener)
+        searchView?.setOnCloseListener(onCloseListener)
+        return super.onOptionsItemSelected(item)
     }
 }

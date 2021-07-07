@@ -40,6 +40,8 @@ class DaftarProdukViewModel(
     private val rcKategori: RecyclerView,
     private val rcProduk: RecyclerView,
     private val statusRequest: String,
+    private val stok: Int,
+    private val isKadaluarsa: Boolean,
     private val savedData: DataSave
 ) : BaseViewModel() {
     private val listKategori = ArrayList<ModelKategori>()
@@ -62,7 +64,7 @@ class DaftarProdukViewModel(
             false
         )
         adapterKategori = AdapterKategori(
-            listKategori, false,
+            listKategori
         ) { item: ModelKategori -> onClickItemKategori(item) }
         rcKategori.adapter = adapterKategori
     }
@@ -157,11 +159,12 @@ class DaftarProdukViewModel(
                         for (i in result.data.indices){
                             if (currentIdKategori != result.data[i].kategori_id){
                                 if (tempList.size > 0){
+
                                     ExpandableGroup(AdapterHeaderKategori(result.data[i-1].nama_kategori), true).apply {
                                         for (j in tempList.indices){
                                             add(Section(MutableList(1){
-                                                    AdapterAllKategori(tempList[j]) { item: ModelKategori ->
-                                                        onClickItemKategori(
+                                                AdapterAllKategori(tempList[j]) { item: ModelKategori ->
+                                                        onClickItemAllKategori(
                                                             item
                                                         )
                                                     }
@@ -240,7 +243,7 @@ class DaftarProdukViewModel(
         cluster: String,
         userRequest: String,
         search: String?,
-        sub_kategori_id: String?
+        sub_kategori_id: String?,
     ) {
         isShowLoading.value = true
 
@@ -249,7 +252,7 @@ class DaftarProdukViewModel(
             startPage,
             statusRequest,
             search,
-            sub_kategori_id,
+            sub_kategori_id, stok, isKadaluarsa,
             object : Callback<ModelResponseDaftarProduk> {
                 override fun onResponse(
                     call: Call<ModelResponseDaftarProduk>,
@@ -298,12 +301,20 @@ class DaftarProdukViewModel(
     }
 
     private fun onClickItemKategori(item: ModelKategori){
-//        alert.dismiss()
-//        idSubKategori = item.id
-//        startPage = 0
-//        listProduk.clear()
-//        adapterProduk.notifyDataSetChanged()
-//        checkCluster("")
+        idSubKategori = item.id
+        startPage = 0
+        listProduk.clear()
+        adapterProduk.notifyDataSetChanged()
+        checkCluster("")
+    }
+
+    private fun onClickItemAllKategori(item: ModelKategori){
+        btmSheet.dismiss()
+        idSubKategori = item.id
+        startPage = 0
+        listProduk.clear()
+        adapterProduk.notifyDataSetChanged()
+        checkCluster("")
     }
 
     private fun onClickItemProduk(item: ModelProduk){

@@ -1,0 +1,8 @@
+- foto sampul jadi 5 item
+- Button tukar tidak usah di hide di user admin
+- Button tukar kurangi height
+- tambah alamat merchant, kelurahan, kecamatan, kabupaten di bawah promo
+- RP nya dihilangkan
+- tukar di simpan di baris kedua
+- merchant, sbp, cso bisa tambah dan edit
+- 

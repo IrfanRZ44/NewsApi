@@ -1,0 +1,11 @@
+- coba tambahin sms Aplikasi Merchant pada kode OTP > nanti muncul ketika aplikasi sudah di upload ke playstore
+- foto profil, tgl peresmian, email, titik lokasi gps, tgl lahir opsional
+- Nama Merchant*
+- setelah nama merchant, tambah kategori merchant
+- Apotik, Makanan & Minuman, Olahraga, Elektronik, Pendidikan (Spinner) required
+- Item, di bawah nama tambah kategori
+
+
+- CSO, SBP bisa tambah dan edit produk merchant
+- CSO Verif produk
+- Sub kategori, ada daftar sub yg paling banyak daftar produknya

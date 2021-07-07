@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.item_kategori.*
 class AdapterAllKategori(private val item: ModelKategori,
                          private val onClickItem : (ModelKategori) -> Unit
                          ) : Item(){
-
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.textNama.text = item.nama
 

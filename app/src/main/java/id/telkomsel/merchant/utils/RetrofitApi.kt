@@ -215,7 +215,9 @@ interface RetrofitApi {
         @Field("startPage") startPage: Int,
         @Field("status") status: String,
         @Field("search") search: String?,
-        @Field("sub_kategori_id") sub_kategori_id: String?
+        @Field("sub_kategori_id") sub_kategori_id: String?,
+        @Field("stok") stok: Int,
+        @Field("isKadaluarsa") isKadaluarsa: Boolean
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")

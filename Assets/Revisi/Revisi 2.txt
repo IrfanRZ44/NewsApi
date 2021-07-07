@@ -1,0 +1,24 @@
+- Warna Tulisan nama produk, ganti
+- item produk, di luruskan
+- Di Detail Produk, tambah item voucher yang dapat ditukarkan
+- Foto Produk paling bawah
+- Pilih Tanggal Kadaluarsa > Pilih Masa Berlaku
+- Promo, dibawah harga produk 
+	contoh 1 : Diskon 20% tukar 1.000 Poin
+	contoh 2 : Bayar 1 dapat 2 tukar 500 Poin
+- Jumlah poin yang Ditukar (Angka)
+- Voucher berisi 	1. Foto Profil Merchant
+			2. Produk
+			3. Harga Produk
+			4. Promo
+			5. Masa Berlaku (= promo berlaku)
+			6. Stok produk ganti jadi stok voucher
+- Jika CSO input produk, status langsung active
+- SBP edit produk, perlu divalidasi CSO
+- Diproses, Disetujui, Ditolak, Promo Selesai, Stok Habis
+- User Pelanggan Menu Produk (Promo Berlaku, Promo Selesai, Stok Habis)
+
+
+- Voucher berupa QR Code
+- User pelanggan Menu Histori Penukaran Voucher
+- Beli hosting merchant

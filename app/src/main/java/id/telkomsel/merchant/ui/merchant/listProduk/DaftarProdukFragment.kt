@@ -1,34 +1,27 @@
 package id.telkomsel.merchant.ui.merchant.listProduk
 
-import android.app.SearchManager
-import android.content.Context
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
-import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
+import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
 import id.telkomsel.merchant.utils.Constant
-import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 
-class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind<FragmentDaftarProdukBinding>() {
+class DaftarProdukFragment(private val statusRequest: String,
+                           private val stok: Int,
+                           private val isKadaluarsa: Boolean
+) : BaseFragmentBind<FragmentDaftarProdukBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_daftar_produk
     lateinit var viewModel: DaftarProdukViewModel
-    private var searchView : SearchView? = null
-    private var queryTextListener : SearchView.OnQueryTextListener? = null
-    private var onCloseListener : SearchView.OnCloseListener? = null
+
 
     override fun myCodeHere() {
         supportActionBar?.show()
         supportActionBar?.title = "Produk"
-        setHasOptionsMenu(true)
         init()
     }
 
@@ -36,7 +29,7 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
         bind.lifecycleOwner = this
         viewModel = DaftarProdukViewModel(
             findNavController(), activity, bind.rcKategori, bind.rcProduk,
-            statusRequest, savedData
+            statusRequest, stok, isKadaluarsa, savedData
         )
         bind.viewModel = viewModel
         viewModel.initAdapterKategori()
@@ -71,67 +64,6 @@ class DaftarProdukFragment(private val statusRequest: String) : BaseFragmentBind
                 }
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_search_filter, menu)
-
-
-        val searchItem = menu.findItem(R.id.actionSearch)
-        val filterItem = menu.findItem(R.id.actionFilter)
-        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-
-        filterItem.isVisible = true
-        searchView = searchItem.actionView as SearchView
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-
-        queryTextListener = object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String): Boolean {
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                if (!viewModel.isSearching){
-                    viewModel.isSearching = true
-                    activity?.let { dismissKeyboard(it) }
-
-                    viewModel.startPage = 0
-                    viewModel.listProduk.clear()
-                    viewModel.adapterProduk.notifyDataSetChanged()
-                    viewModel.checkCluster(query)
-                }
-
-                return true
-            }
-        }
-
-        onCloseListener = SearchView.OnCloseListener {
-            viewModel.startPage = 0
-            viewModel.listProduk.clear()
-            viewModel.adapterProduk.notifyDataSetChanged()
-            viewModel.checkCluster("")
-            false
-        }
-
-        searchView?.setOnQueryTextListener(queryTextListener)
-        searchView?.setOnCloseListener(onCloseListener)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.actionSearch ->{
-                return false
-            }
-            R.id.actionFilter ->{
-                viewModel.btmSheet.show()
-                return false
-            }
-        }
-        searchView?.setOnQueryTextListener(queryTextListener)
-        searchView?.setOnCloseListener(onCloseListener)
-        return super.onOptionsItemSelected(item)
     }
 
     private fun floatingAction() {
