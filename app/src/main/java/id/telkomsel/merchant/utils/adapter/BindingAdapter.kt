@@ -84,6 +84,14 @@ fun convertRupiah(angka:Double):String{
     return formatRupiah.format(angka).replace(",00","")
 }
 
+fun convertNumberWithoutRupiah(angka:Double):String{
+    val localeID = Locale("in", "ID")
+    val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
+    val formatted = formatRupiah.format(angka).replace(",00","")
+
+    return formatted.replace("Rp","")
+}
+
 fun stringToMD5(input:String): String {
     val md = MessageDigest.getInstance("MD5")
     return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')

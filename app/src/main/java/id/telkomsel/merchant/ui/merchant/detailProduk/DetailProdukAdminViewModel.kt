@@ -22,6 +22,7 @@ import id.telkomsel.merchant.model.response.ModelResponseMerchant
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
+import id.telkomsel.merchant.utils.adapter.convertNumberWithoutRupiah
 import id.telkomsel.merchant.utils.adapter.convertRupiah
 import id.telkomsel.merchant.utils.adapter.onClickFoto
 import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
@@ -46,6 +47,7 @@ class DetailProdukAdminViewModel(
     val poinProduk = MutableLiveData<String>()
     val viewProduk = MutableLiveData<String>()
     val stokProduk = MutableLiveData<String>()
+    val alamatProduk = MutableLiveData<String>()
     val tanggalProduk = MutableLiveData<String>()
     val hargaProduk = MutableLiveData<String>()
     private val listGambar = ArrayList<ModelFotoProduk>()
@@ -58,10 +60,12 @@ class DetailProdukAdminViewModel(
         listGambar.add(ModelFotoProduk(0, 0, ""))
         listGambar.add(ModelFotoProduk(0, 0, ""))
         listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
 
         if (gambar != null){
             for (i in gambar.indices){
-                if (i < 3){
+                if (i < 5){
                     listGambar[i] = gambar[i]
                 }
             }
@@ -102,7 +106,7 @@ class DetailProdukAdminViewModel(
     fun setData(){
         val poin = dataProduk.value?.jumlah_poin?:0
         promoProduk.value = "Promo ${dataProduk.value?.promo}"
-        poinProduk.value = "Tukar ${convertRupiah(poin.toDouble())} Poin"
+        poinProduk.value = "Tukar ${convertNumberWithoutRupiah(poin.toDouble())} Poin"
         viewProduk.value = "${dataProduk.value?.view} Views"
         stokProduk.value = "${dataProduk.value?.stok} Stok"
         tanggalProduk.value = "Masa berlaku hingga ${dataProduk.value?.tgl_kadaluarsa}"
@@ -123,6 +127,10 @@ class DetailProdukAdminViewModel(
 
                 if (result?.message == Constant.reffSuccess){
                     dataMerchant.value = result.dataMerchant
+                    alamatProduk.value = "${dataMerchant.value?.alamat_merchant}, " +
+                            "${dataMerchant.value?.kelurahan}, " +
+                            "${dataMerchant.value?.kecamatan}, " +
+                            "${dataMerchant.value?.kabupaten}"
                 }
                 else{
                     message.value = "Error, gagal mendapatkan data merchant"

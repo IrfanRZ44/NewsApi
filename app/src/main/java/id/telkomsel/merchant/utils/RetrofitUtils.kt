@@ -158,16 +158,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun getDaftarProdukByAdmin(cluster: String, userRequest: String, startPage: Int, status: String,
-                               search: String?, sub_kategori_id: String?, stok: Int,
-                               isKadaluarsa: Boolean, callback: Callback<ModelResponseDaftarProduk>){
-        val call = api.getDaftarProdukByAdmin(cluster, userRequest, startPage, status, search,
+    fun getDaftarProdukByMerchant(merchant_id: String?, cluster: String?, level: String, startPage: Int, status: String,
+                                  search: String?, sub_kategori_id: String?, stok: Int,
+                                  isKadaluarsa: Boolean, callback: Callback<ModelResponseDaftarProduk>){
+        val call = api.getDaftarProdukByMerchant(merchant_id, cluster, level, startPage, status, search,
             sub_kategori_id, stok, isKadaluarsa)
-        call.enqueue(callback)
-    }
-
-    fun getDaftarProdukByMerchant(merchant_id: String, startPage: Int, status: String, search: String?, sub_kategori_id: String?, callback: Callback<ModelResponseDaftarProduk>){
-        val call = api.getDaftarProdukByMerchant(merchant_id, startPage, status, search, sub_kategori_id)
         call.enqueue(callback)
     }
 
@@ -178,6 +173,11 @@ object RetrofitUtils{
 
     fun getDaftarKategori(callback: Callback<ModelResponseDaftarKategori>){
         val call = api.getDaftarKategori()
+        call.enqueue(callback)
+    }
+
+    fun getDaftarSubKategoriByMerchant(kategori_id: Int, callback: Callback<ModelResponseDaftarKategori>){
+        val call = api.getDaftarSubKategoriByMerchant(kategori_id)
         call.enqueue(callback)
     }
 

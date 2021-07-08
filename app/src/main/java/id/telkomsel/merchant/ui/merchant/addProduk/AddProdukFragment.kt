@@ -47,8 +47,17 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
             bind.etPromo, bind.etPoin
         )
         bind.viewModel = viewModel
-        initPickMerchant(bind.root)
         viewModel.setAdapterKategori()
+        val kategoriId = savedData.getDataMerchant()?.kategori_id
+
+        if (savedData.getDataMerchant()?.level == Constant.levelMerchant && kategoriId != null){
+            bind.rlPickMerchant.visibility = View.GONE
+            viewModel.etDataMerchant.value = savedData.getDataMerchant()
+            viewModel.getDaftarSubKategoriByMerchant(kategoriId)
+        }
+        else{
+            initPickMerchant(bind.root)
+        }
     }
 
     private fun onClick(){

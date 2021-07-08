@@ -59,6 +59,7 @@ class EditProdukViewModel(
     val etDataMerchant = MutableLiveData<ModelMerchant>()
     val etNamaProduk = MutableLiveData<String>()
     val etTglKadaluarsa = MutableLiveData<String>()
+    private val etTglKadaluarsaFormatted = MutableLiveData<String>()
     val etFotoProduk = MutableLiveData<Uri>()
     val etStok = MutableLiveData<String>()
     val etHarga = MutableLiveData<String>()
@@ -179,6 +180,8 @@ class EditProdukViewModel(
                     dateSelected[paramAnonymousInt1, paramAnonymousInt2] = paramAnonymousInt3
                     val dateFormatter = SimpleDateFormat(Constant.dateFormat1, Locale.US)
                     etTglKadaluarsa.value = dateFormatter.format(dateSelected.time)
+                    val dateFormatterKadaluarsa = SimpleDateFormat(Constant.dateFormat4, Locale.US)
+                    etTglKadaluarsaFormatted.value = dateFormatterKadaluarsa.format(dateSelected.time)
                 },
                 localCalendar[Calendar.YEAR],
                 localCalendar[Calendar.MONTH],
@@ -228,6 +231,7 @@ class EditProdukViewModel(
         val subKategori = listKategori[spinnerKategori.selectedItemPosition].id
         val kategori = listKategori[spinnerKategori.selectedItemPosition].kategori_id
         val tglKadaluarsa = etTglKadaluarsa.value
+        val tglKadaluarsaFormatted = etTglKadaluarsaFormatted.value
         val stok = etStok.value
         val harga = editHarga.currencyText.toString()
         val promo = etPromo.value
@@ -236,7 +240,7 @@ class EditProdukViewModel(
         val fotoProduk = etFotoProduk.value?.path
 
         if (dataMerchant != null && produkId.isNotEmpty() && !namaProduk.isNullOrEmpty()
-            && !tglKadaluarsa.isNullOrEmpty()
+            && !tglKadaluarsa.isNullOrEmpty() && !tglKadaluarsaFormatted.isNullOrEmpty()
             && (subKategori != 0) && (kategori != 0) && harga.isNotEmpty() && !desc.isNullOrEmpty()
             && !stok.isNullOrEmpty() && !promo.isNullOrEmpty() && !fotoProduk.isNullOrEmpty() && poin.isNotEmpty()
         ) {
@@ -246,7 +250,7 @@ class EditProdukViewModel(
             val status = if (savedData.getDataMerchant()?.level == Constant.levelCSO) Constant.statusActive
                 else Constant.statusRequest
 
-            editProduk(status, produkId, dataMerchant.id.toString(), kategori.toString(), subKategori.toString(), tglKadaluarsa,
+            editProduk(status, produkId, dataMerchant.id.toString(), kategori.toString(), subKategori.toString(), tglKadaluarsaFormatted,
                 stok, namaProduk,
                 hargaReplaced, promo, poinReplaced, desc, dataMerchant.regional, dataMerchant.branch, dataMerchant.cluster)
         }
@@ -269,6 +273,14 @@ class EditProdukViewModel(
                     setTextError("Error, mohon masukkan nama produk", editNamaProduk)
                 }
                 tglKadaluarsa.isNullOrEmpty() -> {
+                    message.value = "Error, Mohon pilih tanggal kadaluarsa"
+                    editNamaMerchant.clearFocus()
+                    editNamaProduk.clearFocus()
+                    editTglKadaluarsa.requestFocus()
+                    editTglKadaluarsa.findFocus()
+                    editTglKadaluarsa.error = "Error, Mohon pilih tanggal kadaluarsa"
+                }
+                tglKadaluarsaFormatted.isNullOrEmpty() -> {
                     message.value = "Error, Mohon pilih tanggal kadaluarsa"
                     editNamaMerchant.clearFocus()
                     editNamaProduk.clearFocus()

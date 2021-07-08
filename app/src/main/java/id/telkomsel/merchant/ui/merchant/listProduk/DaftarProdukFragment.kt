@@ -1,6 +1,5 @@
 package id.telkomsel.merchant.ui.merchant.listProduk
 
-import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
@@ -9,7 +8,6 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarProdukBinding
-import id.telkomsel.merchant.utils.Constant
 
 class DaftarProdukFragment(private val statusRequest: String,
                            private val stok: Int,
@@ -39,13 +37,7 @@ class DaftarProdukFragment(private val statusRequest: String,
         viewModel.getDataKategori()
         viewModel.checkCluster("")
 
-        if (savedData.getDataMerchant()?.level == Constant.levelCSO || savedData.getDataMerchant()?.level == Constant.levelSBP){
-            bind.rfaLayout.visibility = View.VISIBLE
-            floatingAction()
-        }
-        else{
-            bind.rfaLayout.visibility = View.GONE
-        }
+        floatingAction()
 
         bind.swipeRefresh.setOnRefreshListener {
             viewModel.startPage = 0

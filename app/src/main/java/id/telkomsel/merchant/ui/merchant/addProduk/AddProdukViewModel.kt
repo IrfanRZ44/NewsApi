@@ -20,6 +20,7 @@ import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseDaftarMerchant
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
@@ -56,6 +57,7 @@ class AddProdukViewModel(
     val etDataMerchant = MutableLiveData<ModelMerchant>()
     val etNamaProduk = MutableLiveData<String>()
     val etTglKadaluarsa = MutableLiveData<String>()
+    private val etTglKadaluarsaFormatted = MutableLiveData<String>()
     val etFotoProduk = MutableLiveData<Uri>()
     val etStok = MutableLiveData<String>()
     val etHarga = MutableLiveData<String>()
@@ -75,6 +77,16 @@ class AddProdukViewModel(
             listMerchant
         ) { item: ModelMerchant -> onClickPickMerchant(item) }
         rcMerchant?.adapter = adapterPickMerchant
+    }
+
+    fun setAdapterKategori() {
+        listKategori.clear()
+
+        adapterKategori = SpinnerKategoriAdapter(
+            activity,
+            listKategori, true
+        )
+        spinnerKategori.adapter = adapterKategori
     }
 
     fun getDataMerchant(search: String?, cluster: String, userRequest: String) {
@@ -127,14 +139,31 @@ class AddProdukViewModel(
             })
     }
 
-    fun setAdapterKategori() {
-        listKategori.clear()
+    fun getDaftarSubKategoriByMerchant(merchant_id: Int) {
+        RetrofitUtils.getDaftarSubKategoriByMerchant(merchant_id,
+            object : Callback<ModelResponseDaftarKategori> {
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarKategori>,
+                    response: Response<ModelResponseDaftarKategori>
+                ) {
+                    val result = response.body()
 
-        adapterKategori = SpinnerKategoriAdapter(
-            activity,
-            listKategori, true
-        )
-        spinnerKategori.adapter = adapterKategori
+                    if (result?.message == Constant.reffSuccess) {
+                        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori, false))
+                        listKategori.addAll(result.data)
+                        adapterKategori.notifyDataSetChanged()
+                    } else {
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarKategori>,
+                    t: Throwable
+                ) {
+                    message.value = t.message
+                }
+            })
     }
 
     fun getDateTglKadaluarsa() {
@@ -150,6 +179,8 @@ class AddProdukViewModel(
                     dateSelected[paramAnonymousInt1, paramAnonymousInt2] = paramAnonymousInt3
                     val dateFormatter = SimpleDateFormat(Constant.dateFormat1, Locale.US)
                     etTglKadaluarsa.value = dateFormatter.format(dateSelected.time)
+                    val dateFormatterKadaluarsa = SimpleDateFormat(Constant.dateFormat4, Locale.US)
+                    etTglKadaluarsaFormatted.value = dateFormatterKadaluarsa.format(dateSelected.time)
                 },
                 localCalendar[Calendar.YEAR],
                 localCalendar[Calendar.MONTH],
@@ -198,6 +229,7 @@ class AddProdukViewModel(
         val subKategori = listKategori[spinnerKategori.selectedItemPosition].id
         val kategori = listKategori[spinnerKategori.selectedItemPosition].kategori_id
         val tglKadaluarsa = etTglKadaluarsa.value
+        val tglKadaluarsaFormatted = etTglKadaluarsaFormatted.value
         val stok = etStok.value
         val harga = editHarga.currencyText.toString()
         val promo = etPromo.value
@@ -206,7 +238,7 @@ class AddProdukViewModel(
         val fotoProduk = etFotoProduk.value?.path
 
         if (dataMerchant != null && !namaProduk.isNullOrEmpty()
-            && !tglKadaluarsa.isNullOrEmpty()
+            && !tglKadaluarsa.isNullOrEmpty() && !tglKadaluarsaFormatted.isNullOrEmpty()
             && (subKategori != 0) && (kategori != 0) && harga.isNotEmpty() && !desc.isNullOrEmpty()
             && !stok.isNullOrEmpty() && !promo.isNullOrEmpty() && !fotoProduk.isNullOrEmpty() && poin.isNotEmpty()
         ) {
@@ -225,7 +257,7 @@ class AddProdukViewModel(
             val cluster = RequestBody.create(MediaType.get("text/plain"), dataMerchant.cluster)
             val kategoriId = RequestBody.create(MediaType.get("text/plain"), kategori.toString())
             val subKategoriId = RequestBody.create(MediaType.get("text/plain"), subKategori.toString())
-            val tglHabis = RequestBody.create(MediaType.get("text/plain"), tglKadaluarsa)
+            val tglHabis = RequestBody.create(MediaType.get("text/plain"), tglKadaluarsaFormatted)
             val stokProduk = RequestBody.create(MediaType.get("text/plain"), stok)
             val hargaProduk = RequestBody.create(MediaType.get("text/plain"), hargaReplaced)
             val promoProduk = RequestBody.create(MediaType.get("text/plain"), promo)
@@ -252,6 +284,14 @@ class AddProdukViewModel(
                     setTextError("Error, mohon masukkan nama produk", editNamaProduk)
                 }
                 tglKadaluarsa.isNullOrEmpty() -> {
+                    message.value = "Error, Mohon pilih tanggal kadaluarsa"
+                    editNamaMerchant.clearFocus()
+                    editNamaProduk.clearFocus()
+                    editTglKadaluarsa.requestFocus()
+                    editTglKadaluarsa.findFocus()
+                    editTglKadaluarsa.error = "Error, Mohon pilih tanggal kadaluarsa"
+                }
+                tglKadaluarsaFormatted.isNullOrEmpty() -> {
                     message.value = "Error, Mohon pilih tanggal kadaluarsa"
                     editNamaMerchant.clearFocus()
                     editNamaProduk.clearFocus()

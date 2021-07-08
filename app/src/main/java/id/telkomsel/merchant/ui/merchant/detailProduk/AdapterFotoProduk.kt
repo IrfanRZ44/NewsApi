@@ -23,7 +23,7 @@ class AdapterFotoProduk(private val ctx: Context,
     private lateinit var view : View
     private lateinit var layoutInflater: LayoutInflater
     override fun getCount(): Int {
-        return 3
+        return 5
     }
 
     override fun isViewFromObject(

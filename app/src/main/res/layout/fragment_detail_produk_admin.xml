@@ -151,11 +151,23 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@={viewModel.stokProduk}"
+                                android:text="@={viewModel.alamatProduk}"
                                 android:textColor="@color/gray1"
                                 android:textSize="@dimen/text_h2"
                                 android:fontFamily="@font/roboto_regular"
                                 android:layout_below="@+id/textNamaMerchant"
+                                android:layout_toEndOf="@+id/imgFotoProfil"
+                                android:id="@+id/textAlamat"
+                                android:layout_marginStart="@dimen/h2"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@={viewModel.stokProduk}"
+                                android:textColor="@color/gray1"
+                                android:textSize="@dimen/text_h2"
+                                android:fontFamily="@font/roboto_regular"
+                                android:layout_below="@+id/textAlamat"
                                 android:layout_toEndOf="@+id/imgFotoProfil"
                                 android:id="@+id/textStok"
                                 android:layout_marginStart="@dimen/h2"
@@ -174,21 +186,22 @@
                                 />
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btnTukarPoin"
-                                style="@style/buttonStandardRed"
                                 disableButton="@{viewModel.isShowLoading}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:onClick="@{()-> viewModel.onClickTukarPoin()}"
-                                android:padding="@dimen/h1"
                                 android:text="@={viewModel.poinProduk}"
                                 android:textAlignment="center"
-                                android:textAllCaps="true"
+                                android:textAllCaps="false"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_h2"
                                 android:layout_alignParentEnd="true"
                                 android:layout_below="@+id/textTanggal"
                                 android:layout_marginTop="@dimen/h2"
                                 android:layout_marginEnd="@dimen/h2"
+                                android:paddingEnd="@dimen/h2"
+                                android:paddingStart="@dimen/h2"
+                                android:backgroundTint="@color/colorPrimary"
                                 />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>

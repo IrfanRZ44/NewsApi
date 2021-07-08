@@ -69,6 +69,7 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
     private fun setupViewPager(pager: ViewPager) {
         supportActionBar?.title = Constant.appName
         val adapter = SectionsPagerAdapter(childFragmentManager)
+
         adapter.addFragment(requestProduk, Constant.statusDiproses)
         adapter.addFragment(activeProduk, Constant.statusDisetujui)
         adapter.addFragment(declinedProduk, Constant.statusDitolak)

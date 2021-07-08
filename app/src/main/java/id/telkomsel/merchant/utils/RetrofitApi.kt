@@ -208,27 +208,17 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
-    @POST(Constant.reffDaftarProdukByAdmin)
-    fun getDaftarProdukByAdmin(
-        @Field("cluster") cluster: String,
-        @Field("userRequest") userRequest: String,
+    @POST(Constant.reffDaftarProdukByMerchant)
+    fun getDaftarProdukByMerchant(
+        @Field("merchant_id") merchant_id: String?,
+        @Field("cluster") cluster: String?,
+        @Field("level") level: String,
         @Field("startPage") startPage: Int,
         @Field("status") status: String,
         @Field("search") search: String?,
         @Field("sub_kategori_id") sub_kategori_id: String?,
         @Field("stok") stok: Int,
         @Field("isKadaluarsa") isKadaluarsa: Boolean
-    ): Call<ModelResponseDaftarProduk>
-
-    @Headers("Accept:application/json")
-    @FormUrlEncoded
-    @POST(Constant.reffDaftarProdukByMerchant)
-    fun getDaftarProdukByMerchant(
-        @Field("merchant_id") merchant_id: String,
-        @Field("startPage") startPage: Int,
-        @Field("status") status: String,
-        @Field("search") search: String?,
-        @Field("sub_kategori_id") sub_kategori_id: String?
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")
@@ -273,6 +263,13 @@ interface RetrofitApi {
     fun getDataKategori(
         @Field("kategori_id") kategori_id: Int,
     ): Call<ModelResponseDataKategori>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarSubKategoriByMerchant)
+    fun getDaftarSubKategoriByMerchant(
+        @Field("kategori_id") kategori_id: Int,
+    ): Call<ModelResponseDaftarKategori>
 
     @Headers("Accept:application/json")
     @GET(Constant.reffDaftarSubKategori)

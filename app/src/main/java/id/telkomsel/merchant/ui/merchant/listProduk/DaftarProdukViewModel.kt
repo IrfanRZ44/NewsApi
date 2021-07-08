@@ -117,27 +117,39 @@ class DaftarProdukViewModel(
 
     fun checkCluster(search: String?) {
         val cluster = savedData.getDataMerchant()?.cluster
+        val merchantId = savedData.getDataMerchant()?.id
         val regional = savedData.getDataMerchant()?.regional
         val level = savedData.getDataMerchant()?.level
 
         if (level == Constant.levelChannel && !regional.isNullOrEmpty()){
             getDaftarProdukByAdmin(
                 regional,
-                "regional",
+                Constant.levelChannel,
                 search,
-                if (idSubKategori == 0) "" else idSubKategori.toString()
+                if (idSubKategori == 0) "" else idSubKategori.toString(),
+                ""
             )
         }
         else if ((level == Constant.levelCSO || level == Constant.levelSBP) && !cluster.isNullOrEmpty()){
             getDaftarProdukByAdmin(
                 cluster,
-                cluster,
+                level,
                 search,
-                if (idSubKategori == 0) "" else idSubKategori.toString()
+                if (idSubKategori == 0) "" else idSubKategori.toString(),
+                ""
+            )
+        }
+        else if (level == Constant.levelMerchant && merchantId != null){
+            getDaftarProdukByAdmin(
+                "",
+                Constant.levelMerchant,
+                search,
+                if (idSubKategori == 0) "" else idSubKategori.toString(),
+                merchantId.toString()
             )
         }
         else{
-            message.value = "Error, gagal mendapatkan data cluster Anda"
+            message.value = "Error, gagal mendapatkan data produk"
         }
     }
 
@@ -241,14 +253,15 @@ class DaftarProdukViewModel(
 
     private fun getDaftarProdukByAdmin(
         cluster: String,
-        userRequest: String,
+        level: String,
         search: String?,
         sub_kategori_id: String?,
+        merchantId: String?,
     ) {
         isShowLoading.value = true
 
-        RetrofitUtils.getDaftarProdukByAdmin(cluster,
-            userRequest,
+        RetrofitUtils.getDaftarProdukByMerchant(merchantId, cluster,
+            level,
             startPage,
             statusRequest,
             search,
