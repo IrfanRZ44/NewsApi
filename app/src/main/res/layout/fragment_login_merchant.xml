@@ -59,7 +59,7 @@
                     android:layout_marginEnd="@dimen/h2"
                     android:layout_marginTop="@dimen/_30"
                     android:fontFamily="@font/open_sans_regular"
-                    android:text="@string/login_2"
+                    android:text="@string/login_merchant"
                     android:textAlignment="textStart"
                     android:layout_gravity="start"
                     android:textColor="@color/black"

@@ -76,12 +76,11 @@
             android:layout_marginRight="@dimen/h5"
             android:fontFamily="@font/roboto_regular"
             android:padding="@dimen/h3"
-            android:text="@string/login_user"
+            android:text="@string/login_pelanggan"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_h2"
             android:onClick="@{()-> viewModel.onClickUser()}"
-            android:visibility="gone"
             />
 
         <androidx.appcompat.widget.AppCompatButton

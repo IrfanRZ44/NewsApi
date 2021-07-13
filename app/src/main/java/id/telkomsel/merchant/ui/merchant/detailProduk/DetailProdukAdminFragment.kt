@@ -34,7 +34,6 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         init()
-
         if (savedData.getDataMerchant()?.level == Constant.levelCSO && viewModel.dataProduk.value?.status == Constant.statusRequest){
             bind.rfaLayout.visibility = View.VISIBLE
             floatingAction()

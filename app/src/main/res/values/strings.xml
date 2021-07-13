@@ -144,6 +144,8 @@
     <string name="nomor_wa_pemilik_contoh_0852xxxx_wajib">Nomor Whatsapp pemilik contoh: 0813xxxx*</string>
     <string name="nomor_hp_merchant_contoh_0852xxxx_wajib">Nomor HP merchant contoh: 0813xxxx*</string>
     <string name="nomor_wa_merchant_contoh_0852xxxx_wajib">Nomor Whatsapp merchant contoh: 0813xxxx*</string>
+    <string name="nomor_hp_contoh_0852xxxx_wajib">Nomor HP contoh: 0813xxxx*</string>
+    <string name="nomor_wa_contoh_0852xxxx_wajib">Nomor Whatsapp contoh: 0813xxxx*</string>
     <string name="nomor_hp_admin_contoh_0852xxxx">Nomor HP admin contoh: 0813xxxx</string>
     <string name="nomor_wa_admin_contoh_0852xxxx">Nomor Whatsapp admin contoh: 0813xxxx</string>
     <string name="pick_tanggal_lahir">Pilih Tanggal Lahir</string>
@@ -161,12 +163,13 @@
     <string name="titik_lokasi">Titik Lokasi(Tekan GPS)</string>
     <string name="alamat_merchant_lengkap">Alamat Merchant(Jalan/Kompleks/Blok/DLL)</string>
     <string name="alamat_merchant_lengkap_wajib">Alamat Merchant(Jalan/Kompleks/Blok/DLL)*</string>
+    <string name="alamat_lengkap_wajib">Alamat(Jalan/Kompleks/Blok/DLL)*</string>
     <string name="alamat_admin_lengkap">Alamat Admin(Jalan/Kompleks/Blok/DLL)</string>
     <string name="login_user">Login User</string>
-    <string name="login_merchant">Login Merchant</string>
     <string name="update_aplikasi">Update Aplikasi</string>
     <string name="welcome">Selamat Datang</string>
     <string name="username_nomor_hp_merchant">Username / Nomor HP Merchant</string>
+    <string name="username_nomor_hp_pelanggan">Username / Nomor HP Pelanggan</string>
     <string name="silahkan_login_untuk_melanjutkan">Silahkan login untuk melanjutkan</string>
     <string name="pengguna_baru">Pengguna Baru?</string>
     <string name="login_2">Login</string>
@@ -218,4 +221,10 @@
     <string name="promo_contoh_diskon_20_tukar_1_000_poin">Promo(contoh : Diskon 20%)</string>
     <string name="batal">Batal</string>
     <string name="sub_kategori">Sub Kategori</string>
+    <string name="login_pelanggan">Login Pelanggan</string>
+    <string name="user_merchant">User Merchant?</string>
+    <string name="login_merchant">Login Merchant</string>
+    <string name="nama_wajib">Nama*</string>
+    <string name="daftar_pelanggan">Daftar Pelanggan</string>
+    <string name="daftar_merchant">Daftar Merchant</string>
 </resources>

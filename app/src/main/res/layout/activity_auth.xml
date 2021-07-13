@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:id="@+id/viewParent"
     >
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navAuthFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:id="@+id/auth_nav"
     android:label="Authentication"
     tools:showIn="navigation_view"
-    app:startDestination="@id/nav_beranda">
+    app:startDestination="@id/pelangganFragment">
     <fragment
         android:id="@+id/lihatFotoFragment"
         android:name="id.telkomsel.merchant.utils.LihatFotoFragment"
@@ -13,18 +13,28 @@
         tools:layout="@layout/fragment_lihat_foto"
         />
     <fragment
-        android:id="@+id/nav_beranda"
-        android:name="id.telkomsel.merchant.ui.pelanggan.beranda.BerandaFragment"
-        android:label="@string/beranda"
-        tools:layout="@layout/fragment_beranda" />
+        android:id="@+id/pelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.PelangganFragment"
+        android:label="fragment_pelanggan"
+        tools:layout="@layout/fragment_pelanggan" />
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="id.telkomsel.merchant.ui.pelanggan.blank1.Blank1Fragment"
-        android:label="fragment_blank1"
-        tools:layout="@layout/fragment_blank1" />
+        android:id="@+id/berandaPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.beranda.BerandaPelangganFragment"
+        android:label="fragment_beranda_pelanggan"
+        tools:layout="@layout/fragment_beranda_pelanggan" />
     <fragment
-        android:id="@+id/nav_setting"
-        android:name="id.telkomsel.merchant.ui.pelanggan.blank2.Blank2Fragment"
-        android:label="fragment_blank2"
-        tools:layout="@layout/fragment_blank2" />
+        android:id="@+id/loginPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.loginPelanggan.LoginPelangganFragment"
+        android:label="fragment_login_pelanggan"
+        tools:layout="@layout/fragment_login_pelanggan" />
+    <fragment
+        android:id="@+id/registerPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganFragment"
+        android:label="fragment_register_pelanggan"
+        tools:layout="@layout/fragment_register_pelanggan" />
+    <fragment
+        android:id="@+id/verifyRegisterPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan.VerifyRegisterPelangganFragment"
+        android:label="fragment_verify_register_pelanggan"
+        tools:layout="@layout/fragment_verify_register_pelanggan" />
 </navigation>

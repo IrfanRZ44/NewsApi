@@ -52,11 +52,21 @@ class EditProdukFragment : BaseFragmentBind<FragmentEditProdukBinding>(){
             bind.etPromo, bind.etPoin
         )
         bind.viewModel = viewModel
-        initPickMerchant(bind.root)
         viewModel.dataProduk.value = this.arguments?.getParcelable(Constant.reffProduk)
-        viewModel.etDataMerchant.value = this.arguments?.getParcelable(Constant.reffMerchant)
         viewModel.setAdapterKategori()
         viewModel.setData()
+        val kategoriId = savedData.getDataMerchant()?.kategori_id
+
+        if (savedData.getDataMerchant()?.level == Constant.levelMerchant && kategoriId != null){
+            bind.rlPickMerchant.visibility = View.GONE
+            viewModel.etDataMerchant.value = savedData.getDataMerchant()
+            viewModel.getDaftarSubKategoriByMerchant(kategoriId)
+        }
+        else{
+            bind.rlPickMerchant.visibility = View.VISIBLE
+            viewModel.etDataMerchant.value = this.arguments?.getParcelable(Constant.reffMerchant)
+            initPickMerchant(bind.root)
+        }
     }
 
     private fun onClick(){

@@ -73,7 +73,8 @@ class DetailProdukAdminViewModel(
 
         if (ctx != null){
             val showEdit = savedData.getDataMerchant()?.level == Constant.levelCSO ||
-                    savedData.getDataMerchant()?.level == Constant.levelSBP
+                    savedData.getDataMerchant()?.level == Constant.levelSBP ||
+                    savedData.getDataMerchant()?.id == dataProduk.value?.merchant_id
             adapterFotoProduk = AdapterFotoProduk(
                 ctx, listGambar, listener, showEdit
             )
@@ -100,7 +101,7 @@ class DetailProdukAdminViewModel(
     }
 
     fun onClickTukarPoin(){
-
+        message.value = "Maaf, Anda tidak memiliki poin"
     }
 
     fun setData(){
@@ -244,11 +245,11 @@ class DetailProdukAdminViewModel(
                             getDaftarFotoProduk(produkId)
                         }
 
-                        if (savedData.getDataMerchant()?.level == Constant.levelSBP){
-                            message.value = "Berhasil mengupload foto produk, mohon tunggu proses verifikasi dalam waktu 1x24 jam"
+                        if (savedData.getDataMerchant()?.level == Constant.levelCSO){
+                            message.value = "Berhasil mengupload foto produk"
                         }
                         else{
-                            message.value = "Berhasil mengupload foto produk"
+                            message.value = "Berhasil mengupload foto produk, mohon tunggu proses verifikasi dalam waktu 1x24 jam"
                         }
                     }
                     else{

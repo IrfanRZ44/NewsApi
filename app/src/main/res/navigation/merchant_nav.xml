@@ -24,9 +24,9 @@
         tools:layout="@layout/fragment_blank2" />
     <fragment
         android:id="@+id/accountAdminFragment"
-        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.AccountAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountMerchant.AccountMerchantFragment"
         android:label="fragment_account_admin"
-        tools:layout="@layout/fragment_account_admin" />
+        tools:layout="@layout/fragment_account_merchant" />
     <fragment
         android:id="@+id/adminFragment"
         android:name="id.telkomsel.merchant.ui.merchant.MerchantFragment"
@@ -34,12 +34,12 @@
         tools:layout="@layout/fragment_merchant" />
     <fragment
         android:id="@+id/editPasswordAdminFragment"
-        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editPassword.EditPasswordAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountMerchant.editPassword.EditPasswordMerchantFragment"
         android:label="fragment_edit_password_admin"
-        tools:layout="@layout/fragment_edit_password_admin" />
+        tools:layout="@layout/fragment_edit_password_merchant" />
     <fragment
         android:id="@+id/editProfilAdminFragment"
-        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilAdmin.EditProfilAdminFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountMerchant.editProfilAdmin.EditProfilAdminFragment"
         android:label="fragment_edit_profil_admin"
         tools:layout="@layout/fragment_edit_profil_admin" />
     <fragment
@@ -59,7 +59,7 @@
         tools:layout="@layout/fragment_add_merchant" />
     <fragment
         android:id="@+id/editProfilMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.merchant.accountAdmin.editProfilMerchant.EditProfilMerchantFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.accountMerchant.editProfilMerchant.EditProfilMerchantFragment"
         android:label="fragment_edit_profil_merchant"
         tools:layout="@layout/fragment_edit_profil_merchant" />
     <fragment

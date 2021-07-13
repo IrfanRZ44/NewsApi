@@ -17,7 +17,7 @@ class LandingFragment : BaseFragmentBind<FragmentLandingBinding>(){
         supportActionBar?.hide()
         bind.lifecycleOwner = this
         viewModel = LandingViewModel(
-            findNavController()
+            findNavController(), activity, savedData
         )
         bind.viewModel = viewModel
 

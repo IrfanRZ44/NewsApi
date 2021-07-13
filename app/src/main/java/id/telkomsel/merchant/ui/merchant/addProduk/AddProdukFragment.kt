@@ -56,6 +56,7 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
             viewModel.getDaftarSubKategoriByMerchant(kategoriId)
         }
         else{
+            bind.rlPickMerchant.visibility = View.VISIBLE
             initPickMerchant(bind.root)
         }
     }

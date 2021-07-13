@@ -6,9 +6,11 @@ object Constant {
     const val appName = "Merchant"
     const val reffUser = "user"
     const val reffMerchant = "merchant"
+    const val reffPelanggan = "pelanggan"
     const val reffProduk = "produk"
     const val reffLoginMerchantPhone = "loginMerchantPhone"
     const val reffCreateMerchant = "createMerchant"
+    const val reffCreatePelanggan = "createPelanggan"
     const val reffCreateProduk = "createProduk"
     const val reffEditProduk = "editProduk"
     const val reffEditFotoProfilProduk = "editFotoProfilProduk"
@@ -18,6 +20,7 @@ object Constant {
     const val reffUpdateMerchant = "updateMerchant"
     const val reffUpdateAdmin = "updateAdmin"
     const val reffValidateNewMerchant = "validateNewMerchant"
+    const val reffValidateNewPelanggan = "validateNewPelanggan"
     const val reffValidateNewMerchantPhone = "validateNewMerchantPhone"
     const val reffUpdatePassword = "updatePasswordMerchant"
     const val reffLogoutMerchant = "logoutMerchant"
@@ -27,6 +30,7 @@ object Constant {
     const val reffForgetPasswordMerchantPhone = "forgetPasswordMerchantPhone"
     const val reffDaftarMerchantByAdmin = "getDaftarMerchantByAdmin"
     const val reffDaftarProdukByMerchant = "getDaftarProdukByMerchant"
+    const val reffDaftarProdukByPelanggan = "getDaftarProdukByPelanggan"
     const val reffDaftarPickMerchant = "getPickMerchant"
     const val reffDaftarKategori = "getDaftarKategori"
     const val reffDaftarTopSubKategori = "getTopSubKategori"
@@ -60,6 +64,7 @@ object Constant {
 
     const val reffSuccess = "Success"
     const val reffSuccessRegister = "Berhasil mendaftar, mohon tunggu proses verifikasi dalam waktu 1x24 jam"
+    const val reffSuccessRegisterPelanggan = "Berhasil mendaftar"
     const val reffDataCanBeUsed = "Data bisa digunakan untuk mendaftar!"
 
     const val codeRequestFoto = 100
@@ -145,10 +150,12 @@ object Constant {
     const val statusStokHabis = "Stok Habis"
 
     const val levelUser = "User"
+    const val level = "level"
     const val levelChannel = "Channel"
     const val levelCSO = "CSO"
     const val levelSBP = "SBP"
     const val levelMerchant = "Merchant"
+    const val levelPelanggan = "Pelanggan"
 
     const val requestMerchant = "Request Merchant"
     const val pendaftaranMerchant = "Request Merchant"
@@ -156,6 +163,7 @@ object Constant {
     const val requestProduk = "Tervalidasi Produk"
     const val tervalidasiProduk = "Request Produk"
     const val akun = "Akun"
+    const val beranda = "Beranda"
 
     const val dataModelFotoProfil = "FotoProfil"
 

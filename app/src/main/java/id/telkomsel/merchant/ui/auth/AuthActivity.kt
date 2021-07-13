@@ -6,6 +6,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 
+@Suppress("DEPRECATION")
 class AuthActivity : BaseActivity() {
     override fun getLayoutResource(): Int = R.layout.activity_auth
 

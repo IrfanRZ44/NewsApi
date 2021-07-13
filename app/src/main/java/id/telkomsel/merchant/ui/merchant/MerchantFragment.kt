@@ -9,7 +9,7 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.databinding.FragmentMerchantBinding
 import com.google.android.material.tabs.TabLayout
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.ui.merchant.accountAdmin.AccountAdminFragment
+import id.telkomsel.merchant.ui.merchant.accountMerchant.AccountMerchantFragment
 import id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment
 import id.telkomsel.merchant.ui.merchant.listProduk.TabProdukFragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
@@ -20,7 +20,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
 
     override fun myCodeHere() {
         supportActionBar?.show()
-        supportActionBar?.title = Constant.request
+        supportActionBar?.title = Constant.appName
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         init()
@@ -57,7 +57,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabMerchantFragment(), Constant.appName)
         adapter.addFragment(TabProdukFragment(), "Produk")
-        adapter.addFragment(AccountAdminFragment(), Constant.akun)
+        adapter.addFragment(AccountMerchantFragment(), Constant.akun)
 
         pager.adapter = adapter
 
@@ -102,7 +102,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
     private fun viewPagerMerchant(pager: ViewPager){
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabProdukFragment(), "Produk")
-        adapter.addFragment(AccountAdminFragment(), Constant.akun)
+        adapter.addFragment(AccountMerchantFragment(), Constant.akun)
 
         pager.adapter = adapter
 
@@ -113,7 +113,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
 
                 when (tab.position) {
                     0-> {
-                        supportActionBar?.title = Constant.akun
+                        supportActionBar?.title = "Produk"
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }

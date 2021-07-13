@@ -7,7 +7,9 @@ import android.widget.Toast
 import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.utils.Constant.reffUser
 import com.google.gson.Gson
+import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.utils.Constant.reffMerchant
+import id.telkomsel.merchant.utils.Constant.reffPelanggan
 
 class DataSave(private val context: Context?) {
     private val preffs: SharedPreferences? = context?.getSharedPreferences("UserPref", 0)
@@ -31,6 +33,18 @@ class DataSave(private val context: Context?) {
             val json: String = preffs?.getString(reffMerchant, "")
                 ?: throw Exception("Preffs Belum Di Inisialisasikan")
             gson.fromJson(json, ModelMerchant::class.java)
+        }catch (e: Exception){
+            Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            null
+        }
+    }
+
+    fun getDataPelanggan(): ModelPelanggan? {
+        return try {
+            val gson = Gson()
+            val json: String = preffs?.getString(reffPelanggan, "")
+                ?: throw Exception("Preffs Belum Di Inisialisasikan")
+            gson.fromJson(json, ModelPelanggan::class.java)
         }catch (e: Exception){
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
             null

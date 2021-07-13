@@ -2,14 +2,17 @@ package id.telkomsel.merchant.utils
 
 import android.app.Activity
 import id.telkomsel.merchant.model.ModelMerchant
+import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.*
 import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Part
+import java.io.File
 
 object RetrofitUtils{
     private val retrofit = Retrofit.Builder()
@@ -79,6 +82,25 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun createPelanggan(dataPelanggan: ModelPelanggan, urlFoto: String, callback: Callback<ModelResponsePelanggan>){
+        val fileProduk = File(urlFoto)
+        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+            MediaType.get("image/*"), fileProduk))
+        val username = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.username)
+        val nama = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nama)
+        val alamat = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.alamat)
+        val nomor_hp = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_hp)
+        val nomor_wa = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_wa)
+        val verified_phone = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.verified_phone)
+        val password = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.password)
+        val tgl_lahir = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.tgl_lahir)
+
+        val call = api.createPelanggan(username, nama, alamat,
+            nomor_hp, nomor_wa, verified_phone, password, tgl_lahir, urlFoto
+        )
+        call.enqueue(callback)
+    }
+
     fun updateMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.updateMerchant(dataMerchant.id, dataMerchant.nama_merchant, dataMerchant.kategori_id,
             dataMerchant.alamat_merchant,
@@ -108,6 +130,11 @@ object RetrofitUtils{
 
     fun validateNewMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.validateNewMerchant(dataMerchant.username, dataMerchant.no_hp_merchant)
+        call.enqueue(callback)
+    }
+
+    fun validateNewPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponse>){
+        val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_hp)
         call.enqueue(callback)
     }
 
@@ -163,6 +190,12 @@ object RetrofitUtils{
                                   isKadaluarsa: Boolean, callback: Callback<ModelResponseDaftarProduk>){
         val call = api.getDaftarProdukByMerchant(merchant_id, cluster, level, startPage, status, search,
             sub_kategori_id, stok, isKadaluarsa)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarProdukByPelanggan(startPage: Int, search: String?, sub_kategori_id: String?,
+                                   callback: Callback<ModelResponseDaftarProduk>){
+        val call = api.getDaftarProdukByPelanggan(startPage, search, sub_kategori_id)
         call.enqueue(callback)
     }
 

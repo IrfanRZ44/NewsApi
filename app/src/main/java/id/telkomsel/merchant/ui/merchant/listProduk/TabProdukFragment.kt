@@ -3,16 +3,13 @@ package id.telkomsel.merchant.ui.merchant.listProduk
 import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
@@ -42,13 +39,7 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
         setHasOptionsMenu(true)
 
         init()
-        if (savedData.getDataMerchant()?.level == Constant.levelSBP){
-            bind.rfaLayout.visibility = View.VISIBLE
-            floatingAction()
-        }
-        else{
-            bind.rfaLayout.visibility = View.GONE
-        }
+        floatingAction()
     }
 
     private fun init() {
@@ -77,41 +68,13 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
         adapter.addFragment(stokHabisProduk, Constant.statusStokHabis)
 
         pager.adapter = adapter
-
-        bind.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> {
-                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                    }
-                    1-> {
-                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                    }
-                    else -> {
-                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_IN)
-                    }
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
     }
 
     private fun floatingAction() {
         val rfaContent = RapidFloatingActionContentLabelList(context)
         val item = listOf(
             RFACLabelItem<Int>()
-                .setLabel("Tambah Merchant")
+                .setLabel("Tambah Produk")
                 .setResId(R.drawable.ic_add_white)
                 .setIconNormalColor(0xffd84315.toInt())
                 .setIconPressedColor(0xffbf360c.toInt())
@@ -133,7 +96,7 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
             override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Any>?) {
                 when(position) {
                     0 -> {
-                        findNavController().navigate(R.id.addMerchantFragment)
+                        findNavController().navigate(R.id.addProdukFragment)
                     }
                 }
                 rfabHelper.toggleContent()
@@ -142,7 +105,7 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
             override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Any>?) {
                 when(position) {
                     0 -> {
-                        findNavController().navigate(R.id.addMerchantFragment)
+                        findNavController().navigate(R.id.addProdukFragment)
                     }
                 }
                 rfabHelper.toggleContent()

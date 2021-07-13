@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_merchant">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/CustomStyle">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                snackbar="@{viewModel.message}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/h2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textStandardWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30"
+                    android:layout_marginStart="@dimen/h5"
+                    android:layout_marginBottom="@dimen/h5"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/ayo_mulai"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="35sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLayout"
+                    style="@style/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    app:cardCornerRadius="@dimen/_30">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        snackbar="@{viewModel.message}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/h2"
+                        android:paddingStart="@dimen/h2"
+                        android:paddingEnd="@dimen/h2">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardFotoProfil"
+                            style="@style/cardView"
+                            android:layout_width="@dimen/_150"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/h1"
+                            android:layout_marginTop="@dimen/h3"
+                            android:layout_marginEnd="@dimen/h1"
+                            android:layout_marginBottom="@dimen/h3">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgFotoProfil"
+                                    imageBoxSrc="@{viewModel.etFotoProfil.toString()}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_140"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@color/gray1"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_camera_white" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/h2"
+                                    android:layout_marginBottom="@dimen/h2"
+                                    android:text="@string/foto_profil"
+                                    android:textColor="@color/black" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etNama"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/nama_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etNama}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etAlamat"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/alamat_lengkap_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etAlamat}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:onClick="@{()-> viewModel.getDateTglLahir()}" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etTglLahir"
+                                style="@style/customEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/pick_tanggal_lahir"
+                                android:textColorHint="@color/gray2"
+                                app:errorEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    style="@style/textStandardWhite"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/h2"
+                                    android:inputType="textCapSentences"
+                                    android:text="@={viewModel.etTglLahir}"
+                                    android:textAlignment="textStart"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etNoHp"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/nomor_hp_contoh_0852xxxx_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="13"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/digitsPhone"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:maxLength="13"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etPhone}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etNoWa"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/nomor_wa_contoh_0852xxxx_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="13"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/digitsPhone"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:maxLength="13"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etWA}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etUsername"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/username_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="25"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/digitsUsername"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etUsername}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etPassword"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/kata_sandi_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:endIconMode="password_toggle"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etPassword}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_h3" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etConfirmPassword"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/kata_sandi_confirm_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:endIconMode="password_toggle"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etPasswordConfirm}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_h3" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/textStandardWhite"
+                            showTextStatus="@{viewModel.message}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/_30"
+                            android:layout_marginTop="@dimen/h2"
+                            android:layout_marginRight="@dimen/_30"
+                            android:layout_marginBottom="@dimen/h2"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray2"
+                            android:textSize="@dimen/text_h3" />
+
+                        <RelativeLayout
+                            android:id="@+id/viewNoAccount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            >
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btnSignUp"
+                                android:layout_alignParentStart="false"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/ic_next_white"
+                                android:backgroundTint="@color/colorAccent"
+                                app:borderWidth="0dp"
+                                app:tint="@color/white"
+                                android:onClick="@{()-> viewModel.onClickRegisterPelanggan()}"
+                                disableButton="@{viewModel.isShowLoading}"
+                                android:contentDescription="@string/sign_up"
+                                tools:ignore="RelativeOverlap"
+                                android:layout_marginBottom="@dimen/h3"
+                                />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/textNoAkun"
+                                style="@style/textStandardWhite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="@string/sudah_punya_akun"
+                                android:textColor="@color/gray3"
+                                android:textSize="@dimen/text_h2"
+                                android:layout_marginStart="@dimen/h2"
+                                android:layout_marginTop="@dimen/h5"
+                                />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/textLogin"
+                                style="@style/textStandardWhite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/textNoAkun"
+                                android:layout_marginStart="@dimen/h1"
+                                android:fontFamily="@font/roboto_regular"
+                                android:onClick="@{()-> viewModel.onClickLogin()}"
+                                android:text="@string/login_2"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/text_h2"
+                                android:textStyle="bold"
+                                android:layout_marginTop="@dimen/h5"
+                                />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/progress"
+            layout="@layout/progress_loading"
+            visible="@{viewModel.isShowLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

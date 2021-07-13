@@ -87,6 +87,21 @@ interface RetrofitApi {
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffCreatePelanggan)
+    fun createPelanggan(
+        @Part("username") username: RequestBody,
+        @Part("nama") nama: RequestBody,
+        @Part("alamat") alamat: RequestBody,
+        @Part("no_hp") no_hp: RequestBody,
+        @Part("no_wa") no_wa: RequestBody,
+        @Part("verified_phone") verified_phone: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("tgl_lahir") tgl_lahir: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
     @FormUrlEncoded
     @POST(Constant.reffUpdateMerchant)
     fun updateMerchant(
@@ -147,6 +162,14 @@ interface RetrofitApi {
     fun validateNewMerchant(
         @Field("username") username: String,
         @Field("no_hp_merchant") no_hp_merchant: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffValidateNewPelanggan)
+    fun validateNewPelanggan(
+        @Field("username") username: String,
+        @Field("no_hp") no_hp: String
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
@@ -219,6 +242,15 @@ interface RetrofitApi {
         @Field("sub_kategori_id") sub_kategori_id: String?,
         @Field("stok") stok: Int,
         @Field("isKadaluarsa") isKadaluarsa: Boolean
+    ): Call<ModelResponseDaftarProduk>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarProdukByPelanggan)
+    fun getDaftarProdukByPelanggan(
+        @Field("startPage") startPage: Int,
+        @Field("search") search: String?,
+        @Field("sub_kategori_id") sub_kategori_id: String?
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")

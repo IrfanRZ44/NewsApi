@@ -12,11 +12,6 @@
         android:label="@string/splash_screen"
         tools:layout="@layout/fragment_splash" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="id.telkomsel.merchant.ui.auth.login.LoginFragment"
-        android:label="@string/login"
-        tools:layout="@layout/fragment_login" />
-    <fragment
         android:id="@+id/lihatFotoFragment"
         android:name="id.telkomsel.merchant.utils.LihatFotoFragment"
         android:label="@string/foto"

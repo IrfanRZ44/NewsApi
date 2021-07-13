@@ -41,12 +41,26 @@ class SplashViewModel(
                 isShowLoading.value = false
                 val username = savedData?.getDataMerchant()?.username
                 val token = savedData?.getDataMerchant()?.token
+                val level = savedData?.getKeyString(Constant.level)
 
                 if (!username.isNullOrEmpty() && !token.isNullOrEmpty()){
                     checkToken(username, token)
                 }
                 else{
-                    navController.navigate(R.id.landingFragment)
+                    when (level) {
+                        Constant.levelPelanggan -> {
+                            val intent = Intent(activity, PelangganActivity::class.java)
+                            activity?.startActivity(intent)
+                            activity?.finish()
+                        }
+                        Constant.levelMerchant -> {
+                            savedData?.setDataString("", Constant.level)
+                            navController.navigate(R.id.loginMerchantFragment)
+                        }
+                        else -> {
+                            navController.navigate(R.id.landingFragment)
+                        }
+                    }
                 }
             }
         }.start()
@@ -73,9 +87,7 @@ class SplashViewModel(
                             activity?.finish()
                         }
                         else -> {
-                            val intent = Intent(activity, PelangganActivity::class.java)
-                            activity?.startActivity(intent)
-                            activity?.finish()
+                            navController.navigate(R.id.landingFragment)
                         }
                     }
                 }

@@ -64,6 +64,7 @@ class AdapterFotoProduk(private val ctx: Context,
             }
         }
         else{
+            view.btnEdit.visibility = View.VISIBLE
             view.btnUpload.visibility = View.GONE
         }
 
