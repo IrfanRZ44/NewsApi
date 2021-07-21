@@ -16,9 +16,8 @@
 - Jika CSO input produk, status langsung active
 - SBP edit produk, perlu divalidasi CSO
 - Diproses, Disetujui, Ditolak, Promo Selesai, Stok Habis
-- User Pelanggan Menu Produk (Promo Berlaku, Promo Selesai, Stok Habis)
 
 
-- Voucher berupa QR Code
-- User pelanggan Menu Histori Penukaran Voucher
+
+
 - Beli hosting merchant

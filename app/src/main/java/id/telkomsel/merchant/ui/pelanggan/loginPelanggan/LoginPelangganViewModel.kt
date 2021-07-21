@@ -5,20 +5,17 @@ package id.telkomsel.merchant.ui.pelanggan.loginPelanggan
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.iid.InstanceIdResult
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
-import id.telkomsel.merchant.model.ModelMerchant
-import id.telkomsel.merchant.model.response.ModelResponseMerchant
+import id.telkomsel.merchant.model.response.ModelResponsePelanggan
 import id.telkomsel.merchant.ui.auth.AuthActivity
-import id.telkomsel.merchant.ui.auth.changePassword.ChangePasswordFragment
-import id.telkomsel.merchant.ui.auth.updateRegisterMerchant.UpdateRegisterMerchantFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
@@ -101,14 +98,14 @@ class LoginPelangganViewModel(
                         when {
                             textInput.take(1) == "0" -> {
                                 val phone = textInput.replaceFirst("0", "+62")
-                                loginMerchantPhone(phone, password, tkn)
+                                loginPelangganPhone(phone, password, tkn)
                             }
                             textInput.take(3) == "+62" -> {
                                 val phone = textInput.replaceFirst("0", "+62")
-                                loginMerchantPhone(phone, password, tkn)
+                                loginPelangganPhone(phone, password, tkn)
                             }
                             else -> {
-                                loginMerchantUsername(textInput, password, tkn)
+                                loginPelangganUsername(textInput, password, tkn)
                             }
                         }
                     } catch (e: Exception) {
@@ -126,34 +123,30 @@ class LoginPelangganViewModel(
         )
     }
 
-    private fun loginMerchantUsername(username: String, password: String, token: String){
-        RetrofitUtils.loginMerchantUsername(username, password, token,
-            object : Callback<ModelResponseMerchant> {
+    private fun loginPelangganUsername(username: String, password: String, token: String){
+        RetrofitUtils.loginPelangganUsername(username, password, token,
+            object : Callback<ModelResponsePelanggan> {
                 override fun onResponse(
-                    call: Call<ModelResponseMerchant>,
-                    response: Response<ModelResponseMerchant>
+                    call: Call<ModelResponsePelanggan>,
+                    response: Response<ModelResponsePelanggan>
                 ) {
                     isShowLoading.value = false
                     val result = response.body()
-                    val dataMerchant = result?.dataMerchant
+                    val dataPelanggan = result?.data
 
-                    if (result?.message == Constant.reffSuccess && dataMerchant != null){
-                        checkPassword(password, dataMerchant)
+                    if (result?.message == Constant.reffSuccess && dataPelanggan != null){
+                        savedData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                        message.value = "Berhasil login"
+                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
+                        navController.navigate(R.id.pelangganFragment, null, navOption)
                     }
                     else{
-                        when (dataMerchant?.status_merchant) {
-                            Constant.statusDeclined -> {
-                                dialogSucces(dataMerchant, "${Constant.formUpdateMerchant} : ${dataMerchant.comment} \n \nApakah Anda ingin mendaftarkan ulang akun merchant?")
-                            }
-                            else -> {
-                                dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")
-                            }
-                        }
+                        dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ModelResponseMerchant>,
+                    call: Call<ModelResponsePelanggan>,
                     t: Throwable
                 ) {
                     isShowLoading.value = false
@@ -162,55 +155,36 @@ class LoginPelangganViewModel(
             })
     }
 
-    private fun loginMerchantPhone(phone: String, password: String, token: String){
-        RetrofitUtils.loginMerchantPhone(phone, password, token,
-            object : Callback<ModelResponseMerchant> {
+    private fun loginPelangganPhone(phone: String, password: String, token: String){
+        RetrofitUtils.loginPelangganPhone(phone, password, token,
+            object : Callback<ModelResponsePelanggan> {
                 override fun onResponse(
-                    call: Call<ModelResponseMerchant>,
-                    response: Response<ModelResponseMerchant>
+                    call: Call<ModelResponsePelanggan>,
+                    response: Response<ModelResponsePelanggan>
                 ) {
                     isShowLoading.value = false
                     val result = response.body()
-                    val dataMerchant = result?.dataMerchant
+                    val dataPelanggan = result?.data
 
-                    if (result?.message == Constant.reffSuccess && dataMerchant != null){
-                        checkPassword(password, dataMerchant)
+                    if (result?.message == Constant.reffSuccess && dataPelanggan != null){
+                        savedData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                        message.value = "Berhasil login"
+                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
+                        navController.navigate(R.id.pelangganFragment, null, navOption)
                     }
                     else{
-                        when (dataMerchant?.status_merchant) {
-                            Constant.statusDeclined -> {
-                                dialogSucces(dataMerchant, "${Constant.formUpdateMerchant} : ${dataMerchant.comment} \n \nApakah Anda ingin mendaftarkan ulang akun merchant?")
-                            }
-                            else -> {
-                                dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")
-                            }
-                        }
+                        dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ModelResponseMerchant>,
+                    call: Call<ModelResponsePelanggan>,
                     t: Throwable
                 ) {
                     isShowLoading.value = false
                     message.value = t.message
                 }
             })
-    }
-
-    private fun checkPassword(password: String, dataMerchant: ModelMerchant){
-        if (password == "Tsel2021"){
-            val bundle = Bundle()
-            val fragmentTujuan = ChangePasswordFragment()
-            bundle.putParcelable(Constant.reffMerchant, dataMerchant)
-            fragmentTujuan.arguments = bundle
-            navController.navigate(R.id.changePasswordFragment, bundle)
-        }
-        else{
-            savedData.setDataObject(dataMerchant, Constant.reffMerchant)
-            message.value = "Berhasil login"
-            navController.navigate(R.id.splashFragment)
-        }
     }
 
     private fun dialogWaitVerify(messageDialog: String){
@@ -220,34 +194,6 @@ class LoginPelangganViewModel(
             alert.setPositiveButton(
                 Constant.iya
             ) { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            alert.show()
-        }
-        else{
-            message.value = "Mohon mulai ulang aplikasi"
-        }
-    }
-
-    private fun dialogSucces(dataMerchant: ModelMerchant, messageDialog: String){
-        if (activity != null){
-            val alert = AlertDialog.Builder(activity)
-            alert.setTitle(Constant.loginBerhasil)
-            alert.setMessage(messageDialog)
-            alert.setPositiveButton(
-                Constant.iya
-            ) { dialog, _ ->
-                dialog.dismiss()
-                    val bundle = Bundle()
-                    val fragmentTujuan = UpdateRegisterMerchantFragment()
-                    bundle.putParcelable(Constant.reffMerchant, dataMerchant)
-                    fragmentTujuan.arguments = bundle
-                    navController.navigate(R.id.updateRegisterMerchantFragment, bundle)
-            }
-            alert.setNegativeButton(
-                Constant.tidak
-            ){ dialog, _ ->
                 dialog.dismiss()
             }
 

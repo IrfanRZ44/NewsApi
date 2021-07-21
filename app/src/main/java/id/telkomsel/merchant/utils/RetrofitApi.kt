@@ -59,6 +59,24 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffLoginPelangganUsername)
+    fun loginPelangganUsername(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("token") token: String
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffLoginPelangganPhone)
+    fun loginPelangganPhone(
+        @Field("phone") phone: String,
+        @Field("token") email: String,
+        @Field("password") password: String
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffCreateMerchant)
     fun createMerchant(
         @Field("username") username: String,
@@ -92,6 +110,7 @@ interface RetrofitApi {
     fun createPelanggan(
         @Part("username") username: RequestBody,
         @Part("nama") nama: RequestBody,
+        @Part("token") token: RequestBody,
         @Part("alamat") alamat: RequestBody,
         @Part("no_hp") no_hp: RequestBody,
         @Part("no_wa") no_wa: RequestBody,
@@ -183,6 +202,13 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffLogoutMerchant)
     fun logoutMerchant(
+        @Field("username") username: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffLogoutPelanggan)
+    fun logoutPelanggan(
         @Field("username") username: String
     ): Call<ModelResponse>
 

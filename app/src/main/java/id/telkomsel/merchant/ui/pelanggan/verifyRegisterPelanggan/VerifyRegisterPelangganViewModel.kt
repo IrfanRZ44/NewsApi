@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan
 
 import android.annotation.SuppressLint
@@ -14,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
+import com.google.firebase.iid.InstanceIdResult
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
@@ -93,7 +96,7 @@ class VerifyRegisterPelangganViewModel(
                     if (task.isSuccessful) {
                         isShowLoading.value = false
 
-                        etFotoProfil.value?.path?.let { createPelanggan(dataPelanggan, it) }
+                        etFotoProfil.value?.path?.let { getUserToken(dataPelanggan, it) }
                     } else {
                         message.value = "Error, kode verifikasi salah"
                         isShowLoading.value = false
@@ -120,6 +123,32 @@ class VerifyRegisterPelangganViewModel(
         etText6.clearFocus()
         etText1.findFocus()
         etText1.requestFocus()
+    }
+
+    private fun getUserToken(dataPelanggan: ModelPelanggan, urlFoto: String) {
+        isShowLoading.value = true
+
+        val onCompleteListener =
+            OnCompleteListener<InstanceIdResult> { result ->
+                if (result.isSuccessful) {
+                    try {
+                        val tkn = result.result?.token ?: throw Exception("Error, kesalahan saat menyimpan token")
+                        dataPelanggan.token = tkn
+
+                        createPelanggan(dataPelanggan, urlFoto)
+                    } catch (e: Exception) {
+                        isShowLoading.value = false
+                        message.value = e.message
+                    }
+                } else {
+                    isShowLoading.value = false
+                    message.value = "Gagal mendapatkan token"
+                }
+            }
+
+        FirebaseUtils.getUserToken(
+            onCompleteListener
+        )
     }
 
     private fun createPelanggan(dataPelanggan: ModelPelanggan, urlFoto: String){
@@ -178,7 +207,7 @@ class VerifyRegisterPelangganViewModel(
                 isShowLoading.value = false
                 loading.value = true
 
-                etFotoProfil.value?.path?.let { createPelanggan(dataPelanggan, it) }
+                etFotoProfil.value?.path?.let { getUserToken(dataPelanggan, it) }
             }
 
             override fun onVerificationFailed(e: FirebaseException) {

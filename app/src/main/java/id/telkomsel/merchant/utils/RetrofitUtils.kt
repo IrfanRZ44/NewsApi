@@ -65,8 +65,23 @@ object RetrofitUtils{
         uploadRequest.startUpload()
     }
 
+    fun loginMerchantUsername(username: String, password: String, token: String, callback: Callback<ModelResponseMerchant>){
+        val call = api.loginMerchantUsername(username, password, token)
+        call.enqueue(callback)
+    }
+
     fun loginMerchantPhone(phone: String, password: String, token: String, callback: Callback<ModelResponseMerchant>){
         val call = api.loginMerchantPhone(phone, token, password)
+        call.enqueue(callback)
+    }
+
+    fun loginPelangganUsername(username: String, password: String, token: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.loginPelangganUsername(username, password, token)
+        call.enqueue(callback)
+    }
+
+    fun loginPelangganPhone(phone: String, password: String, token: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.loginPelangganPhone(phone, token, password)
         call.enqueue(callback)
     }
 
@@ -84,19 +99,20 @@ object RetrofitUtils{
 
     fun createPelanggan(dataPelanggan: ModelPelanggan, urlFoto: String, callback: Callback<ModelResponsePelanggan>){
         val fileProduk = File(urlFoto)
-        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+        val foto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
             MediaType.get("image/*"), fileProduk))
         val username = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.username)
         val nama = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nama)
+        val token = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.token)
         val alamat = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.alamat)
-        val nomor_hp = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_hp)
-        val nomor_wa = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_wa)
-        val verified_phone = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.verified_phone)
+        val nomorHP = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_hp)
+        val nomorWA = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_wa)
+        val verifiedPhone = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.verified_phone)
         val password = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.password)
-        val tgl_lahir = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.tgl_lahir)
+        val tglLahir = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.tgl_lahir)
 
-        val call = api.createPelanggan(username, nama, alamat,
-            nomor_hp, nomor_wa, verified_phone, password, tgl_lahir, urlFoto
+        val call = api.createPelanggan(username, nama, token, alamat,
+            nomorHP, nomorWA, verifiedPhone, password, tglLahir, foto
         )
         call.enqueue(callback)
     }
@@ -143,13 +159,13 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun loginMerchantUsername(username: String, password: String, token: String, callback: Callback<ModelResponseMerchant>){
-        val call = api.loginMerchantUsername(username, password, token)
+    fun logoutMerchant(username: String, callback: Callback<ModelResponse>){
+        val call = api.logoutMerchant(username)
         call.enqueue(callback)
     }
 
-    fun logoutMerchant(username: String, callback: Callback<ModelResponse>){
-        val call = api.logoutMerchant(username)
+    fun logoutPelanggan(username: String, callback: Callback<ModelResponse>){
+        val call = api.logoutPelanggan(username)
         call.enqueue(callback)
     }
 

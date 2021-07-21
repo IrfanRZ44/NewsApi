@@ -4,5 +4,11 @@
 - tambah alamat merchant, kelurahan, kecamatan, kabupaten di bawah promo
 - RP nya dihilangkan
 - tukar di simpan di baris kedua
-- merchant, sbp, cso bisa tambah dan edit
-- 
+- merchant bisa tambah dan edit
+
+
+- ketika berhasil ditukar, ada foto, qr code, nomor seri (maks 3 huruf dan 5 angka)
+- membuat user pelanggan
+- Voucher berupa QR Code
+- User pelanggan Menu Histori Penukaran Voucher
+- User Pelanggan Menu Produk (Promo Berlaku, Promo Selesai, Stok Habis)
