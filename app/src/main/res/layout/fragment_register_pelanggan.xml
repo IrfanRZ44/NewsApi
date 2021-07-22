@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganFragment">
+    tools:context=".ui.pelanggan.auth.registerPelanggan.RegisterPelangganFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganViewModel" />
+            type="id.telkomsel.merchant.ui.pelanggan.auth.registerPelanggan.RegisterPelangganViewModel" />
     </data>
 
     <RelativeLayout

@@ -1,13 +1,15 @@
-package id.telkomsel.merchant.ui.auth.changePassword
+package id.telkomsel.merchant.ui.pelanggan.auth.changePassword
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
-import id.telkomsel.merchant.model.ModelMerchant
+import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
@@ -23,7 +25,7 @@ class ChangePasswordViewModel(
     private val editPasswordNew: TextInputLayout,
     private val editConfirmPasswordNew: TextInputLayout
 ) : BaseViewModel() {
-    lateinit var dataMerchant : ModelMerchant
+    lateinit var dataPelanggan : ModelPelanggan
     val etPasswordNew = MutableLiveData<String>()
     val etConfirmPasswordNew = MutableLiveData<String>()
 
@@ -43,7 +45,7 @@ class ChangePasswordViewModel(
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
-        val idMerchant = dataMerchant.id
+        val idPelanggan = dataPelanggan.id
         val passwordNew = etPasswordNew.value
         val confirmPasswordNew = etConfirmPasswordNew.value
 
@@ -52,7 +54,7 @@ class ChangePasswordViewModel(
             val md5PasswordNew = stringToMD5(passwordNew)
 
             isShowLoading.value = true
-            updatePassword(idMerchant, md5PasswordNew)
+            updatePassword(idPelanggan, md5PasswordNew)
         }
         else {
             if (passwordNew.isNullOrEmpty()) {
@@ -76,8 +78,8 @@ class ChangePasswordViewModel(
         }
     }
 
-    private fun updatePassword(idMerchant: Int, passwordNew: String){
-        RetrofitUtils.updatePasswordMerchant(idMerchant, passwordNew,
+    private fun updatePassword(idPelanggan: Int, passwordNew: String){
+        RetrofitUtils.updatePasswordPelanggan(idPelanggan, passwordNew,
             object : Callback<ModelResponse> {
                 override fun onResponse(
                     call: Call<ModelResponse>,
@@ -90,7 +92,9 @@ class ChangePasswordViewModel(
                     if (result?.message == Constant.reffSuccess){
                         activity?.let { dismissKeyboard(it) }
                         message.value = "Berhasil mengganti password"
-                        navController.navigate(R.id.loginMerchantFragment)
+                        Toast.makeText(activity, "Berhasil mengganti password", Toast.LENGTH_LONG).show()
+                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
+                        navController.navigate(R.id.pelangganFragment, null, navOption)
                     }
                     else{
                         message.value = result?.message

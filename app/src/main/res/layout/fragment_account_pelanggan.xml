@@ -18,7 +18,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgFoto"
-            imageSrc="@{viewModel.dataMerchant.foto_profil}"
+            imageSrc="@{viewModel.dataPelanggan.foto}"
             android:layout_width="@dimen/_100"
             android:layout_height="@dimen/_100"
             android:layout_marginTop="@dimen/_30"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h2"
             android:fontFamily="@font/roboto_regular"
-            android:text="@={viewModel.dataMerchant.username}"
+            android:text="@={viewModel.dataPelanggan.username}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_h2"
             android:layout_below="@+id/imgFoto"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:text="@={viewModel.dataMerchant.no_hp_merchant}"
+            android:text="@={viewModel.dataPelanggan.nomor_hp}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_h2"
             android:layout_below="@+id/textPoin"

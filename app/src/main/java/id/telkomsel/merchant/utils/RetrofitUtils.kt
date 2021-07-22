@@ -169,15 +169,27 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun updatePassword(id: Int,
+    fun updatePasswordMerchant(id: Int,
                        passwordNew: String,
                        callback: Callback<ModelResponse>){
-        val call = api.updatePassword(id, passwordNew)
+        val call = api.updatePasswordMerchant(id, passwordNew)
+        call.enqueue(callback)
+    }
+
+    fun updatePasswordPelanggan(id: Int,
+                               passwordNew: String,
+                               callback: Callback<ModelResponse>){
+        val call = api.updatePasswordPelanggan(id, passwordNew)
         call.enqueue(callback)
     }
 
     fun getDataMerchant(username: String, callback: Callback<ModelResponseMerchant>){
         val call = api.getDataMerchant(username)
+        call.enqueue(callback)
+    }
+
+    fun getDataPelanggan(username: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.getDataPelanggan(username)
         call.enqueue(callback)
     }
 
@@ -193,6 +205,16 @@ object RetrofitUtils{
 
     fun forgetPasswordMerchantPhone(phone: String, callback: Callback<ModelResponseMerchant>){
         val call = api.forgetPasswordMerchantPhone(phone)
+        call.enqueue(callback)
+    }
+
+    fun forgetPasswordPelangganUsername(username: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.forgetPasswordPelangganUsername(username)
+        call.enqueue(callback)
+    }
+
+    fun forgetPasswordPelangganPhone(phone: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.forgetPasswordPelangganPhone(phone)
         call.enqueue(callback)
     }
 

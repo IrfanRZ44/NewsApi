@@ -1,42 +1,30 @@
-@file:Suppress("DEPRECATION")
-
-package id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan
+package id.telkomsel.merchant.ui.pelanggan.auth.verifyForgetPassword
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import com.google.firebase.iid.InstanceIdResult
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
-import id.telkomsel.merchant.model.response.ModelResponsePelanggan
 import id.telkomsel.merchant.services.timer.TListener
 import id.telkomsel.merchant.services.timer.TimeFormatEnum
 import id.telkomsel.merchant.services.timer.TimerView
-import id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganFragment
+import id.telkomsel.merchant.ui.pelanggan.auth.changePassword.ChangePasswordFragment
 import id.telkomsel.merchant.utils.Constant
-import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
-import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("StaticFieldLeak")
-class VerifyRegisterPelangganViewModel(
+class VerifyForgetPasswordViewModel(
     private val activity: Activity?,
     private val progressTimer: TimerView,
     private val etText1: AppCompatEditText,
@@ -45,15 +33,13 @@ class VerifyRegisterPelangganViewModel(
     private val etText4: AppCompatEditText,
     private val etText5: AppCompatEditText,
     private val etText6: AppCompatEditText,
-    private val navController: NavController,
-    private val saveData: DataSave
+    private val navController: NavController
 ) : BaseViewModel() {
     val phoneCode = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
     var unverify = true
     var verifyId = ""
     lateinit var dataPelanggan : ModelPelanggan
-    val etFotoProfil = MutableLiveData<Uri>()
     val noHp = MutableLiveData<String>()
 
     fun onClick(requestEvent: Int) {
@@ -75,14 +61,7 @@ class VerifyRegisterPelangganViewModel(
     }
 
     fun onClickBack(){
-        val bundle = Bundle()
-        val fragmentTujuan = RegisterPelangganFragment()
-        bundle.putParcelable(Constant.reffPelanggan, dataPelanggan)
-        bundle.putParcelable(Constant.dataModelFotoProfil, etFotoProfil.value)
-        fragmentTujuan.arguments = bundle
-
-        val navOption = NavOptions.Builder().setPopUpTo(R.id.registerPelangganFragment, true).build()
-        navController.navigate(R.id.registerPelangganFragment,bundle, navOption)
+        navController.popBackStack()
     }
 
     private fun verifyUser() {
@@ -96,7 +75,7 @@ class VerifyRegisterPelangganViewModel(
                     if (task.isSuccessful) {
                         isShowLoading.value = false
 
-                        etFotoProfil.value?.path?.let { getUserToken(dataPelanggan, it) }
+                        onSuccess(dataPelanggan)
                     } else {
                         message.value = "Error, kode verifikasi salah"
                         isShowLoading.value = false
@@ -125,80 +104,6 @@ class VerifyRegisterPelangganViewModel(
         etText1.requestFocus()
     }
 
-    private fun getUserToken(dataPelanggan: ModelPelanggan, urlFoto: String) {
-        isShowLoading.value = true
-
-        val onCompleteListener =
-            OnCompleteListener<InstanceIdResult> { result ->
-                if (result.isSuccessful) {
-                    try {
-                        val tkn = result.result?.token ?: throw Exception("Error, kesalahan saat menyimpan token")
-                        dataPelanggan.token = tkn
-
-                        createPelanggan(dataPelanggan, urlFoto)
-                    } catch (e: Exception) {
-                        isShowLoading.value = false
-                        message.value = e.message
-                    }
-                } else {
-                    isShowLoading.value = false
-                    message.value = "Gagal mendapatkan token"
-                }
-            }
-
-        FirebaseUtils.getUserToken(
-            onCompleteListener
-        )
-    }
-
-    private fun createPelanggan(dataPelanggan: ModelPelanggan, urlFoto: String){
-        RetrofitUtils.createPelanggan(dataPelanggan, urlFoto,
-            object : Callback<ModelResponsePelanggan> {
-                override fun onResponse(
-                    call: Call<ModelResponsePelanggan>,
-                    response: Response<ModelResponsePelanggan>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-
-                    if (result?.message == Constant.reffSuccessRegisterPelanggan){
-                        saveData.setDataObject(result.data, Constant.reffPelanggan)
-                        dialogSucces(result.message)
-
-                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
-                        navController.navigate(R.id.pelangganFragment, null, navOption)
-                    }
-                    else{
-                        val msgErr = result?.message
-                        if (!msgErr.isNullOrEmpty()){
-                            when {
-                                msgErr.contains("Duplicate entry '${dataPelanggan.username}' for key 'username'") -> {
-                                    message.value = "Username Sudah Digunakan"
-                                }
-                                msgErr.contains("Duplicate entry '${dataPelanggan.nomor_hp}' for key 'nomor_hp'") -> {
-                                    message.value = "Nomor HP Sudah Digunakan"
-                                }
-                                else -> {
-                                    message.value = msgErr
-                                }
-                            }
-                        }
-                        else{
-                            message.value = result?.message
-                        }
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponsePelanggan>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    message.value = t.message
-                }
-            })
-    }
-
     fun sendCode() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -207,7 +112,7 @@ class VerifyRegisterPelangganViewModel(
                 isShowLoading.value = false
                 loading.value = true
 
-                etFotoProfil.value?.path?.let { getUserToken(dataPelanggan, it) }
+                onSuccess(dataPelanggan)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -287,21 +192,11 @@ class VerifyRegisterPelangganViewModel(
         progressTimer.startTimer()
     }
 
-    private fun dialogSucces(msg: String){
-        if (activity != null){
-            val alert = AlertDialog.Builder(activity)
-            alert.setTitle(Constant.pendaftaranBerhasil)
-            alert.setMessage(msg)
-            alert.setPositiveButton(
-                Constant.iya
-            ) { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            alert.show()
-        }
-        else{
-            message.value = "Mohon mulai ulang aplikasi"
-        }
+    private fun onSuccess(data: ModelPelanggan){
+        val bundle = Bundle()
+        val fragmentTujuan = ChangePasswordFragment()
+        bundle.putParcelable(Constant.reffPelanggan, data)
+        fragmentTujuan.arguments = bundle
+        navController.navigate(R.id.changePasswordFragment2, bundle)
     }
 }

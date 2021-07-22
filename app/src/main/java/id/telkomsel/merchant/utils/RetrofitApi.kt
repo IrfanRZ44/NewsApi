@@ -214,8 +214,16 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
-    @POST(Constant.reffUpdatePassword)
-    fun updatePassword(
+    @POST(Constant.reffUpdatePasswordMerchant)
+    fun updatePasswordMerchant(
+        @Field("id") id: Int,
+        @Field("password_new") password_new: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdatePasswordPelanggan)
+    fun updatePasswordPelanggan(
         @Field("id") id: Int,
         @Field("password_new") password_new: String
     ): Call<ModelResponse>
@@ -224,6 +232,11 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffGetDataMerchant)
     fun getDataMerchant(@Field("username") username: String): Call<ModelResponseMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffGetDataPelanggan)
+    fun getDataPelanggan(@Field("username") username: String): Call<ModelResponsePelanggan>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
@@ -243,6 +256,20 @@ interface RetrofitApi {
     fun forgetPasswordMerchantPhone(
         @Field("phone") phone: String
     ): Call<ModelResponseMerchant>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffForgetPasswordPelangganUsername)
+    fun forgetPasswordPelangganUsername(
+        @Field("username") username: String
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffForgetPasswordPelangganPhone)
+    fun forgetPasswordPelangganPhone(
+        @Field("phone") phone: String
+    ): Call<ModelResponsePelanggan>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded

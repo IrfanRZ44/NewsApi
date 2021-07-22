@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.pelanggan.registerPelanggan
+package id.telkomsel.merchant.ui.pelanggan.auth.registerPelanggan
 
 import android.app.Activity
 import android.content.Intent

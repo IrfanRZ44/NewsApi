@@ -9,10 +9,10 @@ import id.telkomsel.merchant.utils.Constant
 import com.google.android.material.tabs.TabLayout
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentPelangganBinding
+import id.telkomsel.merchant.ui.pelanggan.account.AccountPelangganFragment
 import id.telkomsel.merchant.ui.pelanggan.beranda.BerandaPelangganFragment
 import id.telkomsel.merchant.ui.pelanggan.loginPelanggan.LoginPelangganFragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
-import id.telkomsel.merchant.utils.adapter.showLog
 
 class PelangganFragment : BaseFragmentBind<FragmentPelangganBinding>() {
     private lateinit var viewModel: PelangganViewModel
@@ -44,8 +44,12 @@ class PelangganFragment : BaseFragmentBind<FragmentPelangganBinding>() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(BerandaPelangganFragment(), "Beranda")
 
-        showLog(savedData.getDataPelanggan()?.username?:"Empty")
-        adapter.addFragment(LoginPelangganFragment(), Constant.akun)
+        if (savedData.getDataPelanggan()?.username.isNullOrEmpty()){
+            adapter.addFragment(LoginPelangganFragment(), Constant.akun)
+        }
+        else{
+            adapter.addFragment(AccountPelangganFragment(), Constant.akun)
+        }
 
         pager.adapter = adapter
 
@@ -57,6 +61,7 @@ class PelangganFragment : BaseFragmentBind<FragmentPelangganBinding>() {
 
                 when (tab.position) {
                     0-> {
+                        supportActionBar?.setDisplayHomeAsUpEnabled(false)
                         supportActionBar?.title = Constant.beranda
                         supportActionBar?.show()
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
@@ -64,7 +69,12 @@ class PelangganFragment : BaseFragmentBind<FragmentPelangganBinding>() {
                     }
                     else -> {
                         supportActionBar?.show()
-                        supportActionBar?.title = "Login"
+                        if (savedData.getDataPelanggan()?.username.isNullOrEmpty()){
+                            supportActionBar?.title = "Login"
+                        }
+                        else{
+                            supportActionBar?.title = Constant.akun
+                        }
                         supportActionBar?.setDisplayHomeAsUpEnabled(false)
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)

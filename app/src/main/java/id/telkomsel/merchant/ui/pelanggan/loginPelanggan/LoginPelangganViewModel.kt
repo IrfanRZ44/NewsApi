@@ -52,7 +52,7 @@ class LoginPelangganViewModel(
 
     fun onClickForgetPassword(){
         activity?.let { dismissKeyboard(it) }
-        navController.navigate(R.id.forgetPasswordMerchantFragment)
+        navController.navigate(R.id.forgetPasswordFragment)
     }
 
     fun onClickLogin(){

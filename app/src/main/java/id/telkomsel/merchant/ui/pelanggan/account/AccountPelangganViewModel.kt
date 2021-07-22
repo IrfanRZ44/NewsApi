@@ -9,12 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
-import id.telkomsel.merchant.model.ModelMerchant
+import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.ModelResponse
-import id.telkomsel.merchant.model.response.ModelResponseMerchant
-import id.telkomsel.merchant.ui.auth.AuthActivity
+import id.telkomsel.merchant.model.response.ModelResponsePelanggan
+import id.telkomsel.merchant.ui.pelanggan.PelangganActivity
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.Constant.attention
 import id.telkomsel.merchant.utils.DataSave
@@ -30,21 +29,21 @@ class AccountPelangganViewModel(
     private val navController: NavController,
     private val context: Context?
 ) : BaseViewModel() {
-    val dataMerchant = MutableLiveData<ModelMerchant>()
+    val dataPelanggan = MutableLiveData<ModelPelanggan>()
 
-    fun getDataMerchant(username: String){
+    fun getDataPelanggan(username: String){
         isShowLoading.value = true
 
-        RetrofitUtils.getDataMerchant(username, object : Callback<ModelResponseMerchant> {
+        RetrofitUtils.getDataPelanggan(username, object : Callback<ModelResponsePelanggan> {
             override fun onResponse(
-                call: Call<ModelResponseMerchant>,
-                response: Response<ModelResponseMerchant>
+                call: Call<ModelResponsePelanggan>,
+                response: Response<ModelResponsePelanggan>
             ) {
                 isShowLoading.value = false
                 val result = response.body()
 
                 if (result?.message == Constant.reffSuccess){
-                    savedData?.setDataObject(result.dataMerchant, Constant.reffMerchant)
+                    savedData?.setDataObject(result.data, Constant.reffPelanggan)
                 }
                 else{
                     message.value = "Error, gagal mendapatkan data terbaru"
@@ -52,7 +51,7 @@ class AccountPelangganViewModel(
             }
 
             override fun onFailure(
-                call: Call<ModelResponseMerchant>,
+                call: Call<ModelResponsePelanggan>,
                 t: Throwable
             ) {
                 isShowLoading.value = false
@@ -64,7 +63,7 @@ class AccountPelangganViewModel(
     private fun removeToken(username: String) {
         isShowLoading.value = true
 
-        RetrofitUtils.logoutMerchant(username, object : Callback<ModelResponse> {
+        RetrofitUtils.logoutPelanggan(username, object : Callback<ModelResponse> {
             override fun onResponse(
                 call: Call<ModelResponse>,
                 response: Response<ModelResponse>
@@ -75,9 +74,9 @@ class AccountPelangganViewModel(
                 if (result?.message == Constant.reffSuccess){
                     Toast.makeText(context, "Berhasil Keluar", Toast.LENGTH_LONG).show()
 
-                    savedData?.setDataObject(ModelMerchant(), Constant.reffMerchant)
+                    savedData?.setDataObject(ModelPelanggan(), Constant.reffPelanggan)
 
-                    val intent = Intent(context, AuthActivity::class.java)
+                    val intent = Intent(context, PelangganActivity::class.java)
                     activity?.startActivity(intent)
                     activity?.finish()
                 }
@@ -97,16 +96,11 @@ class AccountPelangganViewModel(
     }
 
     fun onClickEditProfil(){
-        if (savedData?.getDataMerchant()?.level == Constant.levelMerchant){
-            navController.navigate(R.id.editProfilMerchantFragment)
-        }
-        else{
-            navController.navigate(R.id.editProfilAdminFragment)
-        }
+//        navController.navigate(R.id.editProfilMerchantFragment)
     }
 
     fun onClickEditPassword(){
-        navController.navigate(R.id.editPasswordAdminFragment)
+//        navController.navigate(R.id.editPasswordAdminFragment)
     }
 
     fun onClickRating(){
@@ -128,7 +122,7 @@ class AccountPelangganViewModel(
             alert.setPositiveButton(
                 Constant.iya
             ) { _, _ ->
-                val username = savedData?.getDataMerchant()?.username
+                val username = savedData?.getDataPelanggan()?.username
                 if (!username.isNullOrEmpty()){
                     removeToken(username)
                 }

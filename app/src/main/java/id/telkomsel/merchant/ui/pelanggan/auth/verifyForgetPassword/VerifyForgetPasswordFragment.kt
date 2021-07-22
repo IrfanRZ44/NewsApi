@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan
+package id.telkomsel.merchant.ui.pelanggan.auth.verifyForgetPassword
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -6,26 +6,23 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
-import id.telkomsel.merchant.databinding.FragmentVerifyRegisterPelangganBinding
+import id.telkomsel.merchant.databinding.FragmentVerifyForgetPasswordPelangganBinding
 import id.telkomsel.merchant.services.timer.TListener
 import id.telkomsel.merchant.services.timer.TimeFormatEnum
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import java.util.concurrent.TimeUnit
 
-class VerifyRegisterPelangganFragment : BaseFragmentBind<FragmentVerifyRegisterPelangganBinding>(){
-    override fun getLayoutResource(): Int = R.layout.fragment_verify_register_pelanggan
-    lateinit var viewModel: VerifyRegisterPelangganViewModel
+class VerifyForgetPasswordFragment : BaseFragmentBind<FragmentVerifyForgetPasswordPelangganBinding>(){
+    override fun getLayoutResource(): Int = R.layout.fragment_verify_forget_password_pelanggan
+    lateinit var viewModel: VerifyForgetPasswordViewModel
 
     override fun myCodeHere() {
-        supportActionBar?.show()
-        supportActionBar?.title = "Verifikasi"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        supportActionBar?.hide()
         bind.lifecycleOwner = this
         try {
             viewModel =
-                VerifyRegisterPelangganViewModel(
+                VerifyForgetPasswordViewModel(
                     activity,
                     bind.progressTimer,
                     bind.etText1,
@@ -34,14 +31,11 @@ class VerifyRegisterPelangganFragment : BaseFragmentBind<FragmentVerifyRegisterP
                     bind.etText4,
                     bind.etText5,
                     bind.etText6,
-                    findNavController(),
-                    savedData
+                    findNavController()
                 )
 
-            viewModel.dataPelanggan = this.arguments?.getParcelable(Constant.reffPelanggan)?:throw Exception("Error, mohon lakukan registrasi ulang")
-            viewModel.noHp.value = viewModel.dataPelanggan.verified_phone
-            viewModel.etFotoProfil.value = this.arguments?.getParcelable(Constant.dataModelFotoProfil)
-
+            viewModel.dataPelanggan = this.arguments?.getParcelable(Constant.reffPelanggan)?:throw Exception("Error, mohon lakukan lupa password ulang")
+            viewModel.noHp.value = viewModel.dataPelanggan.nomor_hp
             viewModel.isShowLoading.value = false
             viewModel.loading.value = true
             bind.viewModel = viewModel

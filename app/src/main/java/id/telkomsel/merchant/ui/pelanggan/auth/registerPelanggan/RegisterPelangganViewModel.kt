@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.pelanggan.registerPelanggan
+package id.telkomsel.merchant.ui.pelanggan.auth.registerPelanggan
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -12,7 +12,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.ModelResponse
-import id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan.VerifyRegisterPelangganFragment
+import id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan.VerifyRegisterPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard

@@ -26,7 +26,7 @@ class AccountPelangganFragment : BaseFragmentBind<FragmentAccountPelangganBindin
                 context
             )
         bind.viewModel = viewModel
-        viewModel.dataMerchant.value = savedData.getDataMerchant()
-        viewModel.dataMerchant.value?.username?.let { viewModel.getDataMerchant(it) }
+        viewModel.dataPelanggan.value = savedData.getDataPelanggan()
+        viewModel.dataPelanggan.value?.username?.let { viewModel.getDataPelanggan(it) }
     }
 }

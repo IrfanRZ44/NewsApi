@@ -96,7 +96,7 @@ class EditPasswordMerchantViewModel(
     }
 
     private fun updatePassword(id: Int, passwordNew: String){
-        RetrofitUtils.updatePassword(id, passwordNew,
+        RetrofitUtils.updatePasswordMerchant(id, passwordNew,
             object : Callback<ModelResponse> {
                 override fun onResponse(
                     call: Call<ModelResponse>,

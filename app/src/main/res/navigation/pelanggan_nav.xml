@@ -29,12 +29,32 @@
         tools:layout="@layout/fragment_login_pelanggan" />
     <fragment
         android:id="@+id/registerPelangganFragment"
-        android:name="id.telkomsel.merchant.ui.pelanggan.registerPelanggan.RegisterPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.registerPelanggan.RegisterPelangganFragment"
         android:label="fragment_register_pelanggan"
         tools:layout="@layout/fragment_register_pelanggan" />
     <fragment
         android:id="@+id/verifyRegisterPelangganFragment"
-        android:name="id.telkomsel.merchant.ui.pelanggan.verifyRegisterPelanggan.VerifyRegisterPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan.VerifyRegisterPelangganFragment"
         android:label="fragment_verify_register_pelanggan"
         tools:layout="@layout/fragment_verify_register_pelanggan" />
+    <fragment
+        android:id="@+id/changePasswordFragment2"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.changePassword.ChangePasswordFragment"
+        android:label="fragment_change_password_pelanggan"
+        tools:layout="@layout/fragment_change_password_pelanggan" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.forgetPassword.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
+    <fragment
+        android:id="@+id/verifyForgetPasswordFragment2"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.verifyForgetPassword.VerifyForgetPasswordFragment"
+        android:label="fragment_verify_forget_password_pelanggan"
+        tools:layout="@layout/fragment_verify_forget_password_pelanggan" />
+    <fragment
+        android:id="@+id/accountPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.account.AccountPelangganFragment"
+        android:label="fragment_account_pelanggan"
+        tools:layout="@layout/fragment_account_pelanggan" />
 </navigation>

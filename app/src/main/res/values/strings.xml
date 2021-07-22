@@ -227,4 +227,5 @@
     <string name="nama_wajib">Nama*</string>
     <string name="daftar_pelanggan">Daftar Pelanggan</string>
     <string name="daftar_merchant">Daftar Merchant</string>
+    <string name="pelanggan">Pelanggan</string>
 </resources>
