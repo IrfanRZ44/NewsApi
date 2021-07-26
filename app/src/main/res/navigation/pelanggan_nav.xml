@@ -57,4 +57,14 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.account.AccountPelangganFragment"
         android:label="fragment_account_pelanggan"
         tools:layout="@layout/fragment_account_pelanggan" />
+    <fragment
+        android:id="@+id/editPasswordPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.account.editPassword.EditPasswordPelangganFragment"
+        android:label="fragment_edit_password_pelanggan"
+        tools:layout="@layout/fragment_edit_password_pelanggan" />
+    <fragment
+        android:id="@+id/editProfilPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.account.editProfil.EditProfilPelangganFragment"
+        android:label="fragment_edit_profil_pelanggan"
+        tools:layout="@layout/fragment_edit_profil_pelanggan" />
 </navigation>

@@ -267,6 +267,48 @@ class DetailProdukAdminViewModel(
             })
     }
 
+    fun updateFotoProduk(id: RequestBody, level: RequestBody,
+                         url_foto: MultipartBody.Part){
+        isShowLoading.value = true
+
+        RetrofitUtils.updateFotoProduk(id, level, url_foto,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        val produkId = dataProduk.value?.id
+
+                        if (produkId != null){
+                            getDaftarFotoProduk(produkId)
+                        }
+
+                        if (savedData.getDataMerchant()?.level == Constant.levelCSO){
+                            message.value = "Berhasil mengupload foto produk"
+                        }
+                        else{
+                            message.value = "Berhasil mengupload foto produk, mohon tunggu proses verifikasi dalam waktu 1x24 jam"
+                        }
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
+    }
+
     fun deleteFotoProduk(id: Int){
         isShowLoading.value = true
 

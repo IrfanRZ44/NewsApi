@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.ModelResponse
@@ -96,11 +97,11 @@ class AccountPelangganViewModel(
     }
 
     fun onClickEditProfil(){
-//        navController.navigate(R.id.editProfilMerchantFragment)
+        navController.navigate(R.id.editProfilPelangganFragment)
     }
 
     fun onClickEditPassword(){
-//        navController.navigate(R.id.editPasswordAdminFragment)
+        navController.navigate(R.id.editPasswordPelangganFragment)
     }
 
     fun onClickRating(){

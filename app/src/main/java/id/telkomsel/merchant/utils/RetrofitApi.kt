@@ -122,6 +122,26 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffUpdatePelanggan)
+    fun updateProfilPelanggan(
+        @Field("username") username: String,
+        @Field("nama") nama: String,
+        @Field("alamat") alamat: String,
+        @Field("no_hp") no_hp: String,
+        @Field("no_wa") no_wa: String,
+        @Field("tgl_lahir") tgl_lahir: String,
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffEditFotoPelanggan)
+    fun updateFotoPelanggan(
+        @Part("username") username: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponsePelanggan>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffUpdateMerchant)
     fun updateMerchant(
         @Field("id") id: Int,
@@ -420,6 +440,15 @@ interface RetrofitApi {
     @POST(Constant.reffCreateFotoProduk)
     fun createFotoProduk(
         @Part("produk_id") produk_id: RequestBody,
+        @Part("level") level: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffUpdateFotoProduk)
+    fun updateFotoProduk(
+        @Part("id") id: RequestBody,
         @Part("level") level: RequestBody,
         @Part url_foto: MultipartBody.Part?
     ): Call<ModelResponse>

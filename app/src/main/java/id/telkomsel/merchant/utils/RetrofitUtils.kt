@@ -117,6 +117,20 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun updateProfilPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponsePelanggan>){
+        val call = api.updateProfilPelanggan(dataPelanggan.username, dataPelanggan.nama, dataPelanggan.alamat,
+            dataPelanggan.nomor_hp, dataPelanggan.nomor_wa, dataPelanggan.tgl_lahir
+        )
+        call.enqueue(callback)
+    }
+
+    fun updateFotoPelanggan(username: RequestBody,
+                             url_foto: MultipartBody.Part,
+                             callback: Callback<ModelResponsePelanggan>){
+        val call = api.updateFotoPelanggan(username, url_foto)
+        call.enqueue(callback)
+    }
+
     fun updateMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
         val call = api.updateMerchant(dataMerchant.id, dataMerchant.nama_merchant, dataMerchant.kategori_id,
             dataMerchant.alamat_merchant,
@@ -317,6 +331,13 @@ object RetrofitUtils{
                      url_foto: MultipartBody.Part,
                      callback: Callback<ModelResponse>){
         val call = api.createFotoProduk(produk_id, level, url_foto)
+        call.enqueue(callback)
+    }
+
+    fun updateFotoProduk(id: RequestBody, level: RequestBody,
+                         url_foto: MultipartBody.Part,
+                         callback: Callback<ModelResponse>){
+        val call = api.updateFotoProduk(id, level, url_foto)
         call.enqueue(callback)
     }
 

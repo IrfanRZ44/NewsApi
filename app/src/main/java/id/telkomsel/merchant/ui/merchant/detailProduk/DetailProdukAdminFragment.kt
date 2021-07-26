@@ -27,6 +27,7 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
     ListenerFotoProduk {
     override fun getLayoutResource(): Int = R.layout.fragment_detail_produk_admin
     lateinit var viewModel: DetailProdukAdminViewModel
+    private var dataFotoProduk: ModelFotoProduk? = null
 
     override fun myCodeHere() {
         supportActionBar?.title = "Detail Produk"
@@ -130,10 +131,7 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
     override fun clickUploadProduk(position: Int, rows: ModelFotoProduk) {
         super.clickUploadProduk(position, rows)
 
-        if (rows.id != 0){
-            viewModel.deleteFotoProduk(rows.id)
-        }
-
+        dataFotoProduk = rows
         context?.let {
             CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -164,7 +162,16 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
                     MediaType.get("image/*"), fileProduk))
                 val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
                 val level = RequestBody.create(MediaType.get("text/plain"), lvl)
-                viewModel.createFotoProduk(produkId, level, urlFoto)
+
+                val idFoto = dataFotoProduk?.id
+                if (idFoto != 0){
+                    val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
+                    viewModel.updateFotoProduk(id, level, urlFoto)
+                }
+                else{
+                    viewModel.createFotoProduk(produkId, level, urlFoto)
+                }
+                dataFotoProduk = null
             }
         }
     }
