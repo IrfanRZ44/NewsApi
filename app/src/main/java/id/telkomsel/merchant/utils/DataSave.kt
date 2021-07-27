@@ -71,4 +71,20 @@ class DataSave(private val context: Context?) {
             null
         }
     }
+
+    @SuppressLint("CommitPrefEdits")
+    fun setDataBoolean(value: Boolean, key: String) {
+        try {
+            val prefsEditor: SharedPreferences.Editor =
+                preffs?.edit() ?: throw Exception("Preffs Belum Di Inisialisasikan")
+            prefsEditor.putBoolean(key, value)
+            prefsEditor.apply()
+        } catch (e: Exception) {
+            Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun getKeyBoolean(key: String): Boolean {
+        return preffs?.getBoolean(key, false) ?: false
+    }
 }

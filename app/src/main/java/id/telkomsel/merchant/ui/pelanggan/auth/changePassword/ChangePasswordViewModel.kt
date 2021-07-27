@@ -12,6 +12,7 @@ import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.utils.Constant
+import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.*
 import retrofit2.Call
@@ -23,7 +24,8 @@ class ChangePasswordViewModel(
     private val activity: Activity?,
     private val navController: NavController,
     private val editPasswordNew: TextInputLayout,
-    private val editConfirmPasswordNew: TextInputLayout
+    private val editConfirmPasswordNew: TextInputLayout,
+    private val savedData: DataSave
 ) : BaseViewModel() {
     lateinit var dataPelanggan : ModelPelanggan
     val etPasswordNew = MutableLiveData<String>()
@@ -95,6 +97,7 @@ class ChangePasswordViewModel(
                         Toast.makeText(activity, "Berhasil mengganti password", Toast.LENGTH_LONG).show()
                         val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
                         navController.navigate(R.id.pelangganFragment, null, navOption)
+                        savedData.setDataBoolean(true, Constant.login)
                     }
                     else{
                         message.value = result?.message

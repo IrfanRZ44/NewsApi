@@ -320,6 +320,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun pelangganViewProduk(id_produk: String, callback: Callback<ModelResponse>){
+        val call = api.pelangganViewProduk(id_produk)
+        call.enqueue(callback)
+    }
+
     fun editFotoProfilProduk(produk_id: RequestBody, level: RequestBody,
                          url_foto: MultipartBody.Part,
                          callback: Callback<ModelResponse>){

@@ -2,6 +2,7 @@ package id.telkomsel.merchant.ui.pelanggan.beranda
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
@@ -26,6 +27,7 @@ import id.telkomsel.merchant.ui.merchant.listProduk.AdapterAllKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterHeaderKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterProduk
+import id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
@@ -284,11 +286,10 @@ class BerandaPelangganViewModel(
     }
 
     private fun onClickItemProduk(item: ModelProduk){
-        message.value = item.nama
-//        val bundle = Bundle()
-//        val fragmentTujuan = DetailProdukAdminFragment()
-//        bundle.putParcelable(Constant.reffProduk, item)
-//        fragmentTujuan.arguments = bundle
-//        navController.navigate(R.id.detailProdukAdminFragment, bundle)
+        val bundle = Bundle()
+        val fragmentTujuan = DetailProdukPelangganFragment()
+        bundle.putParcelable(Constant.reffProduk, item)
+        fragmentTujuan.arguments = bundle
+        navController.navigate(R.id.detailProdukPelangganFragment, bundle)
     }
 }

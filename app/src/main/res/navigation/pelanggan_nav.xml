@@ -67,4 +67,9 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.account.editProfil.EditProfilPelangganFragment"
         android:label="fragment_edit_profil_pelanggan"
         tools:layout="@layout/fragment_edit_profil_pelanggan" />
+    <fragment
+        android:id="@+id/detailProdukPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFragment"
+        android:label="fragment_detail_produk_pelanggan"
+        tools:layout="@layout/fragment_detail_produk_pelanggan" />
 </navigation>

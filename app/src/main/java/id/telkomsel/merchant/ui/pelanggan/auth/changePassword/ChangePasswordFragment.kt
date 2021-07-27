@@ -20,7 +20,7 @@ class ChangePasswordFragment : BaseFragmentBind<FragmentChangePasswordPelangganB
     private fun init() {
         bind.lifecycleOwner = this
         viewModel = ChangePasswordViewModel(activity, findNavController(),
-            bind.etPasswordNew, bind.etConfirmPasswordNew)
+            bind.etPasswordNew, bind.etConfirmPasswordNew, savedData)
         bind.viewModel = viewModel
         viewModel.dataPelanggan = this.arguments?.getParcelable(Constant.reffPelanggan)?:throw Exception("Error, mohon lakukan registrasi ulang")
     }

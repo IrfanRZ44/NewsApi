@@ -427,6 +427,13 @@ interface RetrofitApi {
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffPelangganViewProduk)
+    fun pelangganViewProduk(
+        @Field("id_produk") id_produk: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
     @Multipart
     @POST(Constant.reffEditFotoProfilProduk)
     fun editFotoProfilProduk(

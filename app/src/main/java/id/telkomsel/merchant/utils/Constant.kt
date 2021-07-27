@@ -17,6 +17,7 @@ object Constant {
     const val reffUpdatePelanggan = "updatePelanggan"
     const val reffCreateProduk = "createProduk"
     const val reffEditProduk = "editProduk"
+    const val reffPelangganViewProduk = "pelangganViewProduk"
     const val reffEditFotoProfilProduk = "editFotoProfilProduk"
     const val reffEditFotoPelanggan = "editFotoPelanggan"
     const val reffCreateFotoProduk = "createFotoProduk"
@@ -162,6 +163,7 @@ object Constant {
 
     const val levelUser = "User"
     const val level = "level"
+    const val login = "login"
     const val levelChannel = "Channel"
     const val levelCSO = "CSO"
     const val levelSBP = "SBP"
