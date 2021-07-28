@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.listProduk
+package id.telkomsel.merchant.ui.pelanggan.beranda
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -14,16 +14,17 @@ import id.telkomsel.merchant.utils.adapter.convertRupiah
 import kotlinx.android.synthetic.main.item_produk.view.*
 
 class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
-                    private val onClickItem : (ModelProduk) -> Unit
+                    private val onClickItem : (ModelProduk) -> Unit,
+                    private val onClickItemFav : (ModelProduk, Int) -> Unit
 ) : RecyclerView.Adapter<AdapterProduk.AfiliasiHolder>(){
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
-        fun bindAfiliasi(item: ModelProduk) {
+        fun bindAfiliasi(item: ModelProduk, position: Int) {
             viewItem.textNama.text = item.nama
             viewItem.textHarga.text = convertRupiah(item.harga.toDouble())
             viewItem.textStok.text = "${item.stok} stok"
             viewItem.textPromo.text = "${item.promo} \nTukar ${convertNumberWithoutRupiah(item.jumlah_poin.toDouble())} Poin"
-            viewItem.btnFavorit.visibility = View.GONE
+            viewItem.btnFavorit.visibility = View.VISIBLE
 
             viewItem.imgFoto.load(item.url_foto) {
                 crossfade(true)
@@ -31,6 +32,17 @@ class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
                 error(R.drawable.ic_camera_white)
                 fallback(R.drawable.ic_camera_white)
                 memoryCachePolicy(CachePolicy.ENABLED)
+            }
+
+            if (item.isFavorite){
+                viewItem.btnFavorit.setBackgroundResource(R.drawable.radius_yellow)
+            }
+            else{
+                viewItem.btnFavorit.setBackgroundResource(R.drawable.radius_gray)
+            }
+
+            viewItem.btnFavorit.setOnClickListener {
+                onClickItemFav(item, position)
             }
 
             viewItem.setOnClickListener {
@@ -45,6 +57,6 @@ class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
 
     override fun getItemCount(): Int = listItem.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {
-        holder.bindAfiliasi(listItem[position])
+        holder.bindAfiliasi(listItem[position], position)
     }
 }

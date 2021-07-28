@@ -38,7 +38,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
 
         viewModel.getDataKategori()
         viewModel.getDaftarProdukByPelanggan(
-            "",
+            viewModel.textSearch,
             if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
         )
 
@@ -48,7 +48,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.adapterProduk.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
             viewModel.getDaftarProdukByPelanggan(
-                "",
+                viewModel.textSearch,
                 if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
             )
         }
@@ -59,7 +59,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
                     viewModel.getDaftarProdukByPelanggan(
-                        "",
+                        viewModel.textSearch,
                         if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
                     )
                 }
@@ -92,8 +92,9 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                     viewModel.startPage = 0
                     viewModel.listProduk.clear()
                     viewModel.adapterProduk.notifyDataSetChanged()
+                    viewModel.textSearch = query
                     viewModel.getDaftarProdukByPelanggan(
-                        query,
+                        viewModel.textSearch,
                         if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
                     )
                 }
@@ -106,8 +107,10 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.startPage = 0
             viewModel.listProduk.clear()
             viewModel.adapterProduk.notifyDataSetChanged()
+            viewModel.textSearch = ""
+
             viewModel.getDaftarProdukByPelanggan(
-                "",
+                viewModel.textSearch,
                 if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
             )
             false

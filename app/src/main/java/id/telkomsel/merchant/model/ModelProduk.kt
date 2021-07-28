@@ -23,5 +23,6 @@ data class ModelProduk(
     var total_rating: Int = 0,
     var rating: Int = 0,
     var created_at: String = "",
-    var updated_at: String = ""
-    ) : Parcelable
+    var updated_at: String = "",
+    var isFavorite: Boolean = false
+) : Parcelable

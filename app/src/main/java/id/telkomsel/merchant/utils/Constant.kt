@@ -24,6 +24,8 @@ object Constant {
     const val reffUpdateFotoProduk = "updateFotoProduk"
     const val reffDeleteFotoProduk = "deleteFotoProduk"
     const val reffGetDaftarFotoProduk = "getDaftarFotoProduk"
+    const val reffCreateProdukFavorit = "createProdukFav"
+    const val reffDeleteProdukFavorit = "deleteProdukFav"
     const val reffUpdateMerchant = "updateMerchant"
     const val reffUpdateAdmin = "updateAdmin"
     const val reffValidateNewMerchant = "validateNewMerchant"

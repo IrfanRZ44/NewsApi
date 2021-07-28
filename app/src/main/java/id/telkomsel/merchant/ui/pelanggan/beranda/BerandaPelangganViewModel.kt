@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,18 +22,19 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelProduk
+import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseDaftarProduk
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterAllKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterHeaderKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterKategori
-import id.telkomsel.merchant.ui.merchant.listProduk.AdapterProduk
 import id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import id.telkomsel.merchant.utils.adapter.getDate
+import id.telkomsel.merchant.utils.adapter.showLog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +58,7 @@ class BerandaPelangganViewModel(
     lateinit var textMessage: AppCompatTextView
     private lateinit var btnBatal: AppCompatButton
     var idSubKategori = 0
+    var textSearch = ""
     lateinit var btmSheet : BottomSheetDialog
 
     fun initAdapterKategori() {
@@ -88,8 +91,9 @@ class BerandaPelangganViewModel(
         val layoutManager = GridLayoutManager(activity, 2)
         rcProduk.layoutManager = layoutManager
         adapterProduk = AdapterProduk(
-            listProduk
-        ) { item: ModelProduk -> onClickItemProduk(item) }
+            listProduk, { item: ModelProduk -> onClickItemProduk(item) },
+            { item: ModelProduk, position: Int -> onClickItemProdukFavorit(item, position) }
+        )
         rcProduk.adapter = adapterProduk
     }
 
@@ -219,6 +223,7 @@ class BerandaPelangganViewModel(
         RetrofitUtils.getDaftarProdukByPelanggan(startPage,
             search,
             sub_kategori_id,
+            savedData.getDataPelanggan()?.username?:"",
             object : Callback<ModelResponseDaftarProduk> {
                 override fun onResponse(
                     call: Call<ModelResponseDaftarProduk>,
@@ -291,5 +296,86 @@ class BerandaPelangganViewModel(
         bundle.putParcelable(Constant.reffProduk, item)
         fragmentTujuan.arguments = bundle
         navController.navigate(R.id.detailProdukPelangganFragment, bundle)
+    }
+
+    private fun onClickItemProdukFavorit(item: ModelProduk, position: Int){
+        showLog(item.isFavorite.toString())
+        val username = savedData.getDataPelanggan()?.username
+        if (username.isNullOrEmpty()){
+            status.value = "Maaf, Anda harus login terlebih dahulu"
+            val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
+            navController.navigate(R.id.pelangganFragment, null, navOption)
+            savedData.setDataBoolean(true, Constant.login)
+        }
+        else{
+            if (item.isFavorite){
+                deleteProdukFavorit(item, username, position)
+            }
+            else{
+                createProdukFavorit(item, username, position)
+            }
+        }
+    }
+
+    private fun createProdukFavorit(item: ModelProduk, username: String, position: Int){
+        isShowLoading.value = true
+
+        RetrofitUtils.createProdukFav(item.id, username,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        listProduk[position].isFavorite = true
+                        adapterProduk.notifyItemChanged(position)
+                    } else {
+                        status.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isSearching = false
+                    isShowLoading.value = false
+                    status.value = t.message
+                }
+            })
+    }
+
+    private fun deleteProdukFavorit(item: ModelProduk, username: String, position: Int){
+        isShowLoading.value = true
+
+        RetrofitUtils.deleteProdukFav(item.id, username,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        listProduk[position].isFavorite = false
+                        adapterProduk.notifyItemChanged(position)
+                    } else {
+                        status.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isSearching = false
+                    isShowLoading.value = false
+                    status.value = t.message
+                }
+            })
     }
 }

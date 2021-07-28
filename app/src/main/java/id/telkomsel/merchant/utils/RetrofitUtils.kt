@@ -245,9 +245,9 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun getDaftarProdukByPelanggan(startPage: Int, search: String?, sub_kategori_id: String?,
+    fun getDaftarProdukByPelanggan(startPage: Int, search: String?, sub_kategori_id: String?, username: String?,
                                    callback: Callback<ModelResponseDaftarProduk>){
-        val call = api.getDaftarProdukByPelanggan(startPage, search, sub_kategori_id)
+        val call = api.getDaftarProdukByPelanggan(startPage, search, sub_kategori_id, username)
         call.enqueue(callback)
     }
 
@@ -353,6 +353,16 @@ object RetrofitUtils{
 
     fun getDaftarFotoProduk(produk_id: Int, callback: Callback<ModelResponseDaftarFotoProduk>){
         val call = api.getDaftarFotoProduk(produk_id)
+        call.enqueue(callback)
+    }
+
+    fun createProdukFav(produk_id: Int, username: String, callback: Callback<ModelResponse>){
+        val call = api.createProdukFav(produk_id, username)
+        call.enqueue(callback)
+    }
+
+    fun deleteProdukFav(produk_id: Int, username: String, callback: Callback<ModelResponse>){
+        val call = api.deleteProdukFav(produk_id, username)
         call.enqueue(callback)
     }
 }

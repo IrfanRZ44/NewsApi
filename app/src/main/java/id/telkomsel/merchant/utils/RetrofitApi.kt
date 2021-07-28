@@ -323,7 +323,8 @@ interface RetrofitApi {
     fun getDaftarProdukByPelanggan(
         @Field("startPage") startPage: Int,
         @Field("search") search: String?,
-        @Field("sub_kategori_id") sub_kategori_id: String?
+        @Field("sub_kategori_id") sub_kategori_id: String?,
+        @Field("username") username: String?
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")
@@ -473,6 +474,22 @@ interface RetrofitApi {
     fun getDaftarFotoProduk(
         @Field("produk_id") produk_id: Int
     ): Call<ModelResponseDaftarFotoProduk>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffCreateProdukFavorit)
+    fun createProdukFav(
+        @Field("produk_id") produk_id: Int,
+        @Field("username") username: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDeleteProdukFavorit)
+    fun deleteProdukFav(
+        @Field("produk_id") produk_id: Int,
+        @Field("username") username: String
+    ): Call<ModelResponse>
 
     companion object {
         const val baseUrl = Constant.reffBaseURL
