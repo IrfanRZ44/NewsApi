@@ -45,6 +45,7 @@ object Constant {
     const val reffDaftarMerchantByAdmin = "getDaftarMerchantByAdmin"
     const val reffDaftarProdukByMerchant = "getDaftarProdukByMerchant"
     const val reffDaftarProdukByPelanggan = "getDaftarProdukByPelanggan"
+    const val reffDaftarProdukFavorit = "getDaftarProdukFavorit"
     const val reffDaftarPickMerchant = "getPickMerchant"
     const val reffDaftarKategori = "getDaftarKategori"
     const val reffDaftarTopSubKategori = "getTopSubKategori"
@@ -178,6 +179,8 @@ object Constant {
     const val requestProduk = "Tervalidasi Produk"
     const val tervalidasiProduk = "Request Produk"
     const val akun = "Akun"
+    const val favorit = "Favorit"
+    const val produkFavorit = "Produk Favorit"
     const val beranda = "Beranda"
 
     const val dataModelFotoProfil = "FotoProfil"
@@ -199,6 +202,7 @@ object Constant {
     const val noMerchant = "Maaf, belum ada data merchant"
     const val noProdukRequest = "Semua produk telah divalidasi"
     const val noProduk = "Maaf, belum ada data produk"
+    const val noProdukFavorit = "Maaf, belum ada data produk favorit"
     const val noKategori = "Maaf, belum ada data kategori"
 
     const val konfirmasi = "Konfirmasi"

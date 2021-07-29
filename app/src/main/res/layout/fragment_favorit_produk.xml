@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="id.telkomsel.merchant.ui.pelanggan.favorit.FavoritProdukFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="id.telkomsel.merchant.ui.pelanggan.favorit.FavoritProdukViewModel" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        snackbar="@{viewModel.status}"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textStandardWhite"
+            android:textSize="@dimen/text_h3"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:id="@+id/textStatus"
+            showTextStatus="@{viewModel.message}"
+            />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeRefresh"
+            android:layout_below="@+id/textStatus"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rcProduk"
+                />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <include layout="@layout/progress_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            visible="@{viewModel.isShowLoading}"
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+</layout>

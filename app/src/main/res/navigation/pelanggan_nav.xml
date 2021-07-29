@@ -72,4 +72,9 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFragment"
         android:label="fragment_detail_produk_pelanggan"
         tools:layout="@layout/fragment_detail_produk_pelanggan" />
+    <fragment
+        android:id="@+id/favoritProdukFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.favorit.FavoritProdukFragment"
+        android:label="fragment_favorit_produk"
+        tools:layout="@layout/fragment_favorit_produk" />
 </navigation>
