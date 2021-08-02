@@ -225,6 +225,7 @@
     <string name="user_merchant">User Merchant?</string>
     <string name="login_merchant">Login Merchant</string>
     <string name="nama_wajib">Nama*</string>
+    <string name="id_outlet_wajib">ID Outlet*</string>
     <string name="daftar_pelanggan">Daftar Pelanggan</string>
     <string name="daftar_merchant">Daftar Merchant</string>
     <string name="pelanggan">Pelanggan</string>

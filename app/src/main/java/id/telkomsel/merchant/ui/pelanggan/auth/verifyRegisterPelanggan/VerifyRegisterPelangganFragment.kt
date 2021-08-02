@@ -11,6 +11,7 @@ import id.telkomsel.merchant.services.timer.TListener
 import id.telkomsel.merchant.services.timer.TimeFormatEnum
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.showLog
 import java.util.concurrent.TimeUnit
 
 class VerifyRegisterPelangganFragment : BaseFragmentBind<FragmentVerifyRegisterPelangganBinding>(){
@@ -42,6 +43,7 @@ class VerifyRegisterPelangganFragment : BaseFragmentBind<FragmentVerifyRegisterP
             viewModel.noHp.value = viewModel.dataPelanggan.verified_phone
             viewModel.etFotoProfil.value = this.arguments?.getParcelable(Constant.dataModelFotoProfil)
 
+            showLog(viewModel.dataPelanggan.id_outlet)
             viewModel.isShowLoading.value = false
             viewModel.loading.value = true
             bind.viewModel = viewModel

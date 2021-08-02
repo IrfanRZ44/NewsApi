@@ -110,8 +110,16 @@ interface RetrofitApi {
     fun createPelanggan(
         @Part("username") username: RequestBody,
         @Part("nama") nama: RequestBody,
+        @Part("id_outlet") id_outlet: RequestBody,
         @Part("token") token: RequestBody,
         @Part("alamat") alamat: RequestBody,
+        @Part("provinsi") provinsi: RequestBody,
+        @Part("kabupaten") kabupaten: RequestBody,
+        @Part("kecamatan") kecamatan: RequestBody,
+        @Part("kelurahan") kelurahan: RequestBody,
+        @Part("regional") regional: RequestBody,
+        @Part("branch") branch: RequestBody,
+        @Part("cluster") cluster: RequestBody,
         @Part("no_hp") no_hp: RequestBody,
         @Part("no_wa") no_wa: RequestBody,
         @Part("verified_phone") verified_phone: RequestBody,
@@ -126,7 +134,15 @@ interface RetrofitApi {
     fun updateProfilPelanggan(
         @Field("username") username: String,
         @Field("nama") nama: String,
+        @Field("id_outlet") id_outlet: String,
         @Field("alamat") alamat: String,
+        @Field("provinsi") provinsi: String,
+        @Field("kabupaten") kabupaten: String,
+        @Field("kecamatan") kecamatan: String,
+        @Field("kelurahan") kelurahan: String,
+        @Field("regional") regional: String,
+        @Field("branch") branch: String,
+        @Field("cluster") cluster: String,
         @Field("no_hp") no_hp: String,
         @Field("no_wa") no_wa: String,
         @Field("tgl_lahir") tgl_lahir: String,
@@ -208,7 +224,8 @@ interface RetrofitApi {
     @POST(Constant.reffValidateNewPelanggan)
     fun validateNewPelanggan(
         @Field("username") username: String,
-        @Field("no_hp") no_hp: String
+        @Field("no_hp") no_hp: String,
+        @Field("id_outlet") id_outlet: String
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")

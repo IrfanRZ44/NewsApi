@@ -56,6 +56,7 @@ class DaftarProdukViewModel(
     private lateinit var btnBatal: AppCompatButton
     private var idSubKategori = 0
     lateinit var btmSheet : BottomSheetDialog
+    var textSearch = ""
 
     fun initAdapterKategori() {
         rcKategori.layoutManager = LinearLayoutManager(
@@ -115,7 +116,7 @@ class DaftarProdukViewModel(
         }
     }
 
-    fun checkCluster(search: String?) {
+    fun checkCluster() {
         val cluster = savedData.getDataMerchant()?.cluster
         val merchantId = savedData.getDataMerchant()?.id
         val regional = savedData.getDataMerchant()?.regional
@@ -125,7 +126,6 @@ class DaftarProdukViewModel(
             getDaftarProdukByAdmin(
                 regional,
                 Constant.levelChannel,
-                search,
                 if (idSubKategori == 0) "" else idSubKategori.toString(),
                 ""
             )
@@ -134,7 +134,6 @@ class DaftarProdukViewModel(
             getDaftarProdukByAdmin(
                 cluster,
                 level,
-                search,
                 if (idSubKategori == 0) "" else idSubKategori.toString(),
                 ""
             )
@@ -143,7 +142,6 @@ class DaftarProdukViewModel(
             getDaftarProdukByAdmin(
                 "",
                 Constant.levelMerchant,
-                search,
                 if (idSubKategori == 0) "" else idSubKategori.toString(),
                 merchantId.toString()
             )
@@ -254,7 +252,6 @@ class DaftarProdukViewModel(
     private fun getDaftarProdukByAdmin(
         cluster: String,
         level: String,
-        search: String?,
         sub_kategori_id: String?,
         merchantId: String?,
     ) {
@@ -264,7 +261,7 @@ class DaftarProdukViewModel(
             level,
             startPage,
             statusRequest,
-            search,
+            textSearch,
             sub_kategori_id, stok, isKadaluarsa,
             object : Callback<ModelResponseDaftarProduk> {
                 override fun onResponse(
@@ -281,14 +278,14 @@ class DaftarProdukViewModel(
 
                         startPage += 25
                         if (listProduk.size == 0) {
-                            if (search.isNullOrEmpty()) {
+                            if (textSearch.isEmpty()) {
                                 if (statusRequest == Constant.statusRequest) {
                                     message.value = Constant.noProdukRequest
                                 } else {
                                     message.value = Constant.noProduk
                                 }
                             } else {
-                                message.value = "Maaf, belum ada data produk dengan nama $search"
+                                message.value = "Maaf, belum ada data produk dengan nama $textSearch"
                             }
                         } else {
                             if (startPage > 0 && result.data.isEmpty()) {
@@ -318,7 +315,7 @@ class DaftarProdukViewModel(
         startPage = 0
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
-        checkCluster("")
+        checkCluster()
     }
 
     private fun onClickItemAllKategori(item: ModelKategori){
@@ -327,7 +324,7 @@ class DaftarProdukViewModel(
         startPage = 0
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
-        checkCluster("")
+        checkCluster()
     }
 
     private fun onClickItemProduk(item: ModelProduk){

@@ -103,22 +103,34 @@ object RetrofitUtils{
             MediaType.get("image/*"), fileProduk))
         val username = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.username)
         val nama = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nama)
+        val id_outlet = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.id_outlet)
         val token = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.token)
         val alamat = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.alamat)
+        val provinsi = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.provinsi)
+        val kabupaten = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.kabupaten)
+        val kecamatan = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.kecamatan)
+        val kelurahan = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.kelurahan)
+        val regional = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.regional)
+        val branch = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.branch)
+        val cluster = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.cluster)
         val nomorHP = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_hp)
         val nomorWA = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_wa)
         val verifiedPhone = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.verified_phone)
         val password = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.password)
         val tglLahir = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.tgl_lahir)
 
-        val call = api.createPelanggan(username, nama, token, alamat,
+        val call = api.createPelanggan(username, nama, id_outlet, token, alamat,
+            provinsi, kabupaten, kecamatan, kelurahan, regional, branch, cluster,
             nomorHP, nomorWA, verifiedPhone, password, tglLahir, foto
         )
         call.enqueue(callback)
     }
 
     fun updateProfilPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponsePelanggan>){
-        val call = api.updateProfilPelanggan(dataPelanggan.username, dataPelanggan.nama, dataPelanggan.alamat,
+        val call = api.updateProfilPelanggan(dataPelanggan.username, dataPelanggan.nama,
+            dataPelanggan.id_outlet, dataPelanggan.alamat,
+            dataPelanggan.provinsi, dataPelanggan.kabupaten, dataPelanggan.kecamatan,
+            dataPelanggan.kelurahan, dataPelanggan.regional, dataPelanggan.branch, dataPelanggan.cluster,
             dataPelanggan.nomor_hp, dataPelanggan.nomor_wa, dataPelanggan.tgl_lahir
         )
         call.enqueue(callback)
@@ -164,7 +176,7 @@ object RetrofitUtils{
     }
 
     fun validateNewPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponse>){
-        val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_hp)
+        val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_hp, dataPelanggan.id_outlet)
         call.enqueue(callback)
     }
 

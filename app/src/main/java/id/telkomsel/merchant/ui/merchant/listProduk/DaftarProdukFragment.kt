@@ -13,7 +13,6 @@ class DaftarProdukFragment(private val statusRequest: String,
     override fun getLayoutResource(): Int = R.layout.fragment_daftar_produk
     lateinit var viewModel: DaftarProdukViewModel
 
-
     override fun myCodeHere() {
         supportActionBar?.show()
         supportActionBar?.title = "Produk"
@@ -32,14 +31,14 @@ class DaftarProdukFragment(private val statusRequest: String,
         viewModel.showDialogFilter(bind.root, layoutInflater)
 
         viewModel.getDataKategori()
-        viewModel.checkCluster("")
+        viewModel.checkCluster()
 
         bind.swipeRefresh.setOnRefreshListener {
             viewModel.startPage = 0
             viewModel.listProduk.clear()
             viewModel.adapterProduk.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
-            viewModel.checkCluster("")
+            viewModel.checkCluster()
         }
 
         bind.rcProduk.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -47,7 +46,7 @@ class DaftarProdukFragment(private val statusRequest: String,
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
-                    viewModel.checkCluster("")
+                    viewModel.checkCluster()
                 }
             }
         })

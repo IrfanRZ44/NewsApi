@@ -139,7 +139,8 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
                         requestProduk.viewModel.startPage = 0
                         requestProduk.viewModel.listProduk.clear()
                         requestProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                        requestProduk.viewModel.checkCluster(query)
+                        requestProduk.viewModel.textSearch = query
+                        requestProduk.viewModel.checkCluster()
                     }
                 }
                 else if (bind.tabs.selectedTabPosition == 1){
@@ -150,7 +151,8 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
                         activeProduk.viewModel.startPage = 0
                         activeProduk.viewModel.listProduk.clear()
                         activeProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                        activeProduk.viewModel.checkCluster(query)
+                        activeProduk.viewModel.textSearch = query
+                        activeProduk.viewModel.checkCluster()
                     }
                 }
                 else if (bind.tabs.selectedTabPosition == 2){
@@ -161,7 +163,8 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
                         declinedProduk.viewModel.startPage = 0
                         declinedProduk.viewModel.listProduk.clear()
                         declinedProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                        declinedProduk.viewModel.checkCluster(query)
+                        declinedProduk.viewModel.textSearch = query
+                        declinedProduk.viewModel.checkCluster()
                     }
                 }
 
@@ -175,19 +178,22 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
                     requestProduk.viewModel.startPage = 0
                     requestProduk.viewModel.listProduk.clear()
                     requestProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                    requestProduk.viewModel.checkCluster("")
+                    requestProduk.viewModel.textSearch = ""
+                    requestProduk.viewModel.checkCluster()
                 }
                 1 -> {
                     activeProduk.viewModel.startPage = 0
                     activeProduk.viewModel.listProduk.clear()
                     activeProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                    activeProduk.viewModel.checkCluster("")
+                    activeProduk.viewModel.textSearch = ""
+                    activeProduk.viewModel.checkCluster()
                 }
                 2 -> {
                     declinedProduk.viewModel.startPage = 0
                     declinedProduk.viewModel.listProduk.clear()
                     declinedProduk.viewModel.adapterProduk.notifyDataSetChanged()
-                    declinedProduk.viewModel.checkCluster("")
+                    declinedProduk.viewModel.textSearch = ""
+                    declinedProduk.viewModel.checkCluster()
                 }
             }
             false

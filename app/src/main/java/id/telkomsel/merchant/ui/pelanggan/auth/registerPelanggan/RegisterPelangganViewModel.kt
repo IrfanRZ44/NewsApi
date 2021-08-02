@@ -5,20 +5,20 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
+import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan.VerifyRegisterPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
-import id.telkomsel.merchant.utils.adapter.dismissKeyboard
-import id.telkomsel.merchant.utils.adapter.isContainBigText
-import id.telkomsel.merchant.utils.adapter.isContainNumber
-import id.telkomsel.merchant.utils.adapter.isContainSmallText
+import id.telkomsel.merchant.utils.adapter.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +29,12 @@ import java.util.*
 class RegisterPelangganViewModel(
     private val activity: Activity?,
     private val navController: NavController,
+    private val spinnerProvinsi: AppCompatSpinner,
+    private val spinnerKabupaten: AppCompatSpinner,
+    private val spinnerKecamatan: AppCompatSpinner,
+    private val spinnerKelurahan: AppCompatSpinner,
     private val editNama: TextInputLayout,
+    private val editOutlet: TextInputLayout,
     private val editAlamat: TextInputLayout,
     private val editNoHp: TextInputLayout,
     private val editNoWa: TextInputLayout,
@@ -39,6 +44,7 @@ class RegisterPelangganViewModel(
     private val editTglLahir: TextInputLayout
 ) : BaseViewModel() {
     val etNama = MutableLiveData<String>()
+    val etOutlet = MutableLiveData<String>()
     val etAlamat = MutableLiveData<String>()
     val etUsername = MutableLiveData<String>()
     val etPassword = MutableLiveData<String>()
@@ -47,6 +53,14 @@ class RegisterPelangganViewModel(
     val etPhone = MutableLiveData<String>()
     val etWA = MutableLiveData<String>()
     val etFotoProfil = MutableLiveData<Uri>()
+    val listProvinsi = ArrayList<ModelWilayah>()
+    val listKabupaten = ArrayList<ModelWilayah>()
+    val listKecamatan = ArrayList<ModelWilayah>()
+    val listKelurahan = ArrayList<ModelWilayah>()
+    lateinit var adapterProvinsi : SpinnerWilayahAdapter
+    lateinit var adapterKabupaten : SpinnerWilayahAdapter
+    lateinit var adapterKecamatan : SpinnerWilayahAdapter
+    lateinit var adapterKelurahan : SpinnerWilayahAdapter
     var dataPelanggan: ModelPelanggan? = null
 
     fun setDataPelanggan(fotoProfil: Uri?){
@@ -54,6 +68,7 @@ class RegisterPelangganViewModel(
         etPassword.value = dataPelanggan?.password
         etPasswordConfirm.value = dataPelanggan?.password
         etNama.value = dataPelanggan?.nama
+        etOutlet.value = dataPelanggan?.id_outlet
         etAlamat.value = dataPelanggan?.alamat
         etTglLahir.value = dataPelanggan?.tgl_lahir
 
@@ -61,6 +76,46 @@ class RegisterPelangganViewModel(
         etWA.value = dataPelanggan?.nomor_wa?.replaceFirst("+62", "0")
 
         etFotoProfil.value = fotoProfil
+    }
+
+    fun setAdapterProvinsi() {
+        listProvinsi.clear()
+
+        adapterProvinsi = SpinnerWilayahAdapter(
+            activity,
+            listProvinsi, true
+        )
+        spinnerProvinsi.adapter = adapterProvinsi
+    }
+
+    fun setAdapterKabupaten() {
+        listKabupaten.clear()
+
+        adapterKabupaten = SpinnerWilayahAdapter(
+            activity,
+            listKabupaten, true
+        )
+        spinnerKabupaten.adapter = adapterKabupaten
+    }
+
+    fun setAdapterKecamatan() {
+        listKecamatan.clear()
+
+        adapterKecamatan = SpinnerWilayahAdapter(
+            activity,
+            listKecamatan, true
+        )
+        spinnerKecamatan.adapter = adapterKecamatan
+    }
+
+    fun setAdapterKelurahan() {
+        listKelurahan.clear()
+
+        adapterKelurahan = SpinnerWilayahAdapter(
+            activity,
+            listKelurahan, true
+        )
+        spinnerKelurahan.adapter = adapterKelurahan
     }
 
     fun getDateTglLahir() {
@@ -88,8 +143,205 @@ class RegisterPelangganViewModel(
         }
     }
 
+    fun getDaftarProvinsi(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarProvinsi(
+            object : Callback<ModelResponseWilayah> {
+                override fun onResponse(
+                    call: Call<ModelResponseWilayah>,
+                    response: Response<ModelResponseWilayah>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listProvinsi.clear()
+                        listProvinsi.add(ModelWilayah(0, Constant.pilihProvinsi))
+
+                        for (i in data.indices) {
+                            listProvinsi.add(data[i])
+                        }
+                        adapterProvinsi.notifyDataSetChanged()
+
+                        val provinsi = dataPelanggan?.provinsi
+                        if (dataPelanggan != null) {
+                            for (i in listProvinsi.indices) {
+                                if (listProvinsi[i].nama == provinsi) {
+                                    spinnerProvinsi.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listProvinsi.clear()
+                        listProvinsi.add(ModelWilayah(0, Constant.noDataWilayah))
+                        adapterProvinsi.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseWilayah>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listProvinsi.clear()
+                    listProvinsi.add(ModelWilayah(0, Constant.noDataWilayah))
+                    adapterProvinsi.notifyDataSetChanged()
+                }
+            })
+    }
+
+    fun getDaftarKabupaten(idProvinsi: Long){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKabupaten(idProvinsi,
+            object : Callback<ModelResponseWilayah> {
+                override fun onResponse(
+                    call: Call<ModelResponseWilayah>,
+                    response: Response<ModelResponseWilayah>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKabupaten.clear()
+                        listKabupaten.add(ModelWilayah(0, Constant.pilihKabupaten))
+
+                        for (i in data.indices) {
+                            listKabupaten.add(data[i])
+                        }
+                        adapterKabupaten.notifyDataSetChanged()
+
+                        val kabupaten = dataPelanggan?.kabupaten
+                        if (dataPelanggan != null) {
+                            for (i in listKabupaten.indices) {
+                                if (listKabupaten[i].nama == kabupaten) {
+                                    spinnerKabupaten.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKabupaten.clear()
+                        listKabupaten.add(ModelWilayah(0, Constant.noDataWilayah))
+                        adapterKabupaten.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseWilayah>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKabupaten.clear()
+                    listKabupaten.add(ModelWilayah(0, Constant.noDataWilayah))
+                    adapterKabupaten.notifyDataSetChanged()
+                }
+            })
+    }
+
+    fun getDaftarKecamatan(idKabupaten: Long){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKecamatan(idKabupaten,
+            object : Callback<ModelResponseWilayah> {
+                override fun onResponse(
+                    call: Call<ModelResponseWilayah>,
+                    response: Response<ModelResponseWilayah>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKecamatan.clear()
+                        listKecamatan.add(ModelWilayah(0, Constant.pilihKecamatan))
+
+                        for (i in data.indices) {
+                            listKecamatan.add(data[i])
+                        }
+                        adapterKecamatan.notifyDataSetChanged()
+
+                        val kecamatan = dataPelanggan?.kecamatan
+                        if (dataPelanggan != null) {
+                            for (i in listKecamatan.indices) {
+                                if (listKecamatan[i].nama == kecamatan) {
+                                    spinnerKecamatan.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKecamatan.clear()
+                        listKecamatan.add(ModelWilayah(0, Constant.noDataWilayah))
+                        adapterKecamatan.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseWilayah>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKecamatan.clear()
+                    listKecamatan.add(ModelWilayah(0, Constant.noDataWilayah))
+                    adapterKecamatan.notifyDataSetChanged()
+                }
+            })
+    }
+
+    fun getDaftarKelurahan(idKecamatan: Long){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarKelurahan(idKecamatan,
+            object : Callback<ModelResponseWilayah> {
+                override fun onResponse(
+                    call: Call<ModelResponseWilayah>,
+                    response: Response<ModelResponseWilayah>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        val data = result.data
+                        listKelurahan.clear()
+                        listKelurahan.add(ModelWilayah(0, Constant.pilihKelurahan))
+
+                        for (i in data.indices) {
+                            listKelurahan.add(data[i])
+                        }
+                        adapterKelurahan.notifyDataSetChanged()
+
+                        val kelurahan = dataPelanggan?.kelurahan
+                        if (dataPelanggan != null) {
+                            for (i in listKelurahan.indices) {
+                                if (listKelurahan[i].nama == kelurahan) {
+                                    spinnerKelurahan.setSelection(i)
+                                }
+                            }
+                        }
+                    } else {
+                        listKelurahan.clear()
+                        listKelurahan.add(ModelWilayah(0, Constant.noDataWilayah))
+                        adapterKelurahan.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseWilayah>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    listKelurahan.clear()
+                    listKelurahan.add(ModelWilayah(0, Constant.noDataWilayah))
+                    adapterKelurahan.notifyDataSetChanged()
+                }
+            })
+    }
+
     private fun setNullError(){
         editNama.error = null
+        editOutlet.error = null
         editAlamat.error = null
         editNoHp.error = null
         editNoWa.error = null
@@ -116,7 +368,15 @@ class RegisterPelangganViewModel(
         activity?.let { dismissKeyboard(it) }
 
         val nama = etNama.value
+        val idOutlet = etOutlet.value
         val alamat = etAlamat.value
+        val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
+        val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
+        val kecamatan = listKecamatan[spinnerKecamatan.selectedItemPosition].nama
+        val kelurahan = listKelurahan[spinnerKelurahan.selectedItemPosition].nama
+        val regional = listKelurahan[spinnerKelurahan.selectedItemPosition].REGION_OMS
+        val branch = listKelurahan[spinnerKelurahan.selectedItemPosition].BRANCH
+        val cluster = listKelurahan[spinnerKelurahan.selectedItemPosition].CLUSTER
         val noHp = etPhone.value
         val noWa = etWA.value
         val username = etUsername.value
@@ -125,7 +385,12 @@ class RegisterPelangganViewModel(
         val tglLahir = etTglLahir.value
         val fotoProfil = etFotoProfil.value?.path
 
-        if (!nama.isNullOrEmpty() && !alamat.isNullOrEmpty()
+        if (!nama.isNullOrEmpty() && !idOutlet.isNullOrEmpty() && !alamat.isNullOrEmpty()
+            && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
+            && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
+            && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
+            && (!kelurahan.isNullOrEmpty() && kelurahan != Constant.pilihKelurahan)
+            && !cluster.isNullOrEmpty() && !regional.isNullOrEmpty() && !branch.isNullOrEmpty()
             && !noHp.isNullOrEmpty() && noHp.take(1) == "0"
             && !noWa.isNullOrEmpty() && noWa.take(1) == "0"
             && !username.isNullOrEmpty()
@@ -144,9 +409,17 @@ class RegisterPelangganViewModel(
                 password,
                 0,
                 nama,
+                idOutlet,
                 "",
                 tglLahir?:"",
                 alamat,
+                provinsi,
+                kabupaten,
+                kecamatan,
+                kelurahan,
+                regional,
+                branch,
+                cluster,
                 hp,
                 wa,
                 hp
@@ -161,8 +434,23 @@ class RegisterPelangganViewModel(
             else if (nama.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nama", editNama)
             }
+            else if (idOutlet.isNullOrEmpty()){
+                setTextError("Error, mohon masukkan id outlet", editOutlet)
+            }
             else if (alamat.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan alamat", editAlamat)
+            }
+            else if (provinsi == Constant.pilihProvinsi){
+                message.value = "Mohon memilih salah satu Provinsi yang tersedia"
+            }
+            else if (kabupaten == Constant.pilihKabupaten){
+                message.value = "Mohon memilih salah satu Kabupaten yang tersedia"
+            }
+            else if (kecamatan == Constant.pilihKecamatan){
+                message.value = "Mohon memilih salah satu Kecamatan yang tersedia"
+            }
+            else if (kelurahan == Constant.pilihKelurahan){
+                message.value = "Mohon memilih salah satu Kelurahan yang tersedia"
             }
             else if (tglLahir.isNullOrEmpty()){
                 message.value = "Error, Mohon pilih tanggal lahir"

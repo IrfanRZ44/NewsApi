@@ -105,6 +105,28 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etOutlet"
+                            style="@style/customEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/h2"
+                            android:hint="@string/id_outlet_wajib"
+                            android:textColorHint="@color/gray2"
+                            app:errorEnabled="true">
+                            <com.google.android.material.textfield.TextInputEditText
+                                style="@style/textStandardWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:maxLines="1"
+                                android:text="@={viewModel.etOutlet}"
+                                android:digits="@string/digitsPhone"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/etAlamat"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
@@ -125,6 +147,82 @@
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerProvinsi"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKabupaten"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKecamatan"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60"
+                            android:layout_marginTop="@dimen/h3"
+                            android:background="@drawable/border_spinner"
+                            android:paddingLeft="@dimen/h2"
+                            android:paddingRight="@dimen/h2">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinnerKelurahan"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/spinner_bg_white"
+                                android:dropDownSelector="@drawable/ic_spinner_gray"
+                                android:elevation="@dimen/h2"
+                                android:popupElevation="@dimen/h4" />
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
