@@ -101,15 +101,14 @@ class EditProdukViewModel(
         etPoin.value = dataProduk.value?.jumlah_poin.toString()
         etDeskripsi.value = dataProduk.value?.deskripsi
 
-        if (savedData.getDataMerchant()?.level != Constant.levelMerchant){
-            listKategori.clear()
-            listKategori.add(ModelKategori(0, 0, Constant.pilihKategori, false))
-            val list = etDataMerchant.value?.sub_kategori
-            if (list != null){
-                listKategori.addAll(list)
-                adapterKategori.notifyDataSetChanged()
-            }
+        listKategori.clear()
+        listKategori.add(ModelKategori(0, 0, Constant.pilihKategori, false))
+        val list = etDataMerchant.value?.sub_kategori
+        if (list != null){
+            listKategori.addAll(list)
+            adapterKategori.notifyDataSetChanged()
         }
+
 
         for (i in listKategori.indices){
             if (listKategori[i].id == dataProduk.value?.sub_kategori_id){

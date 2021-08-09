@@ -4,23 +4,20 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
-import android.os.Bundle
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.google.android.material.textfield.TextInputLayout
-import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelPelanggan
 import id.telkomsel.merchant.model.ModelWilayah
-import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponsePelanggan
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
-import id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan.VerifyRegisterPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
-import id.telkomsel.merchant.utils.adapter.*
+import id.telkomsel.merchant.utils.adapter.SpinnerWilayahAdapter
+import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -38,14 +35,12 @@ class EditProfilPelangganViewModel(
     private val spinnerKecamatan: AppCompatSpinner,
     private val spinnerKelurahan: AppCompatSpinner,
     private val editNama: TextInputLayout,
-    private val editOutlet: TextInputLayout,
     private val editAlamat: TextInputLayout,
     private val editNoHp: TextInputLayout,
     private val editNoWa: TextInputLayout,
     private val editTglLahir: TextInputLayout,
     private val savedData: DataSave
 ) : BaseViewModel() {
-    val etOutlet = MutableLiveData<String>()
     val etNama = MutableLiveData<String>()
     val etAlamat = MutableLiveData<String>()
     val etTglLahir = MutableLiveData<String>()
@@ -64,7 +59,6 @@ class EditProfilPelangganViewModel(
 
     fun setDataPelanggan(){
         etNama.value = dataPelanggan?.nama
-        etOutlet.value = dataPelanggan?.id_outlet
         etAlamat.value = dataPelanggan?.alamat
         etTglLahir.value = dataPelanggan?.tgl_lahir
 
@@ -337,7 +331,6 @@ class EditProfilPelangganViewModel(
 
     private fun setNullError(){
         editNama.error = null
-        editOutlet.error = null
         editAlamat.error = null
         editNoHp.error = null
         editNoWa.error = null
@@ -357,7 +350,6 @@ class EditProfilPelangganViewModel(
 
         val dataEdit = savedData.getDataPelanggan()
         val nama = etNama.value
-        val idOutlet = etOutlet.value
         val alamat = etAlamat.value
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
@@ -370,7 +362,7 @@ class EditProfilPelangganViewModel(
         val noWa = etWA.value
         val tglLahir = etTglLahir.value
 
-        if (dataEdit != null && !idOutlet.isNullOrEmpty() && !nama.isNullOrEmpty() && !alamat.isNullOrEmpty()
+        if (dataEdit != null && !nama.isNullOrEmpty() && !alamat.isNullOrEmpty()
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -378,6 +370,7 @@ class EditProfilPelangganViewModel(
             && !cluster.isNullOrEmpty() && !regional.isNullOrEmpty() && !branch.isNullOrEmpty()
             && !noHp.isNullOrEmpty() && noHp.take(1) == "0"
             && !noWa.isNullOrEmpty() && noWa.take(1) == "0"
+            && (noHp.length in 10..13) && (noWa.length in 10..13)
         ) {
             val hp = noHp.replaceFirst("0", "+62")
             val wa = noWa.replaceFirst("0", "+62")
@@ -385,7 +378,6 @@ class EditProfilPelangganViewModel(
             isShowLoading.value = true
 
             dataEdit.nama = nama
-            dataEdit.id_outlet = idOutlet
             dataEdit.tgl_lahir = tglLahir?:""
             dataEdit.alamat = alamat
             dataEdit.provinsi = provinsi
@@ -407,9 +399,6 @@ class EditProfilPelangganViewModel(
                 }
                 nama.isNullOrEmpty() -> {
                     setTextError("Error, mohon masukkan nama", editNama)
-                }
-                idOutlet.isNullOrEmpty() -> {
-                    setTextError("Error, mohon masukkan id outlet", editOutlet)
                 }
                 alamat.isNullOrEmpty() -> {
                     setTextError("Error, mohon masukkan alamat", editAlamat)

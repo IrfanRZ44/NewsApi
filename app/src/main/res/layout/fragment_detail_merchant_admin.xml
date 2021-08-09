@@ -100,7 +100,7 @@
                             android:textColor="@color/black"
                             android:id="@+id/textInfo"
                             android:text="@string/informasi_merchant"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/bauhaus"
                             />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -116,7 +116,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/nama_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -133,7 +133,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.nama_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -150,7 +150,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/kategori_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -167,7 +167,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.nama_kategori}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -184,7 +184,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/alamat_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -201,7 +201,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.alamat_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -218,7 +218,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/latitude"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -235,7 +235,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.latitude}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -252,7 +252,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/longitude"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -269,7 +269,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.longitude}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -286,7 +286,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/tanggal_peresmian"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -303,7 +303,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.tgl_peresmian_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -320,7 +320,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/provinsi"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -337,7 +337,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.provinsi}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -354,7 +354,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/kabupaten_kota"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -371,7 +371,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.kabupaten}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -388,7 +388,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/kecamatan"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -405,7 +405,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.kecamatan}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -422,7 +422,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/kelurahan"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -439,7 +439,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.kelurahan}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -456,7 +456,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/regional"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -473,7 +473,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.regional}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -490,7 +490,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/branch"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -507,7 +507,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.branch}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -524,7 +524,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/cluster"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -541,7 +541,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.cluster}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -558,7 +558,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/no_hp_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -575,7 +575,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.no_hp_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -592,7 +592,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/no_wa_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -609,7 +609,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.no_wa_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -626,7 +626,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/email_merchant"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -643,7 +643,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.email_merchant}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -664,7 +664,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:text="@string/informasi_pemilik"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/bauhaus"
                             tools:ignore="TooManyViews" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -680,7 +680,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/username"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -697,7 +697,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.username}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 tools:ignore="TooManyViews" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -714,7 +714,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/nama_lengkap"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -731,7 +731,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.nama_lengkap}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -748,7 +748,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/tanggal_lahir"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -765,7 +765,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.tgl_lahir}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -782,7 +782,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/no_hp_pemilik"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -799,7 +799,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.no_hp_pemilik}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -816,7 +816,7 @@
                                 android:textColor="@color/black"
                                 android:text="@string/no_wa_pemilik"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="0dp"
@@ -833,7 +833,7 @@
                                 android:textColor="@color/black"
                                 android:text="@={viewModel.dataMerchant.no_wa_pemilik}"
                                 android:textSize="@dimen/text_h2"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -856,7 +856,7 @@
                             android:layout_marginBottom="@dimen/h2"
                             android:layout_gravity="start"
                             android:textAlignment="textStart"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/bauhaus"
                             />
 
                         <com.google.android.gms.maps.MapView

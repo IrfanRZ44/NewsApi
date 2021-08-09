@@ -18,7 +18,6 @@ class LihatFotoFragment : BaseFragmentBind<FragmentLihatFotoBinding>() {
         bind.lifecycleOwner = this
         val urlFoto= this.arguments?.getString("urlFoto")
 
-
         bind.imgFoto.load(urlFoto) {
             crossfade(true)
             placeholder(R.drawable.ic_camera_white)

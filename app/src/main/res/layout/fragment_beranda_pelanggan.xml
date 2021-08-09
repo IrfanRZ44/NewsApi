@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="id.telkomsel.merchant.ui.pelanggan.beranda.BerandaPelangganFragment">
     <data>
         <variable
@@ -13,10 +14,91 @@
         android:background="@color/white"
         snackbar="@{viewModel.status}"
         >
+        <com.santalu.autoviewpager.AutoViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150"
+            android:overScrollMode="never"
+            app:avp_autoScroll="true"
+            app:avp_indeterminate="true"
+            android:layout_alignParentTop="true"
+            />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dotsIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h4"
+            app:dotsColor="@android:color/white"
+            app:selectedDotColor="@color/colorPrimary"
+            app:dotsStrokeColor="@android:color/white"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsStrokeWidth="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/cardHeader"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="@dimen/h2"
+            app:cardElevation="@dimen/h1"
+            android:layout_marginStart="@dimen/h2"
+            android:layout_marginEnd="@dimen/h2"
+            android:layout_marginBottom="@dimen/h2"
+            android:layout_marginTop="-8dp"
+            android:id="@+id/cardHeader"
+            android:visibility="gone"
+            android:layout_below="@+id/viewPager"
+            >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_large"
+                    android:layout_weight="0.5"
+                    android:drawableStart="@drawable/ic_poin"
+                    android:drawablePadding="@dimen/h1"
+                    android:paddingStart="@dimen/h2"
+                    android:paddingEnd="0dp"
+                    android:text="@={viewModel.poin}"
+                    android:textSize="@dimen/text_h1"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/bauhaus"
+                    android:layout_margin="@dimen/h1"
+                    android:background="@drawable/btn_circle_gray"
+                    android:textAlignment="textStart"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_large"
+                    android:layout_weight="0.5"
+                    android:drawableStart="@drawable/ic_voucher"
+                    android:drawablePadding="@dimen/h1"
+                    android:paddingStart="@dimen/h2"
+                    android:paddingEnd="0dp"
+                    android:text="@string/voucher_saya"
+                    android:textSize="@dimen/text_h1"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/bauhaus"
+                    android:layout_margin="@dimen/h1"
+                    android:background="@drawable/btn_circle_gray"
+                    android:textAlignment="textStart"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rcKategori"
+            android:layout_below="@+id/cardHeader"
             />
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"

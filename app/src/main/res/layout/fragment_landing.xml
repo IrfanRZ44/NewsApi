@@ -48,7 +48,7 @@
             android:textSize="@dimen/text_h3"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/textApp"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:id="@+id/textInformasi"
             />
 
@@ -74,7 +74,7 @@
             android:layout_marginLeft="@dimen/h5"
             android:layout_marginTop="@dimen/margin_large"
             android:layout_marginRight="@dimen/h5"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:padding="@dimen/h3"
             android:text="@string/login_pelanggan"
             android:textAllCaps="true"
@@ -90,7 +90,7 @@
             android:layout_below="@+id/btnLogin"
             android:layout_margin="@dimen/h5"
             android:layout_marginTop="@dimen/h5"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:padding="@dimen/h3"
             android:text="@string/login_merchant"
             android:textAllCaps="true"

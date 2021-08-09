@@ -70,7 +70,7 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffLoginPelangganPhone)
     fun loginPelangganPhone(
-        @Field("phone") phone: String,
+        @Field("nomor_mkios") nomor_mkios: String,
         @Field("token") email: String,
         @Field("password") password: String
     ): Call<ModelResponsePelanggan>
@@ -110,7 +110,7 @@ interface RetrofitApi {
     fun createPelanggan(
         @Part("username") username: RequestBody,
         @Part("nama") nama: RequestBody,
-        @Part("id_outlet") id_outlet: RequestBody,
+        @Part("nomor_mkios") nomor_mkios: RequestBody,
         @Part("token") token: RequestBody,
         @Part("alamat") alamat: RequestBody,
         @Part("provinsi") provinsi: RequestBody,
@@ -134,7 +134,6 @@ interface RetrofitApi {
     fun updateProfilPelanggan(
         @Field("username") username: String,
         @Field("nama") nama: String,
-        @Field("id_outlet") id_outlet: String,
         @Field("alamat") alamat: String,
         @Field("provinsi") provinsi: String,
         @Field("kabupaten") kabupaten: String,
@@ -224,8 +223,7 @@ interface RetrofitApi {
     @POST(Constant.reffValidateNewPelanggan)
     fun validateNewPelanggan(
         @Field("username") username: String,
-        @Field("no_hp") no_hp: String,
-        @Field("id_outlet") id_outlet: String
+        @Field("nomor_mkios") nomor_mkios: String
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
@@ -305,7 +303,7 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffForgetPasswordPelangganPhone)
     fun forgetPasswordPelangganPhone(
-        @Field("phone") phone: String
+        @Field("nomor_mkios") nomor_mkios: String
     ): Call<ModelResponsePelanggan>
 
     @Headers("Accept:application/json")
@@ -416,6 +414,7 @@ interface RetrofitApi {
     fun createProduk(
         @Part("status") status: RequestBody,
         @Part("merchant_id") merchant_id: RequestBody,
+        @Part("created_by") created_by: RequestBody,
         @Part("kategori_id") kategori_id: RequestBody,
         @Part("sub_kategori_id") sub_kategori_id: RequestBody,
         @Part("tgl_kadaluarsa") tgl_kadaluarsa: RequestBody,

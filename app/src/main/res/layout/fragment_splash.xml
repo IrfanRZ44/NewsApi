@@ -39,7 +39,7 @@
             android:layout_marginBottom="@dimen/h3"
             android:layout_marginStart="@dimen/_30"
             android:layout_marginEnd="@dimen/_30"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:text="@={viewModel.message}"
             showTextStatus="@{viewModel.message}"
             android:textColor="@color/white"

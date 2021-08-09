@@ -170,6 +170,7 @@
     <string name="welcome">Selamat Datang</string>
     <string name="username_nomor_hp_merchant">Username / Nomor HP Merchant</string>
     <string name="username_nomor_hp_pelanggan">Username / Nomor HP Pelanggan</string>
+    <string name="username_nomor_mkios">Username / Nomor MKIOS</string>
     <string name="silahkan_login_untuk_melanjutkan">Silahkan login untuk melanjutkan</string>
     <string name="pengguna_baru">Pengguna Baru?</string>
     <string name="login_2">Login</string>
@@ -226,7 +227,16 @@
     <string name="login_merchant">Login Merchant</string>
     <string name="nama_wajib">Nama*</string>
     <string name="id_outlet_wajib">ID Outlet*</string>
+    <string name="nomor_mkios_wajib">Nomor Mkios*</string>
     <string name="daftar_pelanggan">Daftar Pelanggan</string>
     <string name="daftar_merchant">Daftar Merchant</string>
     <string name="pelanggan">Pelanggan</string>
+    <string name="saya_telah_membaca_dan_menyetujui">Saya telah membaca dan menyetujui</string>
+    <string name="skb">SKB</string>
+    <string name="beli_sekarang">Beli Sekarang</string>
+    <string name="mines">-</string>
+    <string name="plus">+</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="poin">Poin</string>
+    <string name="voucher_saya">Voucher Saya</string>
 </resources>

@@ -1,10 +1,23 @@
 package id.telkomsel.merchant.ui.pelanggan.detailProduk
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import coil.load
+import coil.request.CachePolicy
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.santalu.autoviewpager.AutoViewPager
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import id.telkomsel.merchant.R
@@ -15,12 +28,13 @@ import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseDaftarFotoProduk
 import id.telkomsel.merchant.model.response.ModelResponseMerchant
+import id.telkomsel.merchant.services.numberPicker.NumberPicker
+import id.telkomsel.merchant.services.numberPicker.enums.ActionEnum
+import id.telkomsel.merchant.services.numberPicker.interfac.ValueChangedListener
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
-import id.telkomsel.merchant.utils.adapter.convertNumberWithoutRupiah
-import id.telkomsel.merchant.utils.adapter.convertRupiah
-import id.telkomsel.merchant.utils.adapter.onClickFoto
+import id.telkomsel.merchant.utils.adapter.*
 import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,6 +43,7 @@ import retrofit2.Response
 @SuppressLint("StaticFieldLeak")
 class DetailProdukPelangganViewModel(
     private val context: Context?,
+    private val activity: Activity?,
     private val navController: NavController,
     private val viewPager: AutoViewPager,
     private val dotsIndicator: DotsIndicator,
@@ -39,7 +54,6 @@ class DetailProdukPelangganViewModel(
     val dataMerchant = MutableLiveData<ModelMerchant>()
     val promoProduk = MutableLiveData<String>()
     val poinVoucher = MutableLiveData<String>()
-    val poinProduk = MutableLiveData<String>()
     val viewProduk = MutableLiveData<String>()
     val stokProduk = MutableLiveData<String>()
     val alamatProduk = MutableLiveData<String>()
@@ -47,6 +61,14 @@ class DetailProdukPelangganViewModel(
     val hargaProduk = MutableLiveData<String>()
     private val listGambar = ArrayList<ModelFotoProduk>()
     private var adapterFotoProduk: AdapterFotoProduk? = null
+    lateinit var btmSheet : BottomSheetDialog
+    lateinit var imgFoto : AppCompatImageView
+    lateinit var btnClose : AppCompatImageButton
+    lateinit var etJumlah : NumberPicker
+    lateinit var textStatus : AppCompatTextView
+    lateinit var textStok : AppCompatTextView
+    lateinit var textHarga : AppCompatTextView
+    lateinit var btnBeli : AppCompatButton
 
     fun setAdapterFoto(gambar: List<ModelFotoProduk>?) {
         val ctx = context
@@ -82,35 +104,86 @@ class DetailProdukPelangganViewModel(
 
     fun onClickTukarVoucher(){
         val dataPelanggan = savedData.getDataPelanggan()
-        if (dataPelanggan?.username.isNullOrEmpty()){
+        val ctx = context
+
+        if (!dataPelanggan?.username.isNullOrEmpty()){
+            if (dataPelanggan?.poin?:0 > dataProduk.value?.jumlah_poin?:0 && ctx != null){
+                btmSheet.show()
+            }
+            else{
+                message.value = "Maaf, Anda tidak memiliki poin"
+            }
+        }
+        else{
             message.value = "Maaf, Anda harus login terlebih dahulu"
             val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
             navController.navigate(R.id.pelangganFragment, null, navOption)
             savedData.setDataBoolean(true, Constant.login)
-        }
-        else{
-            message.value = "Maaf, Anda tidak memiliki poin"
         }
     }
 
-    fun onClickTukarProduk(){
-        val dataPelanggan = savedData.getDataPelanggan()
-        if (dataPelanggan?.username.isNullOrEmpty()){
-            message.value = "Maaf, Anda harus login terlebih dahulu"
-            val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
-            navController.navigate(R.id.pelangganFragment, null, navOption)
-            savedData.setDataBoolean(true, Constant.login)
+    @SuppressLint("InflateParams", "SetTextI18n")
+    fun initDialogJumlah(root: View, layoutInflater: LayoutInflater){
+        btmSheet = BottomSheetDialog(root.context)
+        val bottomView = layoutInflater.inflate(R.layout.behavior_input_jumlah,null)
+
+        btmSheet.setContentView(bottomView)
+        btmSheet.setCanceledOnTouchOutside(true)
+        btmSheet.setCancelable(true)
+        btmSheet.behavior.isDraggable = false
+        btmSheet.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        imgFoto = bottomView.findViewById(R.id.imgFoto)
+        btnClose = bottomView.findViewById(R.id.btnClose)
+        etJumlah = bottomView.findViewById(R.id.etJumlah)
+        textStatus = bottomView.findViewById(R.id.textStatus)
+        textStok = bottomView.findViewById(R.id.textStok)
+        textHarga = bottomView.findViewById(R.id.textHarga)
+        btnBeli = bottomView.findViewById(R.id.btnBeli)
+
+        textHarga.text = dataProduk.value?.harga.toString()
+        textStok.text = dataProduk.value?.stok.toString()
+        etJumlah.min = 1
+        btnBeli.text = "Beli Sekarang ${dataProduk.value?.jumlah_poin} Poin"
+        etJumlah.max = dataProduk.value?.stok?:1
+        imgFoto.load(dataProduk.value?.url_foto) {
+            crossfade(true)
+            placeholder(R.drawable.ic_camera_white)
+            error(R.drawable.ic_camera_white)
+            fallback(R.drawable.ic_camera_white)
+            memoryCachePolicy(CachePolicy.ENABLED)
         }
-        else{
-            message.value = "Maaf, Anda tidak memiliki poin"
+
+        textStatus.visibility = View.GONE
+        etJumlah.setActionEnabled(ActionEnum.INCREMENT, true)
+        etJumlah.setActionEnabled(ActionEnum.DECREMENT, true)
+        etJumlah.setActionEnabled(ActionEnum.MANUAL, true)
+
+        var defaultValue = 1
+        val defaultHarga = dataProduk.value?.jumlah_poin?:0
+        var hargaNow = dataProduk.value?.jumlah_poin?:0
+
+        etJumlah.valueChangedListener = object : ValueChangedListener {
+            override fun valueChanged(value: Int, action: ActionEnum?) {
+                hargaNow = if (value > defaultValue){
+                    hargaNow + defaultHarga
+                }
+                else{
+                    hargaNow - defaultHarga
+                }
+
+                btnBeli.text = "Beli Sekarang $hargaNow Poin"
+                defaultValue = value
+            }
+        }
+
+        btnClose.setOnClickListener {
+            btmSheet.dismiss()
         }
     }
 
     fun setData(){
         val hargaVoucher = dataProduk.value?.jumlah_poin?:0
-        val hrgProduk = dataProduk.value?.harga?:0
         promoProduk.value = "Promo ${dataProduk.value?.promo}"
-        poinProduk.value = "Beli sekarang ${convertNumberWithoutRupiah(hrgProduk.toDouble())} Poin"
         poinVoucher.value = "Tukar ${convertNumberWithoutRupiah(hargaVoucher.toDouble())} Poin"
         viewProduk.value = "${dataProduk.value?.view} Views"
         stokProduk.value = "${dataProduk.value?.stok} Stok"

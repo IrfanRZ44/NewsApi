@@ -11,7 +11,7 @@ data class ModelPelanggan(
     var password: String = "",
     var poin: Long = 0,
     var nama: String = "",
-    var id_outlet: String = "",
+    var nomor_mkios: String = "",
     var foto: String = "",
     var tgl_lahir: String = "",
     var alamat: String = "",

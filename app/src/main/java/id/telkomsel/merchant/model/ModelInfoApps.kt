@@ -9,6 +9,7 @@ data class ModelInfoApps(
     var info: String = "",
     var profil: String = "",
     var program: String = "",
+    var skb: String = "",
     var version_apps: String = "",
     var link: String = "",
     var created_at: String = "",

@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/h2"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:text="@={viewModel.dataPelanggan.username}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_h2"
@@ -43,8 +43,8 @@
             android:id="@+id/textRupiah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@={viewModel.dataPelanggan.nomor_hp}"
+            android:fontFamily="@font/bauhaus"
+            android:text="@={viewModel.dataPelanggan.nomor_mkios}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_h2"
             android:layout_below="@+id/textPoin"
@@ -150,6 +150,15 @@
                         android:textSize="@dimen/text_h2" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <include
+                    android:id="@+id/progress"
+                    layout="@layout/progress_loading"
+                    visible="@{viewModel.isShowLoading}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/_100"
                     android:layout_height="@dimen/_100"
@@ -160,16 +169,5 @@
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
-
-
-
-        <include
-            android:id="@+id/progress"
-            layout="@layout/progress_loading"
-            visible="@{viewModel.isShowLoading}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
     </RelativeLayout>
 </layout>

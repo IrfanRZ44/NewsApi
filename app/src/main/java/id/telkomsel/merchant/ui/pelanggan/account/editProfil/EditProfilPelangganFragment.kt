@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.databinding.FragmentEditProfilPelangganBinding
-import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -38,7 +37,7 @@ class EditProfilPelangganFragment : BaseFragmentBind<FragmentEditProfilPelanggan
 
         viewModel = EditProfilPelangganViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
-            bind.etNama, bind.etOutlet, bind.etAlamat, bind.etNoHp, bind.etNoWa, bind.etTglLahir, savedData)
+            bind.etNama, bind.etAlamat, bind.etNoHp, bind.etNoWa, bind.etTglLahir, savedData)
         bind.viewModel = viewModel
 
         viewModel.setAdapterProvinsi()

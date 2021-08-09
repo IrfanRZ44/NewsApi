@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -17,6 +19,7 @@ import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan.VerifyRegisterPelangganFragment
 import id.telkomsel.merchant.utils.Constant
+import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.*
 import retrofit2.Call
@@ -34,17 +37,19 @@ class RegisterPelangganViewModel(
     private val spinnerKecamatan: AppCompatSpinner,
     private val spinnerKelurahan: AppCompatSpinner,
     private val editNama: TextInputLayout,
-    private val editOutlet: TextInputLayout,
+    private val editMkios: TextInputLayout,
     private val editAlamat: TextInputLayout,
     private val editNoHp: TextInputLayout,
     private val editNoWa: TextInputLayout,
     private val editUsername: TextInputLayout,
     private val editPassword: TextInputLayout,
     private val editConfirmPassword: TextInputLayout,
-    private val editTglLahir: TextInputLayout
+    private val editTglLahir: TextInputLayout,
+    private val savedData: DataSave,
+    private val cekKebijakan: AppCompatCheckBox
 ) : BaseViewModel() {
     val etNama = MutableLiveData<String>()
-    val etOutlet = MutableLiveData<String>()
+    val etNomorMkios = MutableLiveData<String>()
     val etAlamat = MutableLiveData<String>()
     val etUsername = MutableLiveData<String>()
     val etPassword = MutableLiveData<String>()
@@ -68,7 +73,7 @@ class RegisterPelangganViewModel(
         etPassword.value = dataPelanggan?.password
         etPasswordConfirm.value = dataPelanggan?.password
         etNama.value = dataPelanggan?.nama
-        etOutlet.value = dataPelanggan?.id_outlet
+        etNomorMkios.value = dataPelanggan?.nomor_mkios
         etAlamat.value = dataPelanggan?.alamat
         etTglLahir.value = dataPelanggan?.tgl_lahir
 
@@ -341,7 +346,7 @@ class RegisterPelangganViewModel(
 
     private fun setNullError(){
         editNama.error = null
-        editOutlet.error = null
+        editMkios.error = null
         editAlamat.error = null
         editNoHp.error = null
         editNoWa.error = null
@@ -363,12 +368,29 @@ class RegisterPelangganViewModel(
         navController.popBackStack()
     }
 
+    fun onClickKebijakan(){
+        val act = activity
+        if (act != null){
+            val alert = AlertDialog.Builder(act)
+            alert.setTitle("SKB")
+            alert.setMessage(savedData.getDataApps()?.skb)
+            alert.setCancelable(true)
+            alert.setPositiveButton(
+                "Setuju"
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            alert.show()
+        }
+    }
+
     fun onClickRegisterPelanggan(){
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
         val nama = etNama.value
-        val idOutlet = etOutlet.value
+        val nomorMkios = etNomorMkios.value
         val alamat = etAlamat.value
         val provinsi = listProvinsi[spinnerProvinsi.selectedItemPosition].nama
         val kabupaten = listKabupaten[spinnerKabupaten.selectedItemPosition].nama
@@ -385,7 +407,7 @@ class RegisterPelangganViewModel(
         val tglLahir = etTglLahir.value
         val fotoProfil = etFotoProfil.value?.path
 
-        if (!nama.isNullOrEmpty() && !idOutlet.isNullOrEmpty() && !alamat.isNullOrEmpty()
+        if (!nama.isNullOrEmpty() && !nomorMkios.isNullOrEmpty() && !alamat.isNullOrEmpty()
             && (!provinsi.isNullOrEmpty() && provinsi != Constant.pilihProvinsi)
             && (!kabupaten.isNullOrEmpty() && kabupaten != Constant.pilihKabupaten)
             && (!kecamatan.isNullOrEmpty() && kecamatan != Constant.pilihKecamatan)
@@ -396,7 +418,10 @@ class RegisterPelangganViewModel(
             && !username.isNullOrEmpty()
             && !password.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() && (password == confirmPassword)
             && password.length >= 6 && isContainNumber(password) && (isContainSmallText(password) || isContainBigText(password))
+            && cekKebijakan.isChecked
+            && (noHp.length in 10..13) && (noWa.length in 10..13) && (nomorMkios.length in 10..13)
         ) {
+            val mkios = nomorMkios.replaceFirst("0", "+62")
             val hp = noHp.replaceFirst("0", "+62")
             val wa = noWa.replaceFirst("0", "+62")
 
@@ -409,7 +434,7 @@ class RegisterPelangganViewModel(
                 password,
                 0,
                 nama,
-                idOutlet,
+                mkios,
                 "",
                 tglLahir?:"",
                 alamat,
@@ -422,20 +447,29 @@ class RegisterPelangganViewModel(
                 cluster,
                 hp,
                 wa,
-                hp
+                mkios
             )
 
             validatePelanggan(resultMerchant)
         }
         else{
-            if (fotoProfil.isNullOrEmpty()){
+            if (!cekKebijakan.isChecked){
+                message.value = "Maaf, Anda harus menyetujui SKB"
+            }
+            else if (fotoProfil.isNullOrEmpty()){
                 message.value = "Mohon upload foto profil"
             }
             else if (nama.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nama", editNama)
             }
-            else if (idOutlet.isNullOrEmpty()){
-                setTextError("Error, mohon masukkan id outlet", editOutlet)
+            else if (nomorMkios.isNullOrEmpty()){
+                setTextError("Error, mohon masukkan nomor Mkios", editMkios)
+            }
+            else if (nomorMkios.take(1) != "0"){
+                setTextError("Error, mohon masukkan nomor MKIOS dengan awalan 0", editMkios)
+            }
+            else if (nomorMkios.length !in 10..13){
+                setTextError("Error, nomor MKIOS harus 10-13 digit", editMkios)
             }
             else if (alamat.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan alamat", editAlamat)

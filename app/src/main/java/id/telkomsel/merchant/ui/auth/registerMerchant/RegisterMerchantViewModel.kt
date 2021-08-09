@@ -571,6 +571,8 @@ class RegisterMerchantViewModel(
             && !namaLengkap.isNullOrEmpty()
             && !noHpPemilik.isNullOrEmpty() && noHpPemilik.take(1) == "0"
             && !noWaPemilik.isNullOrEmpty() && noWaPemilik.take(1) == "0"
+            && (noHpMerchant.length in 10..13) && (noWaMerchant.length in 10..13)
+            && (noHpPemilik.length in 10..13) && (noWaPemilik.length in 10..13)
         ) {
             val hpMerchant = noHpMerchant.replaceFirst("0", "+62")
             val waMerchant = noWaMerchant.replaceFirst("0", "+62")
@@ -670,11 +672,17 @@ class RegisterMerchantViewModel(
             else if (noHpMerchant.length !in 10..13){
                 setTextError("Error, nomor HP Merchant harus 10-13 digit", editNoHpMerchant)
             }
+            else if (noHpMerchant.length !in 10..13){
+                setTextError("Error, nomor HP Merchant harus 10-13 digit", editNoHpMerchant)
+            }
             else if (noWaMerchant.isNullOrEmpty()){
                 setTextError("Error, mohon masukkan nomor WA Merchant yang valid", editNoWaMerchant)
             }
             else if (noWaMerchant.take(1) != "0"){
                 setTextError("Error, mohon masukkan nomor WA Merchant dengan awalan 0", editNoWaMerchant)
+            }
+            else if (noWaMerchant.length !in 10..13){
+                setTextError("Error, nomor WA Merchant harus 10-13 digit", editNoWaMerchant)
             }
             else if (noWaMerchant.length !in 10..13){
                 setTextError("Error, nomor WA Merchant harus 10-13 digit", editNoWaMerchant)
@@ -722,6 +730,9 @@ class RegisterMerchantViewModel(
             else if (noHpPemilik.length !in 10..13){
                 setTextError("Error, nomor HP Pemilik harus 10-13 digit", editNoHpPemilik)
             }
+            else if (noHpPemilik.length !in 10..13){
+                setTextError("Error, nomor HP Pemilik harus 10-13 digit", editNoHpPemilik)
+            }
             else if (noWaPemilik.isNullOrEmpty()){
                 setTextError("Error, Mohon masukkan nomor WA Pemilik yang valid", editNoWaPemilik)
             }
@@ -730,6 +741,9 @@ class RegisterMerchantViewModel(
                     "Error, mohon masukkan nomor WA Pemilik dengan awalan 0",
                     editNoWaPemilik
                 )
+            }
+            else if (noWaPemilik.length !in 10..13){
+                setTextError("Error, nomor WA Pemilik harus 10-13 digit", editNoWaPemilik)
             }
             else if (noWaPemilik.length !in 10..13){
                 setTextError("Error, nomor WA Pemilik harus 10-13 digit", editNoWaPemilik)

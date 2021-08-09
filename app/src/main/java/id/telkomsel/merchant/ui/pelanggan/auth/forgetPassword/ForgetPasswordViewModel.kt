@@ -86,8 +86,8 @@ class ForgetPasswordViewModel(
             })
     }
 
-    private fun forgetPasswordPelangganPhone(phone: String){
-        RetrofitUtils.forgetPasswordPelangganPhone(phone,
+    private fun forgetPasswordPelangganPhone(nomorMkios: String){
+        RetrofitUtils.forgetPasswordPelangganPhone(nomorMkios,
             object : Callback<ModelResponsePelanggan> {
                 override fun onResponse(
                     call: Call<ModelResponsePelanggan>,

@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -29,16 +30,18 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
     fun init(){
         bind.lifecycleOwner = this
         viewModel = BerandaPelangganViewModel(
-            findNavController(), activity, bind.rcKategori, bind.rcProduk, savedData
+            findNavController(), activity, context, bind.rcKategori, bind.rcProduk, savedData,
+            bind.viewPager, bind.dotsIndicator
         )
         bind.viewModel = viewModel
+
+        viewModel.initHeader(bind.cardHeader)
         viewModel.initAdapterKategori()
         viewModel.initAdapterProduk()
         viewModel.showDialogFilter(bind.root, layoutInflater)
 
         viewModel.getDataKategori()
         viewModel.getDaftarProdukByPelanggan(
-            viewModel.textSearch,
             if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
         )
 
@@ -48,7 +51,6 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.adapterProduk.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
             viewModel.getDaftarProdukByPelanggan(
-                viewModel.textSearch,
                 if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
             )
         }
@@ -59,7 +61,6 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
                     viewModel.getDaftarProdukByPelanggan(
-                        viewModel.textSearch,
                         if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
                     )
                 }
@@ -94,7 +95,6 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                     viewModel.adapterProduk.notifyDataSetChanged()
                     viewModel.textSearch = query
                     viewModel.getDaftarProdukByPelanggan(
-                        viewModel.textSearch,
                         if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
                     )
                 }
@@ -110,7 +110,6 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.textSearch = ""
 
             viewModel.getDaftarProdukByPelanggan(
-                viewModel.textSearch,
                 if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
             )
             false

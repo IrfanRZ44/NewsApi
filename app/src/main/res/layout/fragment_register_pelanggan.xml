@@ -34,7 +34,7 @@
                     android:layout_marginTop="@dimen/_30"
                     android:layout_marginStart="@dimen/h5"
                     android:layout_marginBottom="@dimen/h5"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/bauhaus"
                     android:text="@string/ayo_mulai"
                     android:textAlignment="textStart"
                     android:textColor="@color/white"
@@ -117,12 +117,12 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etOutlet"
+                            android:id="@+id/etNomorMkios"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/id_outlet_wajib"
+                            android:hint="@string/nomor_mkios_wajib"
                             android:textColorHint="@color/gray2"
                             app:errorEnabled="true">
                             <com.google.android.material.textfield.TextInputEditText
@@ -132,7 +132,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etOutlet}"
+                                android:text="@={viewModel.etNomorMkios}"
                                 android:digits="@string/digitsPhone"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
@@ -392,6 +392,43 @@
                                 android:textSize="@dimen/text_h3" />
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/h5"
+                            android:layout_marginEnd="@dimen/h5"
+                            >
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cekKebijakan"
+                                android:layout_centerVertical="true"
+                                />
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toEndOf="@+id/cekKebijakan"
+                                android:layout_centerVertical="true"
+                                >
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/saya_telah_membaca_dan_menyetujui"
+                                    android:textSize="@dimen/text_h1"
+                                    android:textColor="@color/black"
+                                    />
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/skb"
+                                    android:textSize="@dimen/text_h1"
+                                    android:textColor="@color/colorAccent"
+                                    android:onClick="@{()-> viewModel.onClickKebijakan()}"
+                                    />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
                         <androidx.appcompat.widget.AppCompatTextView
                             style="@style/textStandardWhite"
                             showTextStatus="@{viewModel.message}"
@@ -402,7 +439,7 @@
                             android:layout_marginTop="@dimen/h2"
                             android:layout_marginRight="@dimen/_30"
                             android:layout_marginBottom="@dimen/h2"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/bauhaus"
                             android:textAlignment="center"
                             android:textColor="@color/gray2"
                             android:textSize="@dimen/text_h3" />
@@ -436,7 +473,7 @@
                                 style="@style/textStandardWhite"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 android:text="@string/sudah_punya_akun"
                                 android:textColor="@color/gray3"
                                 android:textSize="@dimen/text_h2"
@@ -451,7 +488,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@id/textNoAkun"
                                 android:layout_marginStart="@dimen/h1"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/bauhaus"
                                 android:onClick="@{()-> viewModel.onClickLogin()}"
                                 android:text="@string/login_2"
                                 android:textColor="@color/colorPrimary"

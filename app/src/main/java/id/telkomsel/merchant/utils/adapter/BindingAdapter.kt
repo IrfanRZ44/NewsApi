@@ -81,7 +81,8 @@ fun dismissKeyboard(activity: Activity) {
 fun convertRupiah(angka:Double):String{
     val localeID = Locale("in", "ID")
     val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
-    return formatRupiah.format(angka).replace(",00","")
+    val formatSpasi = formatRupiah.format(angka).replace("Rp","Rp ")
+    return formatSpasi.format(angka).replace(",00","")
 }
 
 fun convertNumberWithoutRupiah(angka:Double):String{

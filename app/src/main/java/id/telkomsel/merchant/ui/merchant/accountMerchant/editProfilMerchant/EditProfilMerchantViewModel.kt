@@ -14,7 +14,6 @@ import id.telkomsel.merchant.model.ModelMerchant
 import id.telkomsel.merchant.model.ModelWilayah
 import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
-import id.telkomsel.merchant.model.response.ModelResponseDataKategori
 import id.telkomsel.merchant.model.response.ModelResponseWilayah
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
@@ -242,40 +241,6 @@ class EditProfilMerchantViewModel(
                 ) {
                     isShowLoading.value = false
                     listKategori.clear()
-                    listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
-                    adapterKategori.notifyDataSetChanged()
-                }
-            })
-    }
-
-    fun getDataKategori(kategori_id: Int){
-        isShowLoading.value = true
-
-        RetrofitUtils.getDataKategori(kategori_id,
-            object : Callback<ModelResponseDataKategori> {
-                override fun onResponse(
-                    call: Call<ModelResponseDataKategori>,
-                    response: Response<ModelResponseDataKategori>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
-                    val dataKategori = result?.data
-
-                    if (result?.message == Constant.reffSuccess && dataKategori != null){
-                        listKategori.add(dataKategori)
-                        adapterKategori.notifyDataSetChanged()
-                    }
-                    else{
-                        listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
-                        adapterKategori.notifyDataSetChanged()
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponseDataKategori>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
                     listKategori.add(ModelKategori(0, 0, Constant.noDataKategori))
                     adapterKategori.notifyDataSetChanged()
                 }

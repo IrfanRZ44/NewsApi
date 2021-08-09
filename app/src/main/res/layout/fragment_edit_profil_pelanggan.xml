@@ -105,28 +105,6 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etOutlet"
-                            style="@style/customEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/h2"
-                            android:hint="@string/id_outlet_wajib"
-                            android:textColorHint="@color/gray2"
-                            app:errorEnabled="true">
-                            <com.google.android.material.textfield.TextInputEditText
-                                style="@style/textStandardWhite"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:imeOptions="actionNext"
-                                android:inputType="phone"
-                                android:maxLines="1"
-                                android:text="@={viewModel.etOutlet}"
-                                android:digits="@string/digitsPhone"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/black" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/etAlamat"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
@@ -298,7 +276,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digitsPhone"
-                                android:imeOptions="actionNext"
+                                android:imeOptions="actionDone"
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"
@@ -317,7 +295,7 @@
                             android:layout_marginTop="@dimen/h2"
                             android:layout_marginRight="@dimen/_30"
                             android:layout_marginBottom="@dimen/h2"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/bauhaus"
                             android:textAlignment="center"
                             android:textColor="@color/gray2"
                             android:textSize="@dimen/text_h3" />

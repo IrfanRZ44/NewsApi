@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginEnd="@dimen/_130"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/bauhaus"
             android:text="@string/welcome"
             android:textAlignment="textStart"
             android:textColor="@color/white"
@@ -67,6 +67,15 @@
                     android:textStyle="bold"
                     />
 
+                <include
+                    android:id="@+id/progress"
+                    layout="@layout/progress_loading"
+                    visible="@{viewModel.isShowLoading}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/textStandardWhite"
                     showTextStatus="@{viewModel.message}"
@@ -75,7 +84,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/h2"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/bauhaus"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_h3" />
@@ -88,7 +97,7 @@
                     android:layout_marginStart="@dimen/h2"
                     android:layout_marginTop="@dimen/h2"
                     android:layout_marginEnd="@dimen/h2"
-                    android:hint="@string/username_nomor_hp_pelanggan"
+                    android:hint="@string/username_nomor_mkios"
                     android:textColorHint="@color/gray2"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/error_appearance">
@@ -152,7 +161,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="false"
                         android:layout_marginStart="@dimen/h2"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/bauhaus"
                         android:onClick="@{()-> viewModel.onClickLoginMerchant()}"
                         android:text="@string/login_merchant"
                         android:textColor="@color/colorPrimary"
@@ -181,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/h2"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/bauhaus"
                         android:onClick="@{()-> viewModel.onClickForgetPassword()}"
                         android:text="@string/lupa_password"
                         android:textAlignment="textEnd"
@@ -198,7 +207,7 @@
                         style="@style/textStandardWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/bauhaus"
                         android:text="@string/pengguna_baru"
                         android:textColor="@color/gray3"
                         android:textSize="@dimen/text_h2"
@@ -214,7 +223,7 @@
                         android:layout_toEndOf="@id/textNoAkun"
                         android:layout_below="@+id/btnForgetPassword"
                         android:layout_marginStart="@dimen/h1"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/bauhaus"
                         android:onClick="@{()-> viewModel.onClickRegister()}"
                         android:text="@string/sign_up"
                         android:textColor="@color/colorPrimary"
@@ -229,14 +238,5 @@
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
-
-        <include
-            android:id="@+id/progress"
-            layout="@layout/progress_loading"
-            visible="@{viewModel.isShowLoading}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
     </RelativeLayout>
 </layout>

@@ -2,24 +2,31 @@ package id.telkomsel.merchant.ui.pelanggan.beranda
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.cardview.widget.CardView
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.santalu.autoviewpager.AutoViewPager
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
+import id.telkomsel.merchant.model.ModelFotoProduk
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.model.response.ModelResponse
@@ -32,9 +39,8 @@ import id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFrag
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
-import id.telkomsel.merchant.utils.adapter.dismissKeyboard
-import id.telkomsel.merchant.utils.adapter.getDate
-import id.telkomsel.merchant.utils.adapter.showLog
+import id.telkomsel.merchant.utils.adapter.*
+import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,10 +49,13 @@ import retrofit2.Response
 class BerandaPelangganViewModel(
     private val navController: NavController,
     private val activity: Activity?,
+    private val context: Context?,
     private val rcKategori: RecyclerView,
     private val rcProduk: RecyclerView,
-    private val savedData: DataSave
-) : BaseViewModel() {
+    private val savedData: DataSave,
+    private val viewPager: AutoViewPager,
+    private val dotsIndicator: DotsIndicator
+) : BaseViewModel(), ListenerFotoProduk {
     private val listKategori = ArrayList<ModelKategori>()
     val listProduk = ArrayList<ModelProduk>()
     lateinit var groupAdapter: GroupAdapter<ViewHolder>
@@ -60,6 +69,49 @@ class BerandaPelangganViewModel(
     var idSubKategori = 0
     var textSearch = ""
     lateinit var btmSheet : BottomSheetDialog
+    val poin = MutableLiveData<String>()
+    private val listGambar = ArrayList<ModelFotoProduk>()
+    private lateinit var adapterFotoProduk: AdapterFotoProduk
+
+    fun initHeader(cardHeader: CardView){
+        val currentPoin = savedData.getDataPelanggan()?.poin
+        if (!savedData.getDataPelanggan()?.username.isNullOrEmpty() && currentPoin != null){
+            cardHeader.visibility = View.VISIBLE
+            poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
+            initAdapterFoto(null)
+        }
+        else{
+            cardHeader.visibility = View.GONE
+        }
+    }
+
+    private fun initAdapterFoto(gambar: List<ModelFotoProduk>?) {
+        val ctx = context
+
+        listGambar.clear()
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoProduk(0, 0, ""))
+
+        if (gambar != null){
+            for (i in gambar.indices){
+                if (i < 5){
+                    listGambar[i] = gambar[i]
+                }
+            }
+        }
+
+        if (ctx != null){
+            adapterFotoProduk = AdapterFotoProduk(
+                ctx, listGambar, this
+            )
+            viewPager.offscreenPageLimit = 0
+            viewPager.adapter = adapterFotoProduk
+            dotsIndicator.setViewPager(viewPager)
+        }
+    }
 
     fun initAdapterKategori() {
         rcKategori.layoutManager = LinearLayoutManager(
@@ -217,11 +269,11 @@ class BerandaPelangganViewModel(
             })
     }
 
-    fun getDaftarProdukByPelanggan(search: String?, sub_kategori_id: String?) {
+    fun getDaftarProdukByPelanggan(sub_kategori_id: String?) {
         isShowLoading.value = true
 
         RetrofitUtils.getDaftarProdukByPelanggan(startPage,
-            search,
+            textSearch,
             sub_kategori_id,
             savedData.getDataPelanggan()?.username?:"",
             object : Callback<ModelResponseDaftarProduk> {
@@ -239,10 +291,10 @@ class BerandaPelangganViewModel(
 
                         startPage += 25
                         if (listProduk.size == 0) {
-                            if (search.isNullOrEmpty()) {
+                            if (textSearch.isEmpty()) {
                                 message.value = Constant.noProduk
                             } else {
-                                message.value = "Maaf, belum ada data produk dengan nama $search"
+                                message.value = "Maaf, belum ada data produk dengan nama $textSearch"
                             }
                         } else {
                             if (startPage > 0 && result.data.isEmpty()) {
@@ -267,13 +319,18 @@ class BerandaPelangganViewModel(
             })
     }
 
+    override fun clickFotoProduk(rows: ModelFotoProduk) {
+        super.clickFotoProduk(rows)
+
+        onClickFoto(rows.url_foto, navController)
+    }
+
     private fun onClickItemKategori(item: ModelKategori){
         idSubKategori = item.id
         startPage = 0
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            "",
             if (idSubKategori == 0) "" else idSubKategori.toString()
         )
     }
@@ -285,7 +342,6 @@ class BerandaPelangganViewModel(
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            "",
             if (idSubKategori == 0) "" else idSubKategori.toString()
         )
     }

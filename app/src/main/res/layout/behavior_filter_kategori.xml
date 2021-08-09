@@ -43,7 +43,7 @@
         android:id="@+id/btnBatal"
         android:textColor="@color/gray1"
         android:background="@drawable/btn_circle_gray"
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/bauhaus"
         android:textAllCaps="true"
         android:layout_gravity="end"
         />

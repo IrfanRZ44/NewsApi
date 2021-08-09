@@ -252,6 +252,7 @@ class AddProdukViewModel(
                 if (savedData.getDataMerchant()?.level == Constant.levelCSO) Constant.statusActive
                 else Constant.statusRequest)
             val merchantId = RequestBody.create(MediaType.get("text/plain"), dataMerchant.id.toString())
+            val createdBy = RequestBody.create(MediaType.get("text/plain"), savedData.getDataMerchant()?.id.toString())
             val regional = RequestBody.create(MediaType.get("text/plain"), dataMerchant.regional)
             val branch = RequestBody.create(MediaType.get("text/plain"), dataMerchant.branch)
             val cluster = RequestBody.create(MediaType.get("text/plain"), dataMerchant.cluster)
@@ -265,7 +266,7 @@ class AddProdukViewModel(
             val nama = RequestBody.create(MediaType.get("text/plain"), namaProduk)
             val deskripsi = RequestBody.create(MediaType.get("text/plain"), desc)
 
-            createProduk(status, merchantId, kategoriId, subKategoriId, tglHabis,
+            createProduk(status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
                 stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster, urlFoto)
         }
         else{
@@ -330,7 +331,8 @@ class AddProdukViewModel(
         }
     }
 
-    private fun createProduk(status: RequestBody, merchant_id: RequestBody, kategori_id: RequestBody,
+    private fun createProduk(status: RequestBody, merchant_id: RequestBody,
+                             created_by: RequestBody, kategori_id: RequestBody,
                              sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
                              stok: RequestBody, nama: RequestBody, harga: RequestBody,
                              promo: RequestBody, poin: RequestBody,
@@ -339,7 +341,7 @@ class AddProdukViewModel(
                              url_foto: MultipartBody.Part){
         isShowLoading.value = true
 
-        RetrofitUtils.createProduk(status, merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
+        RetrofitUtils.createProduk(status, merchant_id, created_by, kategori_id, sub_kategori_id, tgl_kadaluarsa,
             stok, nama, harga, promo, poin, deskripsi, regional, branch, cluster, url_foto,
             object : Callback<ModelResponse> {
                 override fun onResponse(

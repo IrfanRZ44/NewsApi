@@ -18,7 +18,6 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentEditProdukBinding
-import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import okhttp3.MediaType
@@ -54,7 +53,6 @@ class EditProdukFragment : BaseFragmentBind<FragmentEditProdukBinding>(){
         bind.viewModel = viewModel
         viewModel.dataProduk.value = this.arguments?.getParcelable(Constant.reffProduk)
         viewModel.setAdapterKategori()
-        viewModel.setData()
         val kategoriId = savedData.getDataMerchant()?.kategori_id
 
         if (savedData.getDataMerchant()?.level == Constant.levelMerchant && kategoriId != null){
@@ -67,6 +65,7 @@ class EditProdukFragment : BaseFragmentBind<FragmentEditProdukBinding>(){
             viewModel.etDataMerchant.value = this.arguments?.getParcelable(Constant.reffMerchant)
             initPickMerchant(bind.root)
         }
+        viewModel.setData()
     }
 
     private fun onClick(){

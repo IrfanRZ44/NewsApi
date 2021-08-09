@@ -155,8 +155,8 @@ class LoginPelangganViewModel(
             })
     }
 
-    private fun loginPelangganPhone(phone: String, password: String, token: String){
-        RetrofitUtils.loginPelangganPhone(phone, password, token,
+    private fun loginPelangganPhone(nomorMkios: String, password: String, token: String){
+        RetrofitUtils.loginPelangganPhone(nomorMkios, password, token,
             object : Callback<ModelResponsePelanggan> {
                 override fun onResponse(
                     call: Call<ModelResponsePelanggan>,

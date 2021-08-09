@@ -309,27 +309,6 @@ class DetailProdukAdminViewModel(
             })
     }
 
-    fun deleteFotoProduk(id: Int){
-        isShowLoading.value = true
-
-        RetrofitUtils.deleteFotoProduk(id,
-            object : Callback<ModelResponse> {
-                override fun onResponse(
-                    call: Call<ModelResponse>,
-                    response: Response<ModelResponse>
-                ) {
-                    isShowLoading.value = false
-                }
-
-                override fun onFailure(
-                    call: Call<ModelResponse>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                }
-            })
-    }
-
     fun getDaftarFotoProduk(id: Int){
         isShowLoading.value = true
 

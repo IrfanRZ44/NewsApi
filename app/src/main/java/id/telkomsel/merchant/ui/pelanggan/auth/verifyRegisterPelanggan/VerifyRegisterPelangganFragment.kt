@@ -43,7 +43,7 @@ class VerifyRegisterPelangganFragment : BaseFragmentBind<FragmentVerifyRegisterP
             viewModel.noHp.value = viewModel.dataPelanggan.verified_phone
             viewModel.etFotoProfil.value = this.arguments?.getParcelable(Constant.dataModelFotoProfil)
 
-            showLog(viewModel.dataPelanggan.id_outlet)
+            showLog(viewModel.dataPelanggan.nomor_mkios)
             viewModel.isShowLoading.value = false
             viewModel.loading.value = true
             bind.viewModel = viewModel

@@ -80,8 +80,8 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun loginPelangganPhone(phone: String, password: String, token: String, callback: Callback<ModelResponsePelanggan>){
-        val call = api.loginPelangganPhone(phone, token, password)
+    fun loginPelangganPhone(nomorMkios: String, password: String, token: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.loginPelangganPhone(nomorMkios, token, password)
         call.enqueue(callback)
     }
 
@@ -103,7 +103,7 @@ object RetrofitUtils{
             MediaType.get("image/*"), fileProduk))
         val username = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.username)
         val nama = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nama)
-        val id_outlet = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.id_outlet)
+        val nomorMkios = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.nomor_mkios)
         val token = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.token)
         val alamat = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.alamat)
         val provinsi = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.provinsi)
@@ -119,7 +119,7 @@ object RetrofitUtils{
         val password = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.password)
         val tglLahir = RequestBody.create(MediaType.get("text/plain"), dataPelanggan.tgl_lahir)
 
-        val call = api.createPelanggan(username, nama, id_outlet, token, alamat,
+        val call = api.createPelanggan(username, nama, nomorMkios, token, alamat,
             provinsi, kabupaten, kecamatan, kelurahan, regional, branch, cluster,
             nomorHP, nomorWA, verifiedPhone, password, tglLahir, foto
         )
@@ -127,8 +127,7 @@ object RetrofitUtils{
     }
 
     fun updateProfilPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponsePelanggan>){
-        val call = api.updateProfilPelanggan(dataPelanggan.username, dataPelanggan.nama,
-            dataPelanggan.id_outlet, dataPelanggan.alamat,
+        val call = api.updateProfilPelanggan(dataPelanggan.username, dataPelanggan.nama, dataPelanggan.alamat,
             dataPelanggan.provinsi, dataPelanggan.kabupaten, dataPelanggan.kecamatan,
             dataPelanggan.kelurahan, dataPelanggan.regional, dataPelanggan.branch, dataPelanggan.cluster,
             dataPelanggan.nomor_hp, dataPelanggan.nomor_wa, dataPelanggan.tgl_lahir
@@ -176,7 +175,7 @@ object RetrofitUtils{
     }
 
     fun validateNewPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponse>){
-        val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_hp, dataPelanggan.id_outlet)
+        val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_mkios)
         call.enqueue(callback)
     }
 
@@ -239,8 +238,8 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun forgetPasswordPelangganPhone(phone: String, callback: Callback<ModelResponsePelanggan>){
-        val call = api.forgetPasswordPelangganPhone(phone)
+    fun forgetPasswordPelangganPhone(nomorMkios: String, callback: Callback<ModelResponsePelanggan>){
+        val call = api.forgetPasswordPelangganPhone(nomorMkios)
         call.enqueue(callback)
     }
 
@@ -314,14 +313,14 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun createProduk(status: RequestBody, merchant_id: RequestBody, kategori_id: RequestBody,
+    fun createProduk(status: RequestBody, merchant_id: RequestBody, created_by: RequestBody, kategori_id: RequestBody,
                      sub_kategori_id: RequestBody, tgl_kadaluarsa: RequestBody,
                      stok: RequestBody, nama: RequestBody, harga: RequestBody,
                      promo: RequestBody, poin: RequestBody,
                      deskripsi: RequestBody, regional: RequestBody, branch: RequestBody,
                      cluster: RequestBody, url_foto: MultipartBody.Part,
                      callback: Callback<ModelResponse>){
-        val call = api.createProduk(status, merchant_id, kategori_id, sub_kategori_id, tgl_kadaluarsa,
+        val call = api.createProduk(status, merchant_id, created_by, kategori_id, sub_kategori_id, tgl_kadaluarsa,
             stok, nama, harga, promo, poin, deskripsi, regional, branch, cluster, url_foto)
         call.enqueue(callback)
     }

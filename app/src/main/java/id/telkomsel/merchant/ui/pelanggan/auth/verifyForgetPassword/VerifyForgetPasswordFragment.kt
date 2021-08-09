@@ -35,7 +35,7 @@ class VerifyForgetPasswordFragment : BaseFragmentBind<FragmentVerifyForgetPasswo
                 )
 
             viewModel.dataPelanggan = this.arguments?.getParcelable(Constant.reffPelanggan)?:throw Exception("Error, mohon lakukan lupa password ulang")
-            viewModel.noHp.value = viewModel.dataPelanggan.nomor_hp
+            viewModel.noHp.value = viewModel.dataPelanggan.nomor_mkios
             viewModel.isShowLoading.value = false
             viewModel.loading.value = true
             bind.viewModel = viewModel

@@ -47,31 +47,31 @@ class EditPasswordPelangganViewModel(
         setNullError()
         activity?.let { dismissKeyboard(it) }
 
-        val idMerchant = savedData.getDataMerchant()?.id
+        val idPelanggan = savedData.getDataPelanggan()?.id
         val passwordOld = etPasswordOld.value
         val passwordNew = etPasswordNew.value
         val confirmPasswordNew = etConfirmPasswordNew.value
 
-        if (idMerchant != null && !passwordOld.isNullOrEmpty()
+        if (idPelanggan != null && !passwordOld.isNullOrEmpty()
             && !passwordNew.isNullOrEmpty() && !confirmPasswordNew.isNullOrEmpty()
             && passwordNew == confirmPasswordNew
             && passwordNew.length >= 6 && isContainNumber(passwordNew) && (isContainSmallText(passwordNew) || isContainBigText(passwordNew))
         ) {
-            val md5PasswordOld = savedData.getDataMerchant()?.password
+            val md5PasswordOld = savedData.getDataPelanggan()?.password
             val md5InputPasswordOld = stringToMD5(passwordOld)
             val md5PasswordNew = stringToMD5(passwordNew)
 
             if (md5PasswordOld == md5InputPasswordOld){
                 isShowLoading.value = true
-                updatePassword(idMerchant, md5PasswordNew)
+                updatePassword(idPelanggan, md5PasswordNew)
             }
             else{
                 setTextError("Error, password lama yang Anda masukkan salah", editPasswordOld)
             }
         }
         else {
-            if (idMerchant == null) {
-                message.value = "Error, terjadi kesalahan saat mengambil ID Merchant"
+            if (idPelanggan == null) {
+                message.value = "Error, terjadi kesalahan saat mengambil ID Pelanggan"
             }
             else if (passwordNew.isNullOrEmpty()) {
                 setTextError("Error, mohon masukkan password baru", editPasswordNew)

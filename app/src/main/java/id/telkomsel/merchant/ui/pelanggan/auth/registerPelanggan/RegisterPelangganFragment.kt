@@ -34,8 +34,9 @@ class RegisterPelangganFragment : BaseFragmentBind<FragmentRegisterPelangganBind
 
         viewModel = RegisterPelangganViewModel(activity, findNavController(),
             bind.spinnerProvinsi, bind.spinnerKabupaten, bind.spinnerKecamatan, bind.spinnerKelurahan,
-            bind.etNama, bind.etOutlet, bind.etAlamat, bind.etNoHp, bind.etNoWa,
-            bind.etUsername, bind.etPassword, bind.etConfirmPassword, bind.etTglLahir)
+            bind.etNama, bind.etNomorMkios, bind.etAlamat, bind.etNoHp, bind.etNoWa,
+            bind.etUsername, bind.etPassword, bind.etConfirmPassword, bind.etTglLahir,
+            savedData, bind.cekKebijakan)
         bind.viewModel = viewModel
 
         viewModel.setAdapterProvinsi()
