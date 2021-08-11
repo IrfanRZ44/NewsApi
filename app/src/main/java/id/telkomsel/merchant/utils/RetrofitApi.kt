@@ -500,6 +500,25 @@ interface RetrofitApi {
     ): Call<ModelResponseDaftarFotoProduk>
 
     @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffCreateFotoIklan)
+    fun createFotoIklan(
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST(Constant.reffUpdateFotoIklan)
+    fun updateFotoIklan(
+        @Part("id") id: RequestBody,
+        @Part url_foto: MultipartBody.Part?
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @GET(Constant.reffGetDaftarFotoIklan)
+    fun getDaftarFotoIklan(): Call<ModelResponseDaftarFotoIklan>
+
+    @Headers("Accept:application/json")
     @FormUrlEncoded
     @POST(Constant.reffCreateProdukFavorit)
     fun createProdukFav(

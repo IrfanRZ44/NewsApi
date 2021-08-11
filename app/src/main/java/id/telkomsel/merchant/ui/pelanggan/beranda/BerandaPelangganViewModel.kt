@@ -12,7 +12,6 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,10 +25,12 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
-import id.telkomsel.merchant.model.ModelFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoIklan
+import id.telkomsel.merchant.model.ModelFotoIklan
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarFotoIklan
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseDaftarProduk
 import id.telkomsel.merchant.ui.merchant.listProduk.AdapterAllKategori
@@ -40,7 +41,6 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.*
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +55,7 @@ class BerandaPelangganViewModel(
     private val savedData: DataSave,
     private val viewPager: AutoViewPager,
     private val dotsIndicator: DotsIndicator
-) : BaseViewModel(), ListenerFotoProduk {
+) : BaseViewModel(), ListenerFotoIklan {
     private val listKategori = ArrayList<ModelKategori>()
     val listProduk = ArrayList<ModelProduk>()
     lateinit var groupAdapter: GroupAdapter<ViewHolder>
@@ -70,30 +70,30 @@ class BerandaPelangganViewModel(
     var textSearch = ""
     lateinit var btmSheet : BottomSheetDialog
     val poin = MutableLiveData<String>()
-    private val listGambar = ArrayList<ModelFotoProduk>()
-    private lateinit var adapterFotoProduk: AdapterFotoProduk
+    private val listGambar = ArrayList<ModelFotoIklan>()
+    private lateinit var adapterFotoIklan: AdapterFotoIklan
 
     fun initHeader(cardHeader: CardView){
         val currentPoin = savedData.getDataPelanggan()?.poin
         if (!savedData.getDataPelanggan()?.username.isNullOrEmpty() && currentPoin != null){
             cardHeader.visibility = View.VISIBLE
             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
-            initAdapterFoto(null)
+            getDaftarFotoIklan()
         }
         else{
             cardHeader.visibility = View.GONE
         }
     }
 
-    private fun initAdapterFoto(gambar: List<ModelFotoProduk>?) {
+    private fun initAdapterFoto(gambar: List<ModelFotoIklan>?) {
         val ctx = context
 
         listGambar.clear()
-        listGambar.add(ModelFotoProduk(0, 0, ""))
-        listGambar.add(ModelFotoProduk(0, 0, ""))
-        listGambar.add(ModelFotoProduk(0, 0, ""))
-        listGambar.add(ModelFotoProduk(0, 0, ""))
-        listGambar.add(ModelFotoProduk(0, 0, ""))
+        listGambar.add(ModelFotoIklan(0,""))
+        listGambar.add(ModelFotoIklan(0,""))
+        listGambar.add(ModelFotoIklan(0,""))
+        listGambar.add(ModelFotoIklan(0,""))
+        listGambar.add(ModelFotoIklan(0,""))
 
         if (gambar != null){
             for (i in gambar.indices){
@@ -104,11 +104,11 @@ class BerandaPelangganViewModel(
         }
 
         if (ctx != null){
-            adapterFotoProduk = AdapterFotoProduk(
+            adapterFotoIklan = AdapterFotoIklan(
                 ctx, listGambar, this
             )
             viewPager.offscreenPageLimit = 0
-            viewPager.adapter = adapterFotoProduk
+            viewPager.adapter = adapterFotoIklan
             dotsIndicator.setViewPager(viewPager)
         }
     }
@@ -319,8 +319,37 @@ class BerandaPelangganViewModel(
             })
     }
 
-    override fun clickFotoProduk(rows: ModelFotoProduk) {
-        super.clickFotoProduk(rows)
+    fun getDaftarFotoIklan(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarFotoIklan(object : Callback<ModelResponseDaftarFotoIklan> {
+            override fun onResponse(
+                call: Call<ModelResponseDaftarFotoIklan>,
+                response: Response<ModelResponseDaftarFotoIklan>
+            ) {
+                isShowLoading.value = false
+                val result = response.body()
+
+                if (result?.message == Constant.reffSuccess){
+                    initAdapterFoto(result.data)
+                }
+                else{
+                    initAdapterFoto(null)
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ModelResponseDaftarFotoIklan>,
+                t: Throwable
+            ) {
+                isShowLoading.value = false
+                initAdapterFoto(null)
+            }
+        })
+    }
+
+    override fun clickFotoIklan(rows: ModelFotoIklan) {
+        super.clickFotoIklan(rows)
 
         onClickFoto(rows.url_foto, navController)
     }

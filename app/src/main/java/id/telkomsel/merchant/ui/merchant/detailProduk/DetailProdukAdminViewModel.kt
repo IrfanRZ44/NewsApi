@@ -25,7 +25,7 @@ import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.convertNumberWithoutRupiah
 import id.telkomsel.merchant.utils.adapter.convertRupiah
 import id.telkomsel.merchant.utils.adapter.onClickFoto
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoProduk
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

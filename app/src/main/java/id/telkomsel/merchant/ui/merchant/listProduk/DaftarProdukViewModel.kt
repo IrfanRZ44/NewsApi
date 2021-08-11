@@ -2,9 +2,11 @@ package id.telkomsel.merchant.ui.merchant.listProduk
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.navigation.NavController
@@ -13,14 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.santalu.autoviewpager.AutoViewPager
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
+import id.telkomsel.merchant.listener.ListenerFotoIklan
+import id.telkomsel.merchant.model.ModelFotoIklan
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelProduk
+import id.telkomsel.merchant.model.response.ModelResponse
+import id.telkomsel.merchant.model.response.ModelResponseDaftarFotoIklan
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseDaftarProduk
 import id.telkomsel.merchant.ui.merchant.detailProduk.DetailProdukAdminFragment
@@ -29,6 +37,8 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
 import id.telkomsel.merchant.utils.adapter.getDate
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,12 +47,16 @@ import retrofit2.Response
 class DaftarProdukViewModel(
     private val navController: NavController,
     private val activity: Activity?,
+    private val context: Context?,
     private val rcKategori: RecyclerView,
     private val rcProduk: RecyclerView,
     private val statusRequest: String,
     private val stok: Int,
     private val isKadaluarsa: Boolean,
-    private val savedData: DataSave
+    private val savedData: DataSave,
+    private val viewPager: AutoViewPager,
+    private val dotsIndicator: DotsIndicator,
+    private val listener: ListenerFotoIklan
 ) : BaseViewModel() {
     private val listKategori = ArrayList<ModelKategori>()
     val listProduk = ArrayList<ModelProduk>()
@@ -57,7 +71,56 @@ class DaftarProdukViewModel(
     private var idSubKategori = 0
     lateinit var btmSheet : BottomSheetDialog
     var textSearch = ""
+    private val listGambar = ArrayList<ModelFotoIklan>()
+    private lateinit var adapterFotoIklan: AdapterFotoIklan
 
+    fun initHeader(cardHeader: RelativeLayout){
+        val level = savedData.getDataMerchant()?.level
+        if (!level.isNullOrEmpty() && level == Constant.levelChannel){
+            cardHeader.visibility = View.VISIBLE
+            initAdapterFoto(null)
+        }
+        else{
+            cardHeader.visibility = View.GONE
+        }
+    }
+
+    private fun initAdapterFoto(gambar: List<ModelFotoIklan>?) {
+        val ctx = context
+
+        listGambar.clear()
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+        listGambar.add(ModelFotoIklan(0, ""))
+
+        if (gambar != null){
+            for (i in gambar.indices){
+                if (i < 5){
+                    listGambar[i] = gambar[i]
+                }
+            }
+        }
+
+        if (ctx != null){
+            adapterFotoIklan = AdapterFotoIklan(
+                ctx, listGambar, listener
+            )
+            viewPager.offscreenPageLimit = 0
+            viewPager.adapter = adapterFotoIklan
+            dotsIndicator.setViewPager(viewPager)
+        }
+    }
     fun initAdapterKategori() {
         rcKategori.layoutManager = LinearLayoutManager(
             activity,
@@ -306,6 +369,99 @@ class DaftarProdukViewModel(
                     isSearching = false
                     isShowLoading.value = false
                     message.value = t.message
+                }
+            })
+    }
+
+    fun createFotoIklan(url_foto: MultipartBody.Part){
+        isShowLoading.value = true
+
+        RetrofitUtils.createFotoIklan(url_foto, object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        getDaftarFotoIklan()
+
+                        message.value = "Berhasil mengupload foto iklan"
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
+    }
+
+    fun updateFotoIklan(id: RequestBody,
+                         url_foto: MultipartBody.Part){
+        isShowLoading.value = true
+
+        RetrofitUtils.updateFotoIklan(id, url_foto,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        getDaftarFotoIklan()
+
+                        message.value = "Berhasil mengupload foto iklan"
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = t.message
+                }
+            })
+    }
+
+    fun getDaftarFotoIklan(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarFotoIklan(object : Callback<ModelResponseDaftarFotoIklan> {
+                override fun onResponse(
+                    call: Call<ModelResponseDaftarFotoIklan>,
+                    response: Response<ModelResponseDaftarFotoIklan>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        initAdapterFoto(result.data)
+                    }
+                    else{
+                        initAdapterFoto(null)
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseDaftarFotoIklan>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    initAdapterFoto(null)
                 }
             })
     }

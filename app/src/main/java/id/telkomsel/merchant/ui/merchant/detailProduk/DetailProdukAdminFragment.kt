@@ -17,8 +17,7 @@ import id.telkomsel.merchant.model.ModelFotoProduk
 import id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
-import id.telkomsel.merchant.utils.adapter.showLog
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoProduk
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

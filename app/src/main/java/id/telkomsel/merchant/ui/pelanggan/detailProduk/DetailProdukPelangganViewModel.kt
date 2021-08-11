@@ -35,7 +35,7 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.*
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoProduk
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

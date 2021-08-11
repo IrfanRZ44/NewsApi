@@ -11,7 +11,7 @@ import coil.load
 import coil.request.CachePolicy
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelFotoProduk
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoProduk
 import kotlinx.android.synthetic.main.item_foto_produk.view.*
 
 class AdapterFotoProduk(private val ctx: Context,

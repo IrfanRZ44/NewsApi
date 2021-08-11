@@ -7,7 +7,7 @@ import id.telkomsel.merchant.databinding.FragmentDetailProdukPelangganBinding
 import id.telkomsel.merchant.model.ModelFotoProduk
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoProduk
 
 class DetailProdukPelangganFragment : BaseFragmentBind<FragmentDetailProdukPelangganBinding>(),
     ListenerFotoProduk {

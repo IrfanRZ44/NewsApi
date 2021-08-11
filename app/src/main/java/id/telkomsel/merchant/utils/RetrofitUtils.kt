@@ -373,6 +373,24 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun createFotoIklan(url_foto: MultipartBody.Part,
+                         callback: Callback<ModelResponse>){
+        val call = api.createFotoIklan(url_foto)
+        call.enqueue(callback)
+    }
+
+    fun updateFotoIklan(id: RequestBody,
+                         url_foto: MultipartBody.Part,
+                         callback: Callback<ModelResponse>){
+        val call = api.updateFotoIklan(id, url_foto)
+        call.enqueue(callback)
+    }
+
+    fun getDaftarFotoIklan(callback: Callback<ModelResponseDaftarFotoIklan>){
+        val call = api.getDaftarFotoIklan()
+        call.enqueue(callback)
+    }
+
     fun createProdukFav(produk_id: Int, username: String, callback: Callback<ModelResponse>){
         val call = api.createProdukFav(produk_id, username)
         call.enqueue(callback)

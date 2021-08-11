@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.pelanggan.beranda
+package id.telkomsel.merchant.ui.merchant.listProduk
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,13 +10,13 @@ import androidx.viewpager.widget.PagerAdapter
 import coil.load
 import coil.request.CachePolicy
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.model.ModelFotoProduk
-import id.telkomsel.merchant.utils.listener.ListenerFotoProduk
+import id.telkomsel.merchant.listener.ListenerFotoIklan
+import id.telkomsel.merchant.model.ModelFotoIklan
 import kotlinx.android.synthetic.main.item_foto_produk.view.*
 
-class AdapterFotoProduk(private val ctx: Context,
-                        private val data: ArrayList<ModelFotoProduk>,
-                        private val listener: ListenerFotoProduk
+class AdapterFotoIklan(private val ctx: Context,
+                       private val data: ArrayList<ModelFotoIklan>,
+                       private val listener: ListenerFotoIklan
 ) :
     PagerAdapter() {
     private lateinit var view : View
@@ -52,10 +52,14 @@ class AdapterFotoProduk(private val ctx: Context,
         }
 
         view.btnEdit.visibility = View.GONE
-        view.btnUpload.visibility = View.GONE
+        view.btnUpload.visibility = View.VISIBLE
 
         view.imgBoard.setOnClickListener {
-            listener.clickFotoProduk(data[position])
+            listener.clickFotoIklan(data[position])
+        }
+
+        view.btnUpload.setOnClickListener {
+            listener.clickUploadIklan(position, data[position])
         }
 
         container.addView(view)

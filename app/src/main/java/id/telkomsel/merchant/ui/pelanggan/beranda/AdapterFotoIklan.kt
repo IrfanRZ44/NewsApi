@@ -1,4 +1,4 @@
-package id.telkomsel.merchant.ui.merchant.detailProduk
+package id.telkomsel.merchant.ui.pelanggan.beranda
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,20 +10,18 @@ import androidx.viewpager.widget.PagerAdapter
 import coil.load
 import coil.request.CachePolicy
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.model.ModelFotoProduk
-import id.telkomsel.merchant.listener.ListenerFotoProduk
+import id.telkomsel.merchant.model.ModelFotoIklan
+import id.telkomsel.merchant.listener.ListenerFotoIklan
 import kotlinx.android.synthetic.main.item_foto_produk.view.*
 
-class AdapterFotoProduk(private val ctx: Context,
-                        private val data: ArrayList<ModelFotoProduk>,
-                        private val listener: ListenerFotoProduk,
-                        private val showEdit: Boolean
-) :
+class AdapterFotoIklan(private val ctx: Context,
+                       private val data: ArrayList<ModelFotoIklan>,
+                       private val listener: ListenerFotoIklan) :
     PagerAdapter() {
     private lateinit var view : View
     private lateinit var layoutInflater: LayoutInflater
     override fun getCount(): Int {
-        return 5
+        return data.size
     }
 
     override fun isViewFromObject(
@@ -52,25 +50,11 @@ class AdapterFotoProduk(private val ctx: Context,
             }
         }
 
-        if (showEdit){
-            view.btnEdit.visibility = View.VISIBLE
-            view.btnUpload.visibility = View.VISIBLE
-
-            view.btnUpload.setOnClickListener {
-                listener.clickUploadProduk(position, data[position])
-            }
-
-            view.btnEdit.setOnClickListener {
-                listener.clickEditProduk()
-            }
-        }
-        else{
-            view.btnEdit.visibility = View.GONE
-            view.btnUpload.visibility = View.GONE
-        }
+        view.btnEdit.visibility = View.GONE
+        view.btnUpload.visibility = View.GONE
 
         view.imgBoard.setOnClickListener {
-            listener.clickFotoProduk(data[position])
+            listener.clickFotoIklan(data[position])
         }
 
         container.addView(view)
