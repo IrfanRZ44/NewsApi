@@ -27,7 +27,6 @@ class DaftarProdukFragment(private val statusRequest: String,
 
     override fun myCodeHere() {
         supportActionBar?.show()
-        supportActionBar?.title = "Produk"
         init()
     }
 

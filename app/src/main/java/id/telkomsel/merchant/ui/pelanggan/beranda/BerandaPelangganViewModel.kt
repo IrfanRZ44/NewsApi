@@ -75,10 +75,10 @@ class BerandaPelangganViewModel(
 
     fun initHeader(cardHeader: CardView){
         val currentPoin = savedData.getDataPelanggan()?.poin
+        getDaftarFotoIklan()
         if (!savedData.getDataPelanggan()?.username.isNullOrEmpty() && currentPoin != null){
             cardHeader.visibility = View.VISIBLE
             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
-            getDaftarFotoIklan()
         }
         else{
             cardHeader.visibility = View.GONE

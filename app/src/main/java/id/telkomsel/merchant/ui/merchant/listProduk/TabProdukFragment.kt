@@ -34,7 +34,6 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
 
     override fun myCodeHere() {
         supportActionBar?.show()
-        supportActionBar?.title = Constant.appName
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
 
@@ -58,7 +57,6 @@ class TabProdukFragment : BaseFragmentBind<FragmentTabProdukBinding>() {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Suppress("DEPRECATION")
     private fun setupViewPager(pager: ViewPager) {
-        supportActionBar?.title = Constant.appName
         val adapter = SectionsPagerAdapter(childFragmentManager)
 
         adapter.addFragment(requestProduk, Constant.statusDiproses)

@@ -58,6 +58,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         adapter.addFragment(TabMerchantFragment(), Constant.appName)
         adapter.addFragment(TabProdukFragment(), "Produk")
         adapter.addFragment(AccountMerchantFragment(), Constant.akun)
+        supportActionBar?.title = Constant.appName
 
         pager.adapter = adapter
 
@@ -103,6 +104,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabProdukFragment(), "Produk")
         adapter.addFragment(AccountMerchantFragment(), Constant.akun)
+        supportActionBar?.title = "Produk"
 
         pager.adapter = adapter
 

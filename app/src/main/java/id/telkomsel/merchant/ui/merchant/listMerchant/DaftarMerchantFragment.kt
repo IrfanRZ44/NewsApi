@@ -3,8 +3,8 @@ package id.telkomsel.merchant.ui.merchant.listMerchant
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import id.telkomsel.merchant.R
-import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarMerchantBinding
+import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.utils.Constant
 
 class DaftarMerchantFragment(private val statusRequest: String) : BaseFragmentBind<FragmentDaftarMerchantBinding>() {

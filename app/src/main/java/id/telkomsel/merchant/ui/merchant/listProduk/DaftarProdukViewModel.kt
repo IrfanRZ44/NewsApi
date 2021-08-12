@@ -78,7 +78,7 @@ class DaftarProdukViewModel(
         val level = savedData.getDataMerchant()?.level
         if (!level.isNullOrEmpty() && level == Constant.levelChannel){
             cardHeader.visibility = View.VISIBLE
-            initAdapterFoto(null)
+            getDaftarFotoIklan()
         }
         else{
             cardHeader.visibility = View.GONE
@@ -106,7 +106,7 @@ class DaftarProdukViewModel(
 
         if (gambar != null){
             for (i in gambar.indices){
-                if (i < 5){
+                if (i < 14){
                     listGambar[i] = gambar[i]
                 }
             }
@@ -387,10 +387,10 @@ class DaftarProdukViewModel(
                     if (result?.message == Constant.reffSuccess){
                         getDaftarFotoIklan()
 
-                        message.value = "Berhasil mengupload foto iklan"
+                        status.value = "Berhasil mengupload foto iklan"
                     }
                     else{
-                        message.value = result?.message
+                        status.value = result?.message
                     }
                 }
 
@@ -399,7 +399,7 @@ class DaftarProdukViewModel(
                     t: Throwable
                 ) {
                     isShowLoading.value = false
-                    message.value = t.message
+                    status.value = t.message
                 }
             })
     }
@@ -420,10 +420,10 @@ class DaftarProdukViewModel(
                     if (result?.message == Constant.reffSuccess){
                         getDaftarFotoIklan()
 
-                        message.value = "Berhasil mengupload foto iklan"
+                        status.value = "Berhasil mengupload foto iklan"
                     }
                     else{
-                        message.value = result?.message
+                        status.value = result?.message
                     }
                 }
 
@@ -432,7 +432,7 @@ class DaftarProdukViewModel(
                     t: Throwable
                 ) {
                     isShowLoading.value = false
-                    message.value = t.message
+                    status.value = t.message
                 }
             })
     }

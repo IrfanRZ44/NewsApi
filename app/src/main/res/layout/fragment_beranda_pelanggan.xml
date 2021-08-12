@@ -28,7 +28,6 @@
             android:id="@+id/dotsIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/h4"
             app:dotsColor="@android:color/white"
             app:selectedDotColor="@color/colorPrimary"
             app:dotsStrokeColor="@android:color/white"
@@ -38,6 +37,8 @@
             app:dotsStrokeWidth="2dp"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/cardHeader"
+            android:layout_marginTop="-28dp"
+            android:layout_below="@+id/viewPager"
             />
 
         <androidx.cardview.widget.CardView

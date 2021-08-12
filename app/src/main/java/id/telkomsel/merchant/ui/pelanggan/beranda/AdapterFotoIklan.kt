@@ -12,7 +12,7 @@ import coil.request.CachePolicy
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelFotoIklan
 import id.telkomsel.merchant.listener.ListenerFotoIklan
-import kotlinx.android.synthetic.main.item_foto_produk.view.*
+import kotlinx.android.synthetic.main.item_foto_iklan.view.*
 
 class AdapterFotoIklan(private val ctx: Context,
                        private val data: ArrayList<ModelFotoIklan>,
@@ -33,7 +33,7 @@ class AdapterFotoIklan(private val ctx: Context,
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        view = layoutInflater.inflate(R.layout.item_foto_produk, container, false)
+        view = layoutInflater.inflate(R.layout.item_foto_iklan, container, false)
 
         if (data[position].url_foto.isEmpty()){
             view.imgBoard.scaleType = ImageView.ScaleType.CENTER_INSIDE
@@ -50,7 +50,6 @@ class AdapterFotoIklan(private val ctx: Context,
             }
         }
 
-        view.btnEdit.visibility = View.GONE
         view.btnUpload.visibility = View.GONE
 
         view.imgBoard.setOnClickListener {
