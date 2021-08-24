@@ -77,4 +77,9 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.favorit.FavoritProdukFragment"
         android:label="fragment_favorit_produk"
         tools:layout="@layout/fragment_favorit_produk" />
+    <fragment
+        android:id="@+id/riwayatPoinFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.beranda.riwayatPoin.RiwayatPoinFragment"
+        android:label="fragment_riwayat_poin"
+        tools:layout="@layout/fragment_riwayat_poin" />
 </navigation>

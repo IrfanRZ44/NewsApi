@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="id.telkomsel.merchant.ui.pelanggan.beranda.riwayatPoin.RiwayatPoinFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="id.telkomsel.merchant.ui.pelanggan.beranda.riwayatPoin.RiwayatPoinViewModel" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        snackbar="@{viewModel.status}"
+        android:theme="@style/CustomStyle"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h2"
+            android:id="@+id/rlTglMulai"
+            android:layout_marginStart="@dimen/h2"
+            android:layout_marginEnd="@dimen/h2"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> viewModel.getDateTglMulai()}"
+                android:background="@android:color/transparent"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/customEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pilih_tanggal_mulai"
+                android:textColorHint="@color/gray2"
+                app:errorEnabled="true"
+                android:id="@+id/etTglMulai"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/textStandardWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/h2"
+                    android:inputType="textCapSentences"
+                    android:text="@={viewModel.etTglMulai}"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/h2"
+            android:id="@+id/rlTglSelesai"
+            android:layout_below="@+id/rlTglMulai"
+            android:layout_marginStart="@dimen/h2"
+            android:layout_marginEnd="@dimen/h2"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> viewModel.getDateTglSelesai()}"
+                android:background="@android:color/transparent"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/customEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pilih_tanggal_selesai"
+                android:textColorHint="@color/gray2"
+                app:errorEnabled="true"
+                android:id="@+id/etTglSelesai"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/textStandardWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/h2"
+                    android:inputType="textCapSentences"
+                    android:text="@={viewModel.etTglSelesai}"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/swipeRefresh"
+            android:layout_below="@+id/rlTglSelesai"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rcRequest"
+                android:layout_margin="@dimen/h2"
+                />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textStandardWhite"
+            android:textSize="@dimen/text_h3"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginRight="@dimen/margin_large"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:id="@+id/textStatus"
+            showTextStatus="@{viewModel.message}"
+            />
+
+        <include layout="@layout/progress_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            visible="@{viewModel.isShowLoading}"
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+</layout>

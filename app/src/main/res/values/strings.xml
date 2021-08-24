@@ -239,4 +239,7 @@
     <string name="jumlah">Jumlah</string>
     <string name="poin">Poin</string>
     <string name="voucher_saya">Voucher Saya</string>
+    <string name="transaksi">Transaksi</string>
+    <string name="pilih_tanggal_mulai">Pilih Tanggal Mulai</string>
+    <string name="pilih_tanggal_selesai">Pilih Tanggal Selesai</string>
 </resources>

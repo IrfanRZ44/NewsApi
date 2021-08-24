@@ -24,7 +24,7 @@ class EditProfilPelangganFragment : BaseFragmentBind<FragmentEditProfilPelanggan
 
     override fun myCodeHere() {
         supportActionBar?.show()
-        supportActionBar?.title = "Daftar Pelanggan"
+        supportActionBar?.title = "Edit Profil"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         init()

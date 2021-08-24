@@ -10,6 +10,8 @@ class LihatFotoFragment : BaseFragmentBind<FragmentLihatFotoBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_lihat_foto
 
     override fun myCodeHere() {
+        supportActionBar?.show()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         init()
         onCLick()
     }

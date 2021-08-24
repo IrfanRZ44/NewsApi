@@ -534,6 +534,16 @@ interface RetrofitApi {
         @Field("username") username: String
     ): Call<ModelResponse>
 
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffRiwayatPoin)
+    fun getRiwayatPoin(
+        @Field("nomor_mkios") nomor_mkios: String,
+        @Field("startPage") startPage: Int,
+        @Field("etDateStart") etDateStart: String,
+        @Field("etDateEnd") etDateEnd: String
+    ): Call<ModelResponseRiwayatPoin>
+
     companion object {
         const val baseUrl = Constant.reffBaseURL
     }

@@ -58,6 +58,7 @@ object Constant {
     const val reffDaftarSubKategoriFilterKategori = "getDaftarSubKategoriFilterKategori"
     const val reffUpdateStatusMerchant = "updateStatusMerchant"
     const val reffUpdateStatusProduk = "updateStatusProduk"
+    const val reffRiwayatPoin = "getRiwayatPoin"
 
     const val reffProvinsi = "getProvinsi"
     const val reffKabupaten = "getKabupatenByProvinsi"
@@ -72,7 +73,7 @@ object Constant {
     const val reffName = "name"
 
     //    const val reffURL = "https://admin-tokobonus.com"
-    const val reffURL = "http://192.168.1.5:8000"
+    const val reffURL = "http://192.168.1.4:8000"
 //    const val reffURL = "http://192.168.43.186:8000"
     const val reffBaseURL = "$reffURL/api/"
     const val reffBaseURLUploadFoto = "$reffURL/api/uploadFoto"
@@ -185,6 +186,7 @@ object Constant {
     const val favorit = "Favorit"
     const val produkFavorit = "Produk Favorit"
     const val beranda = "Beranda"
+    const val riwayatPoin = "Riwayat Poin"
 
     const val dataModelFotoProfil = "FotoProfil"
 

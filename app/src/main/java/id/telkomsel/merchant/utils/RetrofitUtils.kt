@@ -400,4 +400,9 @@ object RetrofitUtils{
         val call = api.deleteProdukFav(produk_id, username)
         call.enqueue(callback)
     }
+
+    fun getRiwayatPoin(nomor_mkios: String, startPage: Int, etDateStart: String, etDateEnd: String, callback: Callback<ModelResponseRiwayatPoin>){
+        val call = api.getRiwayatPoin(nomor_mkios, startPage, etDateStart, etDateEnd)
+        call.enqueue(callback)
+    }
 }

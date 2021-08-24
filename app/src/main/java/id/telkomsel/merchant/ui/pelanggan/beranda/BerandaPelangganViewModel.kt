@@ -303,6 +303,12 @@ class BerandaPelangganViewModel(
                                 message.value = ""
                             }
                         }
+
+                        val tempDataUser = result.dataUser
+                        if (tempDataUser != null){
+                            val currentPoin = tempDataUser.poin
+                            poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
+                        }
                     } else {
                         message.value = result?.message
                     }
@@ -319,7 +325,7 @@ class BerandaPelangganViewModel(
             })
     }
 
-    fun getDaftarFotoIklan(){
+    private fun getDaftarFotoIklan(){
         isShowLoading.value = true
 
         RetrofitUtils.getDaftarFotoIklan(object : Callback<ModelResponseDaftarFotoIklan> {
@@ -400,6 +406,10 @@ class BerandaPelangganViewModel(
                 createProdukFavorit(item, username, position)
             }
         }
+    }
+
+    fun onClickPoin(){
+        navController.navigate(R.id.riwayatPoinFragment)
     }
 
     private fun createProdukFavorit(item: ModelProduk, username: String, position: Int){

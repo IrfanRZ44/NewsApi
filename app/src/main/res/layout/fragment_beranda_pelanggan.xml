@@ -75,6 +75,7 @@
                     android:layout_margin="@dimen/h1"
                     android:background="@drawable/btn_circle_gray"
                     android:textAlignment="textStart"
+                    android:onClick="@{()-> viewModel.onClickPoin()}"
                     />
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="0dp"
