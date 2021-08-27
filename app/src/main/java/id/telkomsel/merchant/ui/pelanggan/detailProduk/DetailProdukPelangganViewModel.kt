@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
@@ -122,6 +120,38 @@ class DetailProdukPelangganViewModel(
         }
     }
 
+    private fun onClickCreateVoucher(produkId: Int, username: String, jumlah: Int, totalHarga: Long){
+        isShowLoading.value = true
+
+        RetrofitUtils.createVoucher(produkId, username, jumlah, totalHarga,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess){
+                        message.value = "Berhasil membeli voucher"
+                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
+                        navController.navigate(R.id.pelangganFragment, null, navOption)
+                    }
+                    else{
+                        message.value = result?.message
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    message.value = "Error, gagal membeli voucher " + t.message
+                }
+            })
+    }
+
     @SuppressLint("InflateParams", "SetTextI18n")
     fun initDialogJumlah(root: View, layoutInflater: LayoutInflater){
         btmSheet = BottomSheetDialog(root.context)
@@ -173,6 +203,21 @@ class DetailProdukPelangganViewModel(
 
                 btnBeli.text = "Beli Sekarang $hargaNow Poin"
                 defaultValue = value
+            }
+        }
+
+        btnBeli.setOnClickListener {
+            btmSheet.dismiss()
+            val produkId = dataProduk.value?.id
+            val username = savedData.getDataPelanggan()?.username
+            val jumlah = etJumlah.value
+            val totalHarga = hargaNow
+
+            if (produkId != null && !username.isNullOrEmpty()){
+                onClickCreateVoucher(produkId, username, jumlah, totalHarga)
+            }
+            else{
+                message.value = "Error, terjadi kesalahan database"
             }
         }
 

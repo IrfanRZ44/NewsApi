@@ -339,7 +339,8 @@ interface RetrofitApi {
         @Field("startPage") startPage: Int,
         @Field("search") search: String?,
         @Field("sub_kategori_id") sub_kategori_id: String?,
-        @Field("username") username: String?
+        @Field("username") username: String?,
+        @Field("stok") stok: String?,
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")
@@ -532,6 +533,16 @@ interface RetrofitApi {
     fun deleteProdukFav(
         @Field("produk_id") produk_id: Int,
         @Field("username") username: String
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffCreateVoucher)
+    fun createVoucher(
+        @Field("produk_id") produk_id: Int,
+        @Field("username") username: String,
+        @Field("jumlah") jumlah: Int,
+        @Field("total_harga") total_harga: Long
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")

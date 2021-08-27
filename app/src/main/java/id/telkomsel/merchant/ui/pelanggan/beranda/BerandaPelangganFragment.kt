@@ -5,10 +5,12 @@ import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentBerandaPelangganBinding
@@ -20,6 +22,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
     private var searchView : SearchView? = null
     private var queryTextListener : SearchView.OnQueryTextListener? = null
     private var onCloseListener : SearchView.OnCloseListener? = null
+    private lateinit var rfabHelper: RapidFloatingActionHelper
 
     override fun myCodeHere() {
         setHasOptionsMenu(true)
@@ -39,10 +42,11 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
         viewModel.initAdapterKategori()
         viewModel.initAdapterProduk()
         viewModel.showDialogFilter(bind.root, layoutInflater)
+        floatingAction()
 
         viewModel.getDataKategori()
         viewModel.getDaftarProdukByPelanggan(
-            if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
+            if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), ""
         )
 
         bind.swipeRefresh.setOnRefreshListener {
@@ -51,7 +55,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.adapterProduk.notifyDataSetChanged()
             bind.swipeRefresh.isRefreshing = false
             viewModel.getDaftarProdukByPelanggan(
-                if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
+                if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), ""
             )
         }
 
@@ -61,7 +65,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
                     viewModel.getDaftarProdukByPelanggan(
-                        if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
+                        if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), ""
                     )
                 }
             }
@@ -95,7 +99,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
                     viewModel.adapterProduk.notifyDataSetChanged()
                     viewModel.textSearch = query
                     viewModel.getDaftarProdukByPelanggan(
-                        if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
+                        if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), ""
                     )
                 }
 
@@ -110,7 +114,7 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
             viewModel.textSearch = ""
 
             viewModel.getDaftarProdukByPelanggan(
-                if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString()
+                if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), ""
             )
             false
         }
@@ -134,5 +138,105 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
         searchView?.setOnQueryTextListener(queryTextListener)
         searchView?.setOnCloseListener(onCloseListener)
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun floatingAction() {
+        val rfaContent = RapidFloatingActionContentLabelList(context)
+        val tempItem = makeFABItem("Stok Terbanyak", R.drawable.ic_down_white,
+            "Poin Terbanyak", R.drawable.ic_up_white,
+        )
+
+        rfaContent.setItems(tempItem).setIconShadowColor(0xff888888.toInt())
+
+        rfabHelper = RapidFloatingActionHelper(
+            context,
+            bind.rfaLayout,
+            bind.rfaBtn,
+            rfaContent
+        ).build()
+
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(object :
+            RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<Any> {
+            override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Any>?) {
+                rfabHelper.toggleContent()
+
+                when(position) {
+                    0 -> {
+                        if (item?.label == "Stok Terbanyak"){
+                            val newItem = makeFABItem("Stok Terendah", R.drawable.ic_down_white,
+                                "Poin Terbanyak", R.drawable.ic_up_white,
+                            )
+                            rfaContent.setItems(newItem).setIconShadowColor(0xff888888.toInt())
+                            rfabHelper.setRfaContent(rfaContent).build()
+                            filterDaftarProduk("DESC")
+                        }
+                        else{
+                            val newItem = makeFABItem("Stok Terbanyak", R.drawable.ic_up_white,
+                                "Poin Terbanyak", R.drawable.ic_up_white,
+                            )
+                            rfaContent.setItems(newItem).setIconShadowColor(0xff888888.toInt())
+                            rfabHelper.setRfaContent(rfaContent).build()
+
+                            filterDaftarProduk("ASC")
+                        }
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+
+            override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Any>?) {
+                rfabHelper.toggleContent()
+
+                when(position) {
+                    0 -> {
+                        if (item?.label == "Stok Terbanyak"){
+                            val newItem = makeFABItem("Stok Terendah", R.drawable.ic_down_white,
+                                "Poin Terbanyak", R.drawable.ic_up_white,
+                            )
+                            rfaContent.setItems(newItem).setIconShadowColor(0xff888888.toInt())
+                            rfabHelper.setRfaContent(rfaContent).build()
+                            filterDaftarProduk("DESC")
+                        }
+                        else{
+                            val newItem = makeFABItem("Stok Terbanyak", R.drawable.ic_up_white,
+                                "Poin Terbanyak", R.drawable.ic_up_white,
+                            )
+                            rfaContent.setItems(newItem).setIconShadowColor(0xff888888.toInt())
+                            rfabHelper.setRfaContent(rfaContent).build()
+
+                            filterDaftarProduk("ASC")
+                        }
+                    }
+                }
+                rfabHelper.toggleContent()
+            }
+        })
+    }
+
+    private fun makeFABItem(stok: String, icStok: Int, poin: String, icPoin: Int) : List<RFACLabelItem<Int>> {
+        return listOf(
+            RFACLabelItem<Int>()
+                .setLabel(stok)
+                .setResId(icStok)
+                .setIconNormalColor(0xff52af44.toInt())
+                .setIconPressedColor(0xff3E8534.toInt())
+                .setWrapper(0),
+            RFACLabelItem<Int>()
+                .setLabel(poin)
+                .setResId(icPoin)
+                .setIconNormalColor(0xff52af44.toInt())
+                .setIconPressedColor(0xff3E8534.toInt())
+                .setWrapper(0)
+        )
+    }
+
+    private fun filterDaftarProduk(stok: String?){
+        viewModel.startPage = 0
+        viewModel.listProduk.clear()
+        viewModel.adapterProduk.notifyDataSetChanged()
+        bind.swipeRefresh.isRefreshing = false
+        viewModel.getDaftarProdukByPelanggan(
+            if (viewModel.idSubKategori == 0) "" else viewModel.idSubKategori.toString(), stok
+        )
     }
 }

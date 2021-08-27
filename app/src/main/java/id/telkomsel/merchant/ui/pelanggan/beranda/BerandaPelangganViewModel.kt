@@ -269,13 +269,14 @@ class BerandaPelangganViewModel(
             })
     }
 
-    fun getDaftarProdukByPelanggan(sub_kategori_id: String?) {
+    fun getDaftarProdukByPelanggan(sub_kategori_id: String?, stok: String?) {
         isShowLoading.value = true
 
         RetrofitUtils.getDaftarProdukByPelanggan(startPage,
             textSearch,
             sub_kategori_id,
             savedData.getDataPelanggan()?.username?:"",
+            stok,
             object : Callback<ModelResponseDaftarProduk> {
                 override fun onResponse(
                     call: Call<ModelResponseDaftarProduk>,
@@ -366,7 +367,7 @@ class BerandaPelangganViewModel(
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            if (idSubKategori == 0) "" else idSubKategori.toString()
+            if (idSubKategori == 0) "" else idSubKategori.toString(), ""
         )
     }
 
@@ -377,7 +378,7 @@ class BerandaPelangganViewModel(
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            if (idSubKategori == 0) "" else idSubKategori.toString()
+            if (idSubKategori == 0) "" else idSubKategori.toString(), ""
         )
     }
 

@@ -29,6 +29,7 @@ object Constant {
     const val reffGetDaftarFotoIklan = "getDaftarFotoIklan"
     const val reffCreateProdukFavorit = "createProdukFav"
     const val reffDeleteProdukFavorit = "deleteProdukFav"
+    const val reffCreateVoucher = "createVoucher"
     const val reffUpdateMerchant = "updateMerchant"
     const val reffUpdateAdmin = "updateAdmin"
     const val reffValidateNewMerchant = "validateNewMerchant"
