@@ -242,4 +242,5 @@
     <string name="transaksi">Transaksi</string>
     <string name="pilih_tanggal_mulai">Pilih Tanggal Mulai</string>
     <string name="pilih_tanggal_selesai">Pilih Tanggal Selesai</string>
+    <string name="terjual">Terjual</string>
 </resources>

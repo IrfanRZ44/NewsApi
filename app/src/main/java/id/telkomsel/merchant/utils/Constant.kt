@@ -34,7 +34,6 @@ object Constant {
     const val reffUpdateAdmin = "updateAdmin"
     const val reffValidateNewMerchant = "validateNewMerchant"
     const val reffValidateNewPelanggan = "validateNewPelanggan"
-    const val reffValidateNewMerchantPhone = "validateNewMerchantPhone"
     const val reffUpdatePasswordMerchant = "updatePasswordMerchant"
     const val reffUpdatePasswordPelanggan = "updatePasswordPelanggan"
     const val reffLogoutMerchant = "logoutMerchant"
@@ -74,7 +73,7 @@ object Constant {
     const val reffName = "name"
 
     //    const val reffURL = "https://admin-tokobonus.com"
-    const val reffURL = "http://192.168.1.4:8000"
+    const val reffURL = "http://192.168.1.5:8000"
 //    const val reffURL = "http://192.168.43.186:8000"
     const val reffBaseURL = "$reffURL/api/"
     const val reffBaseURLUploadFoto = "$reffURL/api/uploadFoto"

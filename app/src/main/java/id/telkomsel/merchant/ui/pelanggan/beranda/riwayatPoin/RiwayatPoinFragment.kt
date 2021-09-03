@@ -30,6 +30,7 @@ class RiwayatPoinFragment : BaseFragmentBind<FragmentRiwayatPoinBinding>() {
 
         bind.swipeRefresh.setOnRefreshListener {
             bind.swipeRefresh.isRefreshing = false
+            viewModel.startPage = 0
             viewModel.listData.clear()
             viewModel.adapter.notifyDataSetChanged()
             viewModel.setDefaultDate()

@@ -9,7 +9,10 @@ data class ModelRiwayatPoin(
     var nomor_mkios: String = "",
     var transaksi: String = "",
     var poin: Long = 0,
+    var poin_total: Long = 0,
     var status: String = "",
+    var tahun: String = "",
+    var bulan: String = "",
     var tanggal: String = "",
     var created_at: String = "",
     var updated_at: String = ""

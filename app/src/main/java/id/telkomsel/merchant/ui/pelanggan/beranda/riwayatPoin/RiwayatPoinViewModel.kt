@@ -111,22 +111,24 @@ class RiwayatPoinViewModel(
     }
 
     fun checkRangeDate(){
-        val etDateStart = etTglMulai.value
-        val etDateEnd = etTglSelesai.value
+        val etDateStart = etTglMulai.value?.split("-")
+        val etDateEnd = etTglSelesai.value?.split("-")
         if (!etDateStart.isNullOrEmpty() && !etDateEnd.isNullOrEmpty()){
-            getRiwayatPoin(etDateStart, etDateEnd)
+            getRiwayatPoin(etDateStart[0], etDateStart[1], etDateStart[2],
+                etDateEnd[0], etDateEnd[1], etDateEnd[2])
         }
         else{
             status.value = "Error, tanggal mulai dan tanggal selesai tidak boleh kosong"
         }
     }
 
-    private fun getRiwayatPoin(etDateStart: String, etDateEnd: String) {
+    private fun getRiwayatPoin(startTanggal: String, startBulan: String, startTahun: String,
+                               endTanggal: String, endBulan: String, endTahun: String) {
         isShowLoading.value = true
         adapter.notifyDataSetChanged()
 
         RetrofitUtils.getRiwayatPoin(savedData.getDataPelanggan()?.nomor_mkios?:"", startPage,
-            etDateStart, etDateEnd,
+            startTanggal, startBulan, startTahun, endTanggal, endBulan, endTahun,
             object : Callback<ModelResponseRiwayatPoin> {
                 override fun onResponse(
                     call: Call<ModelResponseRiwayatPoin>,
@@ -147,7 +149,7 @@ class RiwayatPoinViewModel(
                     else{
                         if (startPage == 0){
                             message.value =
-                                "Maaf, belum ada data riwayat poin pada range tanggal $etDateStart - $etDateEnd"
+                                "Maaf, belum ada data riwayat poin pada range tanggal $startTanggal-$startBulan-$startTahun - $endTanggal-$endBulan-$endTahun"
                         }
                         else{
                             status.value = result?.message

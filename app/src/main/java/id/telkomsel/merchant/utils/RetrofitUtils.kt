@@ -170,17 +170,12 @@ object RetrofitUtils{
     }
 
     fun validateNewMerchant(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
-        val call = api.validateNewMerchant(dataMerchant.username, dataMerchant.no_hp_merchant)
+        val call = api.validateNewMerchant(dataMerchant.no_hp_merchant, dataMerchant.username)
         call.enqueue(callback)
     }
 
     fun validateNewPelanggan(dataPelanggan: ModelPelanggan, callback: Callback<ModelResponse>){
         val call = api.validateNewPelanggan(dataPelanggan.username, dataPelanggan.nomor_mkios)
-        call.enqueue(callback)
-    }
-
-    fun validateNewMerchantPhone(dataMerchant: ModelMerchant, callback: Callback<ModelResponse>){
-        val call = api.validateNewMerchantPhone(dataMerchant.no_hp_merchant)
         call.enqueue(callback)
     }
 
@@ -257,9 +252,10 @@ object RetrofitUtils{
     }
 
     fun getDaftarProdukByPelanggan(startPage: Int, search: String?, sub_kategori_id: String?,
-                                   username: String?, stok: String?,
+                                   username: String?, sort_produk: String?,
                                    callback: Callback<ModelResponseDaftarProduk>){
-        val call = api.getDaftarProdukByPelanggan(startPage, search, sub_kategori_id, username, stok)
+        val call = api.getDaftarProdukByPelanggan(startPage, search, sub_kategori_id, username,
+            sort_produk)
         call.enqueue(callback)
     }
 
@@ -407,8 +403,10 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun getRiwayatPoin(nomor_mkios: String, startPage: Int, etDateStart: String, etDateEnd: String, callback: Callback<ModelResponseRiwayatPoin>){
-        val call = api.getRiwayatPoin(nomor_mkios, startPage, etDateStart, etDateEnd)
+    fun getRiwayatPoin(nomor_mkios: String, startPage: Int, startTanggal: String, startBulan: String, startTahun: String,
+                       endTanggal: String, endBulan: String, endTahun: String,
+                       callback: Callback<ModelResponseRiwayatPoin>){
+        val call = api.getRiwayatPoin(nomor_mkios, startPage, startTanggal, startBulan, startTahun, endTanggal, endBulan, endTahun)
         call.enqueue(callback)
     }
 }

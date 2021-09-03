@@ -68,6 +68,7 @@ class BerandaPelangganViewModel(
     private lateinit var btnBatal: AppCompatButton
     var idSubKategori = 0
     var textSearch = ""
+    var sortProduk = ""
     lateinit var btmSheet : BottomSheetDialog
     val poin = MutableLiveData<String>()
     private val listGambar = ArrayList<ModelFotoIklan>()
@@ -269,14 +270,14 @@ class BerandaPelangganViewModel(
             })
     }
 
-    fun getDaftarProdukByPelanggan(sub_kategori_id: String?, stok: String?) {
+    fun getDaftarProdukByPelanggan(sub_kategori_id: String?) {
         isShowLoading.value = true
 
         RetrofitUtils.getDaftarProdukByPelanggan(startPage,
             textSearch,
             sub_kategori_id,
             savedData.getDataPelanggan()?.username?:"",
-            stok,
+            sortProduk,
             object : Callback<ModelResponseDaftarProduk> {
                 override fun onResponse(
                     call: Call<ModelResponseDaftarProduk>,
@@ -309,6 +310,9 @@ class BerandaPelangganViewModel(
                         if (tempDataUser != null){
                             val currentPoin = tempDataUser.poin
                             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
+                            val tempPelanggan = savedData.getDataPelanggan()
+                            tempPelanggan?.poin = currentPoin
+                            savedData.setDataObject(tempPelanggan, Constant.reffPelanggan)
                         }
                     } else {
                         message.value = result?.message
@@ -367,7 +371,7 @@ class BerandaPelangganViewModel(
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            if (idSubKategori == 0) "" else idSubKategori.toString(), ""
+            if (idSubKategori == 0) "" else idSubKategori.toString()
         )
     }
 
@@ -378,7 +382,7 @@ class BerandaPelangganViewModel(
         listProduk.clear()
         adapterProduk.notifyDataSetChanged()
         getDaftarProdukByPelanggan(
-            if (idSubKategori == 0) "" else idSubKategori.toString(), ""
+            if (idSubKategori == 0) "" else idSubKategori.toString()
         )
     }
 
@@ -391,7 +395,6 @@ class BerandaPelangganViewModel(
     }
 
     private fun onClickItemProdukFavorit(item: ModelProduk, position: Int){
-        showLog(item.isFavorite.toString())
         val username = savedData.getDataPelanggan()?.username
         if (username.isNullOrEmpty()){
             status.value = "Maaf, Anda harus login terlebih dahulu"

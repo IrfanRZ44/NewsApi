@@ -117,6 +117,40 @@
                 android:layout_marginStart="@dimen/h2"
                 android:fontFamily="@font/bauhaus"
                 />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textKota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray3"
+                android:textSize="@dimen/text_h2"
+                android:maxLines="1"
+                android:text="@string/kabupaten_kota"
+                android:layout_below="@+id/textPromo"
+                android:layout_marginStart="@dimen/h2"
+                android:fontFamily="@font/bauhaus"
+                android:drawableStart="@drawable/ic_city_black"
+                android:drawablePadding="@dimen/h1"
+                android:layout_marginTop="@dimen/h1"
+                android:textAlignment="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textTerjual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray3"
+                android:textSize="@dimen/text_h2"
+                android:maxLines="1"
+                android:text="@string/terjual"
+                android:layout_below="@+id/textKota"
+                android:layout_marginStart="@dimen/h2"
+                android:fontFamily="@font/bauhaus"
+                android:drawableStart="@drawable/ic_star_orens"
+                android:drawablePadding="@dimen/h1"
+                android:layout_marginTop="@dimen/h1"
+                android:textAlignment="center"
+                />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

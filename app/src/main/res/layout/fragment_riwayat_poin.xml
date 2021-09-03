@@ -33,7 +33,7 @@
                 style="@style/customEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/pilih_tanggal_mulai"
+                android:hint="@string/tanggal"
                 android:textColorHint="@color/gray2"
                 app:errorEnabled="true"
                 android:id="@+id/etTglMulai"

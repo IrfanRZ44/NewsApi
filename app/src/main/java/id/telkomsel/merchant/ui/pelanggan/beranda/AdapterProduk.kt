@@ -11,6 +11,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.utils.adapter.convertNumberWithoutRupiah
 import id.telkomsel.merchant.utils.adapter.convertRupiah
+import id.telkomsel.merchant.utils.adapter.showLog
 import kotlinx.android.synthetic.main.item_produk.view.*
 
 class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
@@ -25,6 +26,8 @@ class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
             viewItem.textStok.text = "${item.stok} stok"
             viewItem.textPromo.text = "${item.promo} \nTukar ${convertNumberWithoutRupiah(item.jumlah_poin.toDouble())} Poin"
             viewItem.btnFavorit.visibility = View.VISIBLE
+            viewItem.textKota.text = item.dataMerchant?.kabupaten
+            viewItem.textTerjual.text = "${item.rating}\t\t Terjual ${item.terjual}"
 
             viewItem.imgFoto.load(item.url_foto) {
                 crossfade(true)

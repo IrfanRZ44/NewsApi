@@ -214,8 +214,8 @@ interface RetrofitApi {
     @FormUrlEncoded
     @POST(Constant.reffValidateNewMerchant)
     fun validateNewMerchant(
-        @Field("username") username: String,
-        @Field("no_hp_merchant") no_hp_merchant: String
+        @Field("no_hp_merchant") no_hp_merchant: String,
+        @Field("username") username: String
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
@@ -224,13 +224,6 @@ interface RetrofitApi {
     fun validateNewPelanggan(
         @Field("username") username: String,
         @Field("nomor_mkios") nomor_mkios: String
-    ): Call<ModelResponse>
-
-    @Headers("Accept:application/json")
-    @FormUrlEncoded
-    @POST(Constant.reffValidateNewMerchantPhone)
-    fun validateNewMerchantPhone(
-        @Field("no_hp_merchant") no_hp_merchant: String
     ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
@@ -340,7 +333,7 @@ interface RetrofitApi {
         @Field("search") search: String?,
         @Field("sub_kategori_id") sub_kategori_id: String?,
         @Field("username") username: String?,
-        @Field("stok") stok: String?,
+        @Field("sort_produk") sort_produk: String?
     ): Call<ModelResponseDaftarProduk>
 
     @Headers("Accept:application/json")
@@ -551,8 +544,12 @@ interface RetrofitApi {
     fun getRiwayatPoin(
         @Field("nomor_mkios") nomor_mkios: String,
         @Field("startPage") startPage: Int,
-        @Field("etDateStart") etDateStart: String,
-        @Field("etDateEnd") etDateEnd: String
+        @Field("startTanggal") startTanggal: String,
+        @Field("startBulan") startBulan: String,
+        @Field("startTahun") startTahun: String,
+        @Field("endTanggal") endTanggal: String,
+        @Field("endBulan") endBulan: String,
+        @Field("endTahun") endTahun: String,
     ): Call<ModelResponseRiwayatPoin>
 
     companion object {

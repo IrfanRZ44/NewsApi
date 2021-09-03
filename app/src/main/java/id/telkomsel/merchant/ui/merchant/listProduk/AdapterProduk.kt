@@ -24,6 +24,8 @@ class AdapterProduk(private val listItem: ArrayList<ModelProduk>,
             viewItem.textStok.text = "${item.stok} stok"
             viewItem.textPromo.text = "${item.promo} \nTukar ${convertNumberWithoutRupiah(item.jumlah_poin.toDouble())} Poin"
             viewItem.btnFavorit.visibility = View.GONE
+            viewItem.textKota.text = item.dataMerchant?.kabupaten
+            viewItem.textTerjual.text = "${item.rating}\t\t Terjual ${item.terjual}"
 
             viewItem.imgFoto.load(item.url_foto) {
                 crossfade(true)

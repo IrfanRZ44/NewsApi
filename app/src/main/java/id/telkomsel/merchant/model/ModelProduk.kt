@@ -22,8 +22,10 @@ data class ModelProduk(
     var jumlah_rating: Int = 0,
     var total_rating: Int = 0,
     var rating: Int = 0,
+    var terjual: Int = 0,
     var created_by: Int = 0,
     var created_at: String = "",
     var updated_at: String = "",
-    var isFavorite: Boolean = false
-) : Parcelable
+    var isFavorite: Boolean = false,
+    var dataMerchant: ModelMerchant? = null
+    ) : Parcelable

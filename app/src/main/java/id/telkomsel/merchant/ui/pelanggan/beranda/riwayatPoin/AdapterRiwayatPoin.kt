@@ -19,7 +19,7 @@ class AdapterRiwayatPoin(private val listKelas: ArrayList<ModelRiwayatPoin>) : R
             viewItem.textTransaksi.text = item.transaksi
 
             val format = NumberFormat.getCurrencyInstance()
-            viewItem.textPoin.text = item.status + format.format(item.poin)
+            viewItem.textPoin.text = item.status + format.format(item.poin_total)
             if (item.status == "-"){
                 viewItem.textPoin.setTextColor(Color.RED)
             }
@@ -27,7 +27,7 @@ class AdapterRiwayatPoin(private val listKelas: ArrayList<ModelRiwayatPoin>) : R
                 viewItem.textPoin.setTextColor(Color.GREEN)
             }
             
-            viewItem.textTanggal.text = item.tanggal
+            viewItem.textTanggal.text = "${item.tanggal}/${item.bulan}/${item.tahun}"
         }
     }
 
