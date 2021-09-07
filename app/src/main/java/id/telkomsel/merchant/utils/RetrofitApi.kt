@@ -552,6 +552,15 @@ interface RetrofitApi {
         @Field("endTahun") endTahun: String,
     ): Call<ModelResponseRiwayatPoin>
 
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarVoucher)
+    fun getDaftarVoucher(
+        @Field("startPage") startPage: Int,
+        @Field("username") username: String,
+        @Field("status") status: String,
+    ): Call<ModelResponseVoucher>
+
     companion object {
         const val baseUrl = Constant.reffBaseURL
     }

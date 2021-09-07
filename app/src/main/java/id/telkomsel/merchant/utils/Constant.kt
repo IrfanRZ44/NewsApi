@@ -59,6 +59,7 @@ object Constant {
     const val reffUpdateStatusMerchant = "updateStatusMerchant"
     const val reffUpdateStatusProduk = "updateStatusProduk"
     const val reffRiwayatPoin = "getRiwayatPoin"
+    const val reffDaftarVoucher = "getDaftarVoucher"
 
     const val reffProvinsi = "getProvinsi"
     const val reffKabupaten = "getKabupatenByProvinsi"
@@ -72,8 +73,8 @@ object Constant {
     const val reffFolder = "folder"
     const val reffName = "name"
 
-    //    const val reffURL = "https://admin-tokobonus.com"
-    const val reffURL = "http://192.168.1.5:8000"
+//    const val reffURL = "http://192.168.1.5:8000"
+    const val reffURL = "https://admin-temans.com"
 //    const val reffURL = "http://192.168.43.186:8000"
     const val reffBaseURL = "$reffURL/api/"
     const val reffBaseURLUploadFoto = "$reffURL/api/uploadFoto"
@@ -152,6 +153,7 @@ object Constant {
 
     const val rejected = "rejected"
     const val inactive = "inactive"
+    const val expired = "expired"
     const val read = "read"
     const val unread = "unread"
     const val sended = "sended"
@@ -186,6 +188,7 @@ object Constant {
     const val favorit = "Favorit"
     const val produkFavorit = "Produk Favorit"
     const val beranda = "Beranda"
+    const val voucher = "Voucher"
     const val riwayatPoin = "Riwayat Poin"
 
     const val dataModelFotoProfil = "FotoProfil"

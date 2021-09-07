@@ -416,6 +416,10 @@ class BerandaPelangganViewModel(
         navController.navigate(R.id.riwayatPoinFragment)
     }
 
+    fun onClickVoucher(){
+        navController.navigate(R.id.voucherFragment)
+    }
+
     private fun createProdukFavorit(item: ModelProduk, username: String, position: Int){
         isShowLoading.value = true
 

@@ -573,6 +573,7 @@ class RegisterMerchantViewModel(
             && !noWaPemilik.isNullOrEmpty() && noWaPemilik.take(1) == "0"
             && (noHpMerchant.length in 10..13) && (noWaMerchant.length in 10..13)
             && (noHpPemilik.length in 10..13) && (noWaPemilik.length in 10..13)
+            && !lat.isNullOrEmpty() && !lng.isNullOrEmpty()
         ) {
             val hpMerchant = noHpMerchant.replaceFirst("0", "+62")
             val waMerchant = noWaMerchant.replaceFirst("0", "+62")
@@ -591,8 +592,8 @@ class RegisterMerchantViewModel(
                 "",
                 namaMerchant, kategori,
                 alamatMerchant,
-                lat?:currentLatitude.value?:"",
-                lng?:currentLongitude.value?:"",
+                lat,
+                lng,
                 tglPeresmianMerchant?:"",
                 provinsi,
                 kabupaten,

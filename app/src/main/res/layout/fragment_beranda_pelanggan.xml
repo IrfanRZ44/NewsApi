@@ -95,6 +95,7 @@
                         android:layout_margin="@dimen/h1"
                         android:background="@drawable/btn_circle_gray"
                         android:textAlignment="textStart"
+                        android:onClick="@{()-> viewModel.onClickVoucher()}"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>

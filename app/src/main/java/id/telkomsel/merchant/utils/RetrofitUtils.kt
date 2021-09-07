@@ -409,4 +409,10 @@ object RetrofitUtils{
         val call = api.getRiwayatPoin(nomor_mkios, startPage, startTanggal, startBulan, startTahun, endTanggal, endBulan, endTahun)
         call.enqueue(callback)
     }
+
+    fun getDaftarVoucher(startPage: Int, username: String, status: String,
+                       callback: Callback<ModelResponseVoucher>){
+        val call = api.getDaftarVoucher(startPage, username, status)
+        call.enqueue(callback)
+    }
 }

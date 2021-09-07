@@ -82,4 +82,14 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.beranda.riwayatPoin.RiwayatPoinFragment"
         android:label="fragment_riwayat_poin"
         tools:layout="@layout/fragment_riwayat_poin" />
+    <fragment
+        android:id="@+id/voucherFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.beranda.voucher.VoucherFragment"
+        android:label="fragment_voucher"
+        tools:layout="@layout/fragment_voucher" />
+    <fragment
+        android:id="@+id/daftarVoucherFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.beranda.voucher.daftarVoucher.DaftarVoucherFragment"
+        android:label="fragment_daftar_voucher"
+        tools:layout="@layout/fragment_daftar_voucher" />
 </navigation>
