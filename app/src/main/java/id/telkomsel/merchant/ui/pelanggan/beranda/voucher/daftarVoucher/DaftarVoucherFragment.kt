@@ -22,6 +22,7 @@ class DaftarVoucherFragment(private val statusVoucher: String) : BaseFragmentBin
         viewModel = DaftarVoucherViewModel(activity, bind.rcRequest, savedData, statusVoucher)
         bind.viewModel = viewModel
         viewModel.initAdapter()
+        viewModel.initBehaviorVoucher(bind.root, layoutInflater)
 
         viewModel.listData.clear()
         viewModel.adapter.notifyDataSetChanged()

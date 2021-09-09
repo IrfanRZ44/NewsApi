@@ -58,10 +58,23 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_h2"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:fontFamily="@font/bauhaus"
+                android:layout_toEndOf="@+id/imgFoto"
+                android:layout_marginStart="@dimen/h2"
+                android:id="@+id/textHargaProduk"
+                android:layout_below="@+id/textNamaProduk"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/text_h2"
                 android:fontFamily="@font/bauhaus"
-                android:layout_below="@+id/textNamaProduk"
+                android:layout_below="@+id/textHargaProduk"
                 android:layout_toEndOf="@+id/imgFoto"
                 android:id="@+id/textAlamat"
                 android:layout_marginStart="@dimen/h2"
@@ -115,6 +128,7 @@
                 android:paddingEnd="@dimen/h2"
                 android:paddingStart="@dimen/h2"
                 android:backgroundTint="@color/colorPrimary"
+                android:visibility="gone"
                 />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

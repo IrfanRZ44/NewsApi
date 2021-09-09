@@ -8,10 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import id.telkomsel.merchant.R
+import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.model.ModelVoucher
+import id.telkomsel.merchant.utils.Constant
+import id.telkomsel.merchant.utils.adapter.convertRupiah
 import kotlinx.android.synthetic.main.item_voucher.view.*
 
-class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>) : RecyclerView.Adapter<AdapterVoucher.AfiliasiHolder>(){
+class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>,
+                     private val statusRequest: String,
+                     private val onClickItem : (ModelVoucher) -> Unit
+                     ) : RecyclerView.Adapter<AdapterVoucher.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val viewItem: View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
@@ -28,8 +34,20 @@ class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>) : Recycle
             viewItem.textAlamat.text = item.dataMerchant?.alamat_merchant.toString()
             viewItem.textNamaMerchant.text = item.dataMerchant?.nama_merchant.toString()
             viewItem.textNamaProduk.text = item.dataProduk?.nama.toString()
-            viewItem.textTanggal.text = "Promo ${item.dataProduk?.promo}"
-            viewItem.textTanggal.text = "Promo ${item.dataProduk?.promo}"
+            val harga = item.dataProduk?.harga?:0
+            viewItem.textHargaProduk.text = convertRupiah(harga.toDouble())
+            viewItem.textPromo.text = "Promo ${item.dataProduk?.promo}"
+            viewItem.textTanggal.text = "Berlaku hingga ${item.dataProduk?.tgl_kadaluarsa}"
+
+            if (statusRequest == Constant.active){
+                viewItem.btnVoucher.visibility = View.VISIBLE
+                viewItem.btnVoucher.setOnClickListener {
+                    onClickItem(item)
+                }
+            }
+            else{
+                viewItem.btnVoucher.visibility = View.GONE
+            }
         }
     }
 
