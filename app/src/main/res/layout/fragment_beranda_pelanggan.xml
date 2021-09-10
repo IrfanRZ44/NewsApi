@@ -145,15 +145,22 @@
 
         <com.nambimobile.widgets.efab.ExpandableFabLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            >
+            <com.nambimobile.widgets.efab.Overlay
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
             <com.nambimobile.widgets.efab.ExpandableFab
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/h2"
                 android:layout_marginEnd="@dimen/h2"
-                app:efab_orientation="portrait"/>
+                app:efab_orientation="portrait"
+                app:efab_icon="@drawable/ic_filter_2_white"
+                app:efab_iconAnimationRotationDeg="-225"
+                app:efab_closingAnticipateTension="0"
+                />
 
             <com.nambimobile.widgets.efab.FabOption
                 android:layout_width="wrap_content"

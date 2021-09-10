@@ -24,8 +24,10 @@ class DetailProdukPelangganFragment : BaseFragmentBind<FragmentDetailProdukPelan
 
     private fun init() {
         bind.lifecycleOwner = this
-        viewModel = DetailProdukPelangganViewModel(context, activity, findNavController(), bind.viewPager,
-            bind.dotsIndicator, savedData, this)
+        viewModel = DetailProdukPelangganViewModel(
+            context, findNavController(), bind.viewPager, bind.dotsIndicator,
+            savedData, this
+        )
         bind.viewModel = viewModel
         try {
             viewModel.dataProduk.value = this.arguments?.getParcelable(Constant.reffProduk)?:throw Exception("Error, terjadi kesalahan database")

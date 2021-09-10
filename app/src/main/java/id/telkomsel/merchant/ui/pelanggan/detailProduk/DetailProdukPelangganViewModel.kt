@@ -1,7 +1,6 @@
 package id.telkomsel.merchant.ui.pelanggan.detailProduk
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +40,6 @@ import retrofit2.Response
 @SuppressLint("StaticFieldLeak")
 class DetailProdukPelangganViewModel(
     private val context: Context?,
-    private val activity: Activity?,
     private val navController: NavController,
     private val viewPager: AutoViewPager,
     private val dotsIndicator: DotsIndicator,
@@ -61,8 +59,8 @@ class DetailProdukPelangganViewModel(
     private var adapterFotoProduk: AdapterFotoProduk? = null
     lateinit var btmSheet : BottomSheetDialog
     lateinit var imgFoto : AppCompatImageView
-    lateinit var btnClose : AppCompatImageButton
-    lateinit var etJumlah : NumberPicker
+    private lateinit var btnClose : AppCompatImageButton
+    private lateinit var etJumlah : NumberPicker
     lateinit var textStatus : AppCompatTextView
     lateinit var textStok : AppCompatTextView
     lateinit var textHarga : AppCompatTextView
@@ -109,7 +107,7 @@ class DetailProdukPelangganViewModel(
                 btmSheet.show()
             }
             else{
-                message.value = "Maaf, Anda tidak memiliki poin"
+                message.value = "Maaf, Anda tidak memiliki poin yang cukup"
             }
         }
         else{

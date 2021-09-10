@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,6 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.convertRupiah
-import kotlinx.android.synthetic.main.item_voucher.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -116,13 +114,25 @@ class DaftarVoucherViewModel(
                             adapter.notifyDataSetChanged()
                         }
 
+                        if (result.data.isNullOrEmpty()){
+                            if (startPage == 0) {
+                                if (statusVoucher == Constant.active) {
+                                    message.value = "Maaf, Anda belum memiliki voucher"
+                                } else {
+                                    message.value =
+                                        "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
+                                }
+                            } else {
+                                status.value = "Maaf, sudah tidak ada lagi data"
+                            }
+                        }
                         startPage += 25
                     } else {
                         if (startPage == 0) {
                             if (statusVoucher == Constant.active) {
-                                status.value = "Maaf, Anda belum memiliki voucher"
+                                message.value = "Maaf, Anda belum memiliki voucher"
                             } else {
-                                status.value =
+                                message.value =
                                     "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
                             }
                         } else {
