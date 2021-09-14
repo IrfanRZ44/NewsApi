@@ -415,4 +415,10 @@ object RetrofitUtils{
         val call = api.getDaftarVoucher(startPage, username, status)
         call.enqueue(callback)
     }
+
+    fun getDaftarVoucherByMerchant(startPage: Int, merchantId: Int, status: String,
+                         callback: Callback<ModelResponseVoucher>){
+        val call = api.getDaftarVoucherByMerchant(startPage, merchantId, status)
+        call.enqueue(callback)
+    }
 }

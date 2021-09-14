@@ -33,9 +33,9 @@ import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseDaftarFotoIklan
 import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
 import id.telkomsel.merchant.model.response.ModelResponseDaftarProduk
-import id.telkomsel.merchant.ui.merchant.listProduk.AdapterAllKategori
-import id.telkomsel.merchant.ui.merchant.listProduk.AdapterHeaderKategori
-import id.telkomsel.merchant.ui.merchant.listProduk.AdapterKategori
+import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterAllKategori
+import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterHeaderKategori
+import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterKategori
 import id.telkomsel.merchant.ui.pelanggan.detailProduk.DetailProdukPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave

@@ -12,6 +12,7 @@ import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.ui.merchant.accountMerchant.AccountMerchantFragment
 import id.telkomsel.merchant.ui.merchant.listMerchant.TabMerchantFragment
 import id.telkomsel.merchant.ui.merchant.listProduk.TabProdukFragment
+import id.telkomsel.merchant.ui.merchant.voucher.TabVoucherFragment
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 
 class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
@@ -103,6 +104,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
     private fun viewPagerMerchant(pager: ViewPager){
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabProdukFragment(), "Produk")
+        adapter.addFragment(TabVoucherFragment(), Constant.voucher)
         adapter.addFragment(AccountMerchantFragment(), Constant.akun)
         supportActionBar?.title = "Produk"
 
@@ -111,18 +113,27 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         bind.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 bind.tabs.getTabAt(0)?.icon = resources.getDrawable(R.drawable.ic_trolley_gray)
-                bind.tabs.getTabAt(1)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
+                bind.tabs.getTabAt(1)?.icon = resources.getDrawable(R.drawable.ic_voucher)
+                bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
 
                 when (tab.position) {
                     0-> {
                         supportActionBar?.title = "Produk"
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                    }
+                    1-> {
+                        supportActionBar?.title = "Voucher"
+                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     else -> {
                         supportActionBar?.title = Constant.akun
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                     }
                 }
             }

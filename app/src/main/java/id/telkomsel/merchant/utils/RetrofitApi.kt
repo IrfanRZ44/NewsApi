@@ -561,6 +561,15 @@ interface RetrofitApi {
         @Field("status") status: String,
     ): Call<ModelResponseVoucher>
 
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarVoucherByMerchant)
+    fun getDaftarVoucherByMerchant(
+        @Field("startPage") startPage: Int,
+        @Field("merchant_id") merchant_id: Int,
+        @Field("status") status: String,
+    ): Call<ModelResponseVoucher>
+
     companion object {
         const val baseUrl = Constant.reffBaseURL
     }

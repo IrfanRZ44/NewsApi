@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="id.telkomsel.merchant.ui.merchant.listProduk.DaftarProdukFragment">
+    tools:context="id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.DaftarProdukFragment">
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.merchant.listProduk.DaftarProdukViewModel" />
+            type="id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.DaftarProdukViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

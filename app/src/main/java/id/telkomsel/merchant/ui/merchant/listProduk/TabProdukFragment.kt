@@ -16,6 +16,7 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloating
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentTabProdukBinding
+import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.DaftarProdukFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.SectionsPagerAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard

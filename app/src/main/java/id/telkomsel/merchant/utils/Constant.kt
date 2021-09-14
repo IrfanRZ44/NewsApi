@@ -60,6 +60,7 @@ object Constant {
     const val reffUpdateStatusProduk = "updateStatusProduk"
     const val reffRiwayatPoin = "getRiwayatPoin"
     const val reffDaftarVoucher = "getDaftarVoucher"
+    const val reffDaftarVoucherByMerchant = "getDaftarVoucherByMerchant"
 
     const val reffProvinsi = "getProvinsi"
     const val reffKabupaten = "getKabupatenByProvinsi"
@@ -154,6 +155,7 @@ object Constant {
     const val rejected = "rejected"
     const val inactive = "inactive"
     const val expired = "expired"
+    const val notused = "notused"
     const val read = "read"
     const val unread = "unread"
     const val sended = "sended"

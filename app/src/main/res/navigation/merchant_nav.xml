@@ -13,16 +13,6 @@
         tools:layout="@layout/fragment_lihat_foto"
         />
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="id.telkomsel.merchant.ui.pelanggan.blank1.Blank1Fragment"
-        android:label="fragment_blank1"
-        tools:layout="@layout/fragment_blank1" />
-    <fragment
-        android:id="@+id/nav_setting"
-        android:name="id.telkomsel.merchant.ui.pelanggan.blank2.Blank2Fragment"
-        android:label="fragment_blank2"
-        tools:layout="@layout/fragment_blank2" />
-    <fragment
         android:id="@+id/accountAdminFragment"
         android:name="id.telkomsel.merchant.ui.merchant.accountMerchant.AccountMerchantFragment"
         android:label="fragment_account_admin"
@@ -64,7 +54,7 @@
         tools:layout="@layout/fragment_edit_profil_merchant" />
     <fragment
         android:id="@+id/daftarProdukFragment"
-        android:name="id.telkomsel.merchant.ui.merchant.listProduk.DaftarProdukFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.DaftarProdukFragment"
         android:label="fragment_daftar_produk"
         tools:layout="@layout/fragment_daftar_produk" />
     <fragment
@@ -82,4 +72,14 @@
         android:name="id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment"
         android:label="fragment_edit_produk"
         tools:layout="@layout/fragment_edit_produk" />
+    <fragment
+        android:id="@+id/tabVoucherFragment"
+        android:name="id.telkomsel.merchant.ui.merchant.voucher.TabVoucherFragment"
+        android:label="fragment_tab_voucher"
+        tools:layout="@layout/fragment_tab_voucher" />
+    <fragment
+        android:id="@+id/daftarVoucherFragment2"
+        android:name="id.telkomsel.merchant.ui.merchant.voucher.daftarVoucher.DaftarVoucherFragment"
+        android:label="fragment_daftar_voucher_merchant"
+        tools:layout="@layout/fragment_daftar_voucher_merchant" />
 </navigation>
