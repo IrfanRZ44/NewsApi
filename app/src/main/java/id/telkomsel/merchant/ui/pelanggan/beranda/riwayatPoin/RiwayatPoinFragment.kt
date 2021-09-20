@@ -33,7 +33,7 @@ class RiwayatPoinFragment : BaseFragmentBind<FragmentRiwayatPoinBinding>() {
             viewModel.startPage = 0
             viewModel.listData.clear()
             viewModel.adapter.notifyDataSetChanged()
-            viewModel.setDefaultDate()
+            viewModel.checkRangeDate()
         }
 
         bind.rcRequest.addOnScrollListener(object : RecyclerView.OnScrollListener() {

@@ -16,12 +16,12 @@ import kotlinx.android.synthetic.main.item_voucher.view.*
 
 class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>,
                      private val statusRequest: String,
-                     private val onClickItem : (ModelVoucher) -> Unit
+                     private val onClickItem : (ModelVoucher, Int) -> Unit
                      ) : RecyclerView.Adapter<AdapterVoucher.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val viewItem: View) : RecyclerView.ViewHolder(viewItem){
         @SuppressLint("SetTextI18n")
-        fun bindAfiliasi(item: ModelVoucher){
+        fun bindAfiliasi(item: ModelVoucher, position: Int){
             viewItem.imgFoto.load(item.dataProduk?.url_foto) {
                 crossfade(true)
                 placeholder(R.drawable.ic_camera_white)
@@ -42,7 +42,7 @@ class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>,
             if (statusRequest == Constant.active){
                 viewItem.btnVoucher.visibility = View.VISIBLE
                 viewItem.btnVoucher.setOnClickListener {
-                    onClickItem(item)
+                    onClickItem(item, position)
                 }
             }
             else{
@@ -62,6 +62,6 @@ class AdapterVoucher(private val listVoucher: ArrayList<ModelVoucher>,
     }
     override fun getItemCount(): Int = listVoucher.size
     override fun onBindViewHolder(holder: AfiliasiHolder, position: Int) {
-        holder.bindAfiliasi(listVoucher[position])
+        holder.bindAfiliasi(listVoucher[position], position)
     }
 }

@@ -570,6 +570,30 @@ interface RetrofitApi {
         @Field("status") status: String,
     ): Call<ModelResponseVoucher>
 
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarVoucherByAdmin)
+    fun getDaftarVoucherByAdmin(
+        @Field("startPage") startPage: Int,
+        @Field("cluster") cluster: String,
+        @Field("status") status: String,
+    ): Call<ModelResponseVoucher>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateStatusVoucher)
+    fun updateStatusVoucher(
+        @Field("kode_voucher") kode_voucher: String,
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateStatusVoucherByMerchant)
+    fun updateStatusVoucherByMerchant(
+        @Field("kode_voucher") kode_voucher: String,
+        @Field("merchant_id") merchant_id: Int,
+    ): Call<ModelResponse>
+
     companion object {
         const val baseUrl = Constant.reffBaseURL
     }

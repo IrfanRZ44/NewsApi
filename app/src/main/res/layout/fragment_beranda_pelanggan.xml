@@ -188,7 +188,6 @@
                 android:id="@+id/btnSortStok"
                 android:src="@drawable/ic_up_white"
                 />
-
         </com.nambimobile.widgets.efab.ExpandableFabLayout>
     </RelativeLayout>
 </layout>

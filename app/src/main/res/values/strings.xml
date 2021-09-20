@@ -245,10 +245,14 @@
     <string name="terjual">Terjual</string>
     <string name="gunakan_voucher">Gunakan Voucher</string>
     <string name="kode_voucher">Kode Voucher : </string>
-    <string name="silahkan_tunjukkan_kode_berikut_pada_merchant_tempat_pembelian_voucher_anda">Silahkan Tunjukkan kode berikut pada Merchant tempat pembelian Voucher Anda</string>
+    <string name="silahkan_tunjukkan_kode_berikut_pada_merchant_tempat_pembelian_voucher_anda">Silahkan tunjukkan voucher berikut pada Kasir/Pemilik Merchant</string>
     <string name="done">Done</string>
     <string name="informasi_voucher">Informasi Voucher</string>
     <string name="harga_produk">Harga Produk</string>
     <string name="jumlah_voucher">Jumlah Voucher</string>
     <string name="kode_voucher_2">Kode Voucher</string>
+    <string name="maps">Maps</string>
+    <string name="petunjuk_arah">Petunjuk Arah</string>
+    <string name="sudah_terpakai">Sudah Terpakai</string>
+    <string name="close">Close</string>
 </resources>

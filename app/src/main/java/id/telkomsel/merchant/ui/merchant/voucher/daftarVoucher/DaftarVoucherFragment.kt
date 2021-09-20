@@ -5,6 +5,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.databinding.FragmentDaftarVoucherMerchantBinding
 import id.telkomsel.merchant.utils.Constant
+import id.telkomsel.merchant.utils.adapter.showLog
 
 class DaftarVoucherFragment(private val statusVoucher: String) : BaseFragmentBind<FragmentDaftarVoucherMerchantBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_daftar_voucher_merchant
@@ -29,11 +30,14 @@ class DaftarVoucherFragment(private val statusVoucher: String) : BaseFragmentBin
         viewModel.checkUsername()
 
         bind.swipeRefresh.setOnRefreshListener {
+            showLog("juga")
+
             bind.swipeRefresh.isRefreshing = false
             viewModel.startPage = 0
             viewModel.listData.clear()
             viewModel.adapter.notifyDataSetChanged()
-//            viewModel.checkUsername()
+            viewModel.isShowLoading.value = true
+            viewModel.checkUsername()
         }
 
         bind.rcRequest.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -41,6 +45,7 @@ class DaftarVoucherFragment(private val statusVoucher: String) : BaseFragmentBin
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && viewModel.isShowLoading.value == false) {
                     viewModel.isShowLoading.value = true
+                    showLog("Saya")
                     viewModel.checkUsername()
                 }
             }

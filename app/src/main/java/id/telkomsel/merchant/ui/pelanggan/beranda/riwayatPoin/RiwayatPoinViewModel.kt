@@ -145,6 +145,7 @@ class RiwayatPoinViewModel(
                         }
 
                         startPage += 25
+                        message.value = ""
                     }
                     else{
                         if (startPage == 0){
@@ -152,6 +153,7 @@ class RiwayatPoinViewModel(
                                 "Maaf, belum ada data riwayat poin pada range tanggal $startTanggal-$startBulan-$startTahun - $endTanggal-$endBulan-$endTahun"
                         }
                         else{
+                            message.value = ""
                             status.value = result?.message
                         }
                     }

@@ -6,20 +6,24 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.ModelVoucher
+import id.telkomsel.merchant.model.response.ModelResponse
 import id.telkomsel.merchant.model.response.ModelResponseVoucher
+import id.telkomsel.merchant.services.loadingIndicatorView.LoadingIndicatorView
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
@@ -41,6 +45,7 @@ class DaftarVoucherViewModel(
     var startPage = 0
     lateinit var btmSheet: BottomSheetDialog
     private lateinit var imgCode: AppCompatImageView
+    private lateinit var textMessage: AppCompatTextView
     private lateinit var textKode: AppCompatTextView
     private lateinit var textNamaMerchant: AppCompatTextView
     private lateinit var textAlamat: AppCompatTextView
@@ -48,13 +53,14 @@ class DaftarVoucherViewModel(
     private lateinit var textHarga: AppCompatTextView
     private lateinit var textPromo: AppCompatTextView
     private lateinit var textJumlah: AppCompatTextView
-    private lateinit var btnMaps: FloatingActionButton
+    private lateinit var btnMaps: AppCompatButton
+    private lateinit var btnUsed: AppCompatButton
+    private lateinit var showProgress: LoadingIndicatorView
 
     fun initAdapter() {
         rcRequest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        adapter = AdapterVoucher(listData, statusVoucher) { item: ModelVoucher -> onClickVoucher(
-            item
-        ) }
+        adapter = AdapterVoucher(listData, statusVoucher)
+        { item: ModelVoucher, position: Int -> onClickVoucher(item, position) }
         rcRequest.adapter = adapter
     }
 
@@ -69,6 +75,7 @@ class DaftarVoucherViewModel(
         btmSheet.behavior.isDraggable = false
         btmSheet.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         imgCode = bottomView.findViewById(R.id.imgCode)
+        textMessage = bottomView.findViewById(R.id.textMessage)
         textKode = bottomView.findViewById(R.id.textKode)
         textNamaMerchant = bottomView.findViewById(R.id.textNamaMerchant)
         textAlamat = bottomView.findViewById(R.id.textAlamat)
@@ -77,9 +84,11 @@ class DaftarVoucherViewModel(
         textPromo = bottomView.findViewById(R.id.textPromo)
         textJumlah = bottomView.findViewById(R.id.textJumlah)
         btnMaps = bottomView.findViewById(R.id.btnMaps)
-        val btnDone = bottomView.findViewById<FloatingActionButton>(R.id.btnDone)
+        btnUsed = bottomView.findViewById(R.id.btnUsed)
+        showProgress = bottomView.findViewById(R.id.showProgress)
+        val btnClose = bottomView.findViewById<AppCompatImageButton>(R.id.btnClose)
 
-        btnDone.setOnClickListener {
+        btnClose.setOnClickListener {
             btmSheet.dismiss()
         }
     }
@@ -96,7 +105,6 @@ class DaftarVoucherViewModel(
 
     private fun getDaftarVoucher(username: String) {
         isShowLoading.value = true
-        adapter.notifyDataSetChanged()
 
         RetrofitUtils.getDaftarVoucher(startPage, username, statusVoucher,
             object : Callback<ModelResponseVoucher> {
@@ -114,26 +122,43 @@ class DaftarVoucherViewModel(
                             adapter.notifyDataSetChanged()
                         }
 
-                        if (result.data.isNullOrEmpty()){
+                        if (result.data.isEmpty()){
                             if (startPage == 0) {
-                                if (statusVoucher == Constant.active) {
-                                    message.value = "Maaf, Anda belum memiliki voucher"
-                                } else {
-                                    message.value =
-                                        "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
+                                when (statusVoucher) {
+                                    Constant.active -> {
+                                        message.value = "Maaf, Anda belum memiliki voucher yang terjual"
+                                    }
+                                    Constant.expired -> {
+                                        message.value =
+                                            "Maaf, Anda tidak memiliki voucher yang telah digunakan"
+                                    }
+                                    else -> {
+                                        message.value =
+                                            "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
+                                    }
                                 }
                             } else {
                                 status.value = "Maaf, sudah tidak ada lagi data"
                             }
                         }
+                        else{
+                            message.value = ""
+                        }
                         startPage += 25
                     } else {
                         if (startPage == 0) {
-                            if (statusVoucher == Constant.active) {
-                                message.value = "Maaf, Anda belum memiliki voucher"
-                            } else {
-                                message.value =
-                                    "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
+                            when (statusVoucher) {
+                                Constant.active -> {
+                                    message.value = "Maaf, Anda belum memiliki voucher"
+                                }
+                                Constant.expired -> {
+                                    message.value =
+                                        "Maaf, Anda tidak memiliki voucher yang telah digunakan"
+                                }
+                                else -> {
+                                    message.value =
+                                        "Maaf, Anda tidak memiliki voucher yang telah kadaluarsa"
+                                }
                             }
                         } else {
                             status.value = result?.message
@@ -152,6 +177,39 @@ class DaftarVoucherViewModel(
             })
     }
 
+    private fun updateStatusVoucher(kodeVoucher: String, position: Int) {
+        showProgress.visibility = View.VISIBLE
+
+        RetrofitUtils.updateStatusVoucher(kodeVoucher,
+            object : Callback<ModelResponse> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    showProgress.visibility = View.GONE
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        status.value = "Berhasil update status voucher"
+                        listData.removeAt(position)
+                        adapter.notifyDataSetChanged()
+                        btmSheet.dismiss()
+                    } else {
+                        textMessage.text = "Gagal update status voucher"
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    showProgress.visibility = View.GONE
+                    message.value = t.message
+                }
+            })
+    }
+
     private fun generateQRCode(kodeVoucher: String){
         val localMultiFormatWriter = MultiFormatWriter()
 
@@ -165,8 +223,31 @@ class DaftarVoucherViewModel(
         }
     }
 
+    private fun dialogUseVoucher(kodeVoucher: String, position: Int){
+        if (activity != null){
+            val alertUseVoucher = AlertDialog.Builder(activity)
+            alertUseVoucher.setMessage("Apakah Anda yakin ingin mengubah status voucher menjadi telah terpakai?")
+            alertUseVoucher.setPositiveButton(
+                Constant.iya
+            ) { dialog, _ ->
+                updateStatusVoucher(kodeVoucher, position)
+                dialog.dismiss()
+            }
+
+            alertUseVoucher.setNegativeButton(
+                Constant.batal
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }
+            alertUseVoucher.show()
+        }
+        else{
+            message.value = "Mohon mulai ulang aplikasi"
+        }
+    }
+
     @SuppressLint("SetTextI18n")
-    private fun onClickVoucher(item: ModelVoucher){
+    private fun onClickVoucher(item: ModelVoucher, position: Int){
         generateQRCode(item.kode_voucher)
         textKode.text = ": ${item.kode_voucher}"
         textNamaMerchant.text = ": ${item.dataMerchant?.nama_merchant}"
@@ -182,6 +263,10 @@ class DaftarVoucherViewModel(
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             activity?.startActivity(mapIntent)
+        }
+
+        btnUsed.setOnClickListener {
+            dialogUseVoucher(item.kode_voucher, position)
         }
 
         btmSheet.show()

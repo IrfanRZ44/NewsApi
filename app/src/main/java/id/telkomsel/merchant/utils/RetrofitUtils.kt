@@ -421,4 +421,20 @@ object RetrofitUtils{
         val call = api.getDaftarVoucherByMerchant(startPage, merchantId, status)
         call.enqueue(callback)
     }
+
+    fun getDaftarVoucherByAdmin(startPage: Int, cluster: String, status: String,
+                                   callback: Callback<ModelResponseVoucher>){
+        val call = api.getDaftarVoucherByAdmin(startPage, cluster, status)
+        call.enqueue(callback)
+    }
+
+    fun updateStatusVoucher(kode_voucher: String, callback: Callback<ModelResponse>){
+        val call = api.updateStatusVoucher(kode_voucher)
+        call.enqueue(callback)
+    }
+
+    fun updateStatusVoucherByMerchant(kode_voucher: String, merchantId: Int, callback: Callback<ModelResponse>){
+        val call = api.updateStatusVoucherByMerchant(kode_voucher, merchantId)
+        call.enqueue(callback)
+    }
 }

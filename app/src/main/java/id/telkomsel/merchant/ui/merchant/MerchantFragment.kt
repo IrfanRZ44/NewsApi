@@ -58,6 +58,7 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabMerchantFragment(), Constant.appName)
         adapter.addFragment(TabProdukFragment(), "Produk")
+        adapter.addFragment(TabVoucherFragment(), Constant.voucher)
         adapter.addFragment(AccountMerchantFragment(), Constant.akun)
         supportActionBar?.title = Constant.appName
 
@@ -67,7 +68,8 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 bind.tabs.getTabAt(0)?.icon = resources.getDrawable(R.drawable.ic_multipeople_gray)
                 bind.tabs.getTabAt(1)?.icon = resources.getDrawable(R.drawable.ic_trolley_gray)
-                bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
+                bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_voucher)
+                bind.tabs.getTabAt(3)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
 
                 when (tab.position) {
                     0 -> {
@@ -75,18 +77,28 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(3)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     1-> {
                         supportActionBar?.title = "Produk"
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(3)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                    }
+                    2-> {
+                        supportActionBar?.title = "Voucher"
+                        bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(3)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                     }
                     else -> {
                         supportActionBar?.title = Constant.akun
                         bind.tabs.getTabAt(0)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
                         bind.tabs.getTabAt(1)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
-                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(2)?.icon?.setColorFilter(resources.getColor(R.color.gray1), PorterDuff.Mode.SRC_IN)
+                        bind.tabs.getTabAt(3)?.icon?.setColorFilter(resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
                     }
                 }
             }

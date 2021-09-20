@@ -39,7 +39,8 @@ class VoucherFragment : BaseFragmentBind<FragmentVoucherBinding>() {
     private fun setupViewPager() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(DaftarVoucherFragment(Constant.active), "Aktif")
-        adapter.addFragment(DaftarVoucherFragment(Constant.expired), "Kadaluarsa")
+        adapter.addFragment(DaftarVoucherFragment(Constant.expired), "Sudah Terpakai")
+        adapter.addFragment(DaftarVoucherFragment(Constant.notused), "Kadaluarsa")
 
         bind.viewPager.adapter = adapter
     }

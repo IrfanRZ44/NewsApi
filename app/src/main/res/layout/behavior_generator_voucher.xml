@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="@dimen/h3"
     android:background="@color/white"
@@ -13,17 +13,40 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:text="@string/informasi_voucher"
         android:textSize="@dimen/text_h5"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/h3"
         android:textColor="@color/black"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textTitle"
+        tools:ignore="RelativeOverlap"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textSize="@dimen/text_h2"
+        android:gravity="center"
+        android:textColor="@color/gray1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textTitle"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/btn_circle_gray"
+        android:src="@drawable/ic_close_red"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnClose"
+        android:tint="@color/red1"
+        android:fontFamily="@font/bauhaus"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textTitle"
+        android:layout_below="@+id/textMessage"
         android:id="@+id/rlCode"
         >
         <androidx.appcompat.widget.AppCompatImageView
@@ -268,35 +291,46 @@
         android:id="@+id/textInfo"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="@dimen/_60"
-        android:layout_height="@dimen/_60"
-        android:layout_marginEnd="@dimen/h3"
-        android:layout_marginTop="@dimen/h5"
-        android:layout_marginBottom="@dimen/h2"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h3"
+        android:padding="@dimen/h2"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_map_white"
-        app:fabCustomSize="@dimen/_60"
+        android:background="@drawable/btn_gradient_red"
+        android:layout_alignParentStart="true"
+        android:drawableTop="@drawable/ic_trolley_white"
+        android:drawablePadding="@dimen/h2"
         android:layout_below="@+id/textInfo"
-        android:layout_toStartOf="@+id/btnDone"
-        android:id="@+id/btnMaps"
-        android:tint="@color/white"
-        app:backgroundTint="@color/colorPrimary"
-        android:contentDescription="@string/done" />
+        android:id="@+id/btnUsed"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bauhaus"
+        android:text="@string/sudah_terpakai"
+        />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="@dimen/_60"
-        android:layout_height="@dimen/_60"
-        android:layout_marginEnd="@dimen/h3"
-        android:layout_marginTop="@dimen/h5"
-        android:layout_marginBottom="@dimen/h2"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/h3"
+        android:layout_marginStart="@dimen/h2"
+        android:padding="@dimen/h2"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_true_white"
-        app:fabCustomSize="@dimen/_60"
-        android:layout_below="@+id/textInfo"
+        android:background="@drawable/btn_gradient_green"
         android:layout_alignParentEnd="true"
-        android:id="@+id/btnDone"
-        android:tint="@color/white"
-        app:backgroundTint="@color/colorPrimary"
-        android:contentDescription="@string/done" />
+        android:drawableTop="@drawable/ic_map_white"
+        android:drawablePadding="@dimen/h2"
+        android:layout_below="@+id/textInfo"
+        android:id="@+id/btnMaps"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bauhaus"
+        android:text="@string/petunjuk_arah"
+        />
+
+    <include layout="@layout/progress_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showProgress"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>
