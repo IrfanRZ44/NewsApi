@@ -533,6 +533,7 @@ interface RetrofitApi {
     @POST(Constant.reffCreateVoucher)
     fun createVoucher(
         @Field("produk_id") produk_id: Int,
+        @Field("merchant_id") merchant_id: Int,
         @Field("username") username: String,
         @Field("jumlah") jumlah: Int,
         @Field("total_harga") total_harga: Long

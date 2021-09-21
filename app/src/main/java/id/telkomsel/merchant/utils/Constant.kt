@@ -194,6 +194,7 @@ object Constant {
     const val produkFavorit = "Produk Favorit"
     const val beranda = "Beranda"
     const val voucher = "Voucher"
+    const val scanVoucher = "Scan Voucher"
     const val riwayatPoin = "Riwayat Poin"
 
     const val dataModelFotoProfil = "FotoProfil"

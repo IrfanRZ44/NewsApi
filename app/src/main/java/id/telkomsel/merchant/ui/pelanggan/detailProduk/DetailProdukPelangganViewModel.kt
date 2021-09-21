@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
@@ -118,10 +119,11 @@ class DetailProdukPelangganViewModel(
         }
     }
 
-    private fun onClickCreateVoucher(produkId: Int, username: String, jumlah: Int, totalHarga: Long){
+    private fun onClickCreateVoucher(produkId: Int, merchantId: Int, username: String, jumlah: Int, totalHarga: Long){
+
         isShowLoading.value = true
 
-        RetrofitUtils.createVoucher(produkId, username, jumlah, totalHarga,
+        RetrofitUtils.createVoucher(produkId, merchantId, username, jumlah, totalHarga,
             object : Callback<ModelResponse> {
                 override fun onResponse(
                     call: Call<ModelResponse>,
@@ -131,9 +133,8 @@ class DetailProdukPelangganViewModel(
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccess){
-                        message.value = "Berhasil membeli voucher"
-                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
-                        navController.navigate(R.id.pelangganFragment, null, navOption)
+                        navController.navigate(R.id.voucherFragment)
+                        Toast.makeText(context, "Berhasil membeli voucher", Toast.LENGTH_LONG).show()
                     }
                     else{
                         message.value = result?.message
@@ -207,12 +208,13 @@ class DetailProdukPelangganViewModel(
         btnBeli.setOnClickListener {
             btmSheet.dismiss()
             val produkId = dataProduk.value?.id
+            val merchantId = dataProduk.value?.merchant_id
             val username = savedData.getDataPelanggan()?.username
             val jumlah = etJumlah.value
             val totalHarga = hargaNow
 
-            if (produkId != null && !username.isNullOrEmpty()){
-                onClickCreateVoucher(produkId, username, jumlah, totalHarga)
+            if (produkId != null && merchantId != null && !username.isNullOrEmpty()){
+                onClickCreateVoucher(produkId, merchantId, username, jumlah, totalHarga)
             }
             else{
                 message.value = "Error, terjadi kesalahan database"

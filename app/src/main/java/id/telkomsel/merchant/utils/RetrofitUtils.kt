@@ -398,8 +398,8 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
-    fun createVoucher(produk_id: Int, username: String, jumlah: Int, total_harga: Long, callback: Callback<ModelResponse>){
-        val call = api.createVoucher(produk_id, username, jumlah, total_harga)
+    fun createVoucher(produkId: Int, merchantId: Int, username: String, jumlah: Int, total_harga: Long, callback: Callback<ModelResponse>){
+        val call = api.createVoucher(produkId, merchantId, username, jumlah, total_harga)
         call.enqueue(callback)
     }
 
