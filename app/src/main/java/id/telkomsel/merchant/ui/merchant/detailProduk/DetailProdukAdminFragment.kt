@@ -2,6 +2,8 @@ package id.telkomsel.merchant.ui.merchant.detailProduk
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,15 @@ import id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
 import id.telkomsel.merchant.listener.ListenerFotoProduk
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -157,21 +168,59 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
             val lvl = savedData.getDataMerchant()?.level
 
             if (resultCode == Activity.RESULT_OK && !imagePath.isNullOrEmpty() && !lvl.isNullOrEmpty()){
-                val fileProduk = File(imagePath)
-                val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
-                    MediaType.get("image/*"), fileProduk))
-                val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
                 val level = RequestBody.create(MediaType.get("text/plain"), lvl)
 
-                val idFoto = dataFotoProduk?.id
-                if (idFoto != 0){
-                    val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
-                    viewModel.updateFotoProduk(id, level, urlFoto)
-                }
-                else{
-                    viewModel.createFotoProduk(produkId, level, urlFoto)
-                }
+                activity?.let { compressImage(it, imagePath, level) }
                 dataFotoProduk = null
+            }
+        }
+    }
+
+    private fun compressImage(act: Activity, realFoto: String, level: RequestBody){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.IO + job)
+        uiScope.launch {
+            val compressedImageFile = Compressor.compress(act, File(realFoto)) {
+                resolution(256, 256)
+                quality(70)
+                format(Bitmap.CompressFormat.JPEG)
+                size(124_000) // 124 KB
+            }
+            val resultUri = Uri.fromFile(compressedImageFile)
+
+            act.runOnUiThread {
+                resultUri?.let {
+                    val tempPath = it.path
+
+                    if(!tempPath.isNullOrEmpty()){
+                        val fileProduk = File(tempPath)
+                        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+                            MediaType.get("image/*"), fileProduk))
+                        val idFoto = dataFotoProduk?.id
+                        if (idFoto != 0){
+                            val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
+                            viewModel.updateFotoProduk(id, level, urlFoto)
+                        }
+                        else{
+                            val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
+                            viewModel.createFotoProduk(produkId, level, urlFoto)
+                        }
+                    }
+                    else{
+                        val fileProduk = File(realFoto)
+                        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+                            MediaType.get("image/*"), fileProduk))
+                        val idFoto = dataFotoProduk?.id
+                        if (idFoto != 0){
+                            val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
+                            viewModel.updateFotoProduk(id, level, urlFoto)
+                        }
+                        else{
+                            val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
+                            viewModel.createFotoProduk(produkId, level, urlFoto)
+                        }
+                    }
+                }
             }
         }
     }

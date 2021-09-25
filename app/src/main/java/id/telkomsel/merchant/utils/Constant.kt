@@ -79,7 +79,7 @@ object Constant {
 
 //    const val reffURL = "http://192.168.1.5:8000"
     const val reffURL = "https://admin-temans.com"
-//    const val reffURL = "http://192.168.43.186:8000"
+//    const val reffURL = "http://192.168.43.7:8000"
     const val reffBaseURL = "$reffURL/api/"
     const val reffBaseURLUploadFoto = "$reffURL/api/uploadFoto"
 

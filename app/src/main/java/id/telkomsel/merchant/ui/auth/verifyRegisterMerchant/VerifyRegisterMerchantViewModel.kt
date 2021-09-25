@@ -2,6 +2,7 @@ package id.telkomsel.merchant.ui.auth.verifyRegisterMerchant
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -26,9 +27,19 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("StaticFieldLeak")
@@ -131,16 +142,11 @@ class VerifyRegisterMerchantViewModel(
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccessRegister){
-                        dialogSucces(result.message)
-
-                        val nameFile = "${dataMerchant.username}__${System.currentTimeMillis()}"
-
-                        val fotoDiri = etFotoProfil.value?.path
-                        if (!fotoDiri.isNullOrEmpty()){
-                            activity?.let { RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
-                                Constant.folderFotoProfil, nameFile, dataMerchant.username, fotoDiri, it) }
-                        }
-                        navController.navigate(R.id.splashFragment)
+                        activity?.let { etFotoProfil.value?.path?.let { it1 ->
+                            compressImage(it,
+                                it1, result.message
+                            )
+                        } }
                     }
                     else{
                         val msgErr = result?.message
@@ -171,6 +177,48 @@ class VerifyRegisterMerchantViewModel(
                     message.value = t.message
                 }
             })
+    }
+
+    private fun compressImage(act: Activity, realFoto: String, msg: String){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.IO + job)
+        uiScope.launch {
+            val compressedImageFile = Compressor.compress(act, File(realFoto)) {
+                resolution(256, 256)
+                quality(70)
+                format(Bitmap.CompressFormat.JPEG)
+                size(124_000) // 124 KB
+            }
+            val resultUri = Uri.fromFile(compressedImageFile)
+
+            act.runOnUiThread {
+                resultUri?.let { it ->
+                    val tempPath = it.path
+
+                    if(!tempPath.isNullOrEmpty()){
+                        dialogSucces(msg)
+
+                        val nameFile = "${dataMerchant.username}__${System.currentTimeMillis()}"
+
+                        RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
+                            Constant.folderFotoProfil, nameFile, dataMerchant.username, tempPath, act)
+                        navController.navigate(R.id.splashFragment)
+                    }
+                    else{
+                        dialogSucces(msg)
+
+                        val nameFile = "${dataMerchant.username}__${System.currentTimeMillis()}"
+
+                        val fotoDiri = etFotoProfil.value?.path
+                        if (!fotoDiri.isNullOrEmpty()){
+                            RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
+                                Constant.folderFotoProfil, nameFile, dataMerchant.username, fotoDiri, act)
+                        }
+                        navController.navigate(R.id.splashFragment)
+                    }
+                }
+            }
+        }
     }
 
     fun sendCode() {

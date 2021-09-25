@@ -4,6 +4,7 @@ package id.telkomsel.merchant.ui.pelanggan.auth.verifyRegisterPelanggan
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -30,9 +31,19 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("StaticFieldLeak")
@@ -135,7 +146,7 @@ class VerifyRegisterPelangganViewModel(
                         val tkn = result.result?.token ?: throw Exception("Error, kesalahan saat menyimpan token")
                         dataPelanggan.token = tkn
 
-                        createPelanggan(dataPelanggan, urlFoto)
+                        activity?.let { compressImage(it, urlFoto, dataPelanggan) }
                     } catch (e: Exception) {
                         isShowLoading.value = false
                         message.value = e.message
@@ -149,6 +160,33 @@ class VerifyRegisterPelangganViewModel(
         FirebaseUtils.getUserToken(
             onCompleteListener
         )
+    }
+
+    private fun compressImage(act: Activity, realFoto: String, dataPelanggan: ModelPelanggan){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.IO + job)
+        uiScope.launch {
+            val compressedImageFile = Compressor.compress(act, File(realFoto)) {
+                resolution(256, 256)
+                quality(70)
+                format(Bitmap.CompressFormat.JPEG)
+                size(124_000) // 124 KB
+            }
+            val resultUri = Uri.fromFile(compressedImageFile)
+
+            act.runOnUiThread {
+                resultUri?.let {
+                    val tempPath = it.path
+
+                    if(!tempPath.isNullOrEmpty()){
+                        createPelanggan(dataPelanggan, tempPath)
+                    }
+                    else{
+                        createPelanggan(dataPelanggan, realFoto)
+                    }
+                }
+            }
+        }
     }
 
     private fun createPelanggan(dataPelanggan: ModelPelanggan, urlFoto: String){

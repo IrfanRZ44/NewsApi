@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatSpinner
@@ -27,6 +28,15 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.SpinnerKategoriAdapter
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -245,9 +255,6 @@ class AddProdukViewModel(
             val hargaReplaced = harga.replace(".", "")
             val poinReplaced = poin.replace(".", "")
 
-            val fileProduk = File(fotoProduk)
-            val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
-                MediaType.get("image/*"), fileProduk))
             val status = RequestBody.create(MediaType.get("text/plain"),
                 if (savedData.getDataMerchant()?.level == Constant.levelCSO) Constant.statusActive
                 else Constant.statusRequest)
@@ -266,8 +273,11 @@ class AddProdukViewModel(
             val nama = RequestBody.create(MediaType.get("text/plain"), namaProduk)
             val deskripsi = RequestBody.create(MediaType.get("text/plain"), desc)
 
-            createProduk(status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
-                stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster, urlFoto)
+            activity?.let {
+                compressImage(
+                    it, fotoProduk, status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
+                    stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster)
+            }
         }
         else{
             when {
@@ -326,6 +336,47 @@ class AddProdukViewModel(
                 }
                 else -> {
                     message.value = "Error, terjadi kesalahan yang tidak diketahui"
+                }
+            }
+        }
+    }
+
+    private fun compressImage(act: Activity, realFoto: String, status: RequestBody, merchantId: RequestBody,
+                              createdBy: RequestBody, kategoriId: RequestBody,
+                              subKategoriId: RequestBody, tglHabis: RequestBody,
+                              stokProduk: RequestBody, nama: RequestBody, hargaProduk: RequestBody,
+                              promoProduk: RequestBody, poinProduk: RequestBody,
+                              deskripsi: RequestBody, regional: RequestBody,
+                              branch: RequestBody, cluster: RequestBody){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.IO + job)
+        uiScope.launch {
+            val compressedImageFile = Compressor.compress(act, File(realFoto)) {
+                resolution(256, 256)
+                quality(70)
+                format(Bitmap.CompressFormat.JPEG)
+                size(124_000) // 124 KB
+            }
+            val resultUri = Uri.fromFile(compressedImageFile)
+
+            act.runOnUiThread {
+                resultUri?.let {
+                    val tempPath = it.path
+
+                    if(!tempPath.isNullOrEmpty()){
+                        val fileProduk = File(tempPath)
+                        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+                            MediaType.get("image/*"), fileProduk))
+                        createProduk(status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
+                            stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster, urlFoto)
+                    }
+                    else{
+                        val fileProduk = File(realFoto)
+                        val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
+                            MediaType.get("image/*"), fileProduk))
+                        createProduk(status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
+                            stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster, urlFoto)
+                    }
                 }
             }
         }

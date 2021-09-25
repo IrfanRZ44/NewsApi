@@ -48,6 +48,7 @@ class DaftarVoucherViewModel(
     private lateinit var textMessage: AppCompatTextView
     private lateinit var textKode: AppCompatTextView
     private lateinit var textNamaMerchant: AppCompatTextView
+    private lateinit var textNamaProduk: AppCompatTextView
     private lateinit var textAlamat: AppCompatTextView
     private lateinit var textKecamatan: AppCompatTextView
     private lateinit var textHarga: AppCompatTextView
@@ -78,6 +79,7 @@ class DaftarVoucherViewModel(
         textMessage = bottomView.findViewById(R.id.textMessage)
         textKode = bottomView.findViewById(R.id.textKode)
         textNamaMerchant = bottomView.findViewById(R.id.textNamaMerchant)
+        textNamaProduk = bottomView.findViewById(R.id.textNamaProduk)
         textAlamat = bottomView.findViewById(R.id.textAlamat)
         textHarga = bottomView.findViewById(R.id.textHarga)
         textKecamatan = bottomView.findViewById(R.id.textKecamatan)
@@ -251,6 +253,7 @@ class DaftarVoucherViewModel(
         generateQRCode(item.kode_voucher)
         textKode.text = ": ${item.kode_voucher}"
         textNamaMerchant.text = ": ${item.dataMerchant?.nama_merchant}"
+        textNamaProduk.text = ": ${item.dataProduk?.nama}"
         textAlamat.text = ": ${item.dataMerchant?.alamat_merchant}"
         textKecamatan.text = ": ${item.dataMerchant?.kecamatan}, ${item.dataMerchant?.kabupaten}"
         val harga = item.dataProduk?.harga?:0

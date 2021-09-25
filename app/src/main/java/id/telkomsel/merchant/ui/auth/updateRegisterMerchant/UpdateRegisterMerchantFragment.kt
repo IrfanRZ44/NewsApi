@@ -5,7 +5,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -33,6 +35,16 @@ import id.telkomsel.merchant.databinding.FragmentUpdateRegisterMerchantBinding
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.io.File
 
 class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMerchantBinding>(){
     override fun getLayoutResource(): Int = R.layout.fragment_update_register_merchant
@@ -236,6 +248,7 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
         if (this::mapView.isInitialized) mapView.onLowMemory()
     }
 
+    @SuppressLint("MissingPermission")
     private fun checkPermission() {
         activity?.applicationContext?.let {
             if (ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -323,8 +336,37 @@ class UpdateRegisterMerchantFragment : BaseFragmentBind<FragmentUpdateRegisterMe
 
                 viewModel.etFotoProfil.value = imageUri
                 viewModel.dataMerchant?.foto_profil = imageUri.toString()
-                imagePath?.let { RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
-                    Constant.folderFotoProfil, nameFile, username, imagePath, act) }
+
+                imagePath?.let { compressImage(act, it, username, nameFile) }
+            }
+        }
+    }
+
+    private fun compressImage(act: Activity, imagePath: String, users: String, namaFile: String){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.IO + job)
+        uiScope.launch {
+            val compressedImageFile = Compressor.compress(act, File(imagePath)) {
+                resolution(256, 256)
+                quality(70)
+                format(Bitmap.CompressFormat.JPEG)
+                size(124_000) // 124 KB
+            }
+            val resultUri = Uri.fromFile(compressedImageFile)
+
+            act.runOnUiThread {
+                resultUri?.let {
+                    val tempPath = it.path
+
+                    if(!tempPath.isNullOrEmpty()){
+                        RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
+                            Constant.folderFotoProfil, namaFile, users, tempPath, act)
+                    }
+                    else{
+                        RetrofitUtils.uploadFoto(Constant.dataModelFotoProfil,
+                            Constant.folderFotoProfil, namaFile, users, imagePath, act)
+                    }
+                }
             }
         }
     }
