@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
@@ -29,10 +30,8 @@ import id.telkomsel.merchant.listener.ListenerFotoIklan
 import id.telkomsel.merchant.model.ModelFotoIklan
 import id.telkomsel.merchant.model.ModelKategori
 import id.telkomsel.merchant.model.ModelProduk
-import id.telkomsel.merchant.model.response.ModelResponse
-import id.telkomsel.merchant.model.response.ModelResponseDaftarFotoIklan
-import id.telkomsel.merchant.model.response.ModelResponseDaftarKategori
-import id.telkomsel.merchant.model.response.ModelResponseDaftarProduk
+import id.telkomsel.merchant.model.ModelVoucher
+import id.telkomsel.merchant.model.response.*
 import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterAllKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterHeaderKategori
 import id.telkomsel.merchant.ui.merchant.listProduk.daftarProduk.AdapterKategori
@@ -51,11 +50,15 @@ class BerandaPelangganViewModel(
     private val activity: Activity?,
     private val context: Context?,
     private val rcKategori: RecyclerView,
+    private val cardRating: RelativeLayout,
     private val rcProduk: RecyclerView,
+    private val rcRating: RecyclerView,
     private val savedData: DataSave,
     private val viewPager: AutoViewPager,
     private val dotsIndicator: DotsIndicator
 ) : BaseViewModel(), ListenerFotoIklan {
+    val listRating = ArrayList<ModelVoucher>()
+    lateinit var adapterRating: AdapterRating
     private val listKategori = ArrayList<ModelKategori>()
     val listProduk = ArrayList<ModelProduk>()
     lateinit var groupAdapter: GroupAdapter<ViewHolder>
@@ -76,14 +79,24 @@ class BerandaPelangganViewModel(
 
     fun initHeader(cardHeader: CardView){
         val currentPoin = savedData.getDataPelanggan()?.poin
+        val username = savedData.getDataPelanggan()?.username
         getDaftarFotoIklan()
-        if (!savedData.getDataPelanggan()?.username.isNullOrEmpty() && currentPoin != null){
+        if (!username.isNullOrEmpty() && currentPoin != null){
             cardHeader.visibility = View.VISIBLE
             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
+            initAdapterRating()
+            getDaftarVoucherExpired(username)
         }
         else{
             cardHeader.visibility = View.GONE
         }
+    }
+
+    fun initAdapterRating() {
+        rcRating.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        adapterRating = AdapterRating(listRating)
+        { item: ModelVoucher, rating: Int -> onClickVoucher(item, rating) }
+        rcRating.adapter = adapterRating
     }
 
     private fun initAdapterFoto(gambar: List<ModelFotoIklan>?) {
@@ -420,6 +433,38 @@ class BerandaPelangganViewModel(
         navController.navigate(R.id.voucherFragment)
     }
 
+    private fun onClickVoucher(item: ModelVoucher, rating: Int){
+        isShowLoading.value = true
+
+        RetrofitUtils.updateRatingVoucher(item.kode_voucher, rating,
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        status.value = "Terima kasih telah atas rating Anda"
+                        listRating.removeAt(0)
+                        adapterRating.notifyDataSetChanged()
+                        cardRating.visibility = View.GONE
+                    } else {
+                        status.value = result?.message?:"Error, gagal mengirim rating"
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    status.value = t.message
+                }
+            })
+    }
+
     private fun createProdukFavorit(item: ModelProduk, username: String, position: Int){
         isShowLoading.value = true
 
@@ -478,6 +523,39 @@ class BerandaPelangganViewModel(
                     isSearching = false
                     isShowLoading.value = false
                     status.value = t.message
+                }
+            })
+    }
+
+    private fun getDaftarVoucherExpired(username: String) {
+        isShowLoading.value = true
+
+        RetrofitUtils.getDaftarVoucherExpired(username,
+            object : Callback<ModelResponseRating> {
+                override fun onResponse(
+                    call: Call<ModelResponseRating>,
+                    response: Response<ModelResponseRating>
+                ) {
+                    isShowLoading.value = false
+                    isSearching = false
+                    val result = response.body()
+                    val dataVoucher = result?.data
+
+                    if (result?.message == Constant.reffSuccess && dataVoucher != null) {
+                        listRating.add(dataVoucher)
+                        adapterRating.notifyDataSetChanged()
+                    } else {
+                        cardRating.visibility = View.GONE
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponseRating>,
+                    t: Throwable
+                ) {
+                    cardRating.visibility = View.GONE
+                    isSearching = false
+                    isShowLoading.value = false
                 }
             })
     }

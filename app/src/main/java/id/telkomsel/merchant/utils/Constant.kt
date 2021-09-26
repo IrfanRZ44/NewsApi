@@ -60,9 +60,11 @@ object Constant {
     const val reffUpdateStatusProduk = "updateStatusProduk"
     const val reffRiwayatPoin = "getRiwayatPoin"
     const val reffDaftarVoucher = "getDaftarVoucher"
+    const val reffDaftarVoucherExpired = "getDaftarVoucherExpired"
     const val reffDaftarVoucherByMerchant = "getDaftarVoucherByMerchant"
     const val reffDaftarVoucherByAdmin = "getDaftarVoucherByAdmin"
     const val reffUpdateStatusVoucher = "updateStatusVoucher"
+    const val reffUpdateRatingVoucher = "updateRatingVoucher"
     const val reffUpdateStatusVoucherByMerchant = "updateStatusVoucherByMerchant"
 
     const val reffProvinsi = "getProvinsi"

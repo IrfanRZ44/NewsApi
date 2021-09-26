@@ -32,8 +32,8 @@
         android:layout_below="@+id/textTitle"
         />
     <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:scaleType="centerCrop"
         android:background="@drawable/btn_circle_gray"
         android:src="@drawable/ic_close_red"

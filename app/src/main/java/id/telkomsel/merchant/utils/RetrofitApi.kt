@@ -564,6 +564,13 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffDaftarVoucherExpired)
+    fun getDaftarVoucherExpired(
+        @Field("username") username: String,
+    ): Call<ModelResponseRating>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffDaftarVoucherByMerchant)
     fun getDaftarVoucherByMerchant(
         @Field("startPage") startPage: Int,
@@ -579,6 +586,14 @@ interface RetrofitApi {
         @Field("cluster") cluster: String,
         @Field("status") status: String,
     ): Call<ModelResponseVoucher>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffUpdateRatingVoucher)
+    fun updateRatingVoucher(
+        @Field("kode_voucher") kode_voucher: String,
+        @Field("rating") rating: Int,
+    ): Call<ModelResponse>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded

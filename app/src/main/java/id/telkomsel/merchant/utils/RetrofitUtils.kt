@@ -416,6 +416,12 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getDaftarVoucherExpired(username: String,
+                       callback: Callback<ModelResponseRating>){
+        val call = api.getDaftarVoucherExpired(username)
+        call.enqueue(callback)
+    }
+
     fun getDaftarVoucherByMerchant(startPage: Int, merchantId: Int, status: String,
                          callback: Callback<ModelResponseVoucher>){
         val call = api.getDaftarVoucherByMerchant(startPage, merchantId, status)
@@ -430,6 +436,11 @@ object RetrofitUtils{
 
     fun updateStatusVoucher(kode_voucher: String, callback: Callback<ModelResponse>){
         val call = api.updateStatusVoucher(kode_voucher)
+        call.enqueue(callback)
+    }
+
+    fun updateRatingVoucher(kodeVoucher: String, rating: Int, callback: Callback<ModelResponse>){
+        val call = api.updateRatingVoucher(kodeVoucher, rating)
         call.enqueue(callback)
     }
 
