@@ -567,7 +567,7 @@ interface RetrofitApi {
     @POST(Constant.reffDaftarVoucherExpired)
     fun getDaftarVoucherExpired(
         @Field("username") username: String,
-    ): Call<ModelResponseRating>
+    ): Call<ModelResponseVoucher>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
@@ -593,7 +593,7 @@ interface RetrofitApi {
     fun updateRatingVoucher(
         @Field("kode_voucher") kode_voucher: String,
         @Field("rating") rating: Int,
-    ): Call<ModelResponse>
+    ): Call<ModelResponsePoin>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded

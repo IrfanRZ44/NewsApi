@@ -118,39 +118,67 @@
                 android:fontFamily="@font/bauhaus"
                 />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textKota"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray3"
-                android:textSize="@dimen/text_h2"
-                android:maxLines="1"
-                android:text="@string/kabupaten_kota"
+                android:orientation="horizontal"
+                android:id="@+id/lnKota"
+                android:gravity="start"
                 android:layout_below="@+id/textPromo"
                 android:layout_marginStart="@dimen/h2"
-                android:fontFamily="@font/bauhaus"
-                android:drawableStart="@drawable/ic_city_black"
-                android:drawablePadding="@dimen/h1"
                 android:layout_marginTop="@dimen/h1"
-                android:textAlignment="center"
-                />
+                android:layout_marginBottom="@dimen/h2"
+                >
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_city_black"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textKota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray3"
+                    android:textSize="@dimen/text_h2"
+                    android:maxLines="1"
+                    android:text="@string/kabupaten_kota"
+                    android:fontFamily="@font/bauhaus"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/h1"
+                    android:layout_marginStart="@dimen/h1"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textTerjual"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray3"
-                android:textSize="@dimen/text_h2"
-                android:maxLines="1"
-                android:text="@string/terjual"
-                android:layout_below="@+id/textKota"
+                android:orientation="horizontal"
+                android:id="@+id/lnRating"
+                android:gravity="start"
+                android:layout_below="@+id/lnKota"
                 android:layout_marginStart="@dimen/h2"
-                android:fontFamily="@font/bauhaus"
-                android:drawableStart="@drawable/ic_star_orens"
-                android:drawablePadding="@dimen/h1"
                 android:layout_marginTop="@dimen/h1"
-                android:textAlignment="center"
-                />
+                android:layout_marginBottom="@dimen/h2"
+                >
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_star_orens"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textTerjual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray3"
+                    android:textSize="@dimen/text_h2"
+                    android:maxLines="1"
+                    android:text="@string/terjual"
+                    android:fontFamily="@font/bauhaus"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/h1"
+                    android:layout_marginStart="@dimen/h1"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

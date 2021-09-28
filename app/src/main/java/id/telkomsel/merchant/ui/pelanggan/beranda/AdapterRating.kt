@@ -1,6 +1,5 @@
 package id.telkomsel.merchant.ui.pelanggan.beranda
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,9 @@ class AdapterRating(
     private val listVoucher: ArrayList<ModelVoucher>,
     private val onClickItem: (ModelVoucher, Int) -> Unit
 ) : RecyclerView.Adapter<AdapterRating.AfiliasiHolder>(){
+    var kodeVoucher = ""
 
     inner class AfiliasiHolder(private val viewItem: View) : RecyclerView.ViewHolder(viewItem){
-        @SuppressLint("SetTextI18n")
         fun bindAfiliasi(item: ModelVoucher){
             viewItem.imgFoto.load(item.dataProduk?.url_foto) {
                 crossfade(true)
@@ -29,18 +28,24 @@ class AdapterRating(
                 memoryCachePolicy(CachePolicy.ENABLED)
             }
 
+            viewItem.btnRating.rating = 0.0F
             viewItem.textNamaMerchant.text = item.dataMerchant?.nama_merchant.toString()
             viewItem.textNamaProduk.text = item.dataProduk?.nama.toString()
             val harga = item.dataProduk?.harga?:0
             viewItem.textHargaProduk.text = convertRupiah(harga.toDouble())
 
             viewItem.btnClose.setOnClickListener {
-                onClickItem(item, 0)
+                if (kodeVoucher.isEmpty() || kodeVoucher != item.kode_voucher){
+                    onClickItem(item, 0)
+                }
             }
 
             viewItem.btnRating.onRatingBarChangeListener =
                 OnRatingBarChangeListener { _, rating, _ ->
-                    onClickItem(item, rating.toInt())
+                    if (kodeVoucher.isEmpty() || kodeVoucher != item.kode_voucher){
+                        onClickItem(item, rating.toInt())
+                    }
+                    kodeVoucher = item.kode_voucher
                 }
         }
     }

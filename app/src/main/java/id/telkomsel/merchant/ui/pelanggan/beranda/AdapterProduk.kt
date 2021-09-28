@@ -11,7 +11,6 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.model.ModelProduk
 import id.telkomsel.merchant.utils.adapter.convertNumberWithoutRupiah
 import id.telkomsel.merchant.utils.adapter.convertRupiah
-import id.telkomsel.merchant.utils.adapter.showLog
 import kotlinx.android.synthetic.main.item_produk.view.*
 
 class AdapterProduk(private val listItem: ArrayList<ModelProduk>,

@@ -105,10 +105,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cardRating"
                 android:layout_below="@+id/cardHeader"
-                android:layout_marginStart="@dimen/h2"
-                android:layout_marginEnd="@dimen/h2"
-                android:layout_marginBottom="@dimen/h2"
-                android:layout_marginTop="@dimen/h2"
+                android:layout_margin="@dimen/h2"
+                android:visibility="gone"
                 >
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"

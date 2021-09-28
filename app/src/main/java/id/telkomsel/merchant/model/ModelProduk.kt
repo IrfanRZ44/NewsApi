@@ -21,7 +21,7 @@ data class ModelProduk(
     var view: Int = 0,
     var jumlah_rating: Int = 0,
     var total_rating: Int = 0,
-    var rating: Int = 0,
+    var rating: Float = 0.0f,
     var terjual: Int = 0,
     var created_by: Int = 0,
     var created_at: String = "",

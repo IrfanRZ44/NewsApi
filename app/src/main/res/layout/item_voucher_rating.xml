@@ -87,6 +87,7 @@
                 android:id="@+id/btnRating"
                 android:stepSize="1"
                 android:numStars="5"
+                android:rating="0"
                 android:layout_below="@+id/textHargaProduk"
                 android:layout_toEndOf="@+id/imgFoto"
                 android:layout_marginStart="@dimen/h2"

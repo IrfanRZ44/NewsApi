@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
@@ -81,6 +82,7 @@ class BerandaPelangganViewModel(
         val currentPoin = savedData.getDataPelanggan()?.poin
         val username = savedData.getDataPelanggan()?.username
         getDaftarFotoIklan()
+
         if (!username.isNullOrEmpty() && currentPoin != null){
             cardHeader.visibility = View.VISIBLE
             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
@@ -92,10 +94,10 @@ class BerandaPelangganViewModel(
         }
     }
 
-    fun initAdapterRating() {
-        rcRating.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+    private fun initAdapterRating() {
+        rcRating.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         adapterRating = AdapterRating(listRating)
-        { item: ModelVoucher, rating: Int -> onClickVoucher(item, rating) }
+        { item: ModelVoucher, rating: Int -> onClickItemRating(item, rating) }
         rcRating.adapter = adapterRating
     }
 
@@ -161,6 +163,23 @@ class BerandaPelangganViewModel(
             { item: ModelProduk, position: Int -> onClickItemProdukFavorit(item, position) }
         )
         rcProduk.adapter = adapterProduk
+    }
+
+    private fun dialogSucces(poin: Int){
+        if (activity != null){
+            val alert = AlertDialog.Builder(activity)
+            alert.setMessage("Terima kasih, Anda mendapat $poin Poin atas rating yang Anda berikan")
+            alert.setPositiveButton(
+                Constant.baik
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            alert.show()
+        }
+        else{
+            message.value = "Mohon mulai ulang aplikasi"
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -433,32 +452,41 @@ class BerandaPelangganViewModel(
         navController.navigate(R.id.voucherFragment)
     }
 
-    private fun onClickVoucher(item: ModelVoucher, rating: Int){
+    private fun onClickItemRating(item: ModelVoucher, rating: Int){
         isShowLoading.value = true
 
         RetrofitUtils.updateRatingVoucher(item.kode_voucher, rating,
-            object : Callback<ModelResponse> {
+            object : Callback<ModelResponsePoin> {
                 override fun onResponse(
-                    call: Call<ModelResponse>,
-                    response: Response<ModelResponse>
+                    call: Call<ModelResponsePoin>,
+                    response: Response<ModelResponsePoin>
                 ) {
                     isShowLoading.value = false
                     val result = response.body()
 
                     if (result?.message == Constant.reffSuccess) {
-                        status.value = "Terima kasih telah atas rating Anda"
-                        listRating.removeAt(0)
+                        listRating.clear()
                         adapterRating.notifyDataSetChanged()
-                        cardRating.visibility = View.GONE
+
+                        dialogSucces(result.poin)
+                        val username = savedData.getDataPelanggan()?.username
+                        username?.let { getDaftarVoucherExpired(it) }
+                        val dataUser = savedData.getDataPelanggan()
+                        val totalPoin = dataUser?.poin?.plus(result.poin)?:0
+                        dataUser?.poin = totalPoin
+                        savedData.setDataObject(dataUser, Constant.reffPelanggan)
+                        poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
                     } else {
+                        adapterRating.kodeVoucher = ""
                         status.value = result?.message?:"Error, gagal mengirim rating"
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ModelResponse>,
+                    call: Call<ModelResponsePoin>,
                     t: Throwable
                 ) {
+                    adapterRating.kodeVoucher = ""
                     isShowLoading.value = false
                     status.value = t.message
                 }
@@ -531,10 +559,10 @@ class BerandaPelangganViewModel(
         isShowLoading.value = true
 
         RetrofitUtils.getDaftarVoucherExpired(username,
-            object : Callback<ModelResponseRating> {
+            object : Callback<ModelResponseVoucher> {
                 override fun onResponse(
-                    call: Call<ModelResponseRating>,
-                    response: Response<ModelResponseRating>
+                    call: Call<ModelResponseVoucher>,
+                    response: Response<ModelResponseVoucher>
                 ) {
                     isShowLoading.value = false
                     isSearching = false
@@ -542,15 +570,22 @@ class BerandaPelangganViewModel(
                     val dataVoucher = result?.data
 
                     if (result?.message == Constant.reffSuccess && dataVoucher != null) {
-                        listRating.add(dataVoucher)
+                        listRating.addAll(dataVoucher)
                         adapterRating.notifyDataSetChanged()
+
+                        if (listRating.size == 0){
+                            cardRating.visibility = View.GONE
+                        }
+                        else{
+                            cardRating.visibility = View.VISIBLE
+                        }
                     } else {
                         cardRating.visibility = View.GONE
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<ModelResponseRating>,
+                    call: Call<ModelResponseVoucher>,
                     t: Throwable
                 ) {
                     cardRating.visibility = View.GONE
