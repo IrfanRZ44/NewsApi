@@ -65,6 +65,8 @@ object Constant {
     const val reffDaftarVoucherByAdmin = "getDaftarVoucherByAdmin"
     const val reffUpdateStatusVoucher = "updateStatusVoucher"
     const val reffUpdateRatingVoucher = "updateRatingVoucher"
+    const val reffGetAvailableClaimBox = "getAvailableClaimBox"
+    const val reffCreateClaimBox = "createClaimBox"
     const val reffUpdateStatusVoucherByMerchant = "updateStatusVoucherByMerchant"
 
     const val reffProvinsi = "getProvinsi"

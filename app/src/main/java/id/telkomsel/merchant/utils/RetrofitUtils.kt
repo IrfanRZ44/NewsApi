@@ -444,6 +444,16 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getAvailableClaimBox(nomorMkios: String, callback: Callback<ModelResponse>){
+        val call = api.getAvailableClaimBox(nomorMkios)
+        call.enqueue(callback)
+    }
+
+    fun createClaimBox(nomorMkios: String, callback: Callback<ModelResponsePoin>){
+        val call = api.createClaimBox(nomorMkios)
+        call.enqueue(callback)
+    }
+
     fun updateStatusVoucherByMerchant(kode_voucher: String, merchantId: Int, callback: Callback<ModelResponse>){
         val call = api.updateStatusVoucherByMerchant(kode_voucher, merchantId)
         call.enqueue(callback)

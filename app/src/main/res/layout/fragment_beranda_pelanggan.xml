@@ -183,8 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:layout_marginBottom="@dimen/h2"
-                android:layout_marginEnd="@dimen/h2"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
                 app:efab_orientation="portrait"
                 app:efab_icon="@drawable/ic_filter_2_white"
                 app:efab_iconAnimationRotationDeg="-225"
@@ -218,5 +218,18 @@
                 android:src="@drawable/ic_up_white"
                 />
         </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="@dimen/_75"
+            android:layout_height="@dimen/_75"
+            android:src="@drawable/claim_box"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="6dp"
+            android:onClick="@{()-> viewModel.onClickClaimBox()}"
+            android:visibility="gone"
+            android:id="@+id/btnClaimBox"
+            />
     </RelativeLayout>
 </layout>

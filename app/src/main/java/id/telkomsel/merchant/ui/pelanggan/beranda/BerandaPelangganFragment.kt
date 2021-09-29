@@ -31,7 +31,8 @@ class BerandaPelangganFragment : BaseFragmentBind<FragmentBerandaPelangganBindin
     fun init(){
         bind.lifecycleOwner = this
         viewModel = BerandaPelangganViewModel(
-            findNavController(), activity, context, bind.rcKategori, bind.cardRating, bind.rcProduk, bind.rcRating, savedData,
+            findNavController(), activity, context, bind.rcKategori, bind.cardRating, bind.rcProduk,
+            bind.rcRating, bind.btnClaimBox, savedData,
             bind.viewPager, bind.dotsIndicator
         )
         bind.viewModel = viewModel

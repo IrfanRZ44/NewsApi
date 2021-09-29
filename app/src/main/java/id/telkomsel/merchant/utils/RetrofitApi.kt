@@ -597,6 +597,20 @@ interface RetrofitApi {
 
     @Headers("Accept:application/json")
     @FormUrlEncoded
+    @POST(Constant.reffGetAvailableClaimBox)
+    fun getAvailableClaimBox(
+        @Field("nomor_mkios") nomor_mkios: String,
+    ): Call<ModelResponse>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffCreateClaimBox)
+    fun createClaimBox(
+        @Field("nomor_mkios") nomor_mkios: String,
+    ): Call<ModelResponsePoin>
+
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
     @POST(Constant.reffUpdateStatusVoucher)
     fun updateStatusVoucher(
         @Field("kode_voucher") kode_voucher: String,

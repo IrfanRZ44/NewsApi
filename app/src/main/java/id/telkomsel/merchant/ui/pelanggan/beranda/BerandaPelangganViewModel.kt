@@ -41,6 +41,7 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.*
+import pl.droidsonroids.gif.GifImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,6 +55,7 @@ class BerandaPelangganViewModel(
     private val cardRating: RelativeLayout,
     private val rcProduk: RecyclerView,
     private val rcRating: RecyclerView,
+    private val btnClaimBox: GifImageView,
     private val savedData: DataSave,
     private val viewPager: AutoViewPager,
     private val dotsIndicator: DotsIndicator
@@ -88,9 +90,11 @@ class BerandaPelangganViewModel(
             poin.value = "${convertNumberWithoutRupiah(currentPoin.toDouble())} Poin"
             initAdapterRating()
             getDaftarVoucherExpired(username)
+            getAvailableClaimBox()
         }
         else{
             cardHeader.visibility = View.GONE
+            btnClaimBox.visibility = View.GONE
         }
     }
 
@@ -165,10 +169,10 @@ class BerandaPelangganViewModel(
         rcProduk.adapter = adapterProduk
     }
 
-    private fun dialogSucces(poin: Int){
+    private fun dialogSucces(msg: String){
         if (activity != null){
             val alert = AlertDialog.Builder(activity)
-            alert.setMessage("Terima kasih, Anda mendapat $poin Poin atas rating yang Anda berikan")
+            alert.setMessage(msg)
             alert.setPositiveButton(
                 Constant.baik
             ) { dialog, _ ->
@@ -452,6 +456,41 @@ class BerandaPelangganViewModel(
         navController.navigate(R.id.voucherFragment)
     }
 
+    fun onClickClaimBox(){
+        isShowLoading.value = true
+
+        RetrofitUtils.createClaimBox(savedData.getDataPelanggan()?.nomor_mkios?:"",
+            object : Callback<ModelResponsePoin> {
+                override fun onResponse(
+                    call: Call<ModelResponsePoin>,
+                    response: Response<ModelResponsePoin>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        btnClaimBox.visibility = View.GONE
+                        dialogSucces("Selamat, Anda mendapatkan ${result.poin} Poin dari Kotak Bonus")
+                        val dataUser = savedData.getDataPelanggan()
+                        val totalPoin = dataUser?.poin?.plus(result.poin)?:0
+                        dataUser?.poin = totalPoin
+                        savedData.setDataObject(dataUser, Constant.reffPelanggan)
+                        poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
+                    } else {
+                        status.value = result?.message?:"Error, gagal membuka kotak bonus"
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponsePoin>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    status.value = t.message
+                }
+            })
+    }
+
     private fun onClickItemRating(item: ModelVoucher, rating: Int){
         isShowLoading.value = true
 
@@ -468,7 +507,7 @@ class BerandaPelangganViewModel(
                         listRating.clear()
                         adapterRating.notifyDataSetChanged()
 
-                        dialogSucces(result.poin)
+                        dialogSucces("Terima kasih, Anda mendapat ${result.poin} Poin atas rating yang Anda berikan")
                         val username = savedData.getDataPelanggan()?.username
                         username?.let { getDaftarVoucherExpired(it) }
                         val dataUser = savedData.getDataPelanggan()
@@ -591,6 +630,35 @@ class BerandaPelangganViewModel(
                     cardRating.visibility = View.GONE
                     isSearching = false
                     isShowLoading.value = false
+                }
+            })
+    }
+
+    private fun getAvailableClaimBox(){
+        isShowLoading.value = true
+
+        RetrofitUtils.getAvailableClaimBox(savedData.getDataPelanggan()?.nomor_mkios?:"",
+            object : Callback<ModelResponse> {
+                override fun onResponse(
+                    call: Call<ModelResponse>,
+                    response: Response<ModelResponse>
+                ) {
+                    isShowLoading.value = false
+                    val result = response.body()
+
+                    if (result?.message == Constant.reffSuccess) {
+                        btnClaimBox.visibility = View.VISIBLE
+                    } else {
+                        btnClaimBox.visibility = View.GONE
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<ModelResponse>,
+                    t: Throwable
+                ) {
+                    isShowLoading.value = false
+                    btnClaimBox.visibility = View.GONE
                 }
             })
     }
