@@ -65,6 +65,7 @@ class DetailProdukPelangganViewModel(
     lateinit var textStatus : AppCompatTextView
     lateinit var textStok : AppCompatTextView
     lateinit var textHarga : AppCompatTextView
+    lateinit var textPromo : AppCompatTextView
     lateinit var btnBeli : AppCompatButton
 
     fun setAdapterFoto(gambar: List<ModelFotoProduk>?) {
@@ -167,10 +168,13 @@ class DetailProdukPelangganViewModel(
         textStatus = bottomView.findViewById(R.id.textStatus)
         textStok = bottomView.findViewById(R.id.textStok)
         textHarga = bottomView.findViewById(R.id.textHarga)
+        textPromo = bottomView.findViewById(R.id.textPromo)
         btnBeli = bottomView.findViewById(R.id.btnBeli)
 
-        textHarga.text = dataProduk.value?.harga.toString()
-        textStok.text = dataProduk.value?.stok.toString()
+        val harga = dataProduk.value?.harga?:0
+        textHarga.text = "Harga ${convertRupiah(harga.toDouble())}"
+        textPromo.text = "Promo ${dataProduk.value?.promo}"
+        textStok.text = "Tersisa ${dataProduk.value?.stok.toString()} Stok"
         etJumlah.min = 1
         btnBeli.text = "Beli Sekarang ${dataProduk.value?.jumlah_poin} Poin"
         etJumlah.max = dataProduk.value?.stok?:1
@@ -213,7 +217,8 @@ class DetailProdukPelangganViewModel(
             val jumlah = etJumlah.value
             val totalHarga = hargaNow
 
-            if (produkId != null && merchantId != null && !username.isNullOrEmpty()){
+            if (produkId != null && merchantId != null && !username.isNullOrEmpty() && isShowLoading.value == false){
+                isShowLoading.value = true
                 onClickCreateVoucher(produkId, merchantId, username, jumlah, totalHarga)
             }
             else{

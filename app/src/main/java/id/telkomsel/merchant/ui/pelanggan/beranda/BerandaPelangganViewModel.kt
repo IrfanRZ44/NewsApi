@@ -457,79 +457,83 @@ class BerandaPelangganViewModel(
     }
 
     fun onClickClaimBox(){
-        isShowLoading.value = true
+        if (isShowLoading.value == false){
+            isShowLoading.value = true
 
-        RetrofitUtils.createClaimBox(savedData.getDataPelanggan()?.nomor_mkios?:"",
-            object : Callback<ModelResponsePoin> {
-                override fun onResponse(
-                    call: Call<ModelResponsePoin>,
-                    response: Response<ModelResponsePoin>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
+            RetrofitUtils.createClaimBox(savedData.getDataPelanggan()?.nomor_mkios?:"",
+                object : Callback<ModelResponsePoin> {
+                    override fun onResponse(
+                        call: Call<ModelResponsePoin>,
+                        response: Response<ModelResponsePoin>
+                    ) {
+                        isShowLoading.value = false
+                        val result = response.body()
 
-                    if (result?.message == Constant.reffSuccess) {
-                        btnClaimBox.visibility = View.GONE
-                        dialogSucces("Selamat, Anda mendapatkan ${result.poin} Poin dari Kotak Bonus")
-                        val dataUser = savedData.getDataPelanggan()
-                        val totalPoin = dataUser?.poin?.plus(result.poin)?:0
-                        dataUser?.poin = totalPoin
-                        savedData.setDataObject(dataUser, Constant.reffPelanggan)
-                        poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
-                    } else {
-                        status.value = result?.message?:"Error, gagal membuka kotak bonus"
+                        if (result?.message == Constant.reffSuccess) {
+                            btnClaimBox.visibility = View.GONE
+                            dialogSucces("Selamat, Anda mendapatkan ${result.poin} Poin dari Kotak Bonus")
+                            val dataUser = savedData.getDataPelanggan()
+                            val totalPoin = dataUser?.poin?.plus(result.poin)?:0
+                            dataUser?.poin = totalPoin
+                            savedData.setDataObject(dataUser, Constant.reffPelanggan)
+                            poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
+                        } else {
+                            status.value = result?.message?:"Error, gagal membuka kotak bonus"
+                        }
                     }
-                }
 
-                override fun onFailure(
-                    call: Call<ModelResponsePoin>,
-                    t: Throwable
-                ) {
-                    isShowLoading.value = false
-                    status.value = t.message
-                }
-            })
+                    override fun onFailure(
+                        call: Call<ModelResponsePoin>,
+                        t: Throwable
+                    ) {
+                        isShowLoading.value = false
+                        status.value = t.message
+                    }
+                })
+        }
     }
 
     private fun onClickItemRating(item: ModelVoucher, rating: Int){
-        isShowLoading.value = true
+        if (isShowLoading.value == false){
+            isShowLoading.value = true
 
-        RetrofitUtils.updateRatingVoucher(item.kode_voucher, rating,
-            object : Callback<ModelResponsePoin> {
-                override fun onResponse(
-                    call: Call<ModelResponsePoin>,
-                    response: Response<ModelResponsePoin>
-                ) {
-                    isShowLoading.value = false
-                    val result = response.body()
+            RetrofitUtils.updateRatingVoucher(item.kode_voucher, rating,
+                object : Callback<ModelResponsePoin> {
+                    override fun onResponse(
+                        call: Call<ModelResponsePoin>,
+                        response: Response<ModelResponsePoin>
+                    ) {
+                        isShowLoading.value = false
+                        val result = response.body()
 
-                    if (result?.message == Constant.reffSuccess) {
-                        listRating.clear()
-                        adapterRating.notifyDataSetChanged()
+                        if (result?.message == Constant.reffSuccess) {
+                            listRating.clear()
+                            adapterRating.notifyDataSetChanged()
 
-                        dialogSucces("Terima kasih, Anda mendapat ${result.poin} Poin atas rating yang Anda berikan")
-                        val username = savedData.getDataPelanggan()?.username
-                        username?.let { getDaftarVoucherExpired(it) }
-                        val dataUser = savedData.getDataPelanggan()
-                        val totalPoin = dataUser?.poin?.plus(result.poin)?:0
-                        dataUser?.poin = totalPoin
-                        savedData.setDataObject(dataUser, Constant.reffPelanggan)
-                        poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
-                    } else {
-                        adapterRating.kodeVoucher = ""
-                        status.value = result?.message?:"Error, gagal mengirim rating"
+                            dialogSucces("Terima kasih, Anda mendapat ${result.poin} Poin atas rating yang Anda berikan")
+                            val username = savedData.getDataPelanggan()?.username
+                            username?.let { getDaftarVoucherExpired(it) }
+                            val dataUser = savedData.getDataPelanggan()
+                            val totalPoin = dataUser?.poin?.plus(result.poin)?:0
+                            dataUser?.poin = totalPoin
+                            savedData.setDataObject(dataUser, Constant.reffPelanggan)
+                            poin.value = "${convertNumberWithoutRupiah(totalPoin.toDouble())} Poin"
+                        } else {
+                            adapterRating.kodeVoucher = ""
+                            status.value = result?.message?:"Error, gagal mengirim rating"
+                        }
                     }
-                }
 
-                override fun onFailure(
-                    call: Call<ModelResponsePoin>,
-                    t: Throwable
-                ) {
-                    adapterRating.kodeVoucher = ""
-                    isShowLoading.value = false
-                    status.value = t.message
-                }
-            })
+                    override fun onFailure(
+                        call: Call<ModelResponsePoin>,
+                        t: Throwable
+                    ) {
+                        adapterRating.kodeVoucher = ""
+                        isShowLoading.value = false
+                        status.value = t.message
+                    }
+                })
+        }
     }
 
     private fun createProdukFavorit(item: ModelProduk, username: String, position: Int){

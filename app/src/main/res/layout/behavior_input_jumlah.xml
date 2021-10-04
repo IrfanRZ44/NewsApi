@@ -59,6 +59,18 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/harga"
+                style="@style/textStandardWhite"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_h3"
+                android:textStyle="bold"
+                android:fontFamily="@font/bauhaus"
+                android:textAlignment="textStart"
+                android:id="@+id/textPromo"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/stok"
                 style="@style/textStandardWhite"
                 android:textColor="@color/gray1"

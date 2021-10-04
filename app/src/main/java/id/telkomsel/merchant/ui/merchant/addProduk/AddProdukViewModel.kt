@@ -273,10 +273,13 @@ class AddProdukViewModel(
             val nama = RequestBody.create(MediaType.get("text/plain"), namaProduk)
             val deskripsi = RequestBody.create(MediaType.get("text/plain"), desc)
 
-            activity?.let {
-                compressImage(
-                    it, fotoProduk, status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
-                    stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster)
+            if (isShowLoading.value == false){
+                isShowLoading.value = true
+                activity?.let {
+                    compressImage(
+                        it, fotoProduk, status, merchantId, createdBy, kategoriId, subKategoriId, tglHabis,
+                        stokProduk, nama, hargaProduk, promoProduk, poinProduk, deskripsi, regional, branch, cluster)
+                }
             }
         }
         else{
