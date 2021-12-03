@@ -14,6 +14,7 @@ import id.telkomsel.merchant.base.BaseFragmentBind
 import id.telkomsel.merchant.listener.ListenerFotoIklan
 import id.telkomsel.merchant.model.ModelFotoIklan
 import id.telkomsel.merchant.utils.adapter.onClickFoto
+import id.telkomsel.merchant.utils.adapter.showLog
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
@@ -100,7 +101,7 @@ class DaftarProdukFragment(private val statusRequest: String,
     @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data != null) {
             val result = CropImage.getActivityResult(data)
             val imagePath = result.uri.path
             val lvl = savedData.getDataMerchant()?.level
@@ -133,7 +134,8 @@ class DaftarProdukFragment(private val statusRequest: String,
                         val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
                             MediaType.get("image/*"), fileProduk))
                         val idFoto = dataFotoIklan?.id
-                        if (idFoto != 0){
+
+                        if (idFoto != 0 && dataFotoIklan != null){
                             val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
                             viewModel.updateFotoIklan(id, urlFoto)
                         }
@@ -146,7 +148,8 @@ class DaftarProdukFragment(private val statusRequest: String,
                         val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
                             MediaType.get("image/*"), fileProduk))
                         val idFoto = dataFotoIklan?.id
-                        if (idFoto != 0){
+
+                        if (idFoto != 0 && dataFotoIklan != null){
                             val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
                             viewModel.updateFotoIklan(id, urlFoto)
                         }

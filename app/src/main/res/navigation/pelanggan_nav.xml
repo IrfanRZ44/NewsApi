@@ -92,4 +92,9 @@
         android:name="id.telkomsel.merchant.ui.pelanggan.beranda.voucher.daftarVoucher.DaftarVoucherFragment"
         android:label="fragment_daftar_voucher"
         tools:layout="@layout/fragment_daftar_voucher" />
+    <fragment
+        android:id="@+id/verifyLoginPelangganFragment"
+        android:name="id.telkomsel.merchant.ui.pelanggan.auth.verifyLoginPelanggan.VerifyLoginPelangganFragment"
+        android:label="fragment_verify_login_pelanggan"
+        tools:layout="@layout/fragment_verify_login_pelanggan" />
 </navigation>

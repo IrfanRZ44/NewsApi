@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/poin"
                 android:textSize="@dimen/text_h2"
+                android:textStyle="bold"
                 android:layout_marginEnd="@dimen/h2"
                 android:fontFamily="@font/bauhaus"
                 android:maxLines="2"

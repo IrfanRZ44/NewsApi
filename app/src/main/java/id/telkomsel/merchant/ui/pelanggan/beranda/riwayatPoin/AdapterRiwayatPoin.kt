@@ -24,7 +24,7 @@ class AdapterRiwayatPoin(private val listKelas: ArrayList<ModelRiwayatPoin>) : R
                 viewItem.textPoin.setTextColor(Color.RED)
             }
             else{
-                viewItem.textPoin.setTextColor(Color.GREEN)
+                viewItem.textPoin.setTextColor(Color.parseColor("#52af44"))
             }
             
             viewItem.textTanggal.text = "${item.tanggal}/${item.bulan}/${item.tahun}"

@@ -58,7 +58,9 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
         val adapter = SectionsPagerAdapter(childFragmentManager)
         adapter.addFragment(TabMerchantFragment(), Constant.appName)
         adapter.addFragment(TabProdukFragment(), "Produk")
-        adapter.addFragment(TabVoucherFragment(), Constant.voucher)
+        if (savedData.getDataMerchant()?.level != Constant.levelChannel){
+            adapter.addFragment(TabVoucherFragment(), Constant.voucher)
+        }
         adapter.addFragment(AccountMerchantFragment(), Constant.akun)
         supportActionBar?.title = Constant.appName
 
@@ -68,8 +70,13 @@ class MerchantFragment : BaseFragmentBind<FragmentMerchantBinding>() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 bind.tabs.getTabAt(0)?.icon = resources.getDrawable(R.drawable.ic_multipeople_gray)
                 bind.tabs.getTabAt(1)?.icon = resources.getDrawable(R.drawable.ic_trolley_gray)
-                bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_voucher)
-                bind.tabs.getTabAt(3)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
+                if (savedData.getDataMerchant()?.level != Constant.levelChannel){
+                    bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_voucher)
+                    bind.tabs.getTabAt(3)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
+                }
+                else{
+                    bind.tabs.getTabAt(2)?.icon = resources.getDrawable(R.drawable.ic_profile_gray)
+                }
 
                 when (tab.position) {
                     0 -> {

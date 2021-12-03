@@ -5,10 +5,10 @@ package id.telkomsel.merchant.ui.pelanggan.loginPelanggan
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.iid.InstanceIdResult
@@ -16,6 +16,7 @@ import id.telkomsel.merchant.R
 import id.telkomsel.merchant.base.BaseViewModel
 import id.telkomsel.merchant.model.response.ModelResponsePelanggan
 import id.telkomsel.merchant.ui.auth.AuthActivity
+import id.telkomsel.merchant.ui.pelanggan.auth.verifyLoginPelanggan.VerifyLoginPelangganFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
@@ -135,10 +136,14 @@ class LoginPelangganViewModel(
                     val dataPelanggan = result?.data
 
                     if (result?.message == Constant.reffSuccess && dataPelanggan != null){
-                        savedData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                        dataPelanggan.token = token
                         message.value = "Berhasil login"
-                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
-                        navController.navigate(R.id.pelangganFragment, null, navOption)
+
+                        val bundle = Bundle()
+                        val fragmentTujuan = VerifyLoginPelangganFragment()
+                        bundle.putParcelable(Constant.reffPelanggan, dataPelanggan)
+                        fragmentTujuan.arguments = bundle
+                        navController.navigate(R.id.verifyLoginPelangganFragment, bundle)
                     }
                     else{
                         dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")
@@ -167,10 +172,14 @@ class LoginPelangganViewModel(
                     val dataPelanggan = result?.data
 
                     if (result?.message == Constant.reffSuccess && dataPelanggan != null){
-                        savedData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                        dataPelanggan.token = token
                         message.value = "Berhasil login"
-                        val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
-                        navController.navigate(R.id.pelangganFragment, null, navOption)
+
+                        val bundle = Bundle()
+                        val fragmentTujuan = VerifyLoginPelangganFragment()
+                        bundle.putParcelable(Constant.reffPelanggan, dataPelanggan)
+                        fragmentTujuan.arguments = bundle
+                        navController.navigate(R.id.verifyLoginPelangganFragment, bundle)
                     }
                     else{
                         dialogWaitVerify(result?.message?:"Error, terjadi kesalahan database")

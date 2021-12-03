@@ -20,6 +20,7 @@ import id.telkomsel.merchant.ui.merchant.editProduk.EditProdukFragment
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.adapter.onClickFoto
 import id.telkomsel.merchant.listener.ListenerFotoProduk
+import id.telkomsel.merchant.utils.adapter.showLog
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
@@ -88,7 +89,6 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
                 .setIconNormalColor(0xffd32f2f.toInt())
                 .setIconPressedColor(0xffB00020.toInt())
                 .setWrapper(0)
-
         )
 
         rfaContent.setItems(item).setIconShadowColor(0xff888888.toInt())
@@ -167,11 +167,11 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
             val imagePath = result.uri.path
             val lvl = savedData.getDataMerchant()?.level
 
-            if (resultCode == Activity.RESULT_OK && !imagePath.isNullOrEmpty() && !lvl.isNullOrEmpty()){
+            if (resultCode == Activity.RESULT_OK && !imagePath.isNullOrEmpty() && !lvl.isNullOrEmpty()
+                && result != null){
                 val level = RequestBody.create(MediaType.get("text/plain"), lvl)
 
                 activity?.let { compressImage(it, imagePath, level) }
-                dataFotoProduk = null
             }
         }
     }
@@ -193,18 +193,27 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
                     val tempPath = it.path
 
                     if(!tempPath.isNullOrEmpty()){
+                        showLog("create foto")
+
                         val fileProduk = File(tempPath)
                         val urlFoto = MultipartBody.Part.createFormData("url_foto", fileProduk.name, RequestBody.create(
                             MediaType.get("image/*"), fileProduk))
                         val idFoto = dataFotoProduk?.id
                         if (idFoto != 0){
+                            showLog("create foto update")
+
                             val id = RequestBody.create(MediaType.get("text/plain"), idFoto.toString())
                             viewModel.updateFotoProduk(id, level, urlFoto)
                         }
                         else{
+                            showLog("create foto else")
+
+
                             val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
                             viewModel.createFotoProduk(produkId, level, urlFoto)
                         }
+
+                        dataFotoProduk = null
                     }
                     else{
                         val fileProduk = File(realFoto)
@@ -219,6 +228,8 @@ class DetailProdukAdminFragment : BaseFragmentBind<FragmentDetailProdukAdminBind
                             val produkId = RequestBody.create(MediaType.get("text/plain"), viewModel.dataProduk.value?.id.toString())
                             viewModel.createFotoProduk(produkId, level, urlFoto)
                         }
+
+                        dataFotoProduk = null
                     }
                 }
             }
