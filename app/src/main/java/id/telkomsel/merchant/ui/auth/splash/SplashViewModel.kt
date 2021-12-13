@@ -18,6 +18,7 @@ import id.telkomsel.merchant.ui.pelanggan.PelangganActivity
 import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.RetrofitUtils
+import id.telkomsel.merchant.utils.adapter.showLog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -119,6 +120,8 @@ class SplashViewModel(
                     isShowLoading.value = false
                     val result = response.body()
                     val act = activity
+
+                    showLog("Mee")
 
                     if (result?.message == Constant.reffSuccess && act != null){
                         val manager = act.packageManager

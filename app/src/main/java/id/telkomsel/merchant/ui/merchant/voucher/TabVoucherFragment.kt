@@ -141,7 +141,11 @@ class TabVoucherFragment : BaseFragmentBind<FragmentTabVoucherBinding>() {
             if (result.contents == null) {
                 setStatus("Dibatalkan")
             } else {
-                val kodeVoucher = result.contents
+                val resultScan = result.contents
+
+                val removedScan = resultScan.replaceFirst("Kode Voucher : ", "")
+                val kodeVoucher = removedScan.subSequence(0, 8).toString()
+
                 val merchantId = savedData.getDataMerchant()?.id
                 if (kodeVoucher.isNotEmpty() && merchantId != null){
                     updateStatusVoucherByMerchant(kodeVoucher, merchantId)

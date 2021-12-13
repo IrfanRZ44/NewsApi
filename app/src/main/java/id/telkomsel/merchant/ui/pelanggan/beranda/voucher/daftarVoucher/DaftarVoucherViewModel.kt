@@ -250,13 +250,28 @@ class DaftarVoucherViewModel(
 
     @SuppressLint("SetTextI18n")
     private fun onClickVoucher(item: ModelVoucher, position: Int){
-        generateQRCode(item.kode_voucher)
+        val harga = item.dataProduk?.harga?:0
+
+        generateQRCode("Kode Voucher : ${item.kode_voucher}" +
+                "\n" +
+                "Nama Merchant : ${item.dataMerchant?.nama_merchant}" +
+                "\n" +
+                "Alamat Merchant : ${item.dataMerchant?.alamat_merchant}" +
+                "\n" +
+                "Kecamatan dan Kota : ${item.dataMerchant?.kecamatan}, ${item.dataMerchant?.kabupaten}" +
+                "\n" +
+                "Nama Produk : ${item.dataProduk?.nama}" +
+                "\n" +
+                "Harga Produk : ${convertRupiah(harga.toDouble())}" +
+                "\n" +
+                "Promo : ${item.dataProduk?.promo}" +
+                "\n" +
+                "Jumlah Voucher : ${item.jumlah}")
         textKode.text = ": ${item.kode_voucher}"
         textNamaMerchant.text = ": ${item.dataMerchant?.nama_merchant}"
         textNamaProduk.text = ": ${item.dataProduk?.nama}"
         textAlamat.text = ": ${item.dataMerchant?.alamat_merchant}"
         textKecamatan.text = ": ${item.dataMerchant?.kecamatan}, ${item.dataMerchant?.kabupaten}"
-        val harga = item.dataProduk?.harga?:0
         textHarga.text = ": ${convertRupiah(harga.toDouble())}"
         textPromo.text = ": ${item.dataProduk?.promo}"
         textJumlah.text = ": ${item.jumlah}"

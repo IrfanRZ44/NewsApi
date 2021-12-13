@@ -146,7 +146,7 @@ class EditProdukFragment : BaseFragmentBind<FragmentEditProdukBinding>(){
     @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data != null) {
             val result = CropImage.getActivityResult(data)
             val imagePath = result.uri.path
             val lvl = savedData.getDataMerchant()?.level

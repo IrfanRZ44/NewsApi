@@ -139,7 +139,7 @@ class AddProdukFragment : BaseFragmentBind<FragmentAddProdukBinding>(){
     @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data != null) {
             val result = CropImage.getActivityResult(data)
 
             if (resultCode == Activity.RESULT_OK){
