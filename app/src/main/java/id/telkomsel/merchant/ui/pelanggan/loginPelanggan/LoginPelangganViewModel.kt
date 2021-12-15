@@ -137,7 +137,6 @@ class LoginPelangganViewModel(
 
                     if (result?.message == Constant.reffSuccess && dataPelanggan != null){
                         dataPelanggan.token = token
-                        message.value = "Berhasil login"
 
                         val bundle = Bundle()
                         val fragmentTujuan = VerifyLoginPelangganFragment()

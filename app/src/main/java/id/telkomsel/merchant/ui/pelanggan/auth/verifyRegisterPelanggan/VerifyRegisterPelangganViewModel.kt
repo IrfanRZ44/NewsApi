@@ -31,6 +31,7 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.getDate
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
@@ -201,6 +202,10 @@ class VerifyRegisterPelangganViewModel(
 
                     if (result?.message == Constant.reffSuccessRegisterPelanggan){
                         saveData.setDataObject(result.data, Constant.reffPelanggan)
+                        val dataApps = saveData.getDataApps()
+                        dataApps?.lastOnline = getDate(Constant.dateFormat1)
+                        saveData.setDataObject(dataApps, Constant.reffInfoApps)
+
                         dialogSucces(result.message)
 
                         val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()

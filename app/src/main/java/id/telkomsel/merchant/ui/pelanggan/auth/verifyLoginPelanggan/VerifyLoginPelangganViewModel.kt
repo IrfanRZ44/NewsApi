@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.os.CountDownTimer
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -26,6 +25,7 @@ import id.telkomsel.merchant.utils.Constant
 import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.getDate
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("StaticFieldLeak")
@@ -88,6 +88,10 @@ class VerifyLoginPelangganViewModel(
                         isShowLoading.value = false
 
                         saveData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                        val dataApps = saveData.getDataApps()
+                        dataApps?.lastOnline = getDate(Constant.dateFormat1)
+                        saveData.setDataObject(dataApps, Constant.reffInfoApps)
+
                         message.value = "Berhasil login"
                         val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
                         navController.navigate(R.id.pelangganFragment, null, navOption)
@@ -128,6 +132,10 @@ class VerifyLoginPelangganViewModel(
                 loading.value = true
 
                 saveData.setDataObject(dataPelanggan, Constant.reffPelanggan)
+                val dataApps = saveData.getDataApps()
+                dataApps?.lastOnline = getDate(Constant.dateFormat1)
+                saveData.setDataObject(dataApps, Constant.reffInfoApps)
+
                 message.value = "Berhasil login"
                 val navOption = NavOptions.Builder().setPopUpTo(R.id.pelangganFragment, true).build()
                 navController.navigate(R.id.pelangganFragment, null, navOption)

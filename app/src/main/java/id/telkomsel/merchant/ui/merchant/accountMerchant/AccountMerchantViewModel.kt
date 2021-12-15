@@ -74,8 +74,10 @@ class AccountMerchantViewModel(
 
                 if (result?.message == Constant.reffSuccess){
                     Toast.makeText(context, "Berhasil Keluar", Toast.LENGTH_LONG).show()
-
                     savedData?.setDataObject(ModelMerchant(), Constant.reffMerchant)
+                    val dataApps = savedData?.getDataApps()
+                    dataApps?.lastOnline = ""
+                    savedData?.setDataObject(dataApps, Constant.reffInfoApps)
 
                     val intent = Intent(context, AuthActivity::class.java)
                     activity?.startActivity(intent)

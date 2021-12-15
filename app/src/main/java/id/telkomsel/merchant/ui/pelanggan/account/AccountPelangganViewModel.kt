@@ -76,6 +76,9 @@ class AccountPelangganViewModel(
                     Toast.makeText(context, "Berhasil Keluar", Toast.LENGTH_LONG).show()
 
                     savedData?.setDataObject(ModelPelanggan(), Constant.reffPelanggan)
+                    val dataApps = savedData?.getDataApps()
+                    dataApps?.lastOnline = ""
+                    savedData?.setDataObject(dataApps, Constant.reffInfoApps)
 
                     val intent = Intent(context, PelangganActivity::class.java)
                     activity?.startActivity(intent)

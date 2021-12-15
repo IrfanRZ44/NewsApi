@@ -27,6 +27,7 @@ import id.telkomsel.merchant.utils.DataSave
 import id.telkomsel.merchant.utils.FirebaseUtils
 import id.telkomsel.merchant.utils.RetrofitUtils
 import id.telkomsel.merchant.utils.adapter.dismissKeyboard
+import id.telkomsel.merchant.utils.adapter.getDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -228,7 +229,10 @@ class LoginMerchantViewModel(
         }
         else{
             savedData?.setDataObject(dataMerchant, Constant.reffMerchant)
-            message.value = "Berhasil login"
+            val dataApps = savedData?.getDataApps()
+            dataApps?.lastOnline = getDate(Constant.dateFormat1)
+            savedData?.setDataObject(dataApps, Constant.reffInfoApps)
+            message.value = "Berhasil login ${savedData?.getDataApps()?.lastOnline}"
             navController.navigate(R.id.splashFragment)
         }
     }

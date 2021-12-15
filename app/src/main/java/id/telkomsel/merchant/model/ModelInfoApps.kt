@@ -12,6 +12,7 @@ data class ModelInfoApps(
     var skb: String = "",
     var version_apps: String = "",
     var link: String = "",
+    var lastOnline: String = "",
     var created_at: String = "",
     var updated_at: String = ""
 ) : Parcelable
