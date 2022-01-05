@@ -1,4 +1,4 @@
-package id.telkomsel.merchant
+package id.telkomsel.merchandise
 
 import org.junit.Test
 

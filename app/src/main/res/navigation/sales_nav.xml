@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav"
+    android:label="Authentication"
+    tools:showIn="navigation_view"
+    app:startDestination="@id/adminFragment">
+    <fragment
+        android:id="@+id/lihatFotoFragment"
+        android:name="id.telkomsel.merchandise.utils.LihatFotoFragment"
+        android:label="@string/foto"
+        tools:layout="@layout/fragment_lihat_foto"
+        />
+    <fragment
+        android:id="@+id/accountAdminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.accountSales.AccountSalesFragment"
+        android:label="fragment_account_admin"
+        tools:layout="@layout/fragment_account_sales" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.SalesFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_sales" />
+    <fragment
+        android:id="@+id/editPasswordAdminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.accountSales.editPassword.EditPasswordSalesFragment"
+        android:label="fragment_edit_password_admin"
+        tools:layout="@layout/fragment_edit_password_sales" />
+    <fragment
+        android:id="@+id/editProfilAdminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.accountSales.editProfilAdmin.EditProfilAdminFragment"
+        android:label="fragment_edit_profil_admin"
+        tools:layout="@layout/fragment_edit_profil_admin" />
+    <fragment
+        android:id="@+id/tabSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.listSales.TabSalesFragment"
+        android:label="fragment_tab_merchandise"
+        tools:layout="@layout/fragment_tab_sales" />
+    <fragment
+        android:id="@+id/detailSalesAdminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.detailSales.DetailSalesAdminFragment"
+        android:label="fragment_detail_merchandise_admin"
+        tools:layout="@layout/fragment_detail_sales_admin" />
+    <fragment
+        android:id="@+id/editProfilSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.accountSales.editProfilSales.EditProfilSalesFragment"
+        android:label="fragment_edit_profil_merchandise"
+        tools:layout="@layout/fragment_edit_profil_sales" />
+    <fragment
+        android:id="@+id/daftarStoreFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.listStore.daftarStore.DaftarStoreFragment"
+        android:label="fragment_daftar_store"
+        tools:layout="@layout/fragment_daftar_store" />
+    <fragment
+        android:id="@+id/addStoreFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.addStore.AddStoreFragment"
+        android:label="fragment_add_store"
+        tools:layout="@layout/fragment_add_store" />
+</navigation>

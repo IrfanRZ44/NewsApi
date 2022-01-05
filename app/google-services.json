@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:948694483780:android:f23202427c45f8f5d80d11",
+        "android_client_info": {
+          "package_name": "id.telkomsel.merchandise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948694483780-1sb4sgocau6a3kbfhvto6kjggkj8j3sa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.telkomsel.merchandise",
+            "certificate_hash": "6a110ee5c2f199a42a7ddc63ba52e0b3e68aae34"
+          }
+        },
+        {
+          "client_id": "948694483780-thk9os65e7dfpjq9e5htn5jo4724bhjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhnB4oJn_UinzxnK-xLhQ4G72S3Tt8fiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948694483780-thk9os65e7dfpjq9e5htn5jo4724bhjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:948694483780:android:aba8aa144351b41fd80d11",
         "android_client_info": {
           "package_name": "id.telkomsel.merchant"
@@ -19,6 +56,22 @@
           "android_info": {
             "package_name": "id.telkomsel.merchant",
             "certificate_hash": "6a110ee5c2f199a42a7ddc63ba52e0b3e68aae34"
+          }
+        },
+        {
+          "client_id": "948694483780-46c1g8i8es2crm3ndtl017ccgb9hv09h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.telkomsel.merchant",
+            "certificate_hash": "6911cd9a46f713943a11e06af6033eb2d775c0dc"
+          }
+        },
+        {
+          "client_id": "948694483780-npdfo16bere4p1gsgurc5f89hu88tfvq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.telkomsel.merchant",
+            "certificate_hash": "2ba57cb4bed6135833beaef29611d4faf76f916e"
           }
         },
         {

@@ -1,4 +1,4 @@
-package id.telkomsel.merchant
+package id.telkomsel.merchandise
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("id.telkomsel.merchant", appContext.packageName)
+        assertEquals("id.telkomsel.merchandise", appContext.packageName)
     }
 }

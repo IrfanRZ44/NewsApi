@@ -8,53 +8,48 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="id.telkomsel.merchant.ui.auth.splash.SplashFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.splash.SplashFragment"
         android:label="@string/splash_screen"
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/lihatFotoFragment"
-        android:name="id.telkomsel.merchant.utils.LihatFotoFragment"
+        android:name="id.telkomsel.merchandise.utils.LihatFotoFragment"
         android:label="@string/foto"
         tools:layout="@layout/fragment_lihat_foto"
         />
     <fragment
-        android:id="@+id/registerMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.auth.registerMerchant.RegisterMerchantFragment"
-        android:label="fragment_register_merchant"
-        tools:layout="@layout/fragment_register_merchant" />
+        android:id="@+id/registerSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.registerSales.RegisterSalesFragment"
+        android:label="fragment_register_merchandise"
+        tools:layout="@layout/fragment_register_sales" />
     <fragment
-        android:id="@+id/verifyRegisterMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.auth.verifyRegisterMerchant.VerifyRegisterMerchantFragment"
-        android:label="fragment_verify_register_merchant"
-        tools:layout="@layout/fragment_verify_register_merchant" />
+        android:id="@+id/verifyRegisterSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.verifyRegisterSales.VerifyRegisterSalesFragment"
+        android:label="fragment_verify_register_merchandise"
+        tools:layout="@layout/fragment_verify_register_sales" />
     <fragment
-        android:id="@+id/landingFragment"
-        android:name="id.telkomsel.merchant.ui.auth.landing.LandingFragment"
-        android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" />
+        android:id="@+id/loginSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.loginSales.LoginSalesFragment"
+        android:label="fragment_login_merchandise"
+        tools:layout="@layout/fragment_login_sales" />
     <fragment
-        android:id="@+id/loginMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.auth.loginMerchant.LoginMerchantFragment"
-        android:label="fragment_login_merchant"
-        tools:layout="@layout/fragment_login_merchant" />
-    <fragment
-        android:id="@+id/updateRegisterMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.auth.updateRegisterMerchant.UpdateRegisterMerchantFragment"
-        android:label="fragment_update_register_merchant"
-        tools:layout="@layout/fragment_update_register_merchant" />
+        android:id="@+id/updateRegisterSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.updateRegisterSales.UpdateRegisterSalesFragment"
+        android:label="fragment_update_register_merchandise"
+        tools:layout="@layout/fragment_update_register_sales" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="id.telkomsel.merchant.ui.auth.changePassword.ChangePasswordFragment"
-        android:label="fragment_change_password_merchant"
-        tools:layout="@layout/fragment_change_password_merchant" />
+        android:name="id.telkomsel.merchandise.ui.auth.changePassword.ChangePasswordFragment"
+        android:label="fragment_change_password_merchandise"
+        tools:layout="@layout/fragment_change_password_sales" />
     <fragment
-        android:id="@+id/forgetPasswordMerchantFragment"
-        android:name="id.telkomsel.merchant.ui.auth.forgetPasswordMerchant.ForgetPasswordMerchantFragment"
-        android:label="fragment_forget_password_merchant"
-        tools:layout="@layout/fragment_forget_password_merchant" />
+        android:id="@+id/forgetPasswordSalesFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.forgetPasswordSales.ForgetPasswordSalesFragment"
+        android:label="fragment_forget_password_merchandise"
+        tools:layout="@layout/fragment_forget_password_sales" />
     <fragment
         android:id="@+id/verifyForgetPasswordFragment"
-        android:name="id.telkomsel.merchant.ui.auth.verifyForgetPassword.VerifyForgetPasswordFragment"
+        android:name="id.telkomsel.merchandise.ui.auth.verifyForgetPassword.VerifyForgetPasswordFragment"
         android:label="fragment_verify_forget_password"
         tools:layout="@layout/fragment_verify_forget_password" />
 </navigation>

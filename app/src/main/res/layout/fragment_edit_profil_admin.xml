@@ -2,18 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.merchant.accountMerchant.editProfilAdmin.EditProfilAdminFragment">
+    tools:context="id.telkomsel.merchandise.ui.sales.accountSales.editProfilAdmin.EditProfilAdminFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.merchant.accountMerchant.editProfilAdmin.EditProfilAdminViewModel" />
+            type="id.telkomsel.merchandise.ui.sales.accountSales.editProfilAdmin.EditProfilAdminViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_merchant">
+        android:background="@drawable/bg_sales">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                         android:paddingEnd="@dimen/h2">
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/cardFotoProfil"
+                            android:id="@+id/cardFotoWajah"
                             style="@style/cardView"
                             android:layout_width="@dimen/_150"
                             android:layout_height="wrap_content"
@@ -76,8 +76,8 @@
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/imgFotoProfil"
-                                    imageBoxSrc="@{viewModel.etFotoProfil.toString()}"
+                                    android:id="@+id/imgFotoWajah"
+                                    imageBoxSrc="@{viewModel.etFotoWajah.toString()}"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_140"
                                     android:layout_alignParentEnd="true"
@@ -112,7 +112,7 @@
                             android:textStyle="bold" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etNamaMerchant"
+                            android:id="@+id/etNamaSales"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -128,13 +128,13 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etNamaMerchant}"
+                                android:text="@={viewModel.etNamaSales}"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etAlamatMerchant"
+                            android:id="@+id/etAlamatSales"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapSentences"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etAlamatMerchant}"
+                                android:text="@={viewModel.etAlamatSales}"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -308,7 +308,7 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etNoHpMerchant"
+                            android:id="@+id/etNoHpSales"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -328,13 +328,13 @@
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etHPMerchant}"
+                                android:text="@={viewModel.etHPSales}"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/etNoWaMerchant"
+                            android:id="@+id/etNoWaSales"
                             style="@style/customEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -353,7 +353,7 @@
                                 android:inputType="phone"
                                 android:maxLength="13"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etWAMerchant}"
+                                android:text="@={viewModel.etWASales}"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -376,7 +376,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textEmailAddress"
                                 android:maxLines="1"
-                                android:text="@={viewModel.etEmailMerchant}"
+                                android:text="@={viewModel.etEmailSales}"
                                 android:textAlignment="textStart"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -524,7 +524,7 @@
                             android:layout_marginLeft="@dimen/h5"
                             android:layout_marginTop="@dimen/_40"
                             android:layout_marginRight="@dimen/h5"
-                            android:onClick="@{()-> viewModel.onClickRegisterMerchant()}"
+                            android:onClick="@{()-> viewModel.onClickRegisterSales()}"
                             android:padding="@dimen/h3"
                             android:text="@string/simpan"
                             android:textAlignment="center"

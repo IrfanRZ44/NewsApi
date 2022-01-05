@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="id.telkomsel.merchant">
+    package="id.telkomsel.merchandise">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".services.notification.NotificationService"
+        android:name="id.telkomsel.merchandise.services.notification.NotificationService"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +26,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name="id.telkomsel.merchandise.ui.auth.AuthActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/CustomTheme">
@@ -38,17 +38,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.pelanggan.PelangganActivity"
-            android:label="@string/main_activity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.merchant.MerchantActivity"
+            android:name="id.telkomsel.merchandise.ui.sales.SalesActivity"
             android:label="@string/main_activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".ui.merchant.voucher.scanVoucher.CustomScanActivity"
+        <activity android:name="id.telkomsel.merchandise.ui.sales.voucher.scanVoucher.CustomScanActivity"
             android:screenOrientation="sensorPortrait"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"

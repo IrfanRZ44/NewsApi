@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="id.telkomsel.merchant.ui.auth.splash.SplashFragment"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="id.telkomsel.merchandise.ui.auth.splash.SplashFragment">
     <data>
         <variable
             name="viewModel"
-            type="id.telkomsel.merchant.ui.auth.splash.SplashViewModel" />
+            type="id.telkomsel.merchandise.ui.auth.splash.SplashViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_merchant"
+        android:background="@drawable/bg_sales"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/app_name_small"
             style="@style/textStandardWhite"
-            android:textColor="@color/white"
-            android:textSize="48sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="45sp"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:layout_marginTop="@dimen/_130"
             android:layout_marginStart="@dimen/h5"
-            android:fontFamily="@font/black_stroke"
+            android:fontFamily="@font/montreal_medium"
             android:id="@+id/textAppName"
+            app:textAllCaps="false"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
