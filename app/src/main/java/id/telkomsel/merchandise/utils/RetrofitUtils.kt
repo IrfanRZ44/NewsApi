@@ -208,6 +208,11 @@ object RetrofitUtils{
         call.enqueue(callback)
     }
 
+    fun getDaftarStoreBySales(cluster: String, level: String, startPage: Int, status: String, search: String?, callback: Callback<ModelResponseDaftarStore>){
+        val call = api.getDaftarStoreBySales(cluster, level, startPage, status, search)
+        call.enqueue(callback)
+    }
+
     fun updateStatusSales(id: Int, status_sales: String, comment: String, callback: Callback<ModelResponse>){
         val call = api.updateStatusSales(id, status_sales, comment)
         call.enqueue(callback)

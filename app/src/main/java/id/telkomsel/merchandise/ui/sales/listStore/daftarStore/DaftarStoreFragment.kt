@@ -6,9 +6,8 @@ import id.telkomsel.merchandise.R
 import id.telkomsel.merchandise.base.BaseFragmentBind
 import id.telkomsel.merchandise.databinding.FragmentDaftarStoreBinding
 
-class DaftarStoreFragment(private val statusRequest: String,
-                           private val stok: Int,
-                           private val isKadaluarsa: Boolean
+class DaftarStoreFragment(
+    private val statusRequest: String
 ) : BaseFragmentBind<FragmentDaftarStoreBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_daftar_store
     lateinit var viewModel: DaftarStoreViewModel
@@ -21,12 +20,12 @@ class DaftarStoreFragment(private val statusRequest: String,
     fun init(){
         bind.lifecycleOwner = this
         viewModel = DaftarStoreViewModel(
-            findNavController(), activity, context, bind.rcStore,
-            statusRequest, stok, isKadaluarsa, savedData)
+            findNavController(), activity, bind.rcStore, statusRequest,
+            savedData
+        )
         bind.viewModel = viewModel
 
         viewModel.initAdapterStore()
-
         viewModel.checkCluster()
 
         bind.swipeRefresh.setOnRefreshListener {

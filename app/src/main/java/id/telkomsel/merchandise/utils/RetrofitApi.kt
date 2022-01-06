@@ -211,20 +211,16 @@ interface RetrofitApi {
         @Field("search") search: String?
     ): Call<ModelResponseDaftarSales>
 
-//    @Headers("Accept:application/json")
-//    @FormUrlEncoded
-//    @POST(Constant.reffDaftarStoreBySales)
-//    fun getDaftarStoreBySales(
-//        @Field("sales_id") sales_id: String?,
-//        @Field("cluster") cluster: String?,
-//        @Field("level") level: String,
-//        @Field("startPage") startPage: Int,
-//        @Field("status") status: String,
-//        @Field("search") search: String?,
-//        @Field("sub_kategori_id") sub_kategori_id: String?,
-//        @Field("stok") stok: Int,
-//        @Field("isKadaluarsa") isKadaluarsa: Boolean
-//    ): Call<ModelResponseDaftarStore>
+    @Headers("Accept:application/json")
+    @FormUrlEncoded
+    @POST(Constant.reffDaftarStoreBySales)
+    fun getDaftarStoreBySales(
+        @Field("cluster") cluster: String,
+        @Field("level") level: String,
+        @Field("startPage") startPage: Int,
+        @Field("status") status: String,
+        @Field("search") search: String?
+    ): Call<ModelResponseDaftarStore>
 
     @Headers("Accept:application/json")
     @FormUrlEncoded

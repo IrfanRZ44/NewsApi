@@ -25,11 +25,9 @@ import id.telkomsel.merchandise.utils.adapter.dismissKeyboard
 class TabStoreFragment : BaseFragmentBind<FragmentTabStoreBinding>() {
     private lateinit var viewModel: TabStoreViewModel
     override fun getLayoutResource(): Int = R.layout.fragment_tab_store
-    private val requestStore = DaftarStoreFragment(Constant.statusRequest, 1, false)
-    private val activeStore = DaftarStoreFragment(Constant.statusActive, 1, false)
-    private val declinedStore = DaftarStoreFragment(Constant.statusDeclined, 1, false)
-    private val isKadaluarsaStore = DaftarStoreFragment(Constant.statusActive, 1, true)
-    private val stokHabisStore = DaftarStoreFragment(Constant.statusActive, 0, false)
+    private val requestStore = DaftarStoreFragment(Constant.statusRequest)
+    private val activeStore = DaftarStoreFragment(Constant.statusActive)
+    private val declinedStore = DaftarStoreFragment(Constant.statusDeclined)
     private var searchView : SearchView? = null
     private var queryTextListener : SearchView.OnQueryTextListener? = null
     private var onCloseListener : SearchView.OnCloseListener? = null
@@ -71,8 +69,6 @@ class TabStoreFragment : BaseFragmentBind<FragmentTabStoreBinding>() {
         adapter.addFragment(requestStore, Constant.statusDiproses)
         adapter.addFragment(activeStore, Constant.statusDisetujui)
         adapter.addFragment(declinedStore, Constant.statusDitolak)
-        adapter.addFragment(isKadaluarsaStore, Constant.statusPromoSelesai)
-        adapter.addFragment(stokHabisStore, Constant.statusStokHabis)
 
         pager.adapter = adapter
     }

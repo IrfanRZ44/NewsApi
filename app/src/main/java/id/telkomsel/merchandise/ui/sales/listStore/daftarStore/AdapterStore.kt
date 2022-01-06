@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
+import coil.transform.CircleCropTransformation
 import id.telkomsel.merchandise.R
 import id.telkomsel.merchandise.model.ModelStore
+import id.telkomsel.merchandise.utils.Constant
 import kotlinx.android.synthetic.main.item_store.view.*
 
 class AdapterStore(private val listItem: ArrayList<ModelStore>,
@@ -22,15 +24,16 @@ class AdapterStore(private val listItem: ArrayList<ModelStore>,
             viewItem.textAlamat.text = item.alamat
             viewItem.textWilayah.text = "${item.kelurahan}, ${item.kecamatan}, ${item.kabupaten}"
 
-            viewItem.imgFoto.load(item.foto_depan_atas) {
+            viewItem.imgFoto.load("${Constant.reffURL}${item.foto_depan_atas}") {
                 crossfade(true)
                 placeholder(R.drawable.ic_camera_white)
+                transformations(CircleCropTransformation())
                 error(R.drawable.ic_camera_white)
                 fallback(R.drawable.ic_camera_white)
                 memoryCachePolicy(CachePolicy.ENABLED)
             }
 
-            viewItem.setOnClickListener {
+            viewItem.btnKonfirmasi.setOnClickListener {
                 onClickItem(item)
             }
         }

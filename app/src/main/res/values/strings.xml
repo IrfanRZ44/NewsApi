@@ -200,6 +200,16 @@
     <string name="branch">Branch</string>
     <string name="no_hp_sales">No HP Sales</string>
     <string name="no_wa_sales">No WA Sales</string>
+    <string name="no_hp_pic">No HP PIC</string>
+    <string name="no_wa_pic">No WA PIC</string>
+    <string name="no_hp_kasir_1">No HP Kasir 1</string>
+    <string name="no_wa_kasir_1">No WA Kasir 1</string>
+    <string name="no_hp_kasir_2">No HP Kasir 2</string>
+    <string name="no_wa_kasir_2">No WA Kasir 2</string>
+    <string name="no_hp_kasir_3">No HP Kasir 3</string>
+    <string name="no_wa_kasir_3">No WA Kasir 3</string>
+    <string name="no_hp_kasir_4">No HP Kasir 4</string>
+    <string name="no_wa_kasir_4">No WA Kasir 4</string>
     <string name="no_hp_pemilik">No HP Pemilik</string>
     <string name="no_wa_pemilik">No WA Pemilik</string>
     <string name="lokasi_sales">Lokasi Sales</string>
@@ -304,4 +314,6 @@
     <string name="foto_etalase_perdana">Foto Etalase Perdana</string>
     <string name="foto_meja_pembayaran">Foto Meja Pembayaran</string>
     <string name="foto_belakang_kasir">Foto Belakang Kasir</string>
+    <string name="informasi_store">Informasi Store</string>
+    <string name="jenis_store">Jenis Store</string>
 </resources>

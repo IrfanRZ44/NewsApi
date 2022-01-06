@@ -43,6 +43,11 @@
         android:label="fragment_detail_merchandise_admin"
         tools:layout="@layout/fragment_detail_sales_admin" />
     <fragment
+        android:id="@+id/detailStoreAdminFragment"
+        android:name="id.telkomsel.merchandise.ui.sales.detailStore.DetailStoreAdminFragment"
+        android:label="fragment_detail_store_admin"
+        tools:layout="@layout/fragment_detail_store" />
+    <fragment
         android:id="@+id/editProfilSalesFragment"
         android:name="id.telkomsel.merchandise.ui.sales.accountSales.editProfilSales.EditProfilSalesFragment"
         android:label="fragment_edit_profil_merchandise"
