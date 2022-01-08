@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:theme="@style/CustomTheme"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/h2"
+        android:layout_marginEnd="@dimen/h2"
+        android:layout_marginBottom="@dimen/h3"
+        android:layout_marginTop="@dimen/h1"
+        app:cardCornerRadius="@dimen/h2"
+        app:cardElevation="@dimen/h2"
+        android:id="@+id/cardView"
+        android:layout_centerHorizontal="true"
+        >
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textNama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_h3"
+            android:text="@string/sub_kategori"
+            android:textStyle="bold"
+            android:padding="@dimen/h2"
+            android:textAlignment="center"
+            />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

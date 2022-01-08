@@ -9,10 +9,6 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
 
-//firebase
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
-
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -26,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "id.telkomsel.merchandise"
+        applicationId "id.exomatik.news"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 2
@@ -65,15 +61,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
-    //firebase
-//    implementation 'com.google.firebase:firebase-database:19.6.0'
-    implementation "com.google.firebase:firebase-core:19.0.0"
-    implementation "com.google.firebase:firebase-messaging:21.0.1"
-    implementation "com.google.firebase:firebase-auth:19.3.1"
-//    implementation "com.google.firebase:firebase-storage:19.2.1"
-    implementation 'com.google.firebase:firebase-analytics:19.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.0.1'
-
     //navigation Architecture
     //Android Navigation Architecture
     implementation "androidx.navigation:navigation-fragment-ktx:2.2.1"
@@ -86,31 +73,10 @@ dependencies {
     //image and progress
     implementation("io.coil-kt:coil:1.2.1")
     implementation("io.coil-kt:coil-gif:1.3.2")
-    implementation 'id.zelory:compressor:3.0.0'
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
-    implementation 'net.gotev:uploadservice:4.5.2'
-    implementation 'com.github.wangjiegulu:rfab:2.0.0'
-    implementation 'com.nambimobile.widgets:expandable-fab:1.1.1'
-    implementation 'com.github.faranjit:currency-edittext:1.0.1'
-    implementation 'id.zelory:compressor:3.0.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.23'
-    implementation 'joda-time:joda-time:2.10.13'
 
-    //qr code
-    implementation "com.journeyapps:zxing-android-embedded:3.6.0"
-    implementation "com.google.zxing:core:3.3.3"
-
-    //view pager
+//    //view pager
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     implementation 'com.github.santalu:auto-viewpager:1.0.8'
-
-    //maps
-    implementation "com.google.android.gms:play-services-auth:19.0.0"
-    implementation "com.google.android.gms:play-services-base:17.5.0"
-    implementation "com.google.android.gms:play-services-maps:17.0.0"
-    implementation "com.google.android.gms:play-services-location:17.1.0"
-    implementation 'com.google.android.libraries.places:places:2.4.0'
-    implementation 'com.google.maps:google-maps-services:0.2.9'
 
     implementation 'com.xwray:groupie:2.0.3'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.0.3'

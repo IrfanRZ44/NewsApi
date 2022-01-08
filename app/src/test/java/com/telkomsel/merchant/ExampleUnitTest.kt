@@ -1,4 +1,4 @@
-package id.telkomsel.merchandise
+package id.exomatik.news
 
 import org.junit.Test
 

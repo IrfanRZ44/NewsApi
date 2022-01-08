@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Merchandiser</string>
-    <string name="app_name_small">merchandiser</string>
-    <string name="base_application">Merchandiser</string>
+    <string name="app_name">News</string>
+    <string name="app_name_small">news</string>
+    <string name="base_application">News</string>
 
     <string name="text_all_right_reserved">Ahlan Wa Sahlan</string>
     <string name="selamat_datang">Selamat Datang</string>
@@ -24,7 +24,6 @@
     <string name="digitsPhone">1234567890</string>
     <string name="digitsUsername">asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM_1234567890.</string>
     <string name="digitsEmail">asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM_1234567890@.-</string>
-    <string name="google_maps_key">AIzaSyBLxi2hOlCnGFxXZUVLzEAflzJioUz47aw</string>
 
     <string name="silahkan_pilih_jenis_akun_yang_akan_anda_buat">Silahkan pilih jenis akun yang akan Anda Buat</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -131,7 +130,7 @@
     <string name="authentication">Authentication</string>
     <string name="create">Create</string>
     <string name="get">Get</string>
-    <string name="sales">Sales</string>
+    <string name="news">Sales</string>
     <string name="silahkan_mendaftar_untuk_dapat_mulai_menggunakan_aplikasi">Silahkan mendaftar untuk dapat mulai menggunakan aplikasi</string>
     <string name="foto_profil">Foto Profil</string>
     <string name="informasi_sales">Informasi Sales</string>
@@ -139,12 +138,12 @@
     <string name="nama_sales">Nama Sales</string>
     <string name="nomor_hp_pemilik_contoh_0852xxxx">Nomor HP pemilik contoh: 0813xxxx</string>
     <string name="nomor_wa_pemilik_contoh_0852xxxx">Nomor Whatsapp pemilik contoh: 0813xxxx</string>
-    <string name="nomor_hp_sales_contoh_0852xxxx">Nomor HP sales contoh: 0813xxxx</string>
-    <string name="nomor_wa_sales_contoh_0852xxxx">Nomor Whatsapp sales contoh: 0813xxxx</string>
+    <string name="nomor_hp_sales_contoh_0852xxxx">Nomor HP news contoh: 0813xxxx</string>
+    <string name="nomor_wa_sales_contoh_0852xxxx">Nomor Whatsapp news contoh: 0813xxxx</string>
     <string name="nomor_hp_pemilik_contoh_0852xxxx_wajib">Nomor HP pemilik contoh: 0813xxxx*</string>
     <string name="nomor_wa_pemilik_contoh_0852xxxx_wajib">Nomor Whatsapp pemilik contoh: 0813xxxx*</string>
-    <string name="nomor_hp_sales_contoh_0852xxxx_wajib">Nomor HP sales contoh: 0813xxxx*</string>
-    <string name="nomor_wa_sales_contoh_0852xxxx_wajib">Nomor Whatsapp sales contoh: 0813xxxx*</string>
+    <string name="nomor_hp_sales_contoh_0852xxxx_wajib">Nomor HP news contoh: 0813xxxx*</string>
+    <string name="nomor_wa_sales_contoh_0852xxxx_wajib">Nomor Whatsapp news contoh: 0813xxxx*</string>
     <string name="nomor_hp_contoh_0852xxxx_wajib">Nomor HP contoh: 0813xxxx*</string>
     <string name="nomor_wa_contoh_0852xxxx_wajib">Nomor Whatsapp contoh: 0813xxxx*</string>
     <string name="nomor_hp_admin_contoh_0852xxxx">Nomor HP admin contoh: 0813xxxx</string>
@@ -239,7 +238,7 @@
     <string name="nama_wajib">Nama</string>
     <string name="nomor_mkios_wajib">Nomor Mkios</string>
     <string name="daftar_pelanggan">Daftar Pelanggan</string>
-    <string name="daftar_sales">Daftar Merchandiser</string>
+    <string name="daftar_sales">Daftar News</string>
     <string name="pelanggan">Pelanggan</string>
     <string name="saya_telah_membaca_dan_menyetujui">Saya telah membaca dan menyetujui</string>
     <string name="skb">SKB</string>
@@ -316,4 +315,24 @@
     <string name="foto_belakang_kasir">Foto Belakang Kasir</string>
     <string name="informasi_store">Informasi Store</string>
     <string name="jenis_store">Jenis Store</string>
+    <string name="news_name">News Name</string>
+    <string name="rating">Rating</string>
+    <string name="about_news">About News</string>
+    <string name="release_date">Release Date</string>
+    <string name="title">Title</string>
+    <string name="adult">Adult</string>
+    <string name="overview">Overview</string>
+    <string name="companies">Companies</string>
+    <string name="user_review">User Review</string>
+    <string name="review">Review</string>
+    <string name="date">Date</string>
+    <string name="see_more">see more ...</string>
+    <string name="show_more">Show More</string>
+    <string name="trailer">Trailer</string>
+    <string name="search_by_title">Search in All</string>
+    <string name="search_by_source">Search By Country</string>
+    <string name="sumber">Sumber</string>
+    <string name="author">Author</string>
+    <string name="source">Source</string>
+    <string name="visit_link">Visit Link</string>
 </resources>
