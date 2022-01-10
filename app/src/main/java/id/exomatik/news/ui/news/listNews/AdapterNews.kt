@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.item_news.view.*
 
 class AdapterNews(
     private val listKelas: ArrayList<ModelNews>,
-    private val onClickSource: (ModelNews) -> Unit
+    private val onClickSource: (ModelNews) -> Unit,
+    private val onClickItem: (ModelNews) -> Unit
 ) : RecyclerView.Adapter<AdapterNews.AfiliasiHolder>(){
 
     inner class AfiliasiHolder(private val viewItem : View) : RecyclerView.ViewHolder(viewItem){
@@ -24,6 +25,9 @@ class AdapterNews(
             viewItem.btnSource.text = item.source?.name
             viewItem.textTanggal.text = item.publishedAt.take(10)
 
+            viewItem.setOnClickListener {
+                onClickItem(item)
+            }
 
             viewItem.btnSource.setOnClickListener {
                 onClickSource(item)

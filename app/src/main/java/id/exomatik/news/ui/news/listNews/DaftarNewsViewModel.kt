@@ -20,6 +20,7 @@ import id.exomatik.news.model.ModelKategori
 import id.exomatik.news.model.ModelNews
 import id.exomatik.news.model.response.ModelResponseDaftarNews
 import id.exomatik.news.ui.news.detailNews.DetailNewsFragment
+import id.exomatik.news.ui.news.webViewNews.WebViewNewsFragment
 import id.exomatik.news.utils.Constant
 import id.exomatik.news.utils.RetrofitUtils
 import id.exomatik.news.utils.adapter.dismissKeyboard
@@ -78,8 +79,10 @@ class DaftarNewsViewModel(
             false
         )
         adapterNews = AdapterNews(
-            listNews
-        ) { item: ModelNews -> onClickItemSource(item) }
+            listNews,
+            { item: ModelNews -> onClickItemSource(item) },
+            { item: ModelNews -> onClickItem(item) }
+        )
         rcNews.adapter = adapterNews
     }
 
@@ -221,6 +224,14 @@ class DaftarNewsViewModel(
         bundle.putParcelable(Constant.reffNews, item)
         fragmentTujuan.arguments = bundle
         navController.navigate(R.id.detailNewsFragment, bundle)
+    }
+
+    private fun onClickItem(item: ModelNews){
+        val bundle = Bundle()
+        val fragmentTujuan = WebViewNewsFragment()
+        bundle.putString(Constant.reffUrl, item.url)
+        fragmentTujuan.arguments = bundle
+        navController.navigate(R.id.webViewNewsFragment, bundle)
     }
 
     private fun onClickItemCountry(item: ModelCountry){
