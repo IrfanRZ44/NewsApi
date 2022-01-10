@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<id.exomatik.news.services.loadingIndicatorView.LoadingIndicatorView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:indicatorColor="@color/colorPrimary"
-    app:indicatorName="LineScaleIndicator"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_news"
+    >
+    <id.exomatik.news.services.loadingIndicatorView.LoadingIndicatorView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="LineScaleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

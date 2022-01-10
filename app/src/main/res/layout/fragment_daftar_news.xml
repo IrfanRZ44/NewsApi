@@ -48,12 +48,21 @@
             />
 
         <include layout="@layout/progress_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             visible="@{viewModel.isShowLoading}"
             android:id="@+id/progress"
             android:visibility="gone"
             android:layout_centerInParent="true"
+            />
+        <include layout="@layout/error_load"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            visible="@{viewModel.isShowError}"
+            android:id="@+id/btnTry"
+            android:layout_centerInParent="true"
+            android:onClick="@{()-> viewModel.onClickError()}"
+            android:visibility="gone"
             />
     </RelativeLayout>
 

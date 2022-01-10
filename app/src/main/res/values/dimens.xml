@@ -16,6 +16,7 @@
 
     <dimen name="text_super_large">50sp</dimen>
     <dimen name="text_very_big">25sp</dimen>
+    <dimen name="text_h8">30sp</dimen>
     <dimen name="text_h7">28sp</dimen>
     <dimen name="text_h6">22sp</dimen>
     <dimen name="text_h5">18sp</dimen>

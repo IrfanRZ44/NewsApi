@@ -201,7 +201,8 @@ class DaftarNewsViewModel(
                     t: Throwable
                 ) {
                     isShowLoading.value = false
-                    message.value = t.message + " adasd"
+                    isShowError.value = true
+                    message.value = t.message
                 }
             })
     }
@@ -229,5 +230,13 @@ class DaftarNewsViewModel(
         listNews.clear()
         adapterCountry.notifyDataSetChanged()
         getDaftarNews()
+    }
+
+    fun onClickError(){
+        startPage = 1
+        listNews.clear()
+        adapterNews.notifyDataSetChanged()
+        getDaftarNews()
+        isShowError.value = false
     }
 }

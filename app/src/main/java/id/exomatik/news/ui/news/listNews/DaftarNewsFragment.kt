@@ -35,6 +35,7 @@ class DaftarNewsFragment : BaseFragmentBind<FragmentDaftarNewsBinding>() {
         viewModel = DaftarNewsViewModel(
             findNavController(), activity, bind.rcKategori, bind.rcNews
         )
+
         bind.viewModel = viewModel
 
         viewModel.initAdapterKategoriNews()
