@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_h2"
-                android:text="@string/deskripsi"
+                android:text="@string/description"
                 android:fontFamily="@font/bauhaus"
                 android:layout_marginBottom="@dimen/h2"
                 android:layout_marginStart="@dimen/h2"

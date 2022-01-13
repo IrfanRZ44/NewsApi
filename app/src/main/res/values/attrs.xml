@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="LoadingIndicatorView">
         <attr name="minWidth" format="dimension" />
         <attr name="maxWidth" format="dimension"/>
@@ -8,36 +7,5 @@
         <attr name="maxHeight" format="dimension"/>
         <attr name="indicatorName" format="string"/>
         <attr name="indicatorColor" format="color"/>
-    </declare-styleable>
-
-    <declare-styleable name="NumberPicker">
-        <attr name="min" format="integer"/>
-        <attr name="max" format="integer"/>
-        <attr name="value" format="integer"/>
-        <attr name="unit" format="integer" />
-        <attr name="custom_layout" format="reference" />
-        <attr name="focusable" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="TimerView">
-        <attr name="progressColor" format="color"/>
-        <attr name="backgroundColor" format="color"/>
-        <attr name="progressBackgroundColor" format="color"/>
-        <attr name="strokeWidthDimension" format="dimension"/>
-        <attr name="backgroundWidth" format="float"/>
-        <attr name="roundedCorners" format="boolean"/>
-        <attr name="maxValue" format="float"/>
-        <attr name="progressTextColor" format="color"/>
-        <attr name="textSize" format="dimension"/>
-        <attr name="progressText" format="string"/>
-        <attr name="suffix" format="string"/>
-        <attr name="prefix" format="string"/>
-        <attr name="isClockwise" format="boolean"/>
-        <attr name="startingPoin" format="enum">
-            <enum name="top" value="270" />
-            <enum name="bottom" value="90" />
-            <enum name="right" value="0" />
-            <enum name="left" value="180" />
-        </attr>
     </declare-styleable>
 </resources>

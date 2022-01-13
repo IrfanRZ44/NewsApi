@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/text_h3"
-            android:text="@string/sub_kategori"
+            android:text="@string/kategori"
             android:textStyle="bold"
             android:padding="@dimen/h2"
             android:textAlignment="center"

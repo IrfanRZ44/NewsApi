@@ -15,12 +15,12 @@
     <fragment
         android:id="@+id/daftarNewsFragment"
         android:name="id.exomatik.news.ui.news.listNews.DaftarNewsFragment"
-        android:label="fragment_daftar_news"
+        android:label="@string/daftar_news"
         tools:layout="@layout/fragment_daftar_news" />
     <fragment
         android:id="@+id/detailNewsFragment"
         android:name="id.exomatik.news.ui.news.detailNews.DetailNewsFragment"
-        android:label="fragment_detail_news"
+        android:label="@string/detail_news"
         tools:layout="@layout/fragment_detail_news" />
     <fragment
         android:id="@+id/webViewNewsFragment"

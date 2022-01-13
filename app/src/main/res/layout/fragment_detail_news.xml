@@ -217,7 +217,7 @@
                                 android:layout_weight="0.4"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
-                                android:text="@string/deskripsi"
+                                android:text="@string/description"
                                 android:textSize="@dimen/text_h2"
                                 android:fontFamily="@font/bauhaus"
                                 />

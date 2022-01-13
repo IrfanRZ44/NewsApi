@@ -9,13 +9,11 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import id.exomatik.news.utils.DataSave
 
 abstract class BaseFragmentBind<B : ViewDataBinding> : Fragment() {
     protected lateinit var bind: B
     protected abstract fun getLayoutResource(): Int
     protected abstract fun myCodeHere()
-    protected lateinit var savedData: DataSave
     protected var savedInstanceState: Bundle? = null
     protected var supportActionBar : ActionBar? = null
 
@@ -24,7 +22,6 @@ abstract class BaseFragmentBind<B : ViewDataBinding> : Fragment() {
         bind = DataBindingUtil.inflate(layoutInflater, getLayoutResource(), paramViewGroup, false)
 
         savedInstanceState = paramBundle
-        savedData = DataSave(context)
         myCodeHere()
 
         return bind.root
